@@ -1,9 +1,7 @@
-# Created by https://www.toptal.com/developers/gitignore/api/eclipse
-# Edit at https://www.toptal.com/developers/gitignore?templates=eclipse
-
+# Created by https://www.toptal.com/developers/gitignore/api/eclipse,maven
+# Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,maven
 mybatis-config.xml
 log4j.xml
-
 ### Eclipse ###
 .metadata
 bin/
@@ -83,4 +81,10 @@ buildNumber.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 
-# End of https://www.toptal.com/developers/gitignore/api/eclipse
+# Eclipse m2e generated files
+# Eclipse Core
+.project
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+
+# End of https://www.toptal.com/developers/gitignore/api/eclipse,maven
