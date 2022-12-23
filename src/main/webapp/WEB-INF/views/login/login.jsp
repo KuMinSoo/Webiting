@@ -38,6 +38,7 @@ function kakaoLogin() {
           + data['nickname']);
       }
   });  
+  
 </script>
 <div class="container mt-3" style="height: 600px; overflow: auto;">
 	<h1 class="text-center">Login Page</h1>
@@ -60,12 +61,13 @@ function kakaoLogin() {
 					<img src="./resources/images/kakao_login_medium_narrow.png">
 				</a></td>
 			</tr>
-			<tr>
-				<td colspan="2"><button class="btn btn-primary">로그인</button></td>
+			<tr class="m1 text-center">
+				<td colspan="2">
+				<button class="btn btn-primary">로그인</button></td>
 			</tr>
 		</table>
 	</form>
-
+	<button onclick="location.href ='/join'" class="btn btn-primary text-center" >회원가입</button>
 
 </div>
 
