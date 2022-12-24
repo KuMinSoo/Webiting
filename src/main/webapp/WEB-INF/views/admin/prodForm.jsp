@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h1 class="text-center">상품 등록[Admin Page]</h1>
-				<form name="prodF" id="prodF" method="GET"                    
+				<form name="prodF" id="prodF" method="Post"                    
 					enctype="multipart/form-data" action="prodInsert"
 					onsubmit="return check()">
 					<!-- 파일업로드시: enctype="multipart/form-data"-->
