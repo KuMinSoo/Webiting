@@ -1,12 +1,8 @@
 package com.multi.webiting;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -14,12 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.common.CommonUtil;
-import com.board.model.PagingVO;
 import com.user.model.UserVO;
 import com.user.service.AdminService;
 
@@ -36,24 +30,27 @@ public class AdminController {
 	CommonUtil common = new CommonUtil();
 	
 	@GetMapping("/userList")
-	public String userList(Model m, @ModelAttribute("page") PagingVO page,
-			HttpServletRequest req, @RequestHeader("User-Agent") String userAgent) {
-		HttpSession ses=req.getSession();
-		log.info("1. page===="+page);
-		int totalCount=this.aService.getTotalCount();
-		page.setTotalCount(totalCount);
-		page.setPagingBlock(10);
-		page.init(ses);
-		log.info("2. page===="+page);
-		List<UserVO> userArr=aService.listUser(null);
-		String loc="admin/list";
-		//String pageNavi=page.getPageNavi(loc, userAgent);
+	public String userList(Model m) { //, @ModelAttribute("page") PagingVO page, HttpServletRequest req, @RequestHeader("User-Agent") String userAgent
+		/*
+		 * HttpSession ses=req.getSession(); log.info("1. page===="+page); int
+		 * totalCount=this.aService.getTotalCount(); page.setTotalCount(totalCount);
+		 * page.setPagingBlock(10); page.init(ses); log.info("2. page===="+page);
+		 * List<UserVO> userArr=aService.listUser(null); String loc="admin/list"; String
+		 * pageNavi=page.getPageNavi("/", loc, userAgent);
+		 * 
+		 * m.addAttribute("pageNavi", pageNavi); m.addAttribute("paging", page);
+		 * m.addAttribute("userArr", userArr); return "member/userlist";
+		 */
 		
-		//m.addAttribute("pageNavi", pageNavi);
-		m.addAttribute("paging", page);
-		m.addAttribute("userArr", userArr);
+		int totalCount=aService.getTotalCount();
+		List<UserVO> arr=aService.listUser();
+		
+		m.addAttribute("userArr",arr);		
+		m.addAttribute("totalCount",totalCount);
+		
 		return "member/userlist";
 	}
+	
 	
 	@PostMapping("/userDel")
 	public String userDelete(@RequestParam(defaultValue="0") int idx) {

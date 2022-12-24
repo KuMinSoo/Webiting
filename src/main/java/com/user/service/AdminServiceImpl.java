@@ -1,14 +1,12 @@
 package com.user.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.board.model.PagingVO;
 import com.user.mapper.AdminMapper;
-//import com.user.model.PagingVO;
 import com.user.model.UserVO;
 @Service("AdminServiceImpl")
 public class AdminServiceImpl implements AdminService {
@@ -47,14 +45,13 @@ public class AdminServiceImpl implements AdminService {
 	 */
 
 	@Override
-	public List<UserVO> selectBoardAll(Map<String, Integer> map) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<UserVO> listUser() {
+		return this.aMapper.listUser();
 	}
 
 	@Override
-	public List<UserVO> listUser(PagingVO pvo) {
-		// TODO Auto-generated method stub
+	public List<UserVO> selectUserAll(PagingVO paging) {
+		//return this.aMapper.selectUserAll(paging);
 		return null;
 	}
 

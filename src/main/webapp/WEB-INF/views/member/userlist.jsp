@@ -26,6 +26,9 @@
 				<th>이름</th>
 				<th>아이디</th>
 				<th>연락처</th>
+				<th>이메일</th>
+				<th>연령대</th>
+				<th>성별</th>
 				<th>회원상태</th>
 				<th>수정 | 삭제</th>
 			</tr>
@@ -36,6 +39,9 @@
 					<td>${user.name}</td>
 					<td>${user.userid}</td>
 					<td>${user.allHp}</td>
+					<td>${user.email}</td>
+					<td>${user.age}</td>
+					<td>${user.gender}</td>
 					<td class="txt${user.status}">${user.statusStr}</td>
 					<td>
 						<a href="javascript:userEdit('${user.idx}')">수정</a> | 

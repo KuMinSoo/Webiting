@@ -30,10 +30,9 @@
 		select count(idx) from member 
 	</select>
 	
-	<select id="listUser" resultType="User" parameterType="map">	
-		select * from
-		(select row_number() over(order by idx desc) rn, member.* from member)
-		where rn between #{start} and #{end}
+	<select id="listUser" resultType="User" parameterType="com.board.model.PagingVO">
+		select member.*, decode(status, 0, '일반회원', -1, '정지회원', -2, '탈퇴회원') statusStr
+		from member order by idx desc
 	</select>
 	
 	

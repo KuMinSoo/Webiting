@@ -51,7 +51,7 @@
         <a class="nav-link" href="${myctx}/join">Join</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="${myctx}/admin/userList">Users</a>
+        <a class="nav-link" href="${myctx}/admin/userList">Admin</a>
       </li>
       
       <c:if test="${loginUser eq null }">
@@ -70,7 +70,7 @@
       </c:if>
       
       <li class="nav-item">
-        <a class="nav-link" href="${myctx}/ajaxView">Spring Ajax</a>
+        <a class="nav-link" href="${myctx}/ajaxView">MyPage</a>
       </li>  
       <li class="nav-item">
         <a class="nav-link" href="${myctx}/fileForm">File Upload</a>

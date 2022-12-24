@@ -1,17 +1,14 @@
 package com.user.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.board.model.PagingVO;
 import com.user.model.UserVO;
 
 public interface AdminService {
-	//List<UserVO> selectUserAll(PagingVO paging);
+	List<UserVO> selectUserAll(PagingVO paging);
 
-	List<UserVO> listUser(PagingVO pvo);
-	
-	List<UserVO> selectBoardAll(Map<String, Integer> map);
+	List<UserVO> listUser();
 	
 	int deleteUser(Integer midx);
 
@@ -19,6 +16,6 @@ public interface AdminService {
 
 	UserVO selectUserByIdx(int idx);
 	
-	int getTotalCount();//�� �Խñ� �� ��������
+	int getTotalCount();
 
 }

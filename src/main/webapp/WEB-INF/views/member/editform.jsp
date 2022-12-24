@@ -74,6 +74,33 @@
 				</td>
 			</tr>
 			<tr>
+				<td width="20%" class="m1"><b>이메일</b></td>
+				<td width="80%" class="m2"><input type="text" name="email" value="<c:out value="${user.email}"/>"
+					id="email" placeholder="Email"><br> <span class='ck1'>카카오계정과
+						동일하게 입력해주세요</span></td>
+			</tr>
+			<tr>
+				<td width="20%" class="m1"><b>성별</b></td>
+				<td width="80%" class="m2">
+					<input type="radio" name="gender" id="gender" value="male" <c:if test="${user.gender=='male'}">checked</c:if> >남자
+					<input type="radio" name="gender" id="gender" value="female" <c:if test="${user.gender=='female'}">checked</c:if>>여자
+				</td>
+			</tr>
+			<tr>
+				<td width="20%" class="m1"><b>연령대</b></td>
+				<td width="80%" class="m2">
+					<select id="age" name="age">
+						<option value="10" <c:if test="${user.age>9 && user.age<20}">selected</c:if>>10대</option>
+						<option value="20" <c:if test="${user.age>19 && user.age<30}">selected</c:if>>20대</option>
+						<option value="30" <c:if test="${user.age>29 && user.age<40}">selected</c:if>>30대</option>
+						<option value="40" <c:if test="${user.age>39 && user.age<50}">selected</c:if>>40대</option>
+						<option value="50" <c:if test="${user.age>49 && user.age<60}">selected</c:if>>50대</option>
+						<option value="60" <c:if test="${user.age>59 && user.age<70}">selected</c:if>>60대</option>
+						<option value="70" <c:if test="${user.age>69 && user.age<80}">selected</c:if>>70대</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td width="20%" class="m1"><b>마일리지</b></td>
 				<td width="80%" class="m2">
 					<input type="text" name="mileage" id="mileage" placeholder="Mileage"
