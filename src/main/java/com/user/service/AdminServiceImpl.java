@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.board.model.PagingVO;
 import com.user.mapper.AdminMapper;
-//import com.user.model.PagingVO;
 import com.user.model.UserVO;
 @Service("AdminServiceImpl")
 public class AdminServiceImpl implements AdminService {
@@ -35,27 +34,28 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public int getTotalCount() {
-		return this.aMapper.getTotalCount(); 
-	}
-   
-	/*
-	 * @Override public List<UserVO> selectUserAll(PagingVO paging) { //return
-	 * this.aMapper.selectUserAll(paging); return null; }
-	 * 
-	 * @Override public List<UserVO> listUser(PagingVO pvo) { return
-	 * this.aMapper.listUser(pvo); }
-	 */
-
-	@Override
-	public List<UserVO> selectBoardAll(Map<String, Integer> map) {
-		// TODO Auto-generated method stub
-		return null;
+		return 0; 
 	}
 
 	@Override
-	public List<UserVO> listUser(PagingVO pvo) {
-		// TODO Auto-generated method stub
-		return null;
+	public int getTotalCount(PagingVO paging) {
+		return this.aMapper.getTotalCount(paging);
 	}
+
+	@Override
+	public List<UserVO> selectUserAll(Map<String, Integer> map) {
+		return this.aMapper.selectUserAll(map);
+	}
+
+	@Override
+	public List<UserVO> selectUserAllPaging(PagingVO paging) {
+		return this.aMapper.selectUserAllPaging(paging);
+	}
+
+//	@Override
+//	public List<UserVO> listUser() {
+//		return this.aMapper.listUser();
+//	}
+
 
 }

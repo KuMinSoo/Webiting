@@ -3,14 +3,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.user.mapper.AdminMapper">
 	
-	<!-- <select id="selectUserAll" resultType="User" parameterType="com.user.model.PagingVO">
-		select member.*, decode(status, 0, '일반회원', -1, '정지회원', -2, '탈퇴회원') statusStr from
-		(select row_number() over(order by idx desc) rn, member.* from meber)
-		<![CDATA[
-		where rn > #{start} and rn < #{end}
-		]]>
-	</select> -->
-	
 	<delete id="deleteUser" parameterType="int">
 		delete from member where idx=#{value}
 	</delete>
@@ -26,15 +18,51 @@
 		select * from member where idx=#{value}
 	</select>
 	
-	<select id="getTotalCount" resultType="int">
+	<!-- <select id="getTotalCount" resultType="int" parameterType="Paging">
 		select count(idx) from member 
+	</select> -->
+	
+	<!-- <select id="listUser" resultType="User" parameterType="com.board.model.PagingVO">
+		select member.*, decode(status, 0, '일반회원', -1, '정지회원', -2, '탈퇴회원') statusStr
+		from member order by idx desc
+	</select> -->
+	
+	<sql id="findWhere">
+		<if test="findType!=null and findKeyword!=''">
+			<where>
+				<if test="findType==1">
+					userid like '%'||#{findKeyword}||'%'
+				</if>
+				<if test="findType==2">
+					name like '%'||#{findKeyword}||'%'
+				</if>
+			</where>
+		</if>
+	</sql>
+	
+	<select id="getTotalCount" resultType="int" parameterType="Paging">
+		select count(idx) from member
+		<include refid="findWhere"/>
 	</select>
 	
-	<select id="listUser" resultType="User" parameterType="map">	
+	<select id="selectUserAll" resultType="User" parameterType="map">
 		select * from
-		(select row_number() over(order by idx desc) rn, member.* from member)
-		where rn between #{start} and #{end}
+		(select row_number() over(order by idx desc) rn, member.* 
+		from member)
+		<![CDATA[
+		where rn > #{start} and rn < #{end}
+		]]>
 	</select>
 	
+	<select id="selectUserAllPaging" resultType="User" parameterType="Paging">
+		select * from
+		(select row_number() over(order by idx desc) rn, member.* 
+		from member 
+		<include refid="findWhere"/>
+		)
+		<![CDATA[
+		where rn > #{start} and rn < #{end}
+		]]>
+	</select>
 	
 </mapper>

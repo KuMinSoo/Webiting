@@ -34,7 +34,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="${myctx}/index">Home</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="${myctx}/admin/userList">Users</a></li>
+
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="${myctx}/admin/userList">Admin</a></li>
+
                         <c:if test="${loginUser eq null }">
                         <li class="nav-item">
                           <a class="nav-link" href="${myctx}/login">Login</a>
@@ -58,6 +60,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#!">All Products</a></li>
                                 <li><hr class="dropdown-divider" /></li>
+
                                 	<li><a class="nav-link dropdown-toggle text-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">카테고리</a>
                                 		<div>
                                 			<ul class="dropdown-menu2" aria-labelledby="navbarDropdown">
@@ -65,10 +68,14 @@
                                 			</ul>
                                 		</div>
                                 	</li>
+
                                 <li><a class="dropdown-item" href="#!">Popular Items</a></li>
                                 <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
                             </ul>
                         </li>
+
+                     <li class="nav-item"><a class="nav-link" href="${myctx}/user/mypage">MyPage</a></li>
+
                     </ul>
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">

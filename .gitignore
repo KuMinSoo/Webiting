@@ -2,6 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,maven
 mybatis-config.xml
 log4j.xml
+servlet-context.xml
 ### Eclipse ###
 .metadata
 bin/
@@ -69,8 +70,6 @@ local.properties
 .sts4-cache/
 
 ### Maven ###
-servlet-context.xml
-
 target/
 pom.xml.tag
 pom.xml.releaseBackup

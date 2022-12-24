@@ -29,7 +29,6 @@
 	</sql>
 	
 	
-	
 	<select id="getTotalCount" resultType="int" parameterType="Paging">
 		select count(num) from board
 		<include refid="findWhere"/>
