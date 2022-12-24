@@ -14,14 +14,14 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class PagingVO {
 	private int cpage;
-	private int pageSize = 5;
+	private int pageSize = 15;
 	private int totalCount;
 	private int pageCount;
 	
 	private int start;
 	private int end;
 	
-	private int pagingBlock =5;
+	private int pagingBlock =10;
 	private int prevBlock;
 	private int nextBlock;
 	

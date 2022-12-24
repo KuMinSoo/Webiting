@@ -2,96 +2,84 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
+
 <html lang="en">
-<head>
-  <title>MultiShop</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Shop Homepage - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="./resources/css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <script type="text/javascript" src="./resources/js/scripts.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  <style>
-  .fakeimg {
-    height: 200px;
-    background: #aaa;
-  }
-  </style>
-  <script>
-   	function Logout() {
-   	    $.ajax({
-   	        url: '/logout',
-   	        type: 'get',
-   	        async: false,
-   	        dataType: 'text',
-   	        success: function (res) {
-   	        	alert(res);
-   	            location.href =res;
-   	        }
-   	    });
-   	  }
-  </script>
-</head> 
-<body>
-<!-- multiweb -->
-<c:set var="myctx" value="${pageContext.request.contextPath}"/>
-<div class="jumbotron text-center" style="margin-bottom:0">
-  <c:import url="/header" /> 
-</div>
-
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" href="${myctx}/index">Multi</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="${myctx}/join">Join</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="${myctx}/admin/userList">Admin</a>
-      </li>
+    </head>
+    <body>
+    <c:set var="myctx" value="${pageContext.request.contextPath}"/>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="/index">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="${myctx}/index">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="${myctx}/admin/userList">Admin</a></li>
+                        <c:if test="${loginUser eq null }">
+                        <li class="nav-item">
+                          <a class="nav-link" href="${myctx}/login">Login</a>
+                        </li>
+                     </c:if>
       
-      <c:if test="${loginUser eq null }">
-	      <li class="nav-item">
-	        <a class="nav-link" href="${myctx}/login">Login</a>
-	      </li>
-      </c:if>
-      
-      <c:if test="${loginUser ne null }">
-      		<li class="nav-item bg-primary">
-      			<a class="nav-link text-white" href="#">${loginUser.userid}님 로그인 중..</a>
-      		</li>
-	      <li class="nav-item">
-	        <a class="nav-link" href="#" onclick="Logout()">Logout</a>
-	      </li>
-      </c:if>
-      
-      <li class="nav-item">
-        <a class="nav-link" href="${myctx}/ajaxView">MyPage</a>
-      </li>  
-      <li class="nav-item">
-        <a class="nav-link" href="${myctx}/fileForm">File Upload</a>
-      </li> 
-      
-      
-      <li class="nav-item">
-        <a class="nav-link" href="${myctx}/admin/prodForm">상품등록</a>
-      </li>  
-       <li class="nav-item">
-        <a class="nav-link" href="${myctx}/admin/prodList">상품목록</a>
-      </li> 
-       <li class="nav-item">
-        <a class="nav-link" href="${myctx}/user/cartList">Cart</a>
-      </li> 
-       <li class="nav-item">
-        <a class="nav-link" href="${myctx}/board/write">Board Form</a>
-      </li> 
-      <li class="nav-item">
-        <a class="nav-link" href="${myctx}/board/list">Board List</a>
-      </li>  
-    </ul>
-  </div>  
-</nav>
+                     <c:if test="${loginUser ne null }">
+                        <li class="nav-item bg-primary">
+                           <a class="nav-link text-white" href="#">${loginUser.userid}님 로그인 중..</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#" onclick="Logout()">Logout</a>
+                        </li>
+                     </c:if>
+                     <li class="nav-item"><a class="nav-link" href="${myctx}/admin/prodForm">상품등록</a></li>
+                     <li class="nav-item"><a class="nav-link" href="${myctx}/admin/prodList">상품목록</a></li>
+                     <li class="nav-item"><a class="nav-link" href="${myctx}/board/write">Board Form</a></li>
+                     <li class="nav-item"><a class="nav-link" href="${myctx}/board/list">Board List</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#!">All Products</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                            </ul>
+                        </li>
+                     <li class="nav-item"><a class="nav-link" href="${myctx}/user/mypage">MyPage</a></li>
+                    </ul>
+                    <form class="d-flex">
+                        <button class="btn btn-outline-dark" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            Cart
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Shop in style</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+                </div>
+            </div>
+        </header>

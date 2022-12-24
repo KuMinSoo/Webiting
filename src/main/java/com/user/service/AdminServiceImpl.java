@@ -1,6 +1,7 @@
 package com.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,26 +34,28 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public int getTotalCount() {
-		return this.aMapper.getTotalCount(); 
-	}
-
-	/*
-	 * @Override public List<UserVO> selectUserAll(PagingVO paging) { //return
-	 * this.aMapper.selectUserAll(paging); return null; }
-	 * 
-	 * @Override public List<UserVO> listUser(PagingVO pvo) { return
-	 * this.aMapper.listUser(pvo); }
-	 */
-
-	@Override
-	public List<UserVO> listUser() {
-		return this.aMapper.listUser();
+		return 0; 
 	}
 
 	@Override
-	public List<UserVO> selectUserAll(PagingVO paging) {
-		//return this.aMapper.selectUserAll(paging);
-		return null;
+	public int getTotalCount(PagingVO paging) {
+		return this.aMapper.getTotalCount(paging);
 	}
+
+	@Override
+	public List<UserVO> selectUserAll(Map<String, Integer> map) {
+		return this.aMapper.selectUserAll(map);
+	}
+
+	@Override
+	public List<UserVO> selectUserAllPaging(PagingVO paging) {
+		return this.aMapper.selectUserAllPaging(paging);
+	}
+
+//	@Override
+//	public List<UserVO> listUser() {
+//		return this.aMapper.listUser();
+//	}
+
 
 }
