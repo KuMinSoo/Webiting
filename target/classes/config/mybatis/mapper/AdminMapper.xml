@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.user.mapper.AdminMapper">
+	
+	<!-- <select id="selectUserAll" resultType="User" parameterType="com.user.model.PagingVO">
+		select member.*, decode(status, 0, '일반회원', -1, '정지회원', -2, '탈퇴회원') statusStr from
+		(select row_number() over(order by idx desc) rn, member.* from meber)
+		<![CDATA[
+		where rn > #{start} and rn < #{end}
+		]]>
+	</select> -->
+	
+	<delete id="deleteUser" parameterType="int">
+		delete from member where idx=#{value}
+	</delete>
+	
+	<update id="updateUser" parameterType="User">
+		update member set name=#{name}, userid=#{userid}, pwd=#{pwd}, hp1=#{hp1}, hp2=#{hp2}, 
+		hp3=#{hp3}, post=#{post}, addr1=#{addr1}, addr2=#{addr2}, mileage=#{mileage}, status=#{status}, 
+		email=#{email}, age=#{age}, gender=#{gender} 
+		where idx=#{idx}
+	</update>
+	
+	<select id="selectUserByIdx" parameterType="int" resultType="User">
+		select * from member where idx=#{value}
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		select count(idx) from member 
+	</select>
+	
+	<select id="listUser" resultType="User" parameterType="map">	
+		select * from
+		(select row_number() over(order by idx desc) rn, member.* from member)
+		where rn between #{start} and #{end}
+	</select>
+	
+	
+</mapper>

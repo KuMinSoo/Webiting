@@ -37,6 +37,7 @@
 	})//$()end-----------------
 </script>
 <div align="center" id="bbs" class="col-md-8 offset-md-2">
+<h1 class='text-center'>게시판 작성하기</h1>
 	 <form name="bf" id="bf" role="form" action="write" method="POST" enctype="multipart/form-data">
    <input type="hidden" name="mode" value="write">
    <!-- 원본글쓰기mode는 write, 답변글쓰기 mode는 rewrite로 감  -->       
@@ -71,7 +72,7 @@
           <td colspan="2">
           <textarea name="content" id="content" placeholder="문의내용" rows="10" cols="50"
                   class="form-control"></textarea>
-          <span style="float:right" id="keydownCount">ㅇㅇㅇ</span>
+       
           </td>
          	
           

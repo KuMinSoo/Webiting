@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 	public int updateUser(UserVO user) {
 		// TODO Auto-generated method stub
 		return 0;
-	}
+	}  
 
 	@Override
 	public UserVO getUser(Integer midx) {

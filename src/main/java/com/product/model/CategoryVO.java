@@ -5,11 +5,12 @@ import lombok.Data;
 @Data
 public class CategoryVO {
 	
-	private String upCg_code;//»óÀ§ Ä«Å×°í¸® ÄÚµå
-	private String upCg_name;//»óÀ§ Ä«Å×°í¸®¸í
+	private String upCg_code;//ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½×°ï¿½ ï¿½Úµï¿½
+	private String upCg_name;//ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½×°ï¿½ï¿½ï¿½
 	
-	private String downCg_code;//ÇÏÀ§ Ä«Å×°í¸® ÄÚµå
-	private String downCg_name;//ÇÏÀ§ Ä«Å×°í¸®¸í
+	private String downCg_code;//ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½×°ï¿½ ï¿½Úµï¿½
+	private String downCg_name;//ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½×°ï¿½ï¿½ï¿½
 	
 
 }
+ 

@@ -4,23 +4,23 @@ import lombok.Data;
 
 @Data
 public class CartVO {
-	private int cartNum;//Àå¹Ù±¸´Ï¹øÈ£
-	private int idx_fk;//È¸¿ø¹øÈ£
-	private int pnum_fk;//»óÇ°¹øÈ£
-	private int oqty;//¼ö·®
+	private int cartNum;//ï¿½ï¿½Ù±ï¿½ï¿½Ï¹ï¿½È£
+	private int idx_fk;//È¸ï¿½ï¿½ï¿½ï¿½È£
+	private int pnum_fk;//ï¿½ï¿½Ç°ï¿½ï¿½È£
+	private int oqty;//ï¿½ï¿½ï¿½ï¿½
 	private java.sql.Date indate;
 	
-	//Àå¹Ù±¸´Ï »óÇ°Á¤º¸----
+	//ï¿½ï¿½Ù±ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½----
 	private String pname;
 	private String pimage1;
 	private int price;
 	private int saleprice;
 	private int point;
 	
-	private int totalPrice;//saleprice*oqty =>°³º° »óÇ°ÀÇ ÃÑ±Ý¾×
-	private int totalPoint;//point*oqty => °³º° »óÇ°ÀÇ ÃÑÀû¸³Æ÷ÀÎÆ®
+	private int totalPrice;//saleprice*oqty =>ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½Ñ±Ý¾ï¿½
+	private int totalPoint;//point*oqty => ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	
-	private int cartTotalPrice;//Àå¹Ù±¸´Ï¿¡ ´ãÀº ¸ðµç »óÇ°ÀÇ ÃÑ¾×
+	private int cartTotalPrice;//ï¿½ï¿½Ù±ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½Ñ¾ï¿½
 	private int cartTotalPoint;
-
+  
 }////////////////////////

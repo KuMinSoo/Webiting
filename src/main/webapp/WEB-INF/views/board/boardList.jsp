@@ -37,26 +37,7 @@ function check(){
 	<h1 class='text-center'>고객문의게시판</h1>
 	<!-- 검색기능---------------------  -->
 <div class="row py-3">
-	<div class="text-right">
-	<form name="pa" action="list" >
-			<!-- hidden data -->
-			<input type="hidden" name="findType" value="${paging.findType}">
-			<input type="hidden" name="findType2" value="${paging.findType2}">
-			<input type="hidden" name="findKeyword" value="${paging.findKeyword}">
-			<input type="hidden" name="cpage" value="${paging.cpage}">
-			<!--  ------------------->
-		<select name="s" style="padding: 6px">
-			<option value="">::문의유형::</option>
-			<option value="1" <c:if test="${paging.findType2 eq 1}">selected</c:if> >전체문의</option>
-			<option value="2" <c:if test="${paging.findType2 eq 2}">selected</c:if> >회원정보</option>
-			<option value="3" <c:if test="${paging.findType2 eq 3}">selected</c:if> >주문/결제</option>
-			<option value="4" <c:if test="${paging.findType2 eq 4}">selected</c:if> >취소/환불</option>
-			<option value="5" <c:if test="${paging.findType2 eq 5}">selected</c:if> >배송관련</option>
-			<option value="6" <c:if test="${paging.findType2 eq 6}">selected</c:if> >시스템오류</option>
-			<option value="7" <c:if test="${paging.findType2 eq 7}">selected</c:if> >기타문의</option>
-		</select>		
-	</form>
-	</div>
+
 	<div>
 		<form name="pageSizeF" action="list">
 			<!-- hidden data -->
@@ -65,7 +46,7 @@ function check(){
 			<input type="hidden" name="findKeyword" value="${paging.findKeyword}">
 			<input type="hidden" name="cpage" value="${paging.cpage}">
 			<!--  ------------------->
-			<select name="pageSize" style="padding:6px;">
+			<select name="pageSize" style="padding:6px;" onchange="submit()">
 				<option>::페이지 사이즈::</option>
 				<c:forEach var="ps" begin="5" end="20" step="5">\
 					<option value="${ps}" <c:if test="${pageSize eq ps}">selected</c:if> >페이지 사이즈 ${ps}</option>

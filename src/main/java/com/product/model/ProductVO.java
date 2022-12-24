@@ -20,7 +20,7 @@ public class ProductVO {
 	private int price;
 	private int saleprice;
 	private int point;
-	private int pqty;
+	private int pqty;  
 	
 	private String pspec;
 	private String pcontents;

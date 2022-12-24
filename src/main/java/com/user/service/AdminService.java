@@ -22,3 +22,4 @@ public interface AdminService {
 	int getTotalCount();//�� �Խñ� �� ��������
 
 }
+  

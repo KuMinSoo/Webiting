@@ -8,4 +8,4 @@
 	<h1>Index</h1>
 </div>
 
-<c:import url="/foot"/>
+<c:import url="/foot"/> 
