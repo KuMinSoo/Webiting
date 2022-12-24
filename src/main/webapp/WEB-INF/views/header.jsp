@@ -40,7 +40,7 @@ const updateCategory=function(){
 		$('#nonUser').hide(1000);
 		$('#nonUser').hide(1000);
 		$('#nonUser').hide(1000);
-	}
+	} 
 	
 }//-----------------------
 </script>

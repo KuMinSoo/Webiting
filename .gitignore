@@ -69,6 +69,8 @@ local.properties
 .sts4-cache/
 
 ### Maven ###
+servlet-context.xml
+
 target/
 pom.xml.tag
 pom.xml.releaseBackup

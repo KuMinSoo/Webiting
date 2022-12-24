@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import lombok.Data;
 import lombok.extern.log4j.Log4j;
 
-@Data
+@Data   
 @Log4j
 public class PagingVO {
 	private int cpage;
@@ -69,11 +69,10 @@ public class PagingVO {
 			}
 		}
 		
-		if(findType2==null) findType2="";
 		
 		String str="";
 		String link=myctx+"/"+loc;
-		String qStr="?pageSize="+pageSize+"&findType="+findType+"&findType2="+findType2;
+		String qStr="?pageSize="+pageSize+"&findType="+findType;
 				qStr+="&findKeyword"+findKeyword;
 		link+=qStr;
 		StringBuilder buf=new StringBuilder();

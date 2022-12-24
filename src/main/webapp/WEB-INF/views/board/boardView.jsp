@@ -50,8 +50,8 @@
 				<tr>
 					<td style="width: 50%"><c:if
 							test="${board.bcg_code eq null or empty board.bcg_code}">
-							<select class="select_code" name="bcg_code" style="padding: 6px;">
-								<option value="" disabled selected>:::문의 유형:::</option>
+							<select class="select_code" name="bcg_code" style="padding: 6px;" disabled>
+								<option value=""  selected>:::문의 유형:::</option>
 							</select>
 						</c:if> <c:if
 							test="${board.bcg_code ne null or not empty board.bcg_code}">
@@ -96,13 +96,13 @@
 				</tr>
 				<tr>
 					<td colspan="3"><c:out value="${board.content}"/>
-					 <span style="float: right" id="keydownCount">ㅇㅇㅇ</span></td>
+				
 				</tr>
 				<tr>
 					<td width="20%">첨부파일</td>
 					<td colspan="2">
 					<c:if test="${board.filename ne null}">
-						<a href="#" onclick="down">${board.originFilename}</a>
+						<a href="#" onclick="down()">${board.originFilename}</a>
 						<small>[<c:out value="${board.filesize}"/>bytes]</small>	
 					</c:if>	
 					</td>
@@ -136,6 +136,11 @@
 			</div>
 		</div>	
 	</form>
+		<!-- 파일 다운로드를 위한 form------------------------------------ -->
+	<form name="fileF" id="fileF" method="POST" action="../../fileDown">
+		<input type="hidden" name="fname" value="<c:out value="${board.filename}"/>">
+		<input type="hidden" name="origin_fname" value="<c:out value="${board.originFilename}"/>">
+	</form>	
 	<!-- ---답변달기 form시작------------------------------------------------ -->
 	<form name="reF" id="reF" action="../rewrite" method="post">
 		<!-- hidden으로 부모글의 글번호(num)와 제목(subject)를 넘기자 -->

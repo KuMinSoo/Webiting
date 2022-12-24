@@ -27,3 +27,4 @@ public interface UserService {
 	
 	List<UserVO> listUser();
 }
+ 

@@ -37,7 +37,7 @@ public class AdminServiceImpl implements AdminService {
 	public int getTotalCount() {
 		return this.aMapper.getTotalCount(); 
 	}
-
+   
 	/*
 	 * @Override public List<UserVO> selectUserAll(PagingVO paging) { //return
 	 * this.aMapper.selectUserAll(paging); return null; }

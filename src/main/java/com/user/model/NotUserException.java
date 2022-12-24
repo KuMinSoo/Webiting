@@ -11,3 +11,4 @@ public class NotUserException extends Exception {
 	}
 
 }
+ 

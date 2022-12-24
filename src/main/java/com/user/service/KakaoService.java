@@ -50,7 +50,7 @@ public class KakaoService {
 	    return accessToken;
 	}
 	
-	
+	  
 	public String getKakaoEmail(String accessToken) throws Exception {
 
 	    String kakaoEmail = "";
