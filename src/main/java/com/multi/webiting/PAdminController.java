@@ -57,8 +57,8 @@ public class PAdminController {
 			@RequestParam("pimage")List<MultipartFile> pimage,
 			@ModelAttribute("product") ProductVO product, //pimage1,pimage2,pimage3
 			HttpServletRequest req) {		
-		log.info("product===="+product);
-		//1. 占쏙옙占싸듸옙 占쏙옙占썰리 占쏙옙占쏙옙占쏙옙 占쏙옙占�
+		log.info("product===="+product+">>>>");
+		//
 		ServletContext app=req.getServletContext();
 		String upDir=app.getRealPath("/resources/product_images");
 		log.info("upDir==="+upDir);
