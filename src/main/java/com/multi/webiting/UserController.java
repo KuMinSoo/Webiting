@@ -54,7 +54,7 @@ public class UserController {
 		if(user.getUserid()==null||user.getName()==null||user.getPwd()==null||
 			user.getUserid().trim().equals("")||user.getName().trim().equals("")||user.getPwd().trim().equals(""))
 		{
-			return common.addMsgBack(m,"다시 입력해주세요");
+			return common.addMsgBack(m,"정보를 다시 입력하세요");
 		}
 		int n=this.uService.createUser(user);
 		if(n>0) {
@@ -95,10 +95,10 @@ public class UserController {
 		m.addAttribute("loginUser",vo);
 		if(vo!=null) {
 			ses.setAttribute("loginUser", vo);
-			log.info("회원정보 일치 여부: true" );
+			log.info("로그인 여부: true" );
 			return common.addMsgLoc(m, "로그인 성공", "/index");
 		}
-		log.info("���� ��ġ����: false" );
+		log.info("로그인 여부: false" );
 		return common.addMsgBack(m, "로그인 실패");
 	}
 	@RequestMapping("/logout")
@@ -118,21 +118,21 @@ public class UserController {
 		
 		String reqUrl = 
 				"https://kauth.kakao.com/oauth/authorize"
-				+"?client_id=d5db72c4c66d2bc59fcd57535bb579d1"//RestAPI키
+				+"?client_id=d5db72c4c66d2bc59fcd57535bb579d1"//RestAPI�궎
 				+"&redirect_uri=http://localhost:9090/login/oauth_kakao"
 				+"&response_type=code";
 		log.info(reqUrl);
 		return reqUrl;
 	}
 	
-	// īī�� �������� ��ȸ
+	// 카카占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙회
 	@RequestMapping(value ="/login/oauth_kakao")
 	public String oauthKakao(@RequestParam(value = "code") String code,Model m,
 			HttpServletRequest request, HttpSession ses)
 			throws Exception {
 		//String code = request.getParameter("code");
 	    String error = request.getParameter("error");
-	    // 카카오로그인 페이지에서 취소버튼 눌렀을경우
+	    // 移댁뭅�삤濡쒓렇�씤 �럹�씠吏��뿉�꽌 痍⑥냼踰꾪듉 �닃���쓣寃쎌슦
 	    if (error != null) {
 	        if (error.equals("access_denied")) {
 	            return "redirect:/login";
@@ -146,28 +146,28 @@ public class UserController {
 	    JSONParser jsonParse = new JSONParser();
         JSONObject userInfoJsonObject =(JSONObject) jsonParse.parse(userInfo);
 
-        //유저의 Email 추출
+        //�쑀���쓽 Email 異붿텧
         JSONObject kakaoAccountJsonObject = (JSONObject)userInfoJsonObject.get("kakao_account");
         String kakaoEmail = kakaoAccountJsonObject.get("email").toString();
         log.info(kakaoEmail);
         
-        //View에서 사용할 변수 설정
+        //View�뿉�꽌 �궗�슜�븷 蹂��닔 �꽕�젙
         
         if (kakaoEmail != null&&!kakaoEmail.trim().equals("")) {
         	UserVO vo=uService.emailCheck(kakaoEmail);
         	
         	if(vo==null) {
-        		throw new NotUserException("해당 정보와 일치하는 회원이 없습니다.");
+        		throw new NotUserException("등록된 회원이 없습니다..");
         	}
         	log.info(vo);
         	m.addAttribute("kakaoEmail", kakaoEmail);
         	m.addAttribute("loginUser", vo);
         	ses.setAttribute("loginUser", vo);
-        	return common.addMsgLoc(m, "카카오톡 로그인 성공", "/index");
+        	return common.addMsgLoc(m, "카카오 로그인 성공", "/index");
 	    
-	    // 카카오톡 정보조회 실패했을경우
+	    // 移댁뭅�삤�넚 �젙蹂댁“�쉶 �떎�뙣�뻽�쓣寃쎌슦
 	    } else {
-	    	throw new NotUserException("해당 정보와 일치하는 회원이 없습니다.");
+	    	throw new NotUserException("등록된 회원이 없습니다.");
 	    }
 	}
 }

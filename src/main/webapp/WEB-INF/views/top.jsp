@@ -36,28 +36,35 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="${myctx}/index">Home</a></li>
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="${myctx}/admin/userList">Users</a></li>
                         <c:if test="${loginUser eq null }">
-	      					<li class="nav-item">
-	        					<a class="nav-link" href="${myctx}/login">Login</a>
-	      					</li>
-      					</c:if>
+                        <li class="nav-item">
+                          <a class="nav-link" href="${myctx}/login">Login</a>
+                        </li>
+                     </c:if>
       
-      					<c:if test="${loginUser ne null }">
-      						<li class="nav-item bg-primary">
-      							<a class="nav-link text-white" href="#">${loginUser.userid}님 로그인 중..</a>
-      						</li>
-	      					<li class="nav-item">
-	        					<a class="nav-link" href="#" onclick="Logout()">Logout</a>
-	      					</li>
-      					</c:if>
-      					<li class="nav-item"><a class="nav-link" href="${myctx}/admin/prodForm">상품등록</a></li>
-      					<li class="nav-item"><a class="nav-link" href="${myctx}/admin/prodList">상품목록</a></li>
-      					<li class="nav-item"><a class="nav-link" href="${myctx}/board/write">Board Form</a></li>
-      					<li class="nav-item"><a class="nav-link" href="${myctx}/board/list">Board List</a></li>
+                     <c:if test="${loginUser ne null }">
+                        <li class="nav-item bg-primary">
+                           <a class="nav-link text-white" href="#">${loginUser.userid}님 로그인 중..</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#" onclick="Logout()">Logout</a>
+                        </li>
+                     </c:if>
+                     <li class="nav-item"><a class="nav-link" href="${myctx}/admin/prodForm">상품등록</a></li>
+                     <li class="nav-item"><a class="nav-link" href="${myctx}/admin/prodList">상품목록</a></li>
+                     <li class="nav-item"><a class="nav-link" href="${myctx}/board/write">Board Form</a></li>
+                     <li class="nav-item"><a class="nav-link" href="${myctx}/board/list">Board List</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#!">All Products</a></li>
                                 <li><hr class="dropdown-divider" /></li>
+                                	<li><a class="nav-link dropdown-toggle text-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">카테고리</a>
+                                		<div>
+                                			<ul class="dropdown-menu2" aria-labelledby="navbarDropdown">
+                                				<li><a class="dropdown-item" href="#!">test</a></li>
+                                			</ul>
+                                		</div>
+                                	</li>
                                 <li><a class="dropdown-item" href="#!">Popular Items</a></li>
                                 <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
                             </ul>
