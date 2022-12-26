@@ -3,6 +3,8 @@
 >>>>>>>=d3e3744681b03380aa5f3efe6fbab0aaf51e32ff
 eclipse.preferences.version=1
 encoding//src/main/java/com/board/service/BoardServiceImpl.java=UTF-8
+encoding//src/main/java/com/common/interceptor/AdminCheckInterceptor.java=UTF-8
+encoding//src/main/java/com/multi/webiting/UserController.java=UTF-8
 encoding//src/main/java/com/product/model/ProductVO.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/header.jsp=UTF-8
 encoding/<project>=UTF-8

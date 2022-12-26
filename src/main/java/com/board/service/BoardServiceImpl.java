@@ -3,33 +3,32 @@ package com.board.service;
 import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.board.mapper.BoardMapper;
 import com.board.model.BoardVO;
 import com.board.model.PagingVO;
 
-@Service("boardService")
+@Service("boardServiceImpl")
 public class BoardServiceImpl implements BoardService {
 	
-	@Inject
-	private BoardMapper bMapper;
+	@Autowired
+	private BoardMapper boardMapper;
 
 	@Override
 	public int insertBoard(BoardVO board) {
-		return this.bMapper.insertBoard(board);
+		return this.boardMapper.insertBoard(board);
 	}
 
 	@Override
 	public List<BoardVO> selectBoardAll(Map<String, Integer> map) {		
-		return this.bMapper.selectBoardAll(map);
+		return this.boardMapper.selectBoardAll(map);
 	}
 
 	@Override
 	public List<BoardVO> selectBoardAllPaging(PagingVO paging) {		
-		return this.bMapper.selectBoardAllPaging(paging);
+		return this.boardMapper.selectBoardAllPaging(paging);
 	}
 
 	@Override
@@ -45,18 +44,18 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int getTotalCount(PagingVO paging) {
-		return this.bMapper.getTotalCount(paging);
+		return this.boardMapper.getTotalCount(paging);
 	}
 
 	@Override
 	public BoardVO selectBoardByIdx(Integer num) {
 		
-		return this.bMapper.selectBoardByIdx(num);
+		return this.boardMapper.selectBoardByIdx(num);
 	}
 
 	@Override
 	public int updateReadnum(Integer num) {		
-		return this.bMapper.updateReadnum(num);
+		return this.boardMapper.updateReadnum(num);
 	}
 
 	@Override
@@ -67,42 +66,42 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int deleteBoard(Integer idx) {		
-		return this.bMapper.deleteBoard(idx);
+		return this.boardMapper.deleteBoard(idx);
 	}
 
 	@Override
 	public int updateBoard(BoardVO board) {
-		return this.bMapper.updateBoard(board);
+		return this.boardMapper.updateBoard(board);
 	}
 
 	@Override
 	public int rewriteBoard(BoardVO board) {		
-		//[1] 遺�紐④�(�썝湲�)�쓽 湲�踰덊샇(num)濡� 遺�紐④��쓽 refer(湲�洹몃９踰덊샇), lev(�떟蹂��젅踰�), sunbun(�닚踰�) 媛��졇�삤湲�
-		//==> select臾�
+		//[1] 부모글(원글)의 글번호(num)로 부모글의 refer(글그룹번호), lev(답변레벨), sunbun(순번) 가져오기
+		//==> select문
 		BoardVO parent=this.selectRefLevSunbun(board.getNum());
 		
-		//[2] 湲곗〈�뿉 �떖由� �떟蹂�湲� �뱾�씠 �엳�떎硫� �궡 �떟蹂�湲��쓣 insert�븯湲� �쟾�뿉 湲곗〈�쓽 �떟蹂�湲��뱾�쓽 sunbun�쓣 �븯�굹�뵫 利앷��떆�궎�옄.
-		//==> update臾�
+		//[2] 기존에 달린 답변글 들이 있다면 내 답변글을 insert하기 전에 기존의 답변글들의 sunbun을 하나씩 증가시키자.
+		//==> update문
 		
 		int n=this.updateSunbun(parent);
 		
-		//[3] �궡媛� �벖 �떟蹂� 湲��쓣 insert �븳�떎===> insert臾�
-		//�궡媛� �벖 �떟蹂�湲�==>board
-		//遺�紐④� ==>parent (遺�紐④��쓽 refer,lev,sunbun)
-		board.setRefer(parent.getRefer());//湲�洹몃９ 踰덊샇瑜� 遺�紐④�怨� �룞�씪�븯寃�
-		board.setLev(parent.getLev()+1);//�떟蹂��젅踰�=遺�紐쮔ev+1
-		board.setSunbun(parent.getSunbun()+1);//�닚�꽌=遺�紐쮛unbun+1
-		return this.bMapper.rewriteBoard(board);
+		//[3] 내가 쓴 답변 글을 insert 한다===> insert문
+		//내가 쓴 답변글==>board
+		//부모글 ==>parent (부모글의 refer,lev,sunbun)
+		board.setRefer(parent.getRefer());//글그룹 번호를 부모글과 동일하게
+		board.setLev(parent.getLev()+1);//답변레벨=부모lev+1
+		board.setSunbun(parent.getSunbun()+1);//순서=부모sunbun+1
+		return this.boardMapper.rewriteBoard(board);
 	}
 
 	@Override
 	public BoardVO selectRefLevSunbun(int idx) {		
-		return this.bMapper.selectRefLevSunbun(idx);
+		return this.boardMapper.selectRefLevSunbun(idx);
 	}
 
 	@Override
 	public int updateSunbun(BoardVO parent) {		
-		return this.bMapper.updateSunbun(parent);
+		return this.boardMapper.updateSunbun(parent);
 	}
 
 }

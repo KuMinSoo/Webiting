@@ -12,16 +12,16 @@ import com.user.model.UserVO;
 
 import lombok.extern.log4j.Log4j;
 
-/* Interceptor (servletì´ ê°–ê³  ìˆëŠ” filterë‘ ë¹„ìŠ·í•¨)
- *  - ì»¨íŠ¸ë¡¤ëŸ¬ê°€ ì‹¤í–‰ë˜ê¸° ì „ì— ì‚¬ì „ ì²˜ë¦¬í•  ì¼ì´ ìˆìœ¼ë©´ 
- *    ìŠ¤í”„ë§ì—ì„œëŠ” ì¸í„°ì…‰í„°ì—ì„œ êµ¬í˜„í•œë‹¤.
- *  - êµ¬í˜„ ë°©ë²•
- *  1. ì¸í„°ì…‰í„° êµ¬í˜„
- *     [1] HandlerInterceptorì¸í„°í˜ì´ìŠ¤ë¥¼ ìƒì†ë°›ëŠ” ë°©ë²•
- *     [2] HandlerInterceptorAdapter ì¶”ìƒí´ë˜ìŠ¤ë¥¼ ìƒì†ë°›ëŠ” ë°©ë²•
+/* Interceptor (servletÀÌ °®°í ÀÖ´Â filter¶û ºñ½ÁÇÔ)
+ *  - ÄÁÆ®·Ñ·¯°¡ ½ÇÇàµÇ±â Àü¿¡ »çÀü Ã³¸®ÇÒ ÀÏÀÌ ÀÖÀ¸¸é 
+ *    ½ºÇÁ¸µ¿¡¼­´Â ÀÎÅÍ¼ÁÅÍ¿¡¼­ ±¸ÇöÇÑ´Ù.
+ *  - ±¸Çö ¹æ¹ı
+ *  1. ÀÎÅÍ¼ÁÅÍ ±¸Çö
+ *     [1] HandlerInterceptorÀÎÅÍÆäÀÌ½º¸¦ »ó¼Ó¹Ş´Â ¹æ¹ı
+ *     [2] HandlerInterceptorAdapter Ãß»óÅ¬·¡½º¸¦ »ó¼Ó¹Ş´Â ¹æ¹ı
  *      
- *  2. ì¸í„°ì…‰í„° ë“±ë¡ => servlet-context.xmlì—ì„œ ë“±ë¡í•˜ê³  ë§¤í•‘ ì •ë³´ë¥¼ ì„¤ì •
- *  <!-- Interceptorì„¤ì • =========================================================== -->
+ *  2. ÀÎÅÍ¼ÁÅÍ µî·Ï => servlet-context.xml¿¡¼­ µî·ÏÇÏ°í ¸ÅÇÎ Á¤º¸¸¦ ¼³Á¤
+ *  <!-- Interceptor¼³Á¤ =========================================================== -->
    <interceptors>
          <interceptor>
             <mapping path="/user/**"/>
@@ -32,7 +32,7 @@ import lombok.extern.log4j.Log4j;
  * */
 @Log4j
 public class LoginCheckInterceptor implements HandlerInterceptor{
-	//[1] Controllerë¥¼ ì‹¤í–‰í•˜ê¸° ì „ì— í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
+	//[1] Controller¸¦ ½ÇÇàÇÏ±â Àü¿¡ È£ÃâµÇ´Â ¸Ş¼­µå
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception{
 		log.info("preHandler()");
@@ -43,12 +43,12 @@ public class LoginCheckInterceptor implements HandlerInterceptor{
 		UserVO user=(UserVO)ses.getAttribute("loginUser");
 		if(user==null) {			
 			if("true".equals(header)) { 
-				//Ajaxìš”ì²­ì´ ë§ë‹¤ë©´ 400ì—ëŸ¬ ë°œìƒ => errorë¥¼ ì²˜ë¦¬í•˜ëŠ” ì½œë°±í•¨ìˆ˜ì—ì„œ ë°›ì•„ ì²˜ë¦¬í•œë‹¤.
+				//Ajax¿äÃ»ÀÌ ¸Â´Ù¸é 400¿¡·¯ ¹ß»ı => error¸¦ Ã³¸®ÇÏ´Â Äİ¹éÇÔ¼ö¿¡¼­ ¹Ş¾Æ Ã³¸®ÇÑ´Ù.
 				res.sendError(400);			
 			}else {
 				String view="/WEB-INF/views/msg.jsp";
 				
-				req.setAttribute("message", "ë¡œê·¸ì¸í•´ì•¼ ì´ìš© ê°€ëŠ¥í•©ë‹ˆë‹¤.");
+				req.setAttribute("message", "·Î±×ÀÎÇØ¾ß ÀÌ¿ë °¡´ÉÇÕ´Ï´Ù.");
 				req.setAttribute("loc", "/");
 				
 				RequestDispatcher disp=req.getRequestDispatcher(view);
@@ -60,14 +60,14 @@ public class LoginCheckInterceptor implements HandlerInterceptor{
 		return true;
 	}
 	
-	//[2] Controllerë¥¼ ì‹¤í–‰í•œ í›„, ì•„ì§ ë·°ë¥¼ ì‹¤í–‰í•˜ê¸° ì „ì— í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
+	//[2] Controller¸¦ ½ÇÇàÇÑ ÈÄ, ¾ÆÁ÷ ºä¸¦ ½ÇÇàÇÏ±â Àü¿¡ È£ÃâµÇ´Â ¸Ş¼­µå
 	@Override
 	public void postHandle(HttpServletRequest req, HttpServletResponse res, Object handler, ModelAndView mv) throws Exception{
 		log.info("postHandle()");
 		HandlerInterceptor.super.postHandle(req,res,handler,mv);
 	}
 	
-	//[3] Controllerë¥¼ ì‹¤í–‰í•˜ê³  ë·°ë¥¼ ì‹¤í–‰í•œ í›„ì— í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
+	//[3] Controller¸¦ ½ÇÇàÇÏ°í ºä¸¦ ½ÇÇàÇÑ ÈÄ¿¡ È£ÃâµÇ´Â ¸Ş¼­µå
 	@Override
 	public void afterCompletion(HttpServletRequest req, HttpServletResponse res, Object handler, Exception ex) throws Exception{
 		log.info("afterCompletion()");

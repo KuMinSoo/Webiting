@@ -9,28 +9,28 @@ import com.board.model.PagingVO;
 public interface BoardMapper {
 	
 	int insertBoard(BoardVO board);
-	// ê²Œì‹œëª©ë¡ ê°€ì ¸ì˜¤ê¸°
+	// °Ô½Ã¸ñ·Ï °¡Á®¿À±â
 	List<BoardVO> selectBoardAll(Map<String,Integer> map);
 	List<BoardVO> selectBoardAllPaging(PagingVO paging);
 	   
-	// ê²€ìƒ‰ëª©ë¡ ê°€ì ¸ì˜¤ê¸°
+	// °Ë»ö¸ñ·Ï °¡Á®¿À±â
 	List<BoardVO> findBoard(PagingVO paging);
 	   
-	int getTotalCount();//ì´ ê²Œì‹œê¸€ ìˆ˜ ê°€ì ¸ì˜¤ê¸°
-	int getTotalCount(PagingVO paging);//ê²€ìƒ‰í•œ ì´ ê²Œì‹œê¸€ ìˆ˜ ê°€ì ¸ì˜¤ê¸°
+	int getTotalCount();//ÃÑ °Ô½Ã±Û ¼ö °¡Á®¿À±â
+	int getTotalCount(PagingVO paging);//°Ë»öÇÑ ÃÑ °Ô½Ã±Û ¼ö °¡Á®¿À±â
 
-	// ê¸€ë²ˆí˜¸ì— í•´ë‹¹í•˜ëŠ” ê¸€ ê°€ì ¸ì˜¤ê¸°
+	// ±Û¹øÈ£¿¡ ÇØ´çÇÏ´Â ±Û °¡Á®¿À±â
 	BoardVO selectBoardByIdx(Integer idx);   
-	// ì¡°íšŒìˆ˜ ì¦ê°€í•˜ê¸°
+	// Á¶È¸¼ö Áõ°¡ÇÏ±â
 	int updateReadnum(Integer idx);
 	   
 	String selectPwd(Integer idx);
 	int deleteBoard(Integer idx);
 	int updateBoard(BoardVO board);
 
-	// ë‹µë³€í˜•(ê³„ì¸µí˜•) ê²Œì‹œíŒì—ì„œ ë‹µë³€ê¸€ ë‹¬ê¸°
-	int rewriteBoard(BoardVO board); //[ë‹µë³€í˜•]
-	BoardVO selectRefLevSunbun(int idx);//[ë‹µë³€í˜•]
-	int updateSunbun(BoardVO parent);//[ë‹µë³€í˜•]
+	// ´äº¯Çü(°èÃşÇü) °Ô½ÃÆÇ¿¡¼­ ´äº¯±Û ´Ş±â
+	int rewriteBoard(BoardVO board); //[´äº¯Çü]
+	BoardVO selectRefLevSunbun(int idx);//[´äº¯Çü]
+	int updateSunbun(BoardVO parent);//[´äº¯Çü]
 
 }

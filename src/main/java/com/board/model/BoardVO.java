@@ -10,8 +10,8 @@ public class BoardVO {
 	private String mode;
 	
 
-	private String bcg_code;//ìƒìœ„ ì¹´í…Œê³ ë¦¬ ì½”ë“œ
-	private String bcg_name;//ìƒìœ„ ì¹´í…Œê³ ë¦¬ëª…
+	private String bcg_code;//»óÀ§ Ä«Å×°í¸® ÄÚµå
+	private String bcg_name;//»óÀ§ Ä«Å×°í¸®¸í
 	
 	
 	
