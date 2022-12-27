@@ -17,4 +17,4 @@ public class CommonUtil {
 		m.addAttribute("loc","javascript:history.back()");
 		return "msg";
 	}
-}
+}  

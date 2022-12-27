@@ -34,7 +34,7 @@ import lombok.extern.log4j.Log4j;
 public class BoardController {
 	
 	@Inject
-	@Qualifier(value = "boardService")
+	@Qualifier(value = "boardServiceImpl") 
 	private BoardService bService;
 	
 	@Inject
@@ -96,6 +96,9 @@ public class BoardController {
 		}else if("edit".equals(board.getMode())) {
 			n=this.bService.updateBoard(board);
 			str+="글수정 ";
+		}else if("rewrite".equals(board.getMode())) {
+			n=this.bService.rewriteBoard(board);
+			str+="답변 ";
 		}
 		
 		
@@ -201,7 +204,14 @@ public class BoardController {
 		return util.addMsgLoc(m, str, loc);
 	}
 	
-	
+	@PostMapping("/rewrite")
+	public String boardRewrite(Model m, @ModelAttribute BoardVO vo) {
+		m.addAttribute("num",vo.getNum());
+		m.addAttribute("subject",vo.getSubject());
+		m.addAttribute("bcg_code",vo.getBcg_code());
+		
+		return "board/boardRewrite2";
+	}
 	
 
 	

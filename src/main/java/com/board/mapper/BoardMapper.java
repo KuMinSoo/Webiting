@@ -33,4 +33,4 @@ public interface BoardMapper {
 	BoardVO selectRefLevSunbun(int idx);//[답변형]
 	int updateSunbun(BoardVO parent);//[답변형]
 
-}
+}  

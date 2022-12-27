@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class BoardVO {
 	
-	private String mode;
+	private String mode;  
 	
 
 	private String bcg_code;//상위 카테고리 코드

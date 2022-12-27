@@ -48,7 +48,7 @@ public class KakaoService {
 	    accessToken = (String) responseBody.get("access_token");
 
 	    return accessToken;
-	
+	}
 	
 	  
 	public String getKakaoEmail(String accessToken) throws Exception {

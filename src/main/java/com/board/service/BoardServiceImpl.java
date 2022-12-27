@@ -10,9 +10,13 @@ import com.board.mapper.BoardMapper;
 import com.board.model.BoardVO;
 import com.board.model.PagingVO;
 
+import lombok.extern.log4j.Log4j;
+
+
+@Log4j
 @Service("boardServiceImpl")
 public class BoardServiceImpl implements BoardService {
-	
+	  
 	@Autowired
 	private BoardMapper boardMapper;
 
@@ -78,13 +82,13 @@ public class BoardServiceImpl implements BoardService {
 	public int rewriteBoard(BoardVO board) {		
 		//[1] 부모글(원글)의 글번호(num)로 부모글의 refer(글그룹번호), lev(답변레벨), sunbun(순번) 가져오기
 		//==> select문
-		BoardVO parent=this.selectRefLevSunbun(board.getNum());
+		BoardVO parent=this.boardMapper.selectRefLevSunbun(board.getNum());
 		
 		//[2] 기존에 달린 답변글 들이 있다면 내 답변글을 insert하기 전에 기존의 답변글들의 sunbun을 하나씩 증가시키자.
 		//==> update문
 		
-		int n=this.updateSunbun(parent);
-		
+		int n=this.boardMapper.updateSunbun(parent);
+
 		//[3] 내가 쓴 답변 글을 insert 한다===> insert문
 		//내가 쓴 답변글==>board
 		//부모글 ==>parent (부모글의 refer,lev,sunbun)
@@ -93,7 +97,6 @@ public class BoardServiceImpl implements BoardService {
 		board.setSunbun(parent.getSunbun()+1);//순서=부모sunbun+1
 		return this.boardMapper.rewriteBoard(board);
 	}
-
 	@Override
 	public BoardVO selectRefLevSunbun(int idx) {		
 		return this.boardMapper.selectRefLevSunbun(idx);

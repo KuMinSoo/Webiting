@@ -12,7 +12,7 @@ public interface BoardService {
 	// 게시목록 가져오기
 	List<BoardVO> selectBoardAll(Map<String,Integer> map);
 	List<BoardVO> selectBoardAllPaging(PagingVO paging);
-	   
+	     
 	// 검색목록 가져오기
 	List<BoardVO> findBoard(PagingVO paging);
 	   
