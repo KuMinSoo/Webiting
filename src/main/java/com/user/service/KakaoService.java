@@ -23,12 +23,12 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Service
 public class KakaoService {
 	
-	// 카카오 로그인 access_token 리턴
+	// 移댁뭅�� 濡�洹몄�� access_token 由ы��
 	public String getAccessToken(String code) throws Exception {
 
 	    String accessToken = "";
 
-	    // restTemplate을 사용하여 API 호출
+	    // restTemplate�� �ъ�⑺���� API �몄�
 	    RestTemplate restTemplate = new RestTemplate();
 	    //String reqUrl = "/oauth/token";
 	    URI uri = URI.create("https://kauth.kakao.com/oauth/token");
@@ -55,7 +55,7 @@ public class KakaoService {
 
 	    String kakaoEmail = "";
 
-	    // restTemplate을 사용하여 API 호출
+	    // restTemplate�� �ъ�⑺���� API �몄�
 	    RestTemplate restTemplate = new RestTemplate();
 	    //String reqUrl = "/v2/user/me";
 	    URI uri = URI.create("https://kauth.kakao.com/v2/user/me" );
@@ -89,19 +89,19 @@ public class KakaoService {
     public String getAccessTokenJsonData(String code){
         RestTemplate restTemplate = new RestTemplate();
 
-        // 헤더 설정
+        // �ㅻ�� �ㅼ��
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         HttpEntity<?> request = new HttpEntity<>(headers);
 
-        // URI 빌더 사용
+        // URI 鍮��� �ъ��
         UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(TOKEN_URL)
                 .queryParam("grant_type", GRANT_TYPE)
                 .queryParam("client_id", CLIENT_ID)
                 .queryParam("redirect_uri", REDIRECT_URI)
                 .queryParam("code", code);
 
-        // 요청 URI과 헤더를 같이 전송
+        // ��泥� URI怨� �ㅻ��瑜� 媛��� ����
         ResponseEntity<String> responseEntity = restTemplate.exchange(
                 uriComponentsBuilder.toUriString(),
                 HttpMethod.POST,
@@ -123,10 +123,10 @@ public class KakaoService {
         try {
             String jsonData = "";
 
-            // URI를 URL객체로 저장
+            // URI瑜� URL媛�泥대� ����
             URL url = new URL(HTTP_REQUEST + "?access_token=" + accessToken);
 
-            // 버퍼 데이터(응답 메세지)를 한 줄씩 읽어서 jsonData에 저장
+            // 踰��� �곗�댄��(���� 硫��몄�)瑜� �� 以��� �쎌�댁�� jsonData�� ����
             BufferedReader bf;
             bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
             String line;

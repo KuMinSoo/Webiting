@@ -34,7 +34,7 @@ import lombok.extern.log4j.Log4j;
 public class BoardController {
 	
 	@Inject
-	@Qualifier(value = "boardService")
+	@Qualifier(value = "boardServiceImpl") 
 	private BoardService bService;
 	
 	@Inject
@@ -62,23 +62,23 @@ public class BoardController {
 		File dir=new File(upDir);
 		log.info(upDir+"-----------------sss---------");
 		if(!dir.exists()) {
-			dir.mkdirs();//ì—…ë¡œë“œ ë””ë ‰í† ë¦¬ì˜ ê²½ë¡œê°€ ì—†ëŠ” ê²½ìš° ì „ì²´ë¥¼ ë‹¤ ë§Œë“¤ì–´ì¤Œ
+			dir.mkdirs();//¾÷·Îµå µð·ºÅä¸®ÀÇ °æ·Î°¡ ¾ø´Â °æ¿ì ÀüÃ¼¸¦ ´Ù ¸¸µé¾îÁÜ
 		}
 		
 		if(!mfilename.isEmpty()) {
 			String originFname=mfilename.getOriginalFilename();
 			long fsize=mfilename.getSize();
 			
-			UUID uuid=UUID.randomUUID();//íŒŒì¼ ì¤‘ë³µì €ìž¥ì„ ë§‰ê¸°ìœ„í•œ ëžœë¤ê°’ ì„¤ì •
-			String filename=uuid.toString()+"_"+originFname;//ì‹¤ì œ ì—…ë¡œë“œ ì‹œí‚¬íŒŒì¼	
+			UUID uuid=UUID.randomUUID();//ÆÄÀÏ Áßº¹ÀúÀåÀ» ¸·±âÀ§ÇÑ ·£´ý°ª ¼³Á¤
+			String filename=uuid.toString()+"_"+originFname;//½ÇÁ¦ ¾÷·Îµå ½ÃÅ³ÆÄÀÏ	
 			try {
-				mfilename.transferTo(new File(upDir,filename));//í•´ë‹¹ì ˆëŒ€ê²½ë¡œì— ì‹¤ì œ ì—…ë¡œë“œí•¨
+				mfilename.transferTo(new File(upDir,filename));//ÇØ´çÀý´ë°æ·Î¿¡ ½ÇÁ¦ ¾÷·ÎµåÇÔ
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			log.info(upDir);
-			board.setFilename(filename);//ì‹¤ì œ ì €ìž¥ëœ íŒŒì¼ì´ë¦„
-			board.setOriginFilename(originFname);//ì›ë³¸ íŒŒì¼ì´ë¦„
+			board.setFilename(filename);//½ÇÁ¦ ÀúÀåµÈ ÆÄÀÏÀÌ¸§
+			board.setOriginFilename(originFname);//¿øº» ÆÄÀÏÀÌ¸§
 			board.setFilesize(fsize);
 		}
 		if(board.getName()==null||board.getSubject()==null||board.getPasswd()==null||
@@ -92,15 +92,18 @@ public class BoardController {
 		String str="",loc="";
 		if("write".equals(board.getMode())) {
 			n=this.bService.insertBoard(board);
-			str+="ê¸€ì“°ê¸° ";
+			str+="±Û¾²±â ";
 		}else if("edit".equals(board.getMode())) {
 			n=this.bService.updateBoard(board);
-			str+="ê¸€ìˆ˜ì • ";
+			str+="±Û¼öÁ¤ ";
+		}else if("rewrite".equals(board.getMode())) {
+			n=this.bService.rewriteBoard(board);
+			str+="´äº¯ ";
 		}
 		
 		
 		
-		str=(n>0)?"ì„±ê³µ":"ì‹¤íŒ¨";
+		str=(n>0)?"¼º°ø":"½ÇÆÐ";
 		loc=(n>0)?"list":"javascript:history.back()";
 		
 		return util.addMsgLoc(m, str, loc);
@@ -116,10 +119,10 @@ public class BoardController {
 		
 		BoardVO vo=this.bService.selectBoardByIdx(num);
 		if(vo==null) {
-			return util.addMsgBack(m, "í•´ë‹¹ ê¸€ì´ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
+			return util.addMsgBack(m, "ÇØ´ç ±ÛÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
 		}
 		if(!vo.getPasswd().equals(passwd)) {
-			return util.addMsgBack(m, "ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤");
+			return util.addMsgBack(m, "ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù");
 		}
 		
 		m.addAttribute("board", vo);
@@ -177,11 +180,11 @@ public class BoardController {
 		}
 		BoardVO vo=this.bService.selectBoardByIdx(num);
 		if(vo==null) {
-			return util.addMsgBack(m, "í•´ë‹¹ê¸€ì€ ì¡´ìž¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤");
+			return util.addMsgBack(m, "ÇØ´ç±ÛÀº Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù");
 		}
 		String dbPwd=vo.getPasswd();
 		if(!dbPwd.equals(passwd)) {
-			return util.addMsgBack(m, "ë¹„ë°€ë²ˆí˜¸ê°€ ìžƒì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤");
+			return util.addMsgBack(m, "ºñ¹Ð¹øÈ£°¡ ÀÒÄ¡ÇÏÁö ¾Ê½À´Ï´Ù");
 		}
 		
 		int n=this.bService.deleteBoard(num);
@@ -193,15 +196,22 @@ public class BoardController {
 			File f=new File(upDir, vo.getFilename());
 			if(f.exists()) {
 				boolean b=f.delete();
-				log.info("íŒŒì¼ì‚­ì œ ì—¬ë¶€: "+b);
+				log.info("ÆÄÀÏ»èÁ¦ ¿©ºÎ: "+b);
 			}
 		}
-		String str=(n>0)?"ì‚­ì œ ì„±ê³µ":"ì‚­ì œ ì‹¤íŒ¨";
+		String str=(n>0)?"»èÁ¦ ¼º°ø":"»èÁ¦ ½ÇÆÐ";
 		String loc=(n>0)?"list":"javascript:history.back()";
 		return util.addMsgLoc(m, str, loc);
 	}
 	
-	
+	@PostMapping("/rewrite")
+	public String boardRewrite(Model m, @ModelAttribute BoardVO vo) {
+		m.addAttribute("num",vo.getNum());
+		m.addAttribute("subject",vo.getSubject());
+		m.addAttribute("bcg_code",vo.getBcg_code());
+		
+		return "board/boardRewrite2";
+	}
 	
 
 	

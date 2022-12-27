@@ -26,7 +26,7 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @Log4j
 public class FileController {
-	
+	  
 	
 	@PostMapping(value="/fileDown", produces = "application/octet-stream")
 	@ResponseBody
@@ -38,7 +38,7 @@ public class FileController {
 		log.info("userAgent==="+userAgent);
 		log.info("fname==="+fname);
 		log.info("origin_fname==="+origin_fname);
-		//1. ì—…ë¡œë“œëœ ë””ë ‰í† ë¦¬ ì ˆëŒ€ê²½ë¡œ ì–»ê¸°
+		//1. ¾÷·ÎµåµÈ µğ·ºÅä¸® Àı´ë°æ·Î ¾ò±â
 		ServletContext app=req.getServletContext();
 		String upDir=app.getRealPath("/resources/board_upload");
 		
@@ -46,29 +46,29 @@ public class FileController {
 		log.info("filePath==="+filePath);
 		
 		
-		org.springframework.core.io.Resource resource=new FileSystemResource(filePath);//uuid_íŒŒì¼ëª…
-		//FileSystemResource ê°€ ì•Œì•„ì„œ íŒŒì¼ê³¼ ìŠ¤íŠ¸ë¦¼ ì—°ê²°ì„ í•œë‹¤
+		org.springframework.core.io.Resource resource=new FileSystemResource(filePath);//uuid_ÆÄÀÏ¸í
+		//FileSystemResource °¡ ¾Ë¾Æ¼­ ÆÄÀÏ°ú ½ºÆ®¸² ¿¬°áÀ» ÇÑ´Ù
 		if(!resource.exists()) {
-			//í•´ë‹¹ íŒŒì¼ì´ ì—†ë‹¤ë©´
+			//ÇØ´ç ÆÄÀÏÀÌ ¾ø´Ù¸é
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		//2. ë¸Œë¼ìš°ì €ë³„ ì¸ì½”ë”© ì²˜ë¦¬
+		//2. ºê¶ó¿ìÀúº° ÀÎÄÚµù Ã³¸®
 		String downName=null;
 		boolean checkIE=(userAgent.indexOf("MSIE")>-1 || userAgent.indexOf("Trident")>-1);
 		try {
 			if(checkIE){
-				//IEì¸ ê²½ìš°
+				//IEÀÎ °æ¿ì
 				downName=URLEncoder.encode(origin_fname,"UTF-8").replaceAll("\\+", " ");
 			}else {		
-				//ê·¸ì™¸ ë¸Œë¼ìš°ì €ì¸ ê²½ìš°
-				origin_fname=origin_fname.replace(",", "");//í¬ë¡¬ì€ íŒŒì¼ëª…ì— ì½¤ë§ˆ(,) ìˆìœ¼ë©´ ë‹¤ìš´ë¡œë“œ ë˜ì§€ ì•ŠìŒ
+				//±×¿Ü ºê¶ó¿ìÀúÀÎ °æ¿ì
+				origin_fname=origin_fname.replace(",", "");//Å©·ÒÀº ÆÄÀÏ¸í¿¡ ÄŞ¸¶(,) ÀÖÀ¸¸é ´Ù¿î·Îµå µÇÁö ¾ÊÀ½
 				downName=new String(origin_fname.getBytes("UTF-8"),"ISO-8859-1");
 			}
 		}catch(UnsupportedEncodingException e) {
-			log.error("íŒŒì¼ ë‹¤ìš´ë¡œë“œ ì¤‘ ì—ëŸ¬:"+e);
+			log.error("ÆÄÀÏ ´Ù¿î·Îµå Áß ¿¡·¯:"+e);
 		}
 		
-		//3. HttpHeaderí†µí•´ í—¤ë” ì •ë³´ ì„¤ì •
+		//3. HttpHeaderÅëÇØ Çì´õ Á¤º¸ ¼³Á¤
 		HttpHeaders headers=new HttpHeaders();
 		headers.add("Content-Disposition", "attachment; filename="+downName);
 		

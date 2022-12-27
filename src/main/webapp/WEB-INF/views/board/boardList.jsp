@@ -69,7 +69,7 @@ function check(){
 		<tbody>
 		<c:if test="${boardArr eq null or empty boardArr}">
 			<tr>
-				<td><b>조회된 데이터가 없습니다</b></td>
+				<td  colspan="6" align='center'><b>조회된 데이터가 없습니다</b></td>
 			</tr>
 		</c:if>
 		<c:if test="${boardArr ne null and not empty boardArr}">

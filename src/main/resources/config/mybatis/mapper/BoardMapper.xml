@@ -7,12 +7,12 @@
 		select board_seq.nextval from dual
 	</selectKey>
 		insert into board(num,name,passwd,subject,content,wdate,readnum,filename,originFilename,
-		filesize, refer,lev, bcg_code)
+		filesize, refer,lev,sunbun, bcg_code)
 		values (#{num},#{name},#{passwd},#{subject},#{content:VARCHAR},sysdate,#{readnum},
-		#{filename:VARCHAR},#{originFilename:VARCHAR},#{filesize:NUMERIC},#{num},#{lev},#{bcg_code})
+		#{filename:VARCHAR},#{originFilename:VARCHAR},#{filesize:NUMERIC},#{num},#{lev},#{sunbun},#{bcg_code})
 	</insert>
 	
-	<sql id="findWhere">
+	<sql id="findWhere">  
 		<if test="findType!=null and findKeyword!=''">
 			<where>
 				<if test="findType==1">
@@ -36,13 +36,13 @@
 	</select>
 	
 	<select id="selectBoardAll" resultType="Board" parameterType="map">
-	select * from (select row_number() over(order by refer desc,lev asc) rn, b.*, 
+	select * from (select row_number() over(order by refer desc,sunbun asc) rn, b.*, 
 	(select bcg_name from board_category where bcg_code=b.bcg_code) bcg_name
 	from board b) 
 	</select>
 	
 	<select id="selectBoardAllPaging" parameterType="Paging" resultType="Board">
-		select * from (select row_number() over(order by refer desc,lev asc) rn, b.*, 
+		select * from (select row_number() over(order by refer desc,sunbun asc) rn, b.*, 
 		(select bcg_name from board_category where bcg_code=b.bcg_code) bcg_name
 		from board b <include refid="findWhere"/>)
 		<![CDATA[where rn > #{start} and rn < #{end}]]>
@@ -50,7 +50,7 @@
 
 	
 	<select id="selectBoardByIdx" resultType="Board" parameterType="int">
-	select * from (select row_number() over(order by refer desc,lev asc) rn, b.*, 
+	select * from (select row_number() over(order by refer desc,sunbun asc) rn, b.*, 
 	(select bcg_name from board_category where bcg_code=b.bcg_code) bcg_name
 	from board b) where num=#{num}
 	</select>
@@ -73,7 +73,24 @@
 	<update id="updateReadnum" parameterType="int">
 		update board set readnum=readnum+1 where num=#{value}
 	</update>
+	<!-- rewrite 답변형 게시판 1단계 -->
+	<select id="selectRefLevSunbun" parameterType="_int" resultType="Board">
+		select refer,lev,sunbun from board where num=#{value}
+	</select>
 	
+	<update id="updateSunbun" parameterType="Board">
+		update board set sunbun=sunbun+1 where refer=#{refer} and sunbun>#{sunbun}
+	</update>
+	
+	<insert id="rewriteBoard" parameterType="Board">
+		<selectKey keyProperty="num" resultType="_int" order="BEFORE">
+			select board_seq.nextval from dual
+		</selectKey>
+		insert into board(num,name,passwd,subject,content,wdate,readnum,filename,originFilename,
+		filesize, refer,lev,sunbun, bcg_code)
+		values (#{num},#{name},#{passwd},#{subject},#{content:VARCHAR},sysdate,#{readnum},
+		#{filename:VARCHAR},#{originFilename:VARCHAR},#{filesize:NUMERIC},#{refer},#{lev},#{sunbun},#{bcg_code})
+	</insert>
 	
 </mapper>
 

@@ -75,7 +75,7 @@ public class PagingVO {
 		String link=myctx+"/"+loc;
 		String qStr="?pageSize="+pageSize+"&findType="+findType+"&findType2="+findType2;
 				qStr+="&findKeyword"+findKeyword;
-		link+=qStr;
+		link+=qStr;  
 		StringBuilder buf=new StringBuilder();
 		buf.append("<ul class='pagination justify-content-center'>");
 		if(prevBlock>0) {

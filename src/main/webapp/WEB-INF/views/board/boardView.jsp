@@ -146,6 +146,7 @@
 		<!-- hidden으로 부모글의 글번호(num)와 제목(subject)를 넘기자 -->
 		<input type="hidden" name="num" value="<c:out value="${board.num}"/>">
 		<input type="hidden" name="subject" value="<c:out value="${board.subject}"/>">
+		<input type="hidden" name="bcg_code" value="<c:out value="${board.bcg_code}"/>">
 	</form>
 </div>
 <script>
