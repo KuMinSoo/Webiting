@@ -21,7 +21,7 @@
 			});
   		})
 </script>
-
+			<!-- Home 화면 슬라이더  -->
  <div class="page-wrapper" style= "position:relative;">
       <!--page slider -->
       <div class="post-slider">

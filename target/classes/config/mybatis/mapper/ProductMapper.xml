@@ -21,13 +21,6 @@
 		from product p order by pnum desc
 	</select>
 	
-	<select id="productListCategory" parameterType="string" resultType="Product">
-		select p.*,
-		(select upCg_name from upCategory where upCg_code=p.upCg_code) upCg_name,
-		(select downCg_name from downCategory where downCg_code=p.downCg_code) downCg_name 
-		from product p where downCg_code=#{value} order by pnum desc
-	</select>
-	
 	<select id="selectByPspec" resultType="Product" parameterType="string">
 		select * from product where pspec=#{value}
 	</select>
@@ -36,27 +29,47 @@
 		select * from product where pnum=#{value}
 	</select>
 	
-	<sql id="findWhere">
-		<if test="findKeyword!=''">
-			<where>
-					pname like '%'||#{findKeyword}||'%'
-			</where>
-		</if>
-	</sql>
+	<!-- 평점 mapper  -->
+	<select id="getRatingAverage" resultType="double">
+  		select avg(rating)
+  		from product
+  		where pnum = #{pnum}
+  	</select>
+
+	<update id="updateRating">
+		update vam_book
+		set ratingAvg = #{ratingAvg}
+		where pnum = #{pnum}
+	</update>
+	    <select id="productListCategory" parameterType="string" resultType="Product">
+        select p.*,
+        (select upCg_name from upCategory where upCg_code=p.upCg_code) upCg_name,
+        (select downCg_name from downCategory where downCg_code=p.downCg_code) downCg_name 
+        from product p where downCg_code=#{value} order by pnum desc
+    </select>
+	    
+    <sql id="findWhere">
+        <if test="findKeyword!=''">
+            <where>
+                    pname like '%'||#{findKeyword}||'%'
+            </where>
+        </if>
+    </sql>
+    
+    <select id="selectProductAllPaging" resultType="Product" parameterType="Paging">
+        select * from
+        (select row_number() over(order by pnum desc) rn, product.* 
+        from product 
+        <include refid="findWhere"/>
+        )
+        <![CDATA[
+        where rn > #{start} and rn < #{end}
+        ]]>
+    </select>
+    
+    <select id="getTotalCount" resultType="int" parameterType="Paging">
+        select count(pnum) from product
+        <include refid="findWhere"/>
+    </select>
 	
-	<select id="selectProductAllPaging" resultType="Product" parameterType="Paging">
-		select * from
-		(select row_number() over(order by pnum desc) rn, product.* 
-		from product 
-		<include refid="findWhere"/>
-		)
-		<![CDATA[
-		where rn > #{start} and rn < #{end}
-		]]>
-	</select>
-	
-	<select id="getTotalCount" resultType="int" parameterType="Paging">
-		select count(pnum) from product
-		<include refid="findWhere"/>
-	</select>
 </mapper>

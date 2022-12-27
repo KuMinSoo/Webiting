@@ -5,7 +5,6 @@ import java.util.List;
 import com.board.model.PagingVO;
 import com.product.model.CategoryVO;
 import com.product.model.ProductVO;
-import com.user.model.UserVO;
 
 public interface PAdminService {
 	
@@ -20,9 +19,10 @@ public interface PAdminService {
 	/** [������ ���]- ��ǰ ���� ����ϱ� */
 	public int productInsert(ProductVO prod);
 	public List<ProductVO> productList();
-	public List<ProductVO> productListCategory(String downCg_code);
-	List<ProductVO> selectProductAllPaging(PagingVO paging);
-
+	
+	/* 상세 페이지 service
+	 public int prodDetail(ProductVO prod); */
+	public List<ProductVO> productListCategory( String downCg_code);
+	public List<ProductVO> selectProductAllPaging(PagingVO paging);
 	public int getTotalCount(PagingVO page);
-
 }

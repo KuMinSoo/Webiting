@@ -2,8 +2,38 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <c:import url="/top" />
+<link href="../resources/css/star.css" rel="stylesheet"/>
+<style>
+.myform fieldset{
+    display: inline-block;
+    direction: rtl;
+    border:0;
+}
+.myform fieldset legend{
+    text-align: right;
+}
+.myform input[type=radio]{
+    display: none;
+}
+.myform label{
+    font-size: 1.2em;
+    /* color: transparent;
+    text-shadow: 0 0 0 #f0f0f0; */
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+    color:rgba(250, 208, 0, 0.99);
+}
+.myform label:hover{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+.myform label:hover ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+.myform input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+
+</style>
 <section>
 	<h2>
 		<em>인기상품</em>
@@ -24,11 +54,23 @@
 								src="../resources/product_images/${prod.pimage1}" />
 							<!-- Product details-->
 							<div class="card-body p-4">
-								<div class="text-center">
+								<div class="text-center myform">
 									<!-- Product name-->
 									<h5 class="fw-bolder">${prod.pname}</h5>
 									<!-- Product price-->
 									${prod.price}
+									<br>
+							  <fieldset>
+                              <input type="radio" name="reviewStar" value="5" id="rate1">
+                              <label for="rate1">★</label> 
+                              <input type="radio" name="reviewStar"value="4" id="rate2">
+                              <label for="rate2">★</label> 
+                              <input type="radio" name="reviewStar" value="3" id="rate3">
+                              <label for="rate3">★</label> <input type="radio" name="reviewStar"
+                                 value="2" id="rate4"><label for="rate4">★</label> <input
+                                 type="radio" name="reviewStar" value="1" id="rate5"><label
+                                 for="rate5">★</label>
+                           </fieldset>
 								</div>
 							</div>
 							<!-- Product actions-->
