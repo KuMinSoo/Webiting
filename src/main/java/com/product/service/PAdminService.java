@@ -19,5 +19,7 @@ public interface PAdminService {
 	public int productInsert(ProductVO prod);
 	public List<ProductVO> productList();
 	
-
+	/* 상세 페이지 service
+	 public int prodDetail(ProductVO prod); */
+	
 }

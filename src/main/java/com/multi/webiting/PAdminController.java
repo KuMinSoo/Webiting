@@ -42,13 +42,20 @@ public class PAdminController {
 		
 		return "/admin/prodForm";
 	}
+	
+	/* 상세 페이지 메핑
+	 * @GetMapping("/prodDetail") public String prodDetail(Model
+	 * model, @RequestParam("pnum") int pnum) { //1개를 받아온다 ProductVO prod =
+	 * adminService.getProductByPnum(pnum); //Service , mapper , mapper.xml(+쿼리문까지)
+	 * model.addAttribute("prod",prod);//${prod} return "/admin/prodDetail"; }
+	 */
+	
 	//ajax占쏙옙청占쏙옙 占쏙옙占쏙옙 json占쏙옙占쏙옙 占쏙옙占썰데占쏙옙占싶몌옙 占쏙옙占쏙옙占쏙옙
 	@GetMapping(value="/getDownCategory", produces = "application/json")
 	@ResponseBody
 	public List<CategoryVO> getDownCategory(@RequestParam("upCg_code") String upCg_code){
 		log.info("upCg_code==="+upCg_code);
 		List<CategoryVO> downCgList=adminService.getDowncategory(upCg_code);
-		log.info("ssssss"+downCgList.size());
 		return downCgList;
 	}
 	
@@ -58,7 +65,6 @@ public class PAdminController {
 			@ModelAttribute("product") ProductVO product, //pimage1,pimage2,pimage3
 			HttpServletRequest req) {		
 		log.info("product===="+product+">>>>");
-		//
 		ServletContext app=req.getServletContext();
 		String upDir=app.getRealPath("/resources/product_images");
 		log.info("upDir==="+upDir);
@@ -108,5 +114,35 @@ public class PAdminController {
 		
 		return "admin/prodList";
 	}
+	
+	
+	/* <---------- 썸네일 이미지 비율 조정 컨트롤러----------------->
+	 * private void makeThumbnail(String filePath, String fileName, String fileExt)
+	 * throws Exception {
+	 * 
+	 * BufferedImage srcImg = ImageIO.read(new File(filePath)); int dw = 250, dh =
+	 * 150; int ow = srcImg.getWidth(); int oh = srcImg.getHeight(); int nw = ow;
+	 * int nh = (ow * dh)/dw;
+	 * 
+	 * if(nh>oh) { nw = (oh * dw)/dh; nh = oh; }
+	 * 
+	 * BufferedImage cropImg = Scalr.crop(srcImg, (ow-nw)/2,(oh - nh)/2, nw, nh);
+	 * BufferedImage destImg = Scalr.resize(cropImg, dw, dh); String thumbName =
+	 * PATH + "THUMB_" + fileName; File thumbFile = new File(thumbName);
+	 * ImageIO.write(destImg, fileExt.toUpperCase(), thumbFile);
+	 * 
+	 * for(int i = 0; i<mpf.size(); i++) { String originalFileName =
+	 * mpf.get(i).getOriginalFilename(); int index =
+	 * originalFileName.lastIndexOf("."); String fileName =
+	 * originalFileName.substring(0,index); String fileExt =
+	 * originalFileName.substring(index+1);
+	 * 
+	 * File file = new File(PATH + OriginalFileName);
+	 * logger.info(file.getAbsolutePath());
+	 * 
+	 * mpf.get(i).trasferTo(file);
+	 * makeThumbnail(file.getAbsolutePath(),originalFileName,fileExt); } }
+	 */
+	
 }
 

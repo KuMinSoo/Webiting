@@ -3,10 +3,12 @@ package com.user.mapper;
 import java.util.List;
 
 
+
 import com.user.model.NotUserException;
 //import com.user.model.PagingVO;
 import com.user.model.UserVO;
 public interface UserMapper {
+	
 	int createUser(UserVO user);
 	
 	Integer idCheck(String userid);
