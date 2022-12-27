@@ -94,10 +94,13 @@
                                 <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
                             </ul>
                         </li>
-
-
-                     <li class="nav-item"><a class="nav-link" href="${myctx}/user/mypage">MyPage</a></li>
-
+                        
+					<!-- 유저만 들어오게 설정 -------------------------------------------------------------------- -->
+				 	<%-- <c:if test="${loginUser ne null }">
+                     	<li class="nav-item"><a class="nav-link" href="${myctx}/user/mypage">MyPage</a></li>
+					</c:if> --%>
+					<!-- test용 ------------------------------------------------------------------------------ -->
+					<li class="nav-item"><a class="nav-link" href="${myctx}/user/mypage/likeList">MyPage</a></li>
 
                     </ul>
                     <form class="d-flex">
