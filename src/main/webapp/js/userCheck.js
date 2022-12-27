@@ -165,6 +165,7 @@ function id_check(){
 	}
 	
 	mf.submit();
+	
 }//------------------------------
 
 function isEmail(input){

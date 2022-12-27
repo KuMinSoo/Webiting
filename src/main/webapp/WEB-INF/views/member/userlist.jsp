@@ -56,7 +56,7 @@
 	
 	<div class="row py-3">
 		<div class="col-md-9 text-center">
-			<form name="searchF" action="list" onsubmit="return check()">
+			<form name="searchF" action="userList" onsubmit="return check()">
 				<!-- hidden data ----------------------------------------- -->
 				<input type="hidden" name="pageSize" value="${pageSize }">
 				<input type="hidden" name="cpage" value="${paging.cpage }">

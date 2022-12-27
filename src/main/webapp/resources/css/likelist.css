@@ -1,0 +1,141 @@
+@charset "UTF-8";
+
+li{
+    text-align: -webkit-match-parent;
+    list-style: none;
+}
+
+li, table, form, input, button{
+	margin: 0;
+    -webkit-text-size-adjust: none;
+}
+
+.likeProdli{
+	display: table;
+	position: relative;
+	padding: 12px 0;
+	table-layout: fixed;
+	width: 80%;
+}
+
+input[type="checkbox" i] {
+    background-color: initial;
+    cursor: default;
+    appearance: auto;
+    box-sizing: border-box;
+    margin: 3px 3px 3px 4px;
+    padding: initial;
+    border: initial;
+}
+
+input {
+    writing-mode: horizontal-tb !important;
+    font-style: ;
+    font-variant-ligatures: ;
+    font-variant-caps: ;
+    font-variant-numeric: ;
+    font-variant-east-asian: ;
+    font-weight: ;
+    font-stretch: ;
+    font-size: ;
+    font-family: ;
+    text-rendering: auto;
+    color: fieldtext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    background-color: field;
+    margin: 0em;
+    padding: 1px 2px;
+    border-width: 2px;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+}
+
+.likeProdDetail{
+	display: table-cell;
+    padding: 0 45px 0 18px;
+    vertical-align: middle;
+}
+
+.likeThumbnail{
+	position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border: 1px solid rgba(0,0,0,.08);
+    content: "";
+}
+
+.lindate{
+	margin-bottom: 11px;
+    color: #555;
+}
+
+.likeprodlink{
+	display: block;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    line-height: 19px;
+    white-space: nowrap;
+    margin-bottom: 3px;
+    font-size: 14px;
+    color: #666;
+}
+
+.lprice{
+	font-size: 14px;
+    font-family: Tahoma,sans-serif;
+    vertical-align: top;
+}
+
+.likedelButton{
+	position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 20;
+    width: 36px;
+    height: 36px;	
+}
+
+.likedelButton:after{
+	background-image: url(https://shopv.pstatic.net/web/shopping-web/vp/static/20221221174656/img/sprite/png/spSv_my.png);
+    background-size: 401px 369px;
+    background-position: -85px -356px;
+    width: 12px;
+    height: 11px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    content: "";
+}
+
+button{
+	border: none;
+    background-color: transparent;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+.blind {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}

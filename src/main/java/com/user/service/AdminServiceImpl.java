@@ -52,10 +52,4 @@ public class AdminServiceImpl implements AdminService {
 		return this.aMapper.selectUserAllPaging(paging);
 	}
 
-//	@Override
-//	public List<UserVO> listUser() {
-//		return this.aMapper.listUser();
-//	}
-
-
 }

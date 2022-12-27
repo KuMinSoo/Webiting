@@ -184,9 +184,14 @@ function selectDownCategoryHome(upCode){
                      <li class="nav-item"><a class="nav-link" href="${myctx}/prodList">상품목록</a></li>
                      <li class="nav-item"><a class="nav-link" href="${myctx}/board/write">Board Form</a></li>
                      <li class="nav-item"><a class="nav-link" href="${myctx}/board/list">Board List</a></li>
-                     
 
-                     <li class="nav-item"><a class="nav-link" href="${myctx}/user/mypage">MyPage</a></li>
+                     <!-- 유저만 들어오게 설정 -------------------------------------------------------------------- -->
+				 	<%-- <c:if test="${loginUser ne null }">
+                     	<li class="nav-item"><a class="nav-link" href="${myctx}/user/mypage">MyPage</a></li>
+					</c:if> --%>
+					<!-- test용 ------------------------------------------------------------------------------ -->
+
+                     <li class="nav-item"><a class="nav-link" href="${myctx}/user/mypage/likeList">MyPage</a></li>
 					 <li id="shop" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                             		 aria-expanded="false">Shop</a>
@@ -206,6 +211,10 @@ function selectDownCategoryHome(upCode){
                      			</li>	
                             </ul>
                         </li>
+
+                        
+                        
+
                     </ul>
                     <!-- 검색폼 시작------------------------- -->
 	

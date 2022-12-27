@@ -7,8 +7,6 @@ import com.board.model.PagingVO;
 import com.user.model.UserVO;
 
 public interface AdminService {	
-	//List<UserVO> listUser();
-	
 	int deleteUser(Integer midx);
 
 	int updateUser(UserVO user);

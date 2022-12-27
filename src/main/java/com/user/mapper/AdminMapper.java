@@ -10,8 +10,6 @@ public interface AdminMapper {
 
 	int deleteUser(Integer midx);
 	
-	//List<UserVO> listUser();
-	
 	int updateUser(UserVO user);
 
 	UserVO selectUserByIdx(int idx);
