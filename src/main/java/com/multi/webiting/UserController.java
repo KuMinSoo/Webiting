@@ -125,14 +125,12 @@ public class UserController {
 		return reqUrl;
 	}
 	
-	// 카카占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙회
 	@RequestMapping(value ="/login/oauth_kakao")
 	public String oauthKakao(@RequestParam(value = "code") String code,Model m,
 			HttpServletRequest request, HttpSession ses)
 			throws Exception {
 		//String code = request.getParameter("code");
 	    String error = request.getParameter("error");
-	    // 移댁뭅�삤濡쒓렇�씤 �럹�씠吏��뿉�꽌 痍⑥냼踰꾪듉 �닃���쓣寃쎌슦
 	    if (error != null) {
 	        if (error.equals("access_denied")) {
 	            return "redirect:/login";
@@ -151,7 +149,6 @@ public class UserController {
         String kakaoEmail = kakaoAccountJsonObject.get("email").toString();
         log.info(kakaoEmail);
         
-        //View�뿉�꽌 �궗�슜�븷 蹂��닔 �꽕�젙
         
         if (kakaoEmail != null&&!kakaoEmail.trim().equals("")) {
         	UserVO vo=uService.emailCheck(kakaoEmail);
@@ -165,7 +162,6 @@ public class UserController {
         	ses.setAttribute("loginUser", vo);
         	return common.addMsgLoc(m, "카카오 로그인 성공", "/index");
 	    
-	    // 移댁뭅�삤�넚 �젙蹂댁“�쉶 �떎�뙣�뻽�쓣寃쎌슦
 	    } else {
 	    	throw new NotUserException("등록된 회원이 없습니다.");
 	    }

@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.board.model.PagingVO;
 import com.product.mapper.CategoryMapper;
 import com.product.mapper.ProductMapper;
 import com.product.model.CategoryVO;
@@ -51,6 +52,21 @@ public class PAdminServiceImpl implements PAdminService {
 	@Override
 	public List<ProductVO> productList() {		
 		return this.productMapper.getProducts();
+	}
+
+	@Override
+	public List<ProductVO> productListCategory( String downCg_code) {
+		return this.productMapper.productListCategory(downCg_code);
+	}
+
+	@Override
+	public List<ProductVO> selectProductAllPaging(PagingVO paging) {
+		return this.productMapper.selectProductAllPaging(paging);
+	}
+
+	@Override
+	public int getTotalCount(PagingVO page) {
+		return this.productMapper.getTotalCount(page);
 	}
 
 }

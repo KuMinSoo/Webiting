@@ -39,6 +39,115 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style type="text/css">
+#Category {
+    float: left;
+    font-weight: bold;
+    position: relative;
+    
+}
+.menu_pan {
+    width: 100%;
+    background: #fff;
+    position: absolute;
+    left: 0;
+    top:100%;
+    z-index: 999;
+    padding-left: 180px;
+    font-size: 15px;
+}
+.navbar{
+	position:fixed;
+	z-index:1;
+	width:100%;
+
+}
+</style>
+<script type="text/javascript">
+$(function(){
+	$('#Category').mouseenter(function(){
+		//alert('test');
+           $('.upcate').css({ 
+               display:'block'
+           })
+    });
+	$('.upcate').mouseenter(function(){
+	    $('.upcate').css({
+	        display:'block'
+    	});
+    	$('.selectDcg').css({
+	        display:'block'
+    	});
+	});
+	$('.upcate').mouseleave(function(){
+	    $('.upcate').css({
+	        display:'none'
+	    });
+	    $('.selectDcg').css({
+	        display:'none'
+    	});
+	});
+	$('.selectDcg').mouseenter(function(){
+	    $('.selectDcg').css({
+	        display:'block'
+    	});
+    	$('.upcate').css({
+	        display:'block'
+    	});
+	});
+	$('.selectDcg').mouseleave(function(){
+	    $('.selectDcg').css({
+	        display:'none'
+	    });
+	    $('.upcate').css({
+	        display:'block'
+    	});
+	});
+	
+})
+function check(){
+		if(!searchF.findType.value){
+			alert('검색 유형을 선택하세요');
+			return false;
+		}
+		if(!searchF.findKeyword.value){
+			alert('검색어를 입력하세요');
+			searchF.findKeyword.focus();
+			return false;
+		}
+		return true;
+	}
+
+
+function selectDownCategoryHome(upCode){
+		//alert(upCode);
+		//ajax로 요청보내기. get방식으로 upCg_code를 파라미터값으로 전달하면, json으로 받아보자
+		//url: getDownCategory
+		$.ajax({
+			type:'get',
+			url:'getDownCategoryHome?upCg_code='+upCode,
+			dataType:'json',
+			cache:false
+		})
+		.done(function(res){
+			//alert(JSON.stringify(res));
+			//응답 결과를 받아서 select 태그 만들어서 id가 selectDcg인 곳에 응답 html데이터를 넣기
+			let str="";
+			$.each(res, function(i, item){
+				str+='<li class="dropdown-item-right"><a href="/prodListCategory?downCg_code='
+						+item.downCg_code+'">'+item.downCg_name+'</a></li>';
+			});
+			//alert(str);	
+			$('.selectDcg').html(str);
+			
+		})
+		.fail(function(err){
+			alert('err');
+		})
+		
+	}//----------------------------
+
+</script>
     </head>
 
 
@@ -70,36 +179,62 @@
                           <a class="nav-link" href="#" onclick="Logout()">Logout</a>
                         </li>
                      </c:if>
+                     
                      <li class="nav-item"><a class="nav-link" href="${myctx}/admin/prodForm">상품등록</a></li>
-                     <li class="nav-item"><a class="nav-link" href="${myctx}/admin/prodList">상품목록</a></li>
+                     <li class="nav-item"><a class="nav-link" href="${myctx}/prodList">상품목록</a></li>
                      <li class="nav-item"><a class="nav-link" href="${myctx}/board/write">Board Form</a></li>
                      <li class="nav-item"><a class="nav-link" href="${myctx}/board/list">Board List</a></li>
-                        <li class="nav-item dropdown">
-
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-
-                                	<li><a class="nav-link dropdown-toggle text-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">카테고리</a>
-                                		<div>
-                                			<ul class="dropdown-menu2" aria-labelledby="navbarDropdown">
-                                				<li><a class="dropdown-item" href="#!">test</a></li>
-                                			</ul>
-                                		</div>
-                                	</li>
-
-
-                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                            </ul>
-                        </li>
-
+                     
 
                      <li class="nav-item"><a class="nav-link" href="${myctx}/user/mypage">MyPage</a></li>
-
-
+					 <li id="shop" class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                            		 aria-expanded="false">Shop</a>
+                            	<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                	<li><a class="dropdown-item" href="/admin/prodList">All Products</a></li>
+                                	<li><hr class="dropdown-divider" /></li>
+									<li class="nav-item" id="Category"><a class="dropdown-item" href="#" >카테고리</a>
+                     				<div class="menu_pan" > 
+                     					<!-- <li><hr class="dropdown-divider" /></li> -->
+	                            		<c:forEach var="up" items="${upCgList}">
+                               			<li class="upcate dropdown-item"  style="display:none;"><a href="#" 
+                               			onmouseover ="selectDownCategoryHome(${up.upCg_code})">
+                               			${up.upCg_name}</a> </li>
+										</c:forEach>
+										<div class="selectDcg"></div>
+                     				</div>
+                     			</li>	
+                            </ul>
+                        </li>
                     </ul>
+                    <!-- 검색폼 시작------------------------- -->
+	
+		<div class="row py-3">
+			<div class="col-md-9 text-center">
+				<form name="searchF" action="prodList" onsubmit="return check()">
+					<input type="hidden" name="pageSize" value="${pageSize}">
+					<input type="hidden" name="cpage" value="${paging.cpage}">
+					<%-- <select name="findType" style="padding:6px;">
+						<option value="">:::검색유형:::</option>
+						<option value="1" <c:if test="${paging.findType eq 1}">selected</c:if>>글제목</option>
+						<option value="2" <c:if test="${paging.findType eq 2}">selected</c:if>>작성자</option>
+						<option value="3" <c:if test="${paging.findType eq 3}">selected</c:if>>글내용</option>
+					</select> --%>
+					<input type="text" name="findKeyword" placeholder="검색" 
+							 style="width:50%;padding:5px;">
+					<button class="btn btn-outline-primary">검  색</button>
+				</form>
+			</div>
+			<div class="col-md-3 text-right">
+				<form name="pageSizeF" action="list">
+					<%-- <input type="hidden" name="findType" value="${paging.findType}"> --%>
+					<input type="hidden" name="findKeyword" value="${paging.findKeyword}">
+					<input type="hidden" name="cpage" value="${paging.cpage}">
+				</form>
+			</div>
+		</div>
+	
+	<!-- -------------------------------- -->
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>

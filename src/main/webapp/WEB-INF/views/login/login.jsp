@@ -22,27 +22,26 @@ function kakaoLogin() {
     });
 
   }
+function login_check(){
+ 	if(!lmf.userid.value){
+		alert('아이디를 입력해야해요');
+		lmf.userid.focus();
+		return;
+	}
+	if(!lmf.pwd.value){
+		alert('비밀번호를 입력해야해요');
+		lmf.pwd.focus();
+		return;
+	}
+		lmf.submit();
+ }
+ 
 
-  $(document).ready(function() {
-
-      var kakaoInfo = '${kakaoInfo}';
-
-      if(kakaoInfo != ""){
-          var data = JSON.parse(kakaoInfo);
-
-          alert("카카오로그인 성공 \n accessToken : " + data['accessToken']);
-          alert(
-          "user : \n" + "email : "
-          + data['email']  
-          + "\n nickname : " 
-          + data['nickname']);
-      }
-  });  
 </script>
 <div class="container mt-3" style="height: 600px; overflow: auto;">
 	<h1 class="text-center">Login Page</h1>
 
-	<form name="mf" action="login" method="post">
+	<form name="lmf" action="login" method="post">
 		<table class="table text-center">
 			<tr>
 				<td width="40%" class="m1 text-right"><b>아이디</b></td>
@@ -61,12 +60,13 @@ function kakaoLogin() {
 				</a></td>
 			</tr>
 			<tr>
-				<td colspan="2"><button class="btn btn-primary">로그인</button></td>
+				<td colspan="2"><button class="btn btn-primary" type="button"
+				onclick="login_check()">로그인</button></td>
 			</tr>
 		</table>
 	</form>
-
-
+		<button class="btn btn-primary" style="display: block; margin:auto;width:fit-content;" onclick="location.href='/join'">회원가입</button>
+		
 </div>
 
 <c:import url="/foot" />

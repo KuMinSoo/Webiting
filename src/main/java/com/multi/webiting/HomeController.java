@@ -24,11 +24,11 @@ public class HomeController {
 		return "/top";
 	}
 	
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String home() {
 				
 		return "/index";
-	}
+	}*/
 	@RequestMapping("/header")
 	public String header() {
 		return "/header";

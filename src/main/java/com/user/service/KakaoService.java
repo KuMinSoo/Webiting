@@ -117,47 +117,6 @@ public class KakaoService {
 	
 	
 	
-	/*
-	 * public HashMap<String, Object> getUserInfo (String access_Token) {
-	 * 
-	 * HashMap<String, Object> userInfo = new HashMap<String, Object>(); String
-	 * reqURL = "https://kapi.kakao.com/v2/user/me"; try { URL url = new
-	 * URL(reqURL); HttpURLConnection conn = (HttpURLConnection)
-	 * url.openConnection(); conn.setRequestMethod("GET");
-	 * 
-	 * conn.setRequestProperty("Authorization", "Bearer " + access_Token);
-	 * 
-	 * int responseCode = conn.getResponseCode();
-	 * System.out.println("responseCode : " + responseCode);
-	 * 
-	 * BufferedReader br = new BufferedReader(new
-	 * InputStreamReader(conn.getInputStream()));
-	 * 
-	 * String line = ""; String result = "";
-	 * 
-	 * while ((line = br.readLine()) != null) { result += line; }
-	 * System.out.println("response body : " + result);
-	 * 
-	 * JsonParser parser = new JsonParser(); JsonElement element =
-	 * parser.parse(result);
-	 * 
-	 * JsonObject properties =
-	 * element.getAsJsonObject().get("properties").getAsJsonObject(); JsonObject
-	 * kakao_account =
-	 * element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-	 * 
-	 * String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-	 * String email = kakao_account.getAsJsonObject().get("email").getAsString();
-	 * 
-	 * userInfo.put("accessToken", access_Token); userInfo.put("nickname",
-	 * nickname); userInfo.put("email", email);
-	 * 
-	 * } catch (IOException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); }
-	 * 
-	 * return userInfo; }
-	 */
-	
 	private final String HTTP_REQUEST = "https://kapi.kakao.com/v2/user/me";
 
     public String getUserInfo(String accessToken){

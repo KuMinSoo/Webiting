@@ -76,7 +76,7 @@ function id_check(){
 	}
 	idf.submit();
 }//--------------------------
- 
+
  
  
  function member_check(){
