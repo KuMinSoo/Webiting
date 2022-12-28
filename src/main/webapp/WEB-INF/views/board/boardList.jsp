@@ -29,6 +29,8 @@ function check(){
 	}
 	return true;
 }
+
+
 </script>
 
 
@@ -93,16 +95,16 @@ function check(){
 						<img src="../../resources/images/reply.jpg">
 					</c:if>
 					<a href="view/<c:out value="${board.num}"/>" >
-						<c:if test="${fn:length(board.subject)>20}">
-							<c:out value="${fn:substring(board.subject,0,20)}"/>
+						<c:if test="${fn:length(board.subject)>30}">
+							<c:out value="${fn:substring(board.subject,0,30)}"/>
 						</c:if>
-						<c:if test="${fn:length(board.subject)<=20}">
+						<c:if test="${fn:length(board.subject)<=30}">
 							<c:out value="${board.subject}"/>
-						</c:if>
-					</a>	
+							
+						</c:if>	</a>	
 					</td>
 					<td class='text-center'>
-						<c:out value="${board.name}"/>
+							<c:out value="${board.name}"/>
 					</td>
 					<td class='text-center'>
 						<c:out value="${board.wdate}"/>

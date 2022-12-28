@@ -71,6 +71,17 @@ public class BoardController {
 			
 			UUID uuid=UUID.randomUUID();//파일 중복저장을 막기위한 랜덤값 설정
 			String filename=uuid.toString()+"_"+originFname;//실제 업로드 시킬파일	
+			
+			if(board.getMode().equals("edit")&& board.getOld_filename()!=null) {
+				//수정 모드라면 예전에 업로드했던 파일은 삭제 처리
+				File delF=new File(upDir, board.getOld_filename());
+				if(delF.exists()) {
+					boolean b=delF.delete();
+					log.info("old file삭제여부: "+b);
+				}
+				
+			}
+				
 			try {
 				mfilename.transferTo(new File(upDir,filename));//해당절대경로에 실제 업로드함
 			} catch (Exception e) {
@@ -81,6 +92,9 @@ public class BoardController {
 			board.setOriginFilename(originFname);//원본 파일이름
 			board.setFilesize(fsize);
 		}
+		
+		
+		
 		if(board.getName()==null||board.getSubject()==null||board.getPasswd()==null||
 			board.getName().trim().isEmpty()||board.getSubject().trim().isEmpty()||board.getPasswd().isEmpty()) {
 			return "redirect:write";
@@ -101,9 +115,7 @@ public class BoardController {
 			str+="답변 ";
 		}
 		
-		
-		
-		str=(n>0)?"성공":"실패";
+		str+=(n>0)?"성공":"실패";
 		loc=(n>0)?"list":"javascript:history.back()";
 		
 		return util.addMsgLoc(m, str, loc);

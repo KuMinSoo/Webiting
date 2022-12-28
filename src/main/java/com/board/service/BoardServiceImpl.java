@@ -82,8 +82,12 @@ public class BoardServiceImpl implements BoardService {
 	public int rewriteBoard(BoardVO board) {		
 		//[1] 부모글(원글)의 글번호(num)로 부모글의 refer(글그룹번호), lev(답변레벨), sunbun(순번) 가져오기
 		//==> select문
-		BoardVO parent=this.boardMapper.selectRefLevSunbun(board.getNum());
+		log.info("22222222############################"+board);
 		
+		BoardVO parent=this.boardMapper.selectRefLevSunbun(board.getNum());
+		log.info("22222222############################"+board.getNum());
+		
+		log.info("############################"+parent);
 		//[2] 기존에 달린 답변글 들이 있다면 내 답변글을 insert하기 전에 기존의 답변글들의 sunbun을 하나씩 증가시키자.
 		//==> update문
 		

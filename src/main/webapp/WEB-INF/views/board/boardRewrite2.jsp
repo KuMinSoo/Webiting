@@ -35,7 +35,8 @@
 	<h1 class='text-center'>답변 작성하기</h1>
 	<form name="bf" id="bf" role="form" action="write" method="POST"
 		enctype="multipart/form-data">
-		<input type="hidden" name="mode" value="write">
+		<input type="hidden" name="mode" value="rewrite">
+		<input type="hidden" name="num" value="<c:out value='${num}'/>">
 		<!-- 원본글쓰기mode는 write, 답변글쓰기 mode는 rewrite로 감  -->
 		<table class="table">
 				<tr>
@@ -72,7 +73,7 @@
 				</tr>
 				<tr>
 					<td colspan="2"><input type="text" name="subject" id="subject"
-						placeholder="제목" class="form-control" value="[RE]${subject}"></td>
+						placeholder="제목" class="form-control" value="${subject}"></td>
 				</tr>
 				<tr>
 					<td colspan="2"><textarea name="content" id="content"
