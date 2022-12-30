@@ -76,5 +76,12 @@
         select count(pnum) from product 
         where downCg_code=#{value}
     </select>
+
+					<!-- 상세 페이지 매퍼 -->
+	<select id = "detailProduct" resultType = "product" parameterType="_int">
+		select * from product where pnum = #{pnum}
+	</select>
+	 
+	  
 	
 </mapper>

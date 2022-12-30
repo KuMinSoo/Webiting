@@ -1,5 +1,7 @@
 package com.product.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 //html 의 input name과 VO의 property명, DB table의 column명을 일치시켜주면 편리하다
 @Data
@@ -37,6 +39,9 @@ public class ProductVO {
 	private int totalPoint; /*총포인트 = 포인트 x수량*/
 	
 	private String onum; //상품 주문시 사용할 주문번호
+	
+//	private String productUrl; 상품 이미지 경로
+//	private MultipartFile productPhoto;  상품 이미지 파일
 	
 	public void setPqty(int pqty) {
 		this.pqty = pqty;

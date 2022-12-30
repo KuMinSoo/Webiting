@@ -1,0 +1,55 @@
+@charset "UTF-8";
+	/* prodDetail css */
+#text_in_the_image{
+		float: left;
+		margin-top: 50px;
+		margin-left: 130px;
+		text-align: left;
+	}
+	
+	#text_in_the_image h1{
+		font-size: 5em;
+		font-family: 'Impact';
+	}
+	
+	#text_in_the_image h3{
+		font-size: 3em;
+		font-family: 'Copperplate';
+	}	
+	
+	#text_in_the_image p{
+		font-size: 8em;
+		font-family: 'Impact';
+	}	
+	
+	#text_in_the_image p span{
+	
+		text-align: center;
+		font-family: 'Impact';
+		color: red;
+		text-shadow: 3px 4px 5px gray;
+	}
+	
+	.container{
+		margin-top: 50px;
+	}
+	
+	.products li{
+		list-style: none;
+	}
+	
+	.products li .scale{
+		text-align: center;
+		font-family: '나눔명조 Bold';
+	}
+	
+	.nav li{
+		cursor: pointer;
+	}
+	
+	.about_product li{
+		list-style: none;
+	}
+	.about_product li img{
+		margin: 70px 0;
+	}

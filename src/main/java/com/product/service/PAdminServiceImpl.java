@@ -11,7 +11,6 @@ import com.product.mapper.CategoryMapper;
 import com.product.mapper.ProductMapper;
 import com.product.model.CategoryVO;
 import com.product.model.ProductVO;
-import com.product.model.UpdateReplyDTO;
 
 @Service("padminService")
 public class PAdminServiceImpl implements PAdminService {
@@ -55,23 +54,11 @@ public class PAdminServiceImpl implements PAdminService {
 		return this.productMapper.getProducts();
 	}
 	
-	//  상품 평점
-	public void setRating(int pnum) {
+//	// 상세 페이지 PAdminservice 인터페이스 구현 클래스
+	@Override
+	public ProductVO detailProduct(int pnum) {
 		
-		Double ratingAvg = ProductMapper.getRatingAverage(pnum);
-		
-		if(ratingAvg == null) {
-			ratingAvg = 0.0;
-		}
-		
-		ratingAvg = (double) (Math.round(ratingAvg*10));
-		ratingAvg = ratingAvg / 10;
-		
-		UpdateReplyDTO urd = new UpdateReplyDTO();
-		urd.setPnum(pnum);
-		urd.setRatingAvg(ratingAvg);		
-	
-		ProductMapper.UpdateRating(urd);		
+		return this.productMapper.detailProduct(pnum);
 	}
 
 	@Override

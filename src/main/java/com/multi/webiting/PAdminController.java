@@ -27,17 +27,18 @@ import com.product.model.ProductVO;
 import com.product.service.PAdminService;
 import com.user.model.UserVO;
 
+
 import lombok.extern.log4j.Log4j;
 
 @Controller
 //@RequestMapping("/admin")
 @Log4j
 public class PAdminController {
-	
+
 	@Inject
-	@Qualifier(value="padminService")
+	@Qualifier(value = "padminService")
 	private PAdminService adminService;
-	
+
 	@GetMapping("/index")
 	public String home(HttpSession ses) {
 		List<CategoryVO> upCgList=adminService.getUpcategory();
@@ -50,11 +51,20 @@ public class PAdminController {
 	
 	@GetMapping("/admin/prodForm")
 	public String productForm(Model m) {
-		List<CategoryVO> upCgList=adminService.getUpcategory();
-		log.info("upCgList=="+upCgList);
+		List<CategoryVO> upCgList = adminService.getUpcategory();
+		log.info("upCgList==" + upCgList);
 		m.addAttribute("upCgList", upCgList);
-		
+
 		return "/admin/prodForm";
+	}
+
+	// 상세 페이지 컨트롤러
+	@GetMapping("/prodDetail")
+	public String deteil(Model m, @RequestParam("pnum") int pnum) {
+		m.addAttribute("pcontents", adminService.detailProduct(pnum));
+
+		return "/admin/prodDetail";
+
 	}
 	
 	/* 상세 페이지 메핑
@@ -108,23 +118,21 @@ public class PAdminController {
 						
 						if(i==0) {
 							product.setPimage1(mfile.getOriginalFilename());
-						}else if(i==1) {
+						} else if (i == 1) {
 							product.setPimage2(mfile.getOriginalFilename());
-						}else if(i==2) {
+						} else if (i == 2) {
 							product.setPimage3(mfile.getOriginalFilename());
-						}
-						 
+						}	 
 					} catch (IOException e) {						
-						log.error("占쏙옙占쏙옙 占쏙옙占싸듸옙 占쏙옙占쏙옙: "+e);
+						log.error("파일 업로드 에러: "+e);
 					}
-					
 				}
 			}//for---------------
 			//log.info("占쏙옙占싸듸옙 占쏙옙占쏙옙 product==="+product);
 		}
 		int n=adminService.productInsert(product);
 		String str=(n>0)?"상품등록 성공":"상품등록 실패";
-		String loc=(n>0)?"../prodList":"javascript:history.back()";
+		String loc=(n>0)?"prodList":"javascript:history.back()";
 		
 		m.addAttribute("message",str);
 		m.addAttribute("loc",loc);
@@ -132,11 +140,26 @@ public class PAdminController {
 	}//------------------------------------------
 	
 	/*@GetMapping("/admin/prodList")
+=======
+			} // for---------------
+			log.info("占쏙옙占싸듸옙 占쏙옙占쏙옙 product===" + product);
+		}
+		int n = adminService.productInsert(product);
+		String str = (n > 0) ? "占쏙옙품占쏙옙占� 占쏙옙占쏙옙" : "占쏙옙占� 占쏙옙占쏙옙";
+		String loc = (n > 0) ? "prodList" : "javascript:history.back()";
+
+		m.addAttribute("message", str);
+		m.addAttribute("loc", loc);
+		return "msg";
+	}// ------------------------------------------
+
+	@GetMapping("/prodList")
+>>>>>>> origin/김경회
 	public String productList(Model m) {
-		
-		List<ProductVO> prodArr=adminService.productList();
-		m.addAttribute("prodArr",prodArr);
-		
+
+		List<ProductVO> prodArr = adminService.productList();
+		m.addAttribute("prodArr", prodArr);
+
 		return "admin/prodList";
 	}*/
 	@GetMapping("/prodListForm")
@@ -186,35 +209,5 @@ public class PAdminController {
 		//m.addAttribute("upCg")
 		return "admin/prodList";
 	}
-	
-	
-	/* <---------- 썸네일 이미지 비율 조정 컨트롤러----------------->
-	 * private void makeThumbnail(String filePath, String fileName, String fileExt)
-	 * throws Exception {
-	 * 
-	 * BufferedImage srcImg = ImageIO.read(new File(filePath)); int dw = 250, dh =
-	 * 150; int ow = srcImg.getWidth(); int oh = srcImg.getHeight(); int nw = ow;
-	 * int nh = (ow * dh)/dw;
-	 * 
-	 * if(nh>oh) { nw = (oh * dw)/dh; nh = oh; }
-	 * 
-	 * BufferedImage cropImg = Scalr.crop(srcImg, (ow-nw)/2,(oh - nh)/2, nw, nh);
-	 * BufferedImage destImg = Scalr.resize(cropImg, dw, dh); String thumbName =
-	 * PATH + "THUMB_" + fileName; File thumbFile = new File(thumbName);
-	 * ImageIO.write(destImg, fileExt.toUpperCase(), thumbFile);
-	 * 
-	 * for(int i = 0; i<mpf.size(); i++) { String originalFileName =
-	 * mpf.get(i).getOriginalFilename(); int index =
-	 * originalFileName.lastIndexOf("."); String fileName =
-	 * originalFileName.substring(0,index); String fileExt =
-	 * originalFileName.substring(index+1);
-	 * 
-	 * File file = new File(PATH + OriginalFileName);
-	 * logger.info(file.getAbsolutePath());
-	 * 
-	 * mpf.get(i).trasferTo(file);
-	 * makeThumbnail(file.getAbsolutePath(),originalFileName,fileExt); } }
-	 */
-	
-}
 
+}
