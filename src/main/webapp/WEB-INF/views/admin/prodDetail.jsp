@@ -225,7 +225,7 @@ $.getJSON("/admin/prodDetail/{pimage1}/" + pimage1, function(result) {
 
 		<div class="row qnas" style="text-align: center; height: 700px;">
             		<!-- QnA 테이블 --> 				
-    		<table class="table table-hover" style="width: 110%; margin: auto;">
+    		<table class="table table-hover" style="width: 90%; margin: auto;">
 				<thead>
 					<!-- <h1 class="page-header">상품 QnA</h1> -->
 					<tr>

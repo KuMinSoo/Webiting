@@ -73,7 +73,7 @@
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 								<div class="text-center">
 									<a class="btn btn-outline-dark mt-auto"
-										href="/admin/prodDetail?pnum=${prod.pnum}">prodDetail</a>
+										href="/prodDetail?pnum=${prod.pnum}">prodDetail</a>
 								</div>
 							</div>
 						</div>

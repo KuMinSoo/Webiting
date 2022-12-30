@@ -22,7 +22,7 @@ public class ProductController {
 	@Inject
 	private ShopService shopService;
 
-	//pspec(HIT,NEW,BEST) º°·Î »óÇ°¸ñ·Ï °¡Á®¿À±â
+	//pspec(HIT,NEW,BEST) ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@GetMapping("/prodPspec")
 	public String productByPspec(Model m, @RequestParam(name="pspec", defaultValue="HIT") String pspec) {
 		log.info("pspec==="+pspec);
@@ -33,7 +33,7 @@ public class ProductController {
 		
 		return "shop/mallHit";
 	}//-------------------------------------
-	@GetMapping("/prodDetail")
+	/*@GetMapping("/prodDetail")
 	public String productDetail(Model m, @RequestParam(defaultValue="0") int pnum, HttpSession ses) {
 		if(pnum==0) {
 			return "redirect:index";
@@ -42,6 +42,6 @@ public class ProductController {
 		ProductVO vo=this.shopService.selectByPnum(pnum);
 		m.addAttribute("prod",vo);
 		return "shop/prodDetail";
-	}//-------------------------------------
+	}//-------------------------------------*/
 	
 }
