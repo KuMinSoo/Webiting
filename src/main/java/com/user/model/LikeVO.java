@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LikeprodVO {
+public class LikeVO {
 	private int idx;
 	private int pnum;
 	private String pname;

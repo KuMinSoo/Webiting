@@ -70,13 +70,13 @@ function subcheck()
 		<td> 상품이미지 </td>
 		<td> 상품명 </td>
 		<td> 상품가격 </td>
-		<td> 날짜 </td>
+		<td> 구매수량 </td>
 		<td> 삭제하기 </td>
 	</tr>
 
 	<c:if test="${likeArr eq null or empty likeArr}">
 		<tr>
-			<td>좋아요를 누르면 관심 상품 목록에 추가됩니다.</td>
+			<td>장바구니에 상품이 없습니다.</td>
 		</tr>
 	</c:if>
 	
@@ -97,11 +97,49 @@ function subcheck()
 	<tr height="80">
        <td colspan="6">
        	<button class="checkdel_btn">선택삭제</button>
-        <input type="button" value="장바구니이동" onclick="move_cart()">
        </td>
      </tr>
-
 	</table>
+	<!-- 가격 종합 -->
+	<div class="content_total_section">
+		<div class="total_wrap">
+			<table>
+				<tr>
+					<td>
+						<table>
+							<tr>
+								<td>총 상품 가격</td>
+								<td>
+									<span class="totalPrice_span">0000</span> 원
+								</td>
+							</tr>
+							<tr>
+								<td>배송비</td>
+								<td>
+									<span class="delivery_price">0000</span>원
+								</td>
+							</tr>									
+							<tr>
+								<td>총 적립 예상 마일리지</td>
+								<td><span class="totalPoint_span">0000</span> 원</td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>							
+					</td>
+				</tr>
+			</table>			
+	</div>
+	<!-- 구매 버튼 영역 -->
+	<div class="content_btn_section">
+		<a class="order_btn">주문하기</a>
+	</div>
 </div>
 
 <form action="/mypage/like_del" method="post" class="like_delete_form">

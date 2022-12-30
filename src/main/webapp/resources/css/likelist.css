@@ -5,6 +5,10 @@ li{
     list-style: none;
 }
 
+.likeProdli{
+	border: 1px solid rgba(0,0,0,.08);
+}
+
 li, table, form, input, button{
 	margin: 0;
     -webkit-text-size-adjust: none;
@@ -30,15 +34,6 @@ input[type="checkbox" i] {
 
 input {
     writing-mode: horizontal-tb !important;
-    font-style: ;
-    font-variant-ligatures: ;
-    font-variant-caps: ;
-    font-variant-numeric: ;
-    font-variant-east-asian: ;
-    font-weight: ;
-    font-stretch: ;
-    font-size: ;
-    font-family: ;
     text-rendering: auto;
     color: fieldtext;
     letter-spacing: normal;
@@ -67,16 +62,6 @@ input {
     vertical-align: middle;
 }
 
-.likeThumbnail{
-	position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border: 1px solid rgba(0,0,0,.08);
-    content: "";
-}
-
 .lindate{
 	margin-bottom: 11px;
     color: #555;
@@ -100,7 +85,7 @@ input {
     vertical-align: top;
 }
 
-.likedelButton{
+.likedelBtn{
 	position: absolute;
     top: 0;
     right: 0;
@@ -109,7 +94,7 @@ input {
     height: 36px;	
 }
 
-.likedelButton:after{
+.likedelBtn:after{
 	background-image: url(https://shopv.pstatic.net/web/shopping-web/vp/static/20221221174656/img/sprite/png/spSv_my.png);
     background-size: 401px 369px;
     background-position: -85px -356px;
@@ -138,4 +123,40 @@ button{
   width: 1px;
   height: 1px;
   margin: -1px;
+}
+
+div{
+	display: block;
+}
+
+label{
+	cursor: default;
+}
+
+.alldeleteD{
+	overflow: hidden;
+    line-height: 30px;
+    padding: 16px 0 11px;
+}
+
+.alldeleteL{
+	float: left;
+    width: 26px;
+    margin: 8px 0 0 14px;
+    vertical-align: top;
+}
+
+.alldeleteC{
+	width: 16px;
+    height: 16px;
+    float: left;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.alldeleteBtn{
+	float: left;
+    height: 30px;
+    line-height: 30px;
 }

@@ -79,7 +79,7 @@ public class PagingVO {
 		StringBuilder buf=new StringBuilder();
 		buf.append("<ul class='pagination justify-content-center'>");
 		if(prevBlock>0) {
-			buf.append("<li class='page-item>")
+			buf.append("<li class='page-item'>")
 				.append("<a class='page-link' href='"+link+"&cpage="+prevBlock+"'>")
 				.append("Prev")
 				.append("</a>")

@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.board.model.PagingVO;
 import com.common.CommonUtil;
-import com.user.model.LikeprodVO;
+import com.user.model.LikeVO;
 import com.user.service.MyPageService;
 
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping("/user/mypage")
+@RequestMapping("/mypage")
 @Log4j
 public class MyPageController {
 	
@@ -47,7 +47,7 @@ public class MyPageController {
 		
 		log.info("2 page==="+page);
 		
-		List<LikeprodVO> likeArr=this.mService.selectLikeAllPaging(page);
+		List<LikeVO> likeArr=this.mService.selectLikeAllPaging(page);
 		
 		m.addAttribute("paging", page);
 		m.addAttribute("likeArr", likeArr);
@@ -55,18 +55,36 @@ public class MyPageController {
 		
 	}
 	
-	@PostMapping("/delete")
-	public String likeDelete(Model m, @RequestParam(defaultValue="0") int pnum) {
-		log.info("pnum==="+pnum);
-		if(pnum==0) {
+	@PostMapping("/like_del")
+	public String likeDelete(Model m, @ModelAttribute LikeVO like) {
+		log.info("LikeprodVO==="+like);
+		if(like==null) {
 			return "redirect:likeList";
 		}
 		
-		int n=mService.deleteLikeProd(pnum);
+		int n=mService.deleteLike(like);
+		
 		
 		String str=(n>0)?"삭제 되었습니다.":"관심 상품 삭제 실패";
+		
 		String loc=(n>0)?"likeList":"javascript:history.back()";
 		
 		return common.addMsgLoc(m, str, loc);
+	}
+	
+	@PostMapping("/select_del")
+	public String selectDelete(Model m, @RequestParam("pnum") String str, @RequestParam("idx") Integer idx) {
+		log.info("str/idx==="+str+"/"+idx);
+		
+		String[] pnum=str.split(",");
+		LikeVO vo=new LikeVO();
+		vo.setIdx(idx);
+		//Integer.parseInt(num)
+		for(int i=0; i<pnum.length; i++) {
+			vo.setPnum(Integer.parseInt(pnum[i]));			
+			mService.deleteLike(vo);
+		}
+		
+		return "redirect:likeList";
 	}
 }

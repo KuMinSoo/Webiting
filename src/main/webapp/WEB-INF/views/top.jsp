@@ -184,13 +184,13 @@ function selectDownCategoryHome(upCode){
                      <li class="nav-item"><a class="nav-link" href="${myctx}/prodList">상품목록</a></li>
                      <li class="nav-item"><a class="nav-link" href="${myctx}/board/list">Board List</a></li>
 
-                     <!-- 유저만 들어오게 설정 -------------------------------------------------------------------- -->
+                     <!-- 로그인한 유저만 보이게 설정 -------------------------------------------------------------------- -->
 				 	<%-- <c:if test="${loginUser ne null }">
-                     	<li class="nav-item"><a class="nav-link" href="${myctx}/user/mypage">MyPage</a></li>
+                     	<li class="nav-item"><a class="nav-link" href="${myctx}/mypage">MyPage</a></li>
 					</c:if> --%>
 					<!-- test용 ------------------------------------------------------------------------------ -->
 
-                     <li class="nav-item"><a class="nav-link" href="${myctx}/user/mypage/likeList">MyPage</a></li>
+                     <li class="nav-item"><a class="nav-link" href="${myctx}/mypage/likeList">LikeProd</a></li>
 					 <li id="shop" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                             		 aria-expanded="false">Shop</a>
@@ -209,11 +209,7 @@ function selectDownCategoryHome(upCode){
                      				</div>
                      			</li>	
                             </ul>
-                        </li>
-
-                        
-                        
-
+                        </li>                                             
                     </ul>
                     <!-- 검색폼 시작------------------------- -->
 	
@@ -244,7 +240,7 @@ function selectDownCategoryHome(upCode){
 	
 	<!-- -------------------------------- -->
                     <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
+                        <button class="btn btn-outline-dark" type="button" onclick="location.href='${myctx}/mypage/cartlist'">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
