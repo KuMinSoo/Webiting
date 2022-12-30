@@ -27,8 +27,13 @@
 				$('#bpwd').focus();
 				return false;
 			}
+			if($("input[name=secret]:radio:checked").length < 1){
+				alert("공개글 여부를 체크하세요");	
+				return false;
+			} 
+			
 			return true;
-		
+			$(".select_code option").not(":selected").attr("disabled", "")
 		
 		})
 	
@@ -58,10 +63,17 @@
           <td style="width:50%"></td>
        </tr>
        <tr>
-          <td style="width:50%">
-          <input type="text" name="name" id="name" placeholder="이름" class="form-control">
-          </td>
-          <td style="width:50%"></td>
+     	  <c:if test="${loginUser.name ne null}">
+     	  	 <td style="width:50%">
+          		 <input type="text" name="name" id="name" value="${loginUser.name}" class="form-control" disabled="disabled">	
+        	  </td>
+     	  </c:if>
+     	  <c:if test="${loginUser.name eq null}">
+     	  	   <td style="width:50%">
+          			<input type="text" name="name" id="name" placeholder="이름" class="form-control">
+        	  </td>
+     	  </c:if>
+         	<td style="width:50%"></td>
        </tr>
        <tr>
           <td colspan="2">
@@ -90,6 +102,12 @@
          <input type="file" name="mfilename" placeholder="첨부파일"
             id="filename" class="form-control"></td>
           <td style="width:50%"></td>
+      </tr>
+      <tr>
+      	<td colspan="2">
+    		<input type="radio" name="secret" id="secret" value="Y" class="radio" /><span for="secret">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;
+  			  <input type="radio" name="secret" id="secret" value="N" class="radio" /><span for="secret">비공개</span>&nbsp;
+		</td>
       </tr>
    	    <tr>
          <td colspan="2">

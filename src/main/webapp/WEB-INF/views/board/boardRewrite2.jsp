@@ -25,6 +25,12 @@
 				alert('비밀번호를 입력하세요').$('#bpwd').focus();
 				return false;
 			}
+			if($("input[name=secret]:radio:checked").length < 1){
+				alert("공개글 여부를 체크하세요");	
+				return false;
+			} 
+			
+			
 			return true;
 			$(".select_code option").not(":selected").attr("disabled", "")
 		})
@@ -35,7 +41,8 @@
 	<h1 class='text-center'>답변 작성하기</h1>
 	<form name="bf" id="bf" role="form" action="write" method="POST"
 		enctype="multipart/form-data">
-		<input type="hidden" name="mode" value="write">
+		<input type="hidden" name="mode" value="rewrite">
+		<input type="hidden" name="num" value="<c:out value='${num}'/>">
 		<!-- 원본글쓰기mode는 write, 답변글쓰기 mode는 rewrite로 감  -->
 		<table class="table">
 				<tr>
@@ -72,7 +79,7 @@
 				</tr>
 				<tr>
 					<td colspan="2"><input type="text" name="subject" id="subject"
-						placeholder="제목" class="form-control" value="[RE]${subject}"></td>
+						placeholder="제목" class="form-control" value="${subject}"></td>
 				</tr>
 				<tr>
 					<td colspan="2"><textarea name="content" id="content"
@@ -89,13 +96,17 @@
 					<td style="width: 50%"></td>
 				</tr>
 				<tr>
-					<span></span>
-				</tr>
-				<tr>
 					<td style="width: 50%"><input type="file" name="mfilename"
 						placeholder="첨부파일" id="filename" class="form-control"></td>
 					<td style="width: 50%"></td>
 				</tr>
+				 <tr>
+      				<td colspan="2">
+    					<input type="radio" name="secret" id="secret" value="Y" class="radio" /><span for="secret">공개</span>&nbsp;&nbsp;&nbsp;&nbsp;
+  			 			 <input type="radio" name="secret" id="secret" value="N" class="radio" /><span for="secret">비공개</span>&nbsp;
+					</td>	
+  			    </tr>
+				
 				<tr>
 					<td colspan="2">
 						<button type="submit" id="btnWrite" class="btn btn-success">글쓰기</button>

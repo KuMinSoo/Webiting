@@ -25,6 +25,7 @@ import com.board.model.BoardVO;
 import com.board.model.PagingVO;
 import com.board.service.BoardService;
 import com.common.CommonUtil;
+import com.user.model.UserVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -54,7 +55,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/write")
-	public String broadInsert(HttpServletRequest req,
+	public String broadInsert(HttpServletRequest req, HttpSession session,
 			Model m, @RequestParam("mfilename") MultipartFile mfilename, 
 			@ModelAttribute BoardVO board) {
 		ServletContext app=req.getServletContext();
@@ -71,6 +72,17 @@ public class BoardController {
 			
 			UUID uuid=UUID.randomUUID();//파일 중복저장을 막기위한 랜덤값 설정
 			String filename=uuid.toString()+"_"+originFname;//실제 업로드 시킬파일	
+			
+			if(board.getMode().equals("edit")&& board.getOld_filename()!=null) {
+				//수정 모드라면 예전에 업로드했던 파일은 삭제 처리
+				File delF=new File(upDir, board.getOld_filename());
+				if(delF.exists()) {
+					boolean b=delF.delete();
+					log.info("old file삭제여부: "+b);
+				}
+				
+			}
+				
 			try {
 				mfilename.transferTo(new File(upDir,filename));//해당절대경로에 실제 업로드함
 			} catch (Exception e) {
@@ -81,6 +93,9 @@ public class BoardController {
 			board.setOriginFilename(originFname);//원본 파일이름
 			board.setFilesize(fsize);
 		}
+		
+		
+		
 		if(board.getName()==null||board.getSubject()==null||board.getPasswd()==null||
 			board.getName().trim().isEmpty()||board.getSubject().trim().isEmpty()||board.getPasswd().isEmpty()) {
 			return "redirect:write";
@@ -100,14 +115,23 @@ public class BoardController {
 			n=this.bService.rewriteBoard(board);
 			str+="답변 ";
 		}
-		
-		
-		
-		str=(n>0)?"성공":"실패";
+
+		str+=(n>0)?"성공":"실패";
 		loc=(n>0)?"list":"javascript:history.back()";
+		
+		UserVO loginUser=loginCheck(session);
+		m.addAttribute("loginUser",loginUser);
 		
 		return util.addMsgLoc(m, str, loc);
 	}//--------------------------------------
+	
+
+	public static UserVO loginCheck(HttpSession session) {
+		UserVO loginUser=(UserVO)session.getAttribute("loginUser");
+		
+		return loginUser;
+	}
+	
 	
 	@PostMapping("/edit")
 	public String boardEditForm(Model m, 
@@ -132,6 +156,7 @@ public class BoardController {
 	
 	@GetMapping("/list")
 	public String boardList(Model m, @ModelAttribute("page") PagingVO page,
+			HttpSession session,
 			HttpServletRequest req, @RequestHeader("User-Agent")String userAgent){
 		
 		String myctx=req.getContextPath();
@@ -149,7 +174,8 @@ public class BoardController {
 		String loc="board/list";
 		String pageNavi=page.getPageNavi(myctx, loc, userAgent);
 		
-		
+		UserVO loginUser=loginCheck(session);
+		m.addAttribute("loginUser",loginUser);
 		m.addAttribute("pageNavi",pageNavi);
 		m.addAttribute("boardArr",boardArr);
 		m.addAttribute("paging",page);
@@ -157,16 +183,61 @@ public class BoardController {
 		return "board/boardList";
 
 	}//--------------------
+
 	
 	@GetMapping("/view/{num}")
-	public String boardView(@PathVariable("num") int num, Model m) {
-		int n=this.bService.updateReadnum(num);
+	public String boardView(@PathVariable("num") int num, Model m,HttpSession session) {
+		this.bService.updateReadnum(num);
 		BoardVO board=this.bService.selectBoardByIdx(num);
+	
+		UserVO loginUser=loginCheck(session);
+		m.addAttribute("loginUser",loginUser);
 		m.addAttribute("board",board);
 		
-		return "board/boardView";
-		
+		return "board/boardView";		
 	}
+	
+	@PostMapping("/pwdCheck")
+	public String pwdCheck(@RequestParam(defaultValue = "") String passwd,int num,Model m) {
+		System.out.println(passwd+"<<<<1");
+		BoardVO board=this.bService.selectBoardByIdx(num);	
+		System.out.println(board.getPasswd()+"<<<<2");
+		
+		if(board.getPasswd().equals(passwd)) {			
+			return "redirect:/board/view/"+num;
+		}else{
+		return util.addMsgBack(m,"비밀번호가 일치하지 않습니다");	
+		}
+	}
+	
+	
+	@PostMapping("/admin/delete")
+	public String adminBoardDelete(Model m, 
+			HttpServletRequest req,
+			@RequestParam(defaultValue = "0") int num,
+			@RequestParam(defaultValue = "") String passwd) {
+		
+		BoardVO vo=this.bService.selectBoardByIdx(num);
+		if(vo==null) {
+			return util.addMsgBack(m, "해당글은 존재하지 않습니다");
+		}
+		int n=this.bService.deleteBoard(num);
+		
+		ServletContext app=req.getServletContext();
+		String upDir=app.getRealPath("/resources/board_upload");
+		
+		if(n>0 && vo.getFilename()!=null) {
+			File f=new File(upDir, vo.getFilename());
+			if(f.exists()) {
+				boolean b=f.delete();
+				log.info("파일삭제 여부: "+b);
+			}
+		}
+		String str=(n>0)?"삭제 성공":"삭제 실패";
+		String loc=(n>0)?"list":"javascript:history.back()";
+		return util.addMsgLoc(m, str, loc);
+	}
+	
 	
 	@PostMapping("/delete")
 	public String boardDelete(Model m, 

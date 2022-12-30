@@ -7,9 +7,9 @@
 		select board_seq.nextval from dual
 	</selectKey>
 		insert into board(num,name,passwd,subject,content,wdate,readnum,filename,originFilename,
-		filesize, refer,lev,sunbun, bcg_code)
+		filesize, refer,lev,sunbun, bcg_code,secret)
 		values (#{num},#{name},#{passwd},#{subject},#{content:VARCHAR},sysdate,#{readnum},
-		#{filename:VARCHAR},#{originFilename:VARCHAR},#{filesize:NUMERIC},#{num},#{lev},#{sunbun},#{bcg_code})
+		#{filename:VARCHAR},#{originFilename:VARCHAR},#{filesize:NUMERIC},#{num},#{lev},#{sunbun},#{bcg_code},#{secret})
 	</insert>
 	
 	<sql id="findWhere">  
@@ -87,9 +87,9 @@
 			select board_seq.nextval from dual
 		</selectKey>
 		insert into board(num,name,passwd,subject,content,wdate,readnum,filename,originFilename,
-		filesize, refer,lev,sunbun, bcg_code)
+		filesize, refer,lev,sunbun, bcg_code,secret)
 		values (#{num},#{name},#{passwd},#{subject},#{content:VARCHAR},sysdate,#{readnum},
-		#{filename:VARCHAR},#{originFilename:VARCHAR},#{filesize:NUMERIC},#{refer},#{lev},#{sunbun},#{bcg_code})
+		#{filename:VARCHAR},#{originFilename:VARCHAR},#{filesize:NUMERIC},#{refer},#{lev},#{sunbun},#{bcg_code},#{secret})
 	</insert>
 	
 </mapper>

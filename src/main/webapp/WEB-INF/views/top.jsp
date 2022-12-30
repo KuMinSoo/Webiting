@@ -183,7 +183,7 @@ function selectDownCategoryHome(upCode){
                      
                      <li class="nav-item"><a class="nav-link" href="${myctx}/admin/prodForm">상품등록</a></li>
                      <li class="nav-item"><a class="nav-link" href="${myctx}/prodList">상품목록</a></li>
-                     <li class="nav-item"><a class="nav-link" href="${myctx}/board/list">Board List</a></li>
+                     <li class="nav-item"><a class="nav-link" href="${myctx}/board/home">고객문의</a></li>
 
                      <!-- 로그인한 유저만 보이게 설정 -------------------------------------------------------------------- -->
 				 	<%-- <c:if test="${loginUser ne null }">

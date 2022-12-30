@@ -87,33 +87,41 @@
 				</tr>
 				<tr>
 					<td colspan="3">
-					<small>
-					<c:out value="${board.name}"/>&emsp;
-					<c:out value="${board.wdate}"/>&emsp;
-					조회수:&nbsp;<c:out value="${board.readnum}"/>&emsp;
-					</small>
+						<small>
+								<c:out value="${board.name}"/>&emsp;
+								<c:out value="${board.wdate}"/>&emsp;
+								조회수:&nbsp;<c:out value="${board.readnum}"/>
+						</small>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3"><c:out value="${board.content}"/>
+					<td colspan="3"><c:out value="${board.content}"/></td>
+					
+				</tr>
 				
-				</tr>
-				<tr>
-					<td width="20%">첨부파일</td>
-					<td colspan="2">
-					<c:if test="${board.filename ne null}">
-						<a href="#" onclick="down()">${board.originFilename}</a>
-						<small>[<c:out value="${board.filesize}"/>bytes]</small>	
-					</c:if>	
-					</td>
-				</tr>
-				<tr>
+				<c:if test="${board.filename ne null}">
+					<tr>
+						<td width="20%">첨부파일:</td>
+						<td colspan="2">
+						
+							<a href="#" onclick="down()">${board.originFilename}</a>
+							<small>[<c:out value="${board.filesize}"/>bytes]</small>	
+						
+						</td>
+					</tr>
+				</c:if>	
 				<!-- 편집 또는 삭제 -->
+				<tr>
 					<td colspan="2">			
 						<button type="button" onclick="location.href='../list'">글목록</button>
 						<button type="button" onclick="location.href='../write'">글쓰기</button>
-						<button type="button" onclick="go(1)">수정</button>
-						<button type="button" onclick="go(2)">삭제</button>
+						<button type="button" onclick="go(1)">수정</button>		
+						<c:if test="${loginUser.status eq '9'}">
+							<button type="button" onclick="go(adminDelete)">삭제</button>
+						</c:if>
+						<c:if test="${loginUser.status ne '9'}">
+							<button type="button" onclick="go(2)">삭제</button>
+						</c:if>	
 						<button type="button" onclick="go(3)">답변</button>
 						
 					</td>
@@ -154,6 +162,13 @@
 function goRe(){
 	reF.submit();
 }
+//관리자 삭제
+function go(adminDelete){
+	frm.mode.value='delete';
+	frm.action='../admin/delete';
+	frm.method='post';
+}
+
 
 //파일 다운로드 처리
 function down(){
