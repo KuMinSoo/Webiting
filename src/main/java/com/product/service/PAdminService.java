@@ -18,8 +18,8 @@ public interface PAdminService {
 	/** [������ ���]- ��ǰ ���� ����ϱ� */
 	public int productInsert(ProductVO prod);
 	public List<ProductVO> productList();
-	
-	/* 상세 페이지 service
-	 public int prodDetail(ProductVO prod); */
-	
+
+	// 상세 페이지 인터페이스
+	public Object detailProduct(int pnum); 
+		
 }

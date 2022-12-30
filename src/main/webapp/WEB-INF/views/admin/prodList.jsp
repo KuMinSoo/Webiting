@@ -10,7 +10,6 @@
 <br>
 <h4>금주에 가장 많이 팔린 상품!!</h4>
 </section> -->
-
 	<section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
@@ -29,7 +28,6 @@
 									${prod.price}
 										<br>
 									<fieldset>
-
 										<input type="radio" name="reviewStar" value="5" id="rate1"><label
 											for="rate1">★</label> <input type="radio" name="reviewStar"
 											value="4" id="rate2"><label for="rate2">★</label> <input
@@ -39,34 +37,17 @@
 											type="radio" name="reviewStar" value="1" id="rate5"><label
 											for="rate5">★</label>
 									</fieldset>
-
 								</div>
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="/admin/prodDetail?pnum=${prod.pnum}">prodDetail</a>
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" id = "detail"
+                            href="/admin/prodDetail?pnum=${prod.pnum}">prodDetail</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     </c:forEach>
-             
-                					<!-- 상세 페이지 미완성 코드  -->    
-				<%-- <c:forEach items="${prodList}" var="prod">
-					<tr>
-						<td><a href="/admin/prodDetail?pnum=${prod.pnum}">${prod.pnum}</a></td>
-						<td>${prod.productName}</td>
-						<td>${prod.price}</td>
-						<td>${prod.stock}</td>
-						<td>${prod.productDist}</td>
-						<td>${prod.productInfo}</td>
-						<td><fmt:formatDate value="${prod.regDate}" type="date"
-								pattern="yyyy-MM-dd" /></td>
-						<td><fmt:formatDate value="${prod.updateDate}" type="date"
-								pattern="yyyy-MM-dd" /></td>
-					</tr>
-				</c:forEach> --%>
-				 
 			</c:if>
                 </div>
             </div>           

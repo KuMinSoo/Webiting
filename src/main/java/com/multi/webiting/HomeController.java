@@ -39,4 +39,10 @@ public class HomeController {
 		return "/foot";
 	}
 	
+	//prodDetail 상단 참조	
+	@RequestMapping("/dtop")
+	public String dtop() {
+		return "/dtop";
+	}
+	
 }

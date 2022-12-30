@@ -29,19 +29,14 @@
 		select * from product where pnum=#{value}
 	</select>
 	
-	<!-- 평점 mapper  -->
-	<select id="getRatingAverage" resultType="double">
-  		select avg(rating)
-  		from product
-  		where pnum = #{pnum}
-  	</select>
-
-	<update id="updateRating">
-		update vam_book
-		set ratingAvg = #{ratingAvg}
-		where pnum = #{pnum}
-	</update>
-	
-	
+					<!-- 상세 페이지 매퍼 -->
+	<select id = "detailProduct" resultType = "product" parameterType="_int">
+		select * from product where pnum = #{pnum}
+	</select>
+	 
+	  
+	<!-- <select id="list" resultType="com.common.domain.ProductDTO">
+		SELECT * FROM product ORDER BY PINDATE DESC
+	</select>  -->
 	
 </mapper>
