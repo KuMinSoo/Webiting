@@ -16,7 +16,7 @@
 		select count(pnum) from likeprod
 	</select>
 	
-	<delete id="deleteLikeProd" parameterType="int">
+	<delete id="deleteLike" parameterType="int">
 		delete from likeprod where idx=#{idx} and pnum=#{pnum}
 	</delete>
 </mapper>

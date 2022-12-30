@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.board.model.PagingVO;
 import com.user.mapper.MyPageMapper;
-import com.user.model.LikeprodVO;
+import com.user.model.LikeVO;
 
 @Service("MyPageServiceImpl")
 public class MyPageServiceImpl implements MyPageService {
@@ -17,7 +17,7 @@ public class MyPageServiceImpl implements MyPageService {
 	private MyPageMapper mMapper;
 
 	@Override
-	public List<LikeprodVO> selectLikeAll(Map<String, Integer> map) {
+	public List<LikeVO> selectLikeAll(Map<String, Integer> map) {
 		return this.mMapper.selectLikeAll(map);
 	}
 
@@ -27,13 +27,13 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<LikeprodVO> selectLikeAllPaging(PagingVO paging) {
+	public List<LikeVO> selectLikeAllPaging(PagingVO paging) {
 		return this.mMapper.selectLikeAllPaging(paging);
 	}
 
 	@Override
-	public int deleteLikeProd(Integer pnum) {
-		return this.mMapper.deleteLikeProd(pnum);
+	public int deleteLike(LikeVO like) {
+		return this.mMapper.deleteLike(like);
 	}
 
 }

@@ -44,7 +44,6 @@ public class AdminController {
 		return "member/userlist";
 	}
 	
-	//PagingVO�� getPageNavi()�߰� (paging java�� ó��)�� �˻� ��� �߰�
 	@GetMapping("/userList")
 	public String userListPaging(Model m, @ModelAttribute("page") PagingVO page,
 			HttpServletRequest req, @RequestHeader("User-Agent") String userAgent) {
@@ -60,7 +59,6 @@ public class AdminController {
 		
 		log.info("2. page===="+page);
 		List<UserVO> userArr=this.aService.selectUserAllPaging(page);
-		log.info(userArr);
 		String loc="admin/userList";
 		String pageNavi=page.getPageNavi(myctx, loc, userAgent);
 		
@@ -82,12 +80,12 @@ public class AdminController {
 		
 		UserVO vo=this.aService.selectUserByIdx(idx);
 		if(vo==null) {
-			return common.addMsgBack(m, "�ش� ȸ���� �������� �ʽ��ϴ�.");
+			return common.addMsgBack(m, "해당 회원은 존재하지 않습니다.");
 		}
 		
-		int n=aService.deleteUser(idx);
+		int n=aService.deleteUser(vo.getIdx());
 		
-		String str=(n>0)?"���� �Ǿ����ϴ�.":"ȸ�� ���� ����";
+		String str=(n>0)?"삭제 되었습니다.":"회원 삭제 실패";
 		String loc=(n>0)?"userList":"javascript:history.back()";
 		
 		return common.addMsgLoc(m, str, loc);
@@ -103,7 +101,7 @@ public class AdminController {
 		
 		UserVO vo=this.aService.selectUserByIdx(idx);
 		if(vo==null) {
-			return common.addMsgBack(m, "�ش� ȸ���� �������� �ʽ��ϴ�.");
+			return common.addMsgBack(m, "해당 회원은 존재하지 않습니다.");
 		}
 		
 		m.addAttribute("user", vo);
@@ -120,7 +118,7 @@ public class AdminController {
 		}
 		
 		int n=aService.updateUser(user);
-		String str=(n>0)?"ȸ������ �Ϸ�":"���� ����";
+		String str=(n>0)?"회원수정 완료":"수정 실패";
 		String loc=(n>0)?"userList":"javascript:history.back()";
 		
 		m.addAttribute("message", str);
