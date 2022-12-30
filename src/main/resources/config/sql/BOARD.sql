@@ -1,3 +1,4 @@
+drop table board;
 
 create table board(
     num number(8) primary key,
@@ -12,12 +13,14 @@ create table board(
     filesize number(8),
     refer number(8),
     lev number(8),
+    sunbun number(8),
     bcg_code number(4),
+    secret varchar2(8),
     constraint board_bcg_code_fk Foreign key (bcg_code)
     references board_category (bcg_code)
     
 );
-
+drop sequence board_seq;
 
 create sequence board_seq
 start with 1
