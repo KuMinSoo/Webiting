@@ -25,4 +25,6 @@ public interface PAdminService {
 	public List<ProductVO> productListCategory( String downCg_code);
 	public List<ProductVO> selectProductAllPaging(PagingVO paging);
 	public int getTotalCount(PagingVO page);
+
+	public int getTotalCountCategory(String downCg_code);
 }

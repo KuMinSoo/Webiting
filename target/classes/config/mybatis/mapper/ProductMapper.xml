@@ -7,11 +7,11 @@
 		<selectKey keyProperty="pnum" resultType="int" order="BEFORE">
 			select product_seq.nextval from dual
 		</selectKey>
-		insert into product(pnum,upcg_code,downcg_code,pname,
-		pimage1,pimage2,pimage3, price, saleprice, pqty,point,pspec,pcontents,pcompany,pindate)
+		insert into product(pnum,upcg_code,downcg_code,pname,pimage1,pimage2,pimage3,
+		price, saleprice, pqty,point,pspec,pcontents,pcompany,pindate,pavg,LIKECNT,tag1,tag2,tag3)
 		values(#{pnum},#{upCg_code},#{downCg_code},#{pname},
 		#{pimage1:VARCHAR},#{pimage2:VARCHAR},#{pimage3:VARCHAR},#{price},#{saleprice},#{pqty},
-		#{point},#{pspec},#{pcontents},#{pcompany},sysdate)
+		#{point},#{pspec},#{pcontents},#{pcompany},sysdate,0,0,#{tag1:VARCHAR},#{tag2:VARCHAR},#{tag3:VARCHAR})
 	</insert>
 	
 	<select id="getProducts" resultType="Product">
@@ -70,6 +70,11 @@
     <select id="getTotalCount" resultType="int" parameterType="Paging">
         select count(pnum) from product
         <include refid="findWhere"/>
+    </select>
+    
+    <select id="getTotalCountCategory" resultType="int" parameterType="String">
+        select count(pnum) from product 
+        where downCg_code=#{value}
     </select>
 	
 </mapper>

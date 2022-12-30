@@ -89,4 +89,10 @@ public class PAdminServiceImpl implements PAdminService {
 		return this.productMapper.getTotalCount(page);
 	}
 
+	@Override
+	public int getTotalCountCategory(String downCg_code) {
+		
+		return this.productMapper.getTotalCountCategory(downCg_code);
+	}
+
 }

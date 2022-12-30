@@ -44,7 +44,7 @@ public class AdminController {
 		return "member/userlist";
 	}
 	
-	//PagingVO¿¡ getPageNavi()Ãß°¡ (paging java·Î Ã³¸®)¤Ñ °Ë»ö ±â´É Ãß°¡
+	//PagingVOï¿½ï¿½ getPageNavi()ï¿½ß°ï¿½ (paging javaï¿½ï¿½ Ã³ï¿½ï¿½)ï¿½ï¿½ ï¿½Ë»ï¿½ ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	@GetMapping("/userList")
 	public String userListPaging(Model m, @ModelAttribute("page") PagingVO page,
 			HttpServletRequest req, @RequestHeader("User-Agent") String userAgent) {
@@ -60,6 +60,7 @@ public class AdminController {
 		
 		log.info("2. page===="+page);
 		List<UserVO> userArr=this.aService.selectUserAllPaging(page);
+		log.info(userArr);
 		String loc="admin/userList";
 		String pageNavi=page.getPageNavi(myctx, loc, userAgent);
 		
@@ -81,12 +82,12 @@ public class AdminController {
 		
 		UserVO vo=this.aService.selectUserByIdx(idx);
 		if(vo==null) {
-			return common.addMsgBack(m, "ÇØ´ç È¸¿øÀº Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+			return common.addMsgBack(m, "ï¿½Ø´ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
 		}
 		
 		int n=aService.deleteUser(idx);
 		
-		String str=(n>0)?"»èÁ¦ µÇ¾ú½À´Ï´Ù.":"È¸¿ø »èÁ¦ ½ÇÆÐ";
+		String str=(n>0)?"ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.":"È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
 		String loc=(n>0)?"userList":"javascript:history.back()";
 		
 		return common.addMsgLoc(m, str, loc);
@@ -102,7 +103,7 @@ public class AdminController {
 		
 		UserVO vo=this.aService.selectUserByIdx(idx);
 		if(vo==null) {
-			return common.addMsgBack(m, "ÇØ´ç È¸¿øÀº Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+			return common.addMsgBack(m, "ï¿½Ø´ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
 		}
 		
 		m.addAttribute("user", vo);
@@ -119,7 +120,7 @@ public class AdminController {
 		}
 		
 		int n=aService.updateUser(user);
-		String str=(n>0)?"È¸¿ø¼öÁ¤ ¿Ï·á":"¼öÁ¤ ½ÇÆÐ";
+		String str=(n>0)?"È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½":"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
 		String loc=(n>0)?"userList":"javascript:history.back()";
 		
 		m.addAttribute("message", str);

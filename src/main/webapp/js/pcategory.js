@@ -46,6 +46,11 @@
 			$('#pname').focus();
 			return false;
 		}
+		if(!('#tag1').val()){
+			alert('태그 검색어를 입력해야 해요');
+			$('#tag1').select();
+			return false;
+		}
 		
 		let $price=$('#price').val();
 		let pattern=/^[0-9]+$/
@@ -69,5 +74,6 @@
 			$('#point').select();
 			return false;
 		}
+		
 		return true;
 	}

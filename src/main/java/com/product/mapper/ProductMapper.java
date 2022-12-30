@@ -35,4 +35,5 @@ public interface ProductMapper {
 	public List<ProductVO> selectProductAllPaging(PagingVO paging);
 	public List<ProductVO> productListCategory( String downCg_code);
 	public int getTotalCount(PagingVO page);
+	public int getTotalCountCategory(String downCg_code);
 }

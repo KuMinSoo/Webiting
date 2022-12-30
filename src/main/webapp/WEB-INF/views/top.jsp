@@ -123,9 +123,12 @@ function selectDownCategoryHome(upCode){
 		//alert(upCode);
 		//ajax로 요청보내기. get방식으로 upCg_code를 파라미터값으로 전달하면, json으로 받아보자
 		//url: getDownCategory
+		var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+  		var context =location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+
 		$.ajax({
 			type:'get',
-			url:'getDownCategoryHome?upCg_code='+upCode,
+			url:'../test/getDownCategoryHome?upCg_code='+upCode,
 			dataType:'json',
 			cache:false
 		})
@@ -134,7 +137,7 @@ function selectDownCategoryHome(upCode){
 			//응답 결과를 받아서 select 태그 만들어서 id가 selectDcg인 곳에 응답 html데이터를 넣기
 			let str="";
 			$.each(res, function(i, item){
-				str+='<li class="dropdown-item-right"><a href="/prodListCategory?downCg_code='
+				str+='<li class="dropdown-item-right"><a href="/prodList?downCg_code='
 						+item.downCg_code+'">'+item.downCg_name+'</a></li>';
 			});
 			//alert(str);	
@@ -156,12 +159,11 @@ function selectDownCategoryHome(upCode){
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="/index">Start Bootstrap</a>
+                <a class="navbar-brand" href="/index">Webiting</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="${myctx}/index">Home</a></li>
 
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="${myctx}/admin/userList">Admin</a></li>
 
@@ -195,7 +197,7 @@ function selectDownCategoryHome(upCode){
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                             		 aria-expanded="false">Shop</a>
                             	<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                	<li><a class="dropdown-item" href="/admin/prodList">All Products</a></li>
+                                	<li><a class="dropdown-item" href="/prodList">All Products</a></li>
                                 	<li><hr class="dropdown-divider" /></li>
 									<li class="nav-item" id="Category"><a class="dropdown-item" href="#" >카테고리</a>
                      				<div class="menu_pan" > 
@@ -221,7 +223,7 @@ function selectDownCategoryHome(upCode){
 			<div class="col-md-9 text-center">
 				<form name="searchF" action="prodList" onsubmit="return check()">
 					<input type="hidden" name="pageSize" value="${pageSize}">
-					<input type="hidden" name="cpage" value="${paging.cpage}">
+					<input type="hidden" name="cpage" value="1">
 					<%-- <select name="findType" style="padding:6px;">
 						<option value="">:::검색유형:::</option>
 						<option value="1" <c:if test="${paging.findType eq 1}">selected</c:if>>글제목</option>
@@ -257,8 +259,8 @@ function selectDownCategoryHome(upCode){
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Shop in style</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+                    <h1 class="display-4 fw-bolder">Webiting</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Furniture Shopping Mall</p>
                 </div>
             </div>
         </header>

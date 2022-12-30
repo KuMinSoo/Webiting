@@ -89,6 +89,14 @@
 									id="point"> POINT</td>
 							</tr>
 							<tr>
+								<td width="20%"><b>태그 검색어</b></td>
+								<td width="80%">
+								<input type="text" name="tag1" id="tag1">
+								<input type="text" name="tag2" id="tag2">
+								<input type="text" name="tag3" id="tag3"> 
+								</td>
+							</tr>
+							<tr>
 								<td colspan="2" class="text-center">
 									<button class="btn btn-outline-success">상품등록</button>
 								</td>

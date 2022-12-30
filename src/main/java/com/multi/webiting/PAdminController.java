@@ -50,9 +50,9 @@ public class PAdminController {
 	
 	@GetMapping("/admin/prodForm")
 	public String productForm(Model m) {
-		//List<CategoryVO> upCgList=adminService.getUpcategory();
-		//log.info("upCgList=="+upCgList);
-		//m.addAttribute("upCgList", upCgList);
+		List<CategoryVO> upCgList=adminService.getUpcategory();
+		log.info("upCgList=="+upCgList);
+		m.addAttribute("upCgList", upCgList);
 		
 		return "/admin/prodForm";
 	}
@@ -74,7 +74,7 @@ public class PAdminController {
 		//log.info("ssssss"+downCgList.size());
 		return downCgList;
 	}
-	@GetMapping(value="/getDownCategoryHome", produces = "application/json")
+	@GetMapping(value="/test/getDownCategoryHome", produces = "application/json")
 	@ResponseBody
 	public List<CategoryVO> getDownCategoryHome(@RequestParam("upCg_code") String upCg_code){
 		//log.info("upCg_code==="+upCg_code);
@@ -92,7 +92,7 @@ public class PAdminController {
 
 		ServletContext app=req.getServletContext();
 		String upDir=app.getRealPath("/resources/product_images");
-		//log.info("upDir==="+upDir);
+		log.info("upDir==="+upDir);
 		
 		File dir=new File(upDir);
 		if(!dir.exists()) {
@@ -139,42 +139,52 @@ public class PAdminController {
 		
 		return "admin/prodList";
 	}*/
-	@GetMapping("/prodList")
+	@GetMapping("/prodListForm")
 	public String productListPaging(Model m, @ModelAttribute("page") PagingVO page,
-			HttpServletRequest req, @RequestHeader("User-Agent") String userAgent) {
+			HttpServletRequest req, @RequestHeader("User-Agent") String userAgent,
+			@RequestParam(value="downCg_code", required=false) String downCg_code) {
 		String myctx=req.getContextPath();
 		
 		HttpSession ses=req.getSession();
 		
 		log.info("1. page===="+page);
-		int totalCount=this.adminService.getTotalCount(page);
-		page.setTotalCount(totalCount);
-		log.info(totalCount);
-		page.setPagingBlock(5);
-		page.init(ses);
-		
+		int totalCount=0;
+		List<ProductVO> prodArr=null;
 		log.info("2. page===="+page);
-		List<ProductVO> prodArr=this.adminService.selectProductAllPaging(page);
-		String loc="../prodList";
+		if(downCg_code==null) {
+			totalCount=this.adminService.getTotalCount(page);
+			page.setTotalCount(totalCount);
+			page.setPagingBlock(5);
+			page.init(ses);
+			prodArr=this.adminService.selectProductAllPaging(page);
+		}else {
+			totalCount=this.adminService.getTotalCountCategory(downCg_code);
+			page.setTotalCount(totalCount);
+			page.setPagingBlock(5);
+			page.init(ses);
+			prodArr=adminService.productListCategory(downCg_code);
+		}
+		String loc="prodList";
 		String pageNavi=page.getPageNavi(myctx, loc, userAgent);
 		//log.info("prodArr:"+prodArr);
+		if(page.getFindKeyword()!=null) {
+			m.addAttribute("keyword", page.getFindKeyword());
+		}
 		m.addAttribute("pageNavi", pageNavi);
 		m.addAttribute("paging", page);
 		m.addAttribute("prodArr", prodArr);
-		return "admin/prodList";
+		return "prodList/prodListForm";
 		
 	}
-	@GetMapping("/prodListCategory")
+	@GetMapping("/prodList")
 	public String productListCategory(Model m,
-			@RequestParam("downCg_code") String downCg_code) {
+			@RequestParam(value="downCg_code", required=false) String downCg_code) {
 		
-		List<ProductVO> prodArr2=adminService.productListCategory(downCg_code);
-		m.addAttribute("prodArr2",prodArr2);
-		log.info(prodArr2);
+		//List<ProductVO> prodArr2=adminService.productListCategory(downCg_code);
+		//m.addAttribute("prodArr2",prodArr2);
+		//log.info(prodArr2);
 		//m.addAttribute("upCg")
-		
-		
-		return "prodList/prodListCategory";
+		return "admin/prodList";
 	}
 	
 	

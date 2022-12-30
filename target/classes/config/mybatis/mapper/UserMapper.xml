@@ -8,7 +8,7 @@
 		</selectKey>
 		insert into member(idx,name,userid,pwd,hp1,hp2,hp3,post,addr1,addr2,indate,mileage,status,gender,age,email)
 		values(#{idx},#{name},#{userid},#{pwd},#{hp1},#{hp2},#{hp3},#{post:VARCHAR},
-		#{addr1:VARCHAR},#{addr2:VARCHAR},sysdate,1000,1,#{gender},#{age},#{email})
+		#{addr1:VARCHAR},#{addr2:VARCHAR},sysdate,1000,0,#{gender},#{age},#{email})
 	</insert>
 	
 	<select id="idCheck" resultType="int" parameterType="String">

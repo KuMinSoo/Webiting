@@ -27,6 +27,12 @@ public class ProductVO {
 	private String pcompany;
 	private java.sql.Date pindate;
 	
+	private double pavg;
+	private int likecnt;
+	private String tag1;
+	private String tag2;
+	private String tag3;
+	
 	private int totalPrice; /*총판매가 = 상품판매가 x수량*/
 	private int totalPoint; /*총포인트 = 포인트 x수량*/
 	
