@@ -9,15 +9,17 @@
 String ctx = request.getContextPath();
 %>
 <script>
-function hideAll(){
-	$('.c1').hide();
-	$('.c2').hide();
-	$('.c3').hide();
-	$('.c4').hide();
-	$('.c5').hide();
-	$('.c6').hide();	
+//자주 질문하는 게시판 함수 설정
+
+function hideAll(){//모든 질문 감추기
+	$('.c1').hide();//주문결제
+	$('.c2').hide();//배송관련
+	$('.c3').hide();//취소환불
+	$('.c4').hide();//반품교환
+	$('.c5').hide();//로그인 회원정보
+	$('.c6').hide();//기타문의	
 }
-function showAll(){
+function showAll(){//모든글 보여주기
 	$('.c1').show();
 	$('.c2').show();
 	$('.c3').show();
@@ -25,50 +27,50 @@ function showAll(){
 	$('.c5').show();
 	$('.c6').show();	
 }//------------------	
-function collapseHide(){
+function collapseHide(){//모든 질문의 답이 오픈된 경우 hide!!
 	for(let i=1;i<31;i++){
-		$("#collapse"+i).collapse('hide');
+		$("#collapse"+i).collapse('hide');//총 질문 30개 
 	}
 }
 
-	$(function(){
+	$(function(){//버튼 클릭시 해당 관련 질문 보여줌
 		
-		$('#b0').click(function(){
+		$('#b0').click(function(){//전체 질문
 			showAll();
 			collapseHide()
 		})//------------------	 
 		
-		$('#b1').click(function(){	
+		$('#b1').click(function(){//주문결제 관련 질문	
 			hideAll();
 			collapseHide();
 			$('.c1').show();
 		})//------------------	
 		
-		$('#b2').click(function(){
+		$('#b2').click(function(){//배송관련 질문
 			hideAll();			
 			collapseHide();
 			$('.c2').show();	
 		})//------------------	
 		
-		$('#b3').click(function(){
+		$('#b3').click(function(){//취소환불 질문
 			hideAll();
 			collapseHide();
 			$('.c3').show();
 		})//------------------	
 		
-		$('#b4').click(function(){
+		$('#b4').click(function(){//반품교환 질문
 			hideAll();
 			collapseHide();
 			$('.c4').show();
 		})//------------------	
 		
-		$('#b5').click(function(){
+		$('#b5').click(function(){//로그인 회원정보 
 			hideAll();
 			collapseHide();
 			$('.c5').show();	
 		})//------------------	
 		
-		$('#b6').click(function(){
+		$('#b6').click(function(){//기타문의 질문
 			hideAll();
 			collapseHide();
 			$('.c6').show();	
@@ -99,9 +101,8 @@ function collapseHide(){
 			border-radius:10px;
 			font-size:15px;
 		}	
-		h4{
-			font-size:16px;
-		}
+		
+		h4{ font-size:16px;}
 </style>
 			
 <div class="container mt-5" style="height: 600px; overflow: auto;">
@@ -113,7 +114,9 @@ function collapseHide(){
 			</ul>
 			<div>
 				<button class="btn btn-outline-primary" onclick="location.href='<%=ctx%>/board/write'">게시판 등록</button>
-				<a href="<%=ctx%>/board/list"><button class="btn btn-outline-info">고객문의 게시판</button></a>
+				<button class="btn btn-outline-info" onclick="location.href='<%=ctx%>/board/list'">고객문의 게시판</button>
+				<!-- 관리자 페이지로 이동 예정 -->
+				<button class="btn btn-outline-danger" onclick="location.href='<%=ctx%>/admin/list'">관리자 게시판</button>
 			</div>
 		</div>	
 			<div class="container mt-5 mb-5">
@@ -499,7 +502,7 @@ function collapseHide(){
 						</div>
 					</div>	
 			
-					<!-- 기타문의 -->	
+					<!-- 기타문의 ----------------------------------------------->	
 					<div class="c6">
 						<div class="panel panel-default">
 							<div class="panel-heading">
