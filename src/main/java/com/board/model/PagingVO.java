@@ -20,37 +20,37 @@ public class PagingVO {
 	private int totalCount;
 	private int pageCount;
 	private Integer sortType=1;
+
 	
-	private int start;
-	private int end;
+	private int start;//������ ���� ù��° ��
+	private int end;//������ ��..
 	
-	private int pagingBlock =10;
-	private int prevBlock;
-	private int nextBlock;
+	private int pagingBlock =10;//����¡ �� ex) [1][2][3]....
+	private int prevBlock;//���� ����¡ �� �׷��� ù��° ������ ��ȣ
+	private int nextBlock;//���� ����¡ �� �׷��� ù��° ������ ��ȣ 
 	
-	private String findType;
-	private String findType2;
-	private String findKeyword;
+	private String findType;// �˻�����: �۹�ȣ, ������, �۳���
+	private String findKeyword;//������ Ű���� �Է�
 	
 	
 	public void init(HttpSession ses) {
 		if(ses!=null) {
-			ses.setAttribute("pageSize", pageSize);
+			ses.setAttribute("pageSize", pageSize);//������ ���� �ش� ������ �� ����
 		}
 		log.info("1. PagingVO totalCount======================="+pageSize);
 		log.info("1. PagingVO totalCount======================="+totalCount);
 		pageCount = (totalCount - 1) / pageSize + 1;
 		
 		if(cpage<1) {
-			cpage=1;
-		}
-		if(cpage>pageCount) {
-			cpage=pageCount;
+			cpage=1;//���� �������� 1���� ���� ���� �Էµ� ��� �⺻ 1�������� ������
 		}
 		
-		
-		start=(cpage-1)*pageSize;
-		end=start+(pageSize+1);
+		if(cpage>pageCount) { 
+			cpage=pageCount;//���� �������� �������������� ū ���� �Էµ� �⺻ ������ �������� ������ 
+		}
+			
+		start=(cpage-1)*pageSize;//���� �������� ���۵� �Խ��� ù��° ���� ���۹�ȣ
+		end=start+(pageSize+1);//���� �������� ���۵� �Խ��� ������ ���� ���۹�ȣ
 		
 		prevBlock=(cpage-1)/pagingBlock*pagingBlock;
 		nextBlock=prevBlock+(pagingBlock+1);
@@ -59,27 +59,27 @@ public class PagingVO {
 	
 	public String getPageNavi(String myctx,String loc, String userAgent) {
 		
-		if(findType==null) {
+		if(findType==null) {//�˻� ����� ������� ���� ��� �ش� ���� 'null'�� ''�� �ٲپ� ���� ������ �߻����� �ʵ��� ��
 			findType="";
 			findKeyword="";
 		}else {
 			if(userAgent.indexOf("MSIE")>-1||userAgent.indexOf("Trident")>-1) {
 				try {
-					findKeyword=URLEncoder.encode(findKeyword,"UTF-8");
+					findKeyword=URLEncoder.encode(findKeyword,"UTF-8");//internet explorer �϶� parameter�� �ѱ۰��� ���� �� �ֱ⿡ ������ �ʵ��� ��
 				} catch (UnsupportedEncodingException e) {
 					System.out.println(e);
 				}
 			}
 		}
-		
-		if(findType2==null) findType2="";
-		
+		//������ �� ó���� Controller���� �� �� html�� ������
 		String str="";
 		String link=myctx+"/"+loc;
-		String qStr="?pageSize="+pageSize+"&findType="+findType+"&findType2="+findType2;
+
+		String qStr="?pageSize="+pageSize+"&findType="+findType;
 				qStr+="&findKeyword"+findKeyword+"&sortType="+sortType;
 		
 		
+
 		link+=qStr;  
 		StringBuilder buf=new StringBuilder();
 		buf.append("<ul class='pagination justify-content-center'>");

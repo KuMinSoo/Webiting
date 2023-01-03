@@ -22,6 +22,7 @@
 				alert('글내용을 입력하세요').$('#content').focus();
 				return false;
 			}
+
 			return true;
 			$(".select_code option").not(":selected").attr("disabled", "")
 
@@ -34,21 +35,22 @@
 		table-layout:fixed;
 		word-break:break-all;
 	}
-	
 	#content{
 		height:300px;
 		overflow:auto;
 	}
-	
 	#notice{
 		width:30px;
 		height:17px;
 	}
+
 </style>
 <div align="center" id="bbs" class="col-md-8 offset-md-2">
 	<input type="hidden" name="mode" value="write">
-	<br><h1>게시글보기</h1><br>
 		<!-- 원본글쓰기mode는 write, 답변글쓰기 mode는 rewrite로 감  -->
+		<br>
+		<h1 style="color:red;">게시글보기</h1>
+		<br>
 		<table class="table">
 			<c:if test="${board eq null}">
 				<div class="alert alert-danger my-5 text-center">
@@ -57,12 +59,13 @@
 			</c:if>
 			<c:if test="${board ne null}">
 				<tr>
-					<td><c:if test="${board.bcg_code eq null or empty board.bcg_code}">
-							<select class="select_code" name="bcg_code" style="padding: 6px;" disabled>
-								<option value=""  selected>:::문의 유형:::</option>
-							</select>
-						</c:if> <c:if
-							test="${board.bcg_code ne null or not empty board.bcg_code}">
+					<td>
+					  <c:if test="${board.bcg_code eq null or empty board.bcg_code}">
+						<select class="select_code" name="bcg_code" style="padding: 6px;" disabled>
+							<option value=""  selected>:::문의 유형:::</option>
+						</select>
+					  </c:if> 
+					  <c:if test="${board.bcg_code ne null or not empty board.bcg_code}">
 							<select class="select_code" disabled name="bcg_code"
 								style="padding: 6px;">
 								<option value="">:::문의 유형:::</option>
@@ -85,11 +88,11 @@
 									<c:if test="${board.bcg_code==6}">selected</c:if>>기타문의</option>
 							</select>
 						</c:if>
-					</td>	
+					</td>
 				</tr>
 				<tr>
 					<td>
-						<c:if test="${board.adminSunbun > 0}"><img id="notice" src="../../resources/images/notice.jpg"></c:if>
+							<c:if test="${board.adminSunbun > 0}"><img id="notice" src="../../resources/images/notice.jpg"></c:if>
 						<c:out value="${board.subject}"/>
 					</td>
 				</tr>
@@ -103,89 +106,84 @@
 					</td>
 				</tr>
 				<tr id="content">
-					<td><c:out value="${board.content}"/></td>			
+					<td>
+						<c:out value="${board.content}"/>
+					</td>	
 				</tr>
 				
 				<c:if test="${board.filename ne null}">
 					<tr>
-						<td>첨부파일:&nbsp;
-							<a href="#" onclick="down()">${board.originFilename}</a>
-							<small>[<c:out value="${board.filesize}"/>bytes]</small>	
+					   <td>첨부파일:&nbsp;
+						  <a href="#" onclick="down()">${board.originFilename}</a>
+						  <small>[<c:out value="${board.filesize}"/>bytes]</small>					
 						</td>
 					</tr>
 				</c:if>	
-				<!-- 편집, 삭제, 답변, 글쓰기, 글목록 버튼------- -->
+				
 				<tr>
 					<td>
-			<!-- 일반글(문의글 또는 답변)  -->	
+				<!-- 편집, 삭제, 답변, 글쓰기, 글목록 버튼------- -->
 						<button type="button" onclick="location.href='../list'">글목록</button>
 						<button type="button" onclick="location.href='../write'">글쓰기</button>
-					<!-- 조건: 관리자 글이 아닌 회원 글일 경우 수정, 삭제 버튼 보여줌  -->
-					<c:if test="${board.adminSunbun=='0' and board.lev=='0'}">				
-						<button type="button" onclick="go(1)">수정</button>		
-						<button type="button" onclick="go(2)">삭제</button>
-			 		</c:if>		
-			<!-- 일반글(문의글 또는 답변)  -->				
-
+						<button type="button" onclick="admin('reply')">답변</button>
+						<button type="button" onclick="admin('delete')">삭제</button>	
+						<%-- 관리자 로그인 될 경우만.... <c:if test="${loginUser.status eq '9' and (board.lev > 0 or board.adminSunbun > 0)}"> --%>
+						<!-- 관리자 로그인 아직 완료 안될 경우는 아래의 조건으로... -->
+						<c:if test="${board.lev > 0 or board.adminSunbun > 0}">	
+							<button type="button" onclick="admin('edit')">수정</button>			
+						</c:if>	
 					</td>
 				</tr>
 			</c:if>
 		</table>
-	<!--  편집 또는 삭제를 위한 form------------------------------------ -->		
-	<form name="frm" id="frm">
-		<input type="hidden" name="num" value="<c:out value="${board.num}"/>">
-		<input type="hidden" name="mode">
-		<div class="row mt-4" id="divPasswd" style="display:none">
-			<div class="col-md-3 offset-md-1 text-right" style="vertical-align:bottom">
-				<label for="passwd">글 비밀번호</label>
-			</div>
-			<div class="col-md-3">
-				<input type="password" name="passwd" id="passwd"
-				 class="form-control" placeholder="Password" required>
-			</div>
-			<div class="col-md-1">
-				<button id="btn" class="btn btn-outline-primary"></button>
-			</div>
-		</div><br>	
-	</form>
 		<!-- 파일 다운로드를 위한 form------------------------------------ -->
 	<form name="fileF" id="fileF" method="POST" action="../../fileDown">
 		<input type="hidden" name="fname" value="<c:out value="${board.filename}"/>">
 		<input type="hidden" name="origin_fname" value="<c:out value="${board.originFilename}"/>">
 	</form>	
+	<!-- 수정, 삭제 ----------------------------------------------------- -->
+	<form name="frm" id="frm">
+		<input type="hidden" name="num" value="<c:out value="${board.num}"/>">
+		<input type="hidden" name="mode">
+	</form>
+	
 	<!-- ---답변달기 form시작------------------------------------------------ -->
 	<form name="reF" id="reF" action="../rewrite" method="post">
 		<!-- hidden으로 부모글의 글번호(num)와 제목(subject)를 넘기자 -->
 		<input type="hidden" name="num" value="<c:out value="${board.num}"/>">
 		<input type="hidden" name="subject" value="<c:out value="${board.subject}"/>">
 		<input type="hidden" name="bcg_code" value="<c:out value="${board.bcg_code}"/>">
+		<input type="hidden" name="secret" value="<c:out value="${board.secret}"/>">
 	</form>
 </div>
 <script>
 
+//관리자 삭제 수정 함수
+function admin(admin){
+		if(admin=='delete'){
+			let result=confirm("해당 글을 삭제하시겠습니다?")
+			if(result==true){
+				frm.mode.value='delete';
+				frm.action='../delete';
+				frm.method='post';
+				frm.submit();
+			}else{
+				alert("취소를 눌렀습니다")
+			}	
+		}else if(admin=='reply'){
+			reF.submit();
+		}else if(admin=='edit'){
+			frm.mode.value='edit';
+			frm.action='../boardEdit';
+			frm.method='post';
+			frm.submit();
+		}
+	}
+
 //파일 다운로드 처리 함수
 function down(){
-	fileF.submit();		
-}
-
-//회원 삭제 또는 수정함수
-function go(flag){
-	if(flag==1){
-		frm.mode.value='edit';
-		$('#btn').text('글수정');
-		$('#passwd').focus();
-		frm.action='../edit';
-		frm.method='post';
-	}else if(flag==2){
-		frm.mode.value='delete';
-		$('#btn').text('글삭제');
-		$('#passwd').focus();
-		frm.action='../delete';
-		frm.method='post';
-	} 
-	$('#divPasswd').show(1000);
-
-}
+		fileF.submit();		
+	}
 	
 </script>
 <c:import url="/foot" />

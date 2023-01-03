@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- The Modal -->
+<!-- The Modal 비밀글 비밀번호 입력창 -->
+
 <div class="modal" id="pwdModal">
   <div class="modal-dialog">
     <div class="modal-content">

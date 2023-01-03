@@ -42,33 +42,31 @@ public class BoardController {
 	private CommonUtil util;
 	
 	
-	@GetMapping("/home")
+	@GetMapping("/home")//°í°´¹®ÀÇ ¸ÞÀÎ °Ô½ÃÆÇ
 	public String boardHome() {
-		
 		return "board/boardHome";
 	}
 	
 	@GetMapping("/write")
 	public String boardWrite() {
-		
 		return "board/boardWrite";
 	}
-	
+	//±Û ÀÛ¼º/ÆíÁý/´ä±Û ÄÁÆ®·Ñ·¯
 	@PostMapping("/write")
 	public String broadInsert(HttpServletRequest req, HttpSession session,
 			Model m, @RequestParam("mfilename") MultipartFile mfilename, 
 			@ModelAttribute BoardVO board) {
 		ServletContext app=req.getServletContext();
 		String upDir=app.getRealPath("/resources/board_upload");
-		File dir=new File(upDir);
+		File dir=new File(upDir);//ÀúÀå°æ·Î
 		log.info(upDir+"-----------------sss---------");
 		if(!dir.exists()) {
 			dir.mkdirs();//ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½Î°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		}
 		
 		if(!mfilename.isEmpty()) {
-			String originFname=mfilename.getOriginalFilename();
-			long fsize=mfilename.getSize();
+			String originFname=mfilename.getOriginalFilename();//mfilename¿¡¼­ ¿øº» ÆÄÀÏ ÀÌ¸§ ÃßÃâÇÏ±â
+			long fsize=mfilename.getSize();//ÆÄÀÏ »çÀÌÁî
 			
 			UUID uuid=UUID.randomUUID();//ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			String filename=uuid.toString()+"_"+originFname;//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½ ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½	
@@ -78,9 +76,14 @@ public class BoardController {
 				File delF=new File(upDir, board.getOld_filename());
 				if(delF.exists()) {
 					boolean b=delF.delete();
+<<<<<<< HEAD
 					log.info("old fileï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: "+b);
 				} 
 				
+=======
+					log.info("old file»èÁ¦¿©ºÎ: "+b);
+				}
+>>>>>>> origin/êµ¬ë¯¼ìˆ˜
 			}
 				
 			try {
@@ -89,50 +92,68 @@ public class BoardController {
 				e.printStackTrace();
 			}
 			log.info(upDir);
+<<<<<<< HEAD
 			board.setFilename(filename);//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 			board.setOriginFilename(originFname);//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
 			board.setFilesize(fsize);
+=======
+			board.setFilename(filename);//½ÇÁ¦ ÀúÀåµÈ ÆÄÀÏÀÌ¸§(·£´ý°ª+¿øº»ÆÄÀÏ ÀÌ¸§)
+			board.setOriginFilename(originFname);//¿øº» ÆÄÀÏÀÌ¸§
+			board.setFilesize(fsize);//ÆÄÀÏ »çÀÌÁî
+>>>>>>> origin/êµ¬ë¯¼ìˆ˜
 		}
 		
 		
-		
+		//Á¦¸ñ, ÀÛ¼ºÀÚ, ºñ¹Ð¹øÈ£ ÀÔ·ÂÇÏÁö ¾ÊÀ» ½Ã ´Ù½Ã ÀÔ·ÂÃ¢ º¸¿©ÁÖ±â
 		if(board.getName()==null||board.getSubject()==null||board.getPasswd()==null||
 			board.getName().trim().isEmpty()||board.getSubject().trim().isEmpty()||board.getPasswd().isEmpty()) {
-			return "redirect:write";
-		}
-		
-		
-		
+			return "redirect:rewrite";
+		}	
+		log.info("before====================="+board);
+		UserVO loginUser=loginCheck(session);//¼¼¼Ç¿¡¼­ ·Î±×ÀÎ Á¤º¸¸¦ °¡Á®¿Â´Ù-> Â÷ÈÄ ·Î±×ÀÎ Á¤º¸¸¦ ºñ±³ÇÏ¿© °Ô½Ã±Û Á¢±Ù ¹üÀ§¸¦ ¼³Á¤ÇÏ±â ÇÊ¿äÇÔ
 		int n=0;
 		String str="",loc="";
 		if("write".equals(board.getMode())) {
+<<<<<<< HEAD
 			n=this.bService.insertBoard(board);
 			str+="ï¿½Û¾ï¿½ï¿½ï¿½ ";
 		}else if("edit".equals(board.getMode())) {
 			n=this.bService.updateBoard(board);
 			str+="ï¿½Û¼ï¿½ï¿½ï¿½ ";
+=======
+			n=this.bService.insertBoard(board);//±ÛÀÛ¼º	
+			str+="±Û¾²±â ";
+		}else if("edit".equals(board.getMode())) {
+			n=this.bService.updateBoard(board);//ÇØ´ç ±Û ¼öÁ¤
+			str+="±Û¼öÁ¤ ";
+			log.info("before====================="+board);
+>>>>>>> origin/êµ¬ë¯¼ìˆ˜
 		}else if("rewrite".equals(board.getMode())) {
+			//´äº¯Àº °ü¸®ÀÚ¸¸ Á¢±ÙÇÒ ¼ö ÀÖÀ¸¸ç boardView.jsp¿¡¼­ °ü¸®ÀÚ¸¸ Á¢±ÙÇÒ ¹öÆ° ¸¸µë. ÀÌ¿¡ °ü¸®ÀÚ È®ÀÎ Á¶°ÇÀ» ºÙÀÌÁö ¾Ê¾ÒÀ½
 			n=this.bService.rewriteBoard(board);
 			str+="ï¿½äº¯ ";
 		}
+<<<<<<< HEAD
 
 		str+=(n>0)?"ï¿½ï¿½ï¿½ï¿½":"ï¿½ï¿½ï¿½ï¿½";
-		loc=(n>0)?"list":"javascript:history.back()";
+=======
 		
-		UserVO loginUser=loginCheck(session);
+		str+=(n>0)?"¼º°ø":"½ÇÆÐ";
+>>>>>>> origin/êµ¬ë¯¼ìˆ˜
+		loc=(n>0)?"list":"javascript:history.back()";
+				
 		m.addAttribute("loginUser",loginUser);
 		
 		return util.addMsgLoc(m, str, loc);
 	}//--------------------------------------
 	
-
+	//¼¼¼Ç¿¡¼­ ·Î±×ÀÎ Á¤º¸¸¦ °¡Á®¿Â´Ù.
 	public static UserVO loginCheck(HttpSession session) {
 		UserVO loginUser=(UserVO)session.getAttribute("loginUser");
-		
 		return loginUser;
 	}
 	
-	
+	//ºñ¹Ð¹øÈ£ Ã¼Å© ÈÄ ±Û ¼öÁ¤ÇÏ´Â jsp·Î ÀÌµ¿
 	@PostMapping("/edit")
 	public String boardEditForm(Model m, 
 			@RequestParam(defaultValue = "0") int num,
@@ -154,6 +175,7 @@ public class BoardController {
 		return "board/boardEdit";
 	}
 	
+	//±Û¸ñ·Ï ÄÁÆ®·Ñ·¯
 	@GetMapping("/list")
 	public String boardList(Model m, @ModelAttribute("page") PagingVO page,
 			HttpSession session,
@@ -167,12 +189,12 @@ public class BoardController {
 		log.info("1. totalCount======================="+totalCount);
 		page.setTotalCount(totalCount);
 		page.setPagingBlock(5);
-		page.init(ses);
+		page.init(ses);//±âº» ÆäÀÌÁö °ª ¼³Á¤
 		
 		log.info("2. page==="+page);
-		List<BoardVO> boardArr=this.bService.selectBoardAllPaging(page);
+		List<BoardVO> boardArr=this.bService.selectBoardAllPaging(page);//±Û ¸ñ·Ï È£Ãâ
 		String loc="board/list";
-		String pageNavi=page.getPageNavi(myctx, loc, userAgent);
+		String pageNavi=page.getPageNavi(myctx, loc, userAgent);//ÆäÀÌÂ¡ ºí·° Ã³¸® ÇÔ¼ö
 		
 		UserVO loginUser=loginCheck(session);
 		m.addAttribute("loginUser",loginUser);
@@ -184,33 +206,39 @@ public class BoardController {
 
 	}//--------------------
 
-	
+	//°Ô½ÃÆÇ ºäÆäÀÌÁö ÄÁÆ®·Ñ·¯
 	@GetMapping("/view/{num}")
 	public String boardView(@PathVariable("num") int num, Model m,HttpSession session) {
 		this.bService.updateReadnum(num);
-		BoardVO board=this.bService.selectBoardByIdx(num);
+		BoardVO board=this.bService.selectBoardByIdx(num);//±Û¹øÈ£¸¦ ÅëÇØ ÇØ´ç °Ô½Ã±Û Á¤º¸ È£Ãâ
 	
 		UserVO loginUser=loginCheck(session);
 		m.addAttribute("loginUser",loginUser);
 		m.addAttribute("board",board);
-		
+		log.info("==============111"+board);
 		return "board/boardView";		
 	}
 	
+	//ºñ¹Ð±Û È®ÀÎ ÄÁÆ®·Ñ·¯(ºñ¹Ð±Û ºñ¹Ð¹øÈ£ ÀÏÄ¡ ¿©ºÎ ÆÇ´Ü ÈÄ ÇØ´ç jsp·Î ÀÌµ¿ÇÔ)
 	@PostMapping("/pwdCheck")
 	public String pwdCheck(@RequestParam(defaultValue = "") String passwd,int num,Model m) {
 		System.out.println(passwd+"<<<<1");
-		BoardVO board=this.bService.selectBoardByIdx(num);	
+		BoardVO board=this.bService.selectBoardByIdx(num);//ÇØ´ç ±ÛÁ¤º¸ È£Ãâ	
 		System.out.println(board.getPasswd()+"<<<<2");
 		
 		if(board.getPasswd().equals(passwd)) {			
-			return "redirect:/board/view/"+num;
+			return "redirect:/board/view/"+num; //ºñ¹Ð¹øÈ£ ÀÏÄ¡
 		}else{
+<<<<<<< HEAD
 		return util.addMsgBack(m,"ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½");	
+=======
+		return util.addMsgBack(m,"ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù");	//ºñ¹Ð¹øÈ£ ºÒÀÏÄ¡
+>>>>>>> origin/êµ¬ë¯¼ìˆ˜
 		}
 	}
 	
 	
+<<<<<<< HEAD
 	@PostMapping("/admin/delete")
 	public String adminBoardDelete(Model m, 
 			HttpServletRequest req,
@@ -239,6 +267,9 @@ public class BoardController {
 	}
 	
 	
+=======
+	//È¸¿ø »èÁ¦ ±â´É(ºñ¹Ð¹øÈ£ ÀÏÄ¡¿©ºÎ ÆÇ´Ü ÈÄ »èÁ¦ÇÔ)
+>>>>>>> origin/êµ¬ë¯¼ìˆ˜
 	@PostMapping("/delete")
 	public String boardDelete(Model m, 
 			HttpServletRequest req,
@@ -273,15 +304,6 @@ public class BoardController {
 		String str=(n>0)?"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½":"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
 		String loc=(n>0)?"list":"javascript:history.back()";
 		return util.addMsgLoc(m, str, loc);
-	}
-	
-	@PostMapping("/rewrite")
-	public String boardRewrite(Model m, @ModelAttribute BoardVO vo) {
-		m.addAttribute("num",vo.getNum());
-		m.addAttribute("subject",vo.getSubject());
-		m.addAttribute("bcg_code",vo.getBcg_code());
-		
-		return "board/boardRewrite2";
 	}
 	
 
