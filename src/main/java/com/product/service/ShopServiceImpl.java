@@ -11,7 +11,7 @@ import com.product.mapper.ProductMapper;
 import com.product.model.CartVO;
 import com.product.model.ProductVO;
 
-@Service
+@Service("ShopServiceImpl")
 public class ShopServiceImpl implements ShopService {
 	
 	@Autowired
@@ -38,14 +38,14 @@ public class ShopServiceImpl implements ShopService {
 
 	@Override
 	public int addCart(CartVO cartVo) {
-		//[0] »óÇ°¹øÈ£¿Í È¸¿ø¹øÈ£·Î cart Å×ÀÌºí¿¡ ÀÖ´Â »óÇ°°³¼ö °¡Á®¿À±â
+		//[0] ï¿½ï¿½Ç°ï¿½ï¿½È£ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ cart ï¿½ï¿½ï¿½Ìºï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		Integer cnt=cartMapper.selectCartByPnum(cartVo);
 		if(cnt!=null) {
-			// [1] Àå¹Ù±¸´Ï¿¡ Ãß°¡ÇÏ´Â »óÇ°ÀÌ ÀÌ¹Ì Àå¹Ù±¸´Ï¿¡ ´ã°Ü ÀÖ´Â °æ¿ì¶ó¸é==> ¼ö·®¸¸ ¼öÁ¤(¼ö·®¸¸ Ãß°¡)=> update¹®
+			// [1] ï¿½ï¿½Ù±ï¿½ï¿½Ï¿ï¿½ ï¿½ß°ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½Ù±ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½==> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½)=> updateï¿½ï¿½
 			int n=cartMapper.updateCartQty(cartVo);
 			return n;
 		}else {
-			// [2] Àå¹Ù±¸´Ï¿¡ ¾ø´Â »óÇ°À» ´ãÀº °æ¿ì¶ó¸é==> insert¹®
+			// [2] ï¿½ï¿½Ù±ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½==> insertï¿½ï¿½
 			int n=cartMapper.addCart(cartVo);
 			return n;
 		}		
@@ -59,15 +59,15 @@ public class ShopServiceImpl implements ShopService {
 
 	@Override
 	public int editCart(CartVO cartVo) {
-		//¼ö·®¿¡ µû¶ó ´Ù¸£°Ô Ã³¸®ÇØº¸ÀÚ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½
 		int qty=cartVo.getOqty();
-		if(qty==0) {//¼ö·®ÀÌ 0ÀÌ¸é »èÁ¦Ã³¸®
+		if(qty==0) {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 			return this.cartMapper.delCart(cartVo.getCartNum());
 		}else if(qty<0) {
-			throw new NumberFormatException("¼ö·®Àº À½¼ö·Î ÀÔ·ÂÇÏ¸é ¾ÈµË´Ï´Ù");
+			throw new NumberFormatException("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½Ï¸ï¿½ ï¿½ÈµË´Ï´ï¿½");
 		}else if(qty>50){
-			throw new NumberFormatException("50°³ ÀÌ³»·Î¸¸ ¼öÁ¤ °¡´ÉÇÕ´Ï´Ù");
-		}else{//¼ö·®ÀÌ ¾ç¼ö¸é ¼öÁ¤Ã³¸®
+			throw new NumberFormatException("50ï¿½ï¿½ ï¿½Ì³ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½");
+		}else{//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½
 		
 			return this.cartMapper.editCart(cartVo);
 		}

@@ -11,19 +11,6 @@ import com.user.model.UserVO;
 
 import lombok.extern.log4j.Log4j;
 
-/*
-/admin/** 패턴의 요청일 때는
-AdminCheckInterceptor를 구성하자.
-=>HandlerInterceptorAdapter추상 클래스를 상속받아 구현해보기
-
-관리자 여부를 체크해서 관리자가 아니면
-"관리자만 이용 가능합니다"  보여준다.
-return false
-
-
-AdminCheckInterceptor를 servlet-context.xml에 빈으로 등록하고
-매핑 패턴을 지정한다.
-*/
 @Log4j
 public class AdminCheckInterceptor extends HandlerInterceptorAdapter{
 	@Override

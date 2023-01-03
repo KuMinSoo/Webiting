@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.board.model.PagingVO;
+import com.product.model.CartVO;
 import com.user.mapper.MyPageMapper;
 import com.user.model.LikeVO;
 
@@ -34,6 +35,36 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public int deleteLike(LikeVO like) {
 		return this.mMapper.deleteLike(like);
+	}
+
+	@Override
+	public int moveCart(CartVO vo) {
+		return this.mMapper.moveCart(vo);
+	}
+
+	@Override
+	public List<CartVO> selectCartView(int idx_fk) {
+		return this.mMapper.selectCartView(idx_fk);
+	}
+
+	@Override
+	public CartVO getCartTotal(int idx_fk) {
+		return this.mMapper.getCartTotal(idx_fk);
+	}
+
+	@Override
+	public int delCart(int cartNum) {
+		return this.mMapper.delCart(cartNum);
+	}
+
+	@Override
+	public int updateCartQty(CartVO cartVo) {
+		return this.mMapper.updateCartQty(cartVo);
+	}
+
+	@Override
+	public int editCart(CartVO cartVo) {
+		return this.mMapper.editCart(cartVo);
 	}
 
 }

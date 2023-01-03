@@ -5,7 +5,6 @@
 
 <c:import url="/top" />
 
-<%-- <%@ include file="/WEB-INF/views/mypage/likelistScript.jsp" %> --%>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 
 <style>
@@ -16,48 +15,7 @@ tr>td>a{
 }
 </style>
 
-<script>
-function maincheck(ck) // ck=> true, false
-{   	
-    var len=document.getElementsByClassName("subchk").length;
-    if(ck)  // main이 체크가 되면
-    {  // class='subchk'를 checked속성을 true
-	    for(i=0;i<len;i++)
-	    {
-	 	   document.getElementsByClassName("subchk")[i].checked=true;
-	    }	   
-    }	 
-    else
-    {
-	    for(i=0;i<len;i++)
-	    {
-		    document.getElementsByClassName("subchk")[i].checked=false;
-	    }
-    }	    
-}
-
-function subcheck()
-{	
-    var chk=0;
-    // 체크박스의 항목이 전부 체크 되었느냐를 확인
-    var len=document.getElementsByClassName("subchk").length;
-    // 하나씩 체크하기
-    for(i=0;i<len;i++)
-    {
-	    if(document.getElementsByClassName("subchk")[i].checked) chk++;
-    }	
-   
-    if(chk==len)
-    {
-	    document.getElementById("mainchk").checked=true;
-    }	
-    else
-    {
-	    document.getElementById("mainchk").checked=false;
-    }	   
-}
-
-</script>
+<%@ include file="/WEB-INF/views/mypage/checkScript.jsp" %>
 
 <%
    String ctx = request.getContextPath();
@@ -97,7 +55,7 @@ function subcheck()
 	<tr height="80">
        <td colspan="6">
        	<button class="checkdel_btn">선택삭제</button>
-        <input type="button" value="장바구니이동" onclick="move_cart()">
+       	<button class="move_cart">장바구니이동</button>
        </td>
      </tr>
 
@@ -111,6 +69,11 @@ function subcheck()
 
 <form action="/mypage/select_del" method="post" class="select_delete_form">
 	<input type="hidden" id="pnum" name="pnum" class="selectdel_pnum">
+	<input type="hidden" id="idx" name="idx" value=258>
+</form>
+
+<form action="/mypage/move_cart" method="post" class="move_cart_form">
+	<input type="hidden" id="pnum" name="pnum" class="move_cart_pnum">
 	<input type="hidden" id="idx" name="idx" value=258>
 </form>
 
@@ -131,9 +94,23 @@ $(".checkdel_btn").on("click", function(e){
 			str+=document.getElementsByClassName("subchk")[i].value+",";
 		}
 	}
-	alert(str);
+	//alert(str);
 	$(".selectdel_pnum").val(str);
 	$('.select_delete_form').submit();
+});
+
+$(".move_cart").on("click", function(e){
+	e.preventDefault();
+	var len=document.getElementsByClassName("subchk").length;
+	var str="";
+	for(i=0; i<len; i++){
+		if(document.getElementsByClassName("subchk")[i].checked){
+			str+=document.getElementsByClassName("subchk")[i].value+",";
+		}
+	}
+	alert(str);
+	$(".move_cart_pnum").val(str);
+	$('.move_cart_form').submit();	
 });
 
 </script>
