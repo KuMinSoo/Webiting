@@ -108,7 +108,7 @@ public class MyPageController {
 		
 		String str2=(n>0)?"해당 상품을 장바구니로 이동하였습니다.":"장바구니에 추가 실패";
 		
-		String loc=(n>0)?"redirect:shop/cartList":"javascript:history.back()";
+		String loc=(n>0)?"cartList":"javascript:history.back()";
 		
 		return common.addMsgLoc(m, str2, loc);
 	}

@@ -163,9 +163,9 @@ function selectDownCategoryHome(upCode){
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-
+						<c:if test="${loginUser.status eq 9 }">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="${myctx}/admin/userList">Admin</a></li>
-
+						</c:if>
                         <c:if test="${loginUser eq null }">
                         <li class="nav-item">
                           <a class="nav-link" href="${myctx}/login">Login</a>
@@ -181,8 +181,6 @@ function selectDownCategoryHome(upCode){
                         </li>
                      </c:if>
                      
-                     <li class="nav-item"><a class="nav-link" href="${myctx}/admin/prodForm">상품등록</a></li>
-                     <li class="nav-item"><a class="nav-link" href="${myctx}/prodList">상품목록</a></li>
                      <li class="nav-item"><a class="nav-link" href="${myctx}/board/home">고객문의</a></li>
 
                      <!-- 로그인한 유저만 보이게 설정 -------------------------------------------------------------------- -->
@@ -190,8 +188,9 @@ function selectDownCategoryHome(upCode){
                      	<li class="nav-item"><a class="nav-link" href="${myctx}/mypage">MyPage</a></li>
 					</c:if> --%>
 					<!-- test용 ------------------------------------------------------------------------------ -->
-
+					<c:if test="${loginUser ne null }">
                      <li class="nav-item"><a class="nav-link" href="${myctx}/mypage/likeList">LikeProd</a></li>
+                    </c:if>
 					 <li id="shop" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                             		 aria-expanded="false">Shop</a>

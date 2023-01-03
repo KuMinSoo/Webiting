@@ -46,6 +46,16 @@
 		$('#frm').submit();
 	}
 </script>
+<c:set var="myctx" value="${pageContext.request.contextPath}"/>
+<div> 
+	<p>
+	<button class="btn btn-outline-danger" onclick="location.href='${myctx}/admin/prodForm'">
+	상품 등록</button>
+	<button class="btn btn-outline-danger" onclick="location.href='${myctx}/admin/list'">
+	관리자 게시판</button>
+	
+	</p>
+</div>
 
 <div class="container mt-3" style="height: 600px; overflow: auto;">
 	<h1 class="text-center">Users [Admin Page]</h1>
