@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.product.model.CartVO;
 
-public interface CartMapper<CartVO> {
+public interface CartMapper {
 
 	Integer selectCartByPnum(CartVO cartVo);
 	int updateCartQty(CartVO cartVo);

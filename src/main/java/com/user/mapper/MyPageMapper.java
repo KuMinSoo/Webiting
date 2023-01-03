@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.board.model.PagingVO;
+import com.product.model.CartVO;
 import com.user.model.LikeVO;
 
 public interface MyPageMapper {
@@ -12,4 +13,11 @@ public interface MyPageMapper {
 	List<LikeVO> selectLikeAllPaging(PagingVO paging);
 	
 	int deleteLike(LikeVO like);
+	int moveCart(CartVO vo);
+	
+	List<CartVO> selectCartView(int idx_fk);
+	CartVO getCartTotal(int idx_fk);
+	int delCart(int cartNum);
+	int updateCartQty(CartVO cartVo);
+	int editCart(CartVO cartVo);
 }
