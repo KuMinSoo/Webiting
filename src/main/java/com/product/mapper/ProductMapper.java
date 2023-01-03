@@ -15,6 +15,7 @@ public interface ProductMapper {
 	List<ProductVO> selectByCategory(CategoryVO cvo);
 	
 	ProductVO selectByPnum(int pnum);
-
 	ProductVO detailProduct(int pnum);
+	
+	List<ProductVO> relatedProduct(int pnum);
 }

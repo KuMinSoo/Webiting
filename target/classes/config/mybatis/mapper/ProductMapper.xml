@@ -34,9 +34,9 @@
 		select * from product where pnum = #{pnum}
 	</select>
 	 
-	  
-	<!-- <select id="list" resultType="com.common.domain.ProductDTO">
-		SELECT * FROM product ORDER BY PINDATE DESC
-	</select>  -->
+	  				<!-- 연관 페이지 메퍼 -->
+	<select id="relatedProduct" resultType="product" parameterType = "_int">
+		select * from product where pnum > #{pnum}
+	</select>  
 	
 </mapper>

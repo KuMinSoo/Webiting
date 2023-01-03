@@ -46,14 +46,25 @@ public class PAdminController {
 
 	// 상세 페이지 컨트롤러
 	@GetMapping("/prodDetail")
-	public String deteil(Model m, @RequestParam("pnum") int pnum) {
+	public String deteil(Model m, @RequestParam("pnum") int pnum) { 
 		m.addAttribute("pcontents", adminService.detailProduct(pnum));
 
 		return "/admin/prodDetail";
 
 	}
 	
-	// ajax占쏙옙청占쏙옙 占쏙옙占쏙옙 json占쏙옙占쏙옙 占쏙옙占썰데占쏙옙占싶몌옙 占쏙옙占쏙옙占쏙옙
+	// 상세 -> 연관 페이지 컨트롤러	
+	  @GetMapping("/prodRelated") 
+	  public String related(Model m2, @RequestParam("pnum") int pnum) {
+		  List<ProductVO> obj=adminService.relatedProduct(pnum);
+		  m2.addAttribute("prelated",obj);
+	  
+	  return "/admin/prodRelated";
+	  
+	 	}
+	 
+	
+	// ajax요청에 대해 json으로 응답데이터를 보낸다
 	@GetMapping(value = "/getDownCategory", produces = "application/json")
 	@ResponseBody
 	public List<CategoryVO> getDownCategory(@RequestParam("upCg_code") String upCg_code) {
@@ -73,16 +84,16 @@ public class PAdminController {
 
 		File dir = new File(upDir);
 		if (!dir.exists()) {
-			dir.mkdirs();// 占쏙옙占싸듸옙占쏙옙 占쏙옙占썰리 占쏙옙占쏙옙
+			dir.mkdirs();// 업로드할 디렉토리 생성
 		}
-		// 2. 占쏙옙占싸듸옙 처占쏙옙
+		// 2. 업로드 처리
 		if (pimage != null) {
 			for (int i = 0; i < pimage.size(); i++) {
 				MultipartFile mfile = pimage.get(i);
-				if (!mfile.isEmpty()) {// 첨占쏙옙占쏙옙占쏙옙占쏙옙 占쌍다몌옙
+				if (!mfile.isEmpty()) {// 첨부파일이 있다면
 					try {
 						mfile.transferTo(new File(upDir, mfile.getOriginalFilename()));
-						// 占쏙옙占싸듸옙 처占쏙옙
+						// 업로드 처리
 						if (i == 0) {
 							product.setPimage1(mfile.getOriginalFilename());
 						} else if (i == 1) {
@@ -92,15 +103,15 @@ public class PAdminController {
 						}
 
 					} catch (IOException e) {
-						log.error("占쏙옙占쏙옙 占쏙옙占싸듸옙 占쏙옙占쏙옙: " + e);
+						log.error("파일 업로드 실패: " + e);
 					}
 
 				}
 			} // for---------------
-			log.info("占쏙옙占싸듸옙 占쏙옙占쏙옙 product===" + product);
+			log.info("업로드 이후 product===" + product);
 		}
 		int n = adminService.productInsert(product);
-		String str = (n > 0) ? "占쏙옙품占쏙옙占� 占쏙옙占쏙옙" : "占쏙옙占� 占쏙옙占쏙옙";
+		String str = (n > 0) ? "상품등록 성공" : "등록 실패";
 		String loc = (n > 0) ? "prodList" : "javascript:history.back()";
 
 		m.addAttribute("message", str);

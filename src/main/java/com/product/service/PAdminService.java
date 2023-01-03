@@ -21,5 +21,7 @@ public interface PAdminService {
 
 	// 상세 페이지 인터페이스
 	public Object detailProduct(int pnum); 
-		
+	
+	//연관 상품 페이지 인터페이스
+	public List<ProductVO> relatedProduct(int pnum);
 }
