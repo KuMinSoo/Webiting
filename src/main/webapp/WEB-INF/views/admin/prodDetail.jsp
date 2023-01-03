@@ -8,11 +8,10 @@
 <head>
 <meta http-equiv = "Content-Type" content = "text/html; charset = UTF-8">
 <link rel="stylesheet" href="../resources/css/detail.css" type="text/css">
-<title>상세 페이지</title>
-</head>
-			<!--  --------------- 상품 정보 JS-------------------- --> 
-<script>
- var pnum = $("#pnum").val();
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<c:set var="myctx" value="${pageContext.request.contextPath}"/>
+<script type="text/javascript">
+var pnum = $("#pnum").val();
 
 $.getJSON("/admin/prodDetail/{pnum}" + pnum, function(result) {
 	
@@ -126,138 +125,146 @@ $.getJSON("/admin/prodDetail/{pimage1}/" + pimage1, function(result) {
 			});
 		});
 
+		 /* 주소입력란 버튼 동작(숨김, 등장) */
+		 function showAdress(className){
+		 	/* 컨텐츠 동작 */
+		 	/* 모두 숨기기 */
+		 		$(".addressInfo_input_div").css('display', 'none');
+		 	/* 컨텐츠 보이기 */
+		 		$(".addressInfo_input_div_" + className).css('display', 'block');		
+		 }
+		
+		 /* 버튼 색상 변경 */
+			/* 모든 색상 동일 */
+				$(".address_btn").css('backgroundColor', '#555');
+			/* 지정 색상 변경 */
+				$(".address_btn_"+className).css('backgroundColor', '#3c3838');	
 </script>
+<title>상세 페이지</title>
+</head>
 <body>
-						<!-- 상품 정보 페이지  -->
-	<div class="container" style="width: 120%">
-		<div class="row"><h1 class="page-header" style="text-align: center; margin-bottom: 50px;">${pcontents.pname}</h1>
-			<input type="hidden" value="${pcontents.pnum}" id="pnum">
-		</div>
-		<div class="row" style="float: left; text-align: center; width:35%;">
-			<img alt="pimage1" src="../resources/images/MTest5.jpg" width="100%"> 
-		</div>
-		
-		<div class="row pcontents" style="width:55%; float:right;" >
-			<div class="form-group" style="text-align: center;">
-				<h3 class="page-header"><span>${pcontents.pname}</span><br><small>${pcontents.pcontents}</small></h3>
-			</div>
-			<div class="form-group" style="text-align: left;">
-				<label>가격 : </label><span>&nbsp;<fmt:formatNumber value="${pcontents.price}" type="number"/></span><span>&nbsp;원</span>
-				<input type="hidden" value="${pcontents.price}" id="price"> 
-			</div>
-			<div class="form-group" style="text-align: left;">
-				<label>배송비 : </label><span>&nbsp;2500원</span>
-				<p>도서산간지역 배송비 5000원 / 3만원 이상 결제시 무료배송</p>
-			</div>
-			<div class="form-group" style="text-align: left;">
-				<label>적립금 : </label><span><fmt:parseNumber var="test" value="${pcontents.price / 100}" integerOnly="true"/> ${test}&nbsp;원</span>
-			</div>
-		
-					<div class="form-horizontal" style="text-align: left;">
-						<label>옵션 : </label> 
-						<select class="form-control opt_select" name="selectedOpt">
-							<option value="S">S</option>
-							<option value="M">M</option>
-							<option value="L">L</option>
-						</select>
-					</div>
-				
-			<div class="form-horizontal" style="text-align: left;">
-				<label>구매수량 : </label> 
-				<select class="form-control" id="pqty"> 
-				<c:forEach begin="1" end="5" var="pqty"> 
-					<option value="${pqty}">${pqty}</option></c:forEach> 
-				</select>
-			</div>	
-			<hr>
-			
-			<div class="row">
-				<div class="selected_option" style="text-align: right;"> 
-				</div>
-				<div style="text-align: center;">
-					<button class="btn btn-default">주문하기</button>
-					<button class="btn btn-default">장바구니</button>
-				</div>
-			</div>
-			<hr>	
-		</div>
-	</div>
-		<!-- 상품 상세 페이지 및 Q&A-->
-	 <div class="container">
-		<!-- <div class="row nav">
-			 <nav id="middle_nav">
-				<ul class="nav nav-tabs nav-justified">
-					<li id="about">상품상세</li>
-					<li id="review">리뷰</li>
-					<li id="qna">상품문의</li>
-				</ul>
-			</nav> 
-		</div> -->
-		
-	<!-- <table>	
-		<div class="col about_product" style= "text-align: center;">  
-			<th>상품 상세</th><h1 class="page-header"></h1>
-			<th>리뷰</th><h1 class="page-header">리뷰</h1>
-			<th>문의</th><h1 class="page-header">문의</h1>
-		 </div>
-	</table> -->
-			<!-- <div class="col" style="margin: 10px;">
-			<h1 class="jumbotron">
-				<div class="container">
-					<h1>Hello world</h1>
-					<small>This is product page.</small>
-				</div>
-			</h1>
-			</div> -->
-		
-		<div class="row reviews" style="text-align: center; margin: 80px;">
-			<!-- <h1 class="page-header" style="margin-bottom: 50px;">Review</h1> -->
-			
-			<%-- <c:forEach begin="1" end="5">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">Panel title</h3>
-				</div>
-				<div class="panel-body">Panel content</div>
-			</div>
-			</c:forEach> --%>
-		</div>
+                  <!-- 상품 정보 페이지  -->
+   <div class="container" role = "main" style="width: 100%">
+      <hr>
+      <div class="header-row"><h2 class="page-header" style="text-align: center; margin-bottom: 30px;">${pcontents.pname}</h2>
+         <input type="hidden" value="${pcontents.pnum}" id="pnum">
+      </div>
+      <hr>
+      <div class="row" style="float: left; text-align: center; width:35%;">
+         <img alt="pimage1" src="${myctx}/resources/product_images/${pcontents.pimage1}" width="110%"> 
+      </div>
+      
+      <div class="row-pcontents" style="width:55%; float:right;" >
+         <div class="form-group" style="text-align: center;">
+            <h3 class="page-header"><span>${pcontents.pname}</span><br><small>${pcontents.pcontents}</small></h3>
+         </div>
+         <hr>
+         <div class="price-group" style="text-align: center;">
+            <label>가격 : <span> &nbsp; <fmt:formatNumber value="${pcontents.price}" type="number"/></span><span>&nbsp;원</span></label>
+            <input type="hidden" value="${pcontents.price}" id="price"> 
+         </div>
 
-		<div class="row qnas" style="text-align: center; height: 700px;">
-            		<!-- QnA 테이블 --> 				
-    		<table class="table table-hover" style="width: 90%; margin: auto;">
-				<thead>
-					<!-- <h1 class="page-header">상품 QnA</h1> -->
-					<tr>
-						<th>회원ID</th>
-						<th>이름</th>
-						<th>Email</th>
-						<th>전화번호</th>
-						<th>주소</th>
-						<th>생일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${list}" var="vo">
-						<tr>
-							<td>${vo.userid}</td>
-							<td>${vo.username}</td>
-							<td>${vo.email}</td>
-							<td>${vo.tel}</td>
-							<td>${vo.useraddress}</td>
-							<td>${vo.birthDate}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</div>
-	</div>
-			<%-- <h1 class="jumbotron" style="text-align: center; margin: 50px 0;">${productInfo.productId}</h1>
-			<div class="form-group hidden-xs" id="fileDrop">
-				<label>추가로 업로드 할 파일을 드랍하세요.</label>	
-					<div class="fileDrop"></div>
-					<ul class="clearfix uploadedList col-xs-12"></ul>
-			</div> --%>
-		
+         <div class="form-group" style="text-align: center;">
+            <label>배송비 : </label><span>&nbsp;2500원</span>
+            <p>도서산간지역 배송비 5000원 / 20만원 이상 결제시 무료배송</p>
+         </div>
+         
+         <div class="form-group" style="tesxt-align: center;">
+            <label><!-- 적립금 : --> </label><span><fmt:parseNumber var="test" value="${pcontents.price / 100}" integerOnly="true"/><%--  ${test}&nbsp;원 --%></span>
+         </div>
+               <div class="form-horizontal" style="text-align: center;">
+                  <label> 옵션 </label> 
+                  <select class="form-control opt_select" name="selectedOpt">
+                     <option value="S">S</option>
+                     <option value="M">M</option>
+                     <option value="L">L</option>
+                  </select>
+               </div>
+            
+         <div class="form-horizontal" style="text-align: center;">
+            <label>구매수량</label> 
+            <select class="form-control" id="pqty"> 
+            <c:forEach begin="1" end="5" var="pqty"> 
+               <option value="${pqty}">${pqty}</option></c:forEach> 
+            </select>
+         </div>   
+         <div class="row">
+            <div class="selected_option" style="text-align: right;"> 
+            </div>
+            <div style="text-align: center;">
+               <button class="btn btn-default">주문하기</button>
+               <button class="btn btn-default">장바구니</button>
+            </div>
+         </div>
+         <br>
+         </div>
+         
+         <div class="row" style="float: left; text-align: center; width:65%;">
+            <img alt="pimage1" src="../resources/images/coupon.png" width="110%"> 
+         </div>
+      <br>
+      
+         <div class="addressInfo_div">
+      <div class="addressInfo_button_div">
+         <button class="address_btn address_btn_1">제품 상세</button>
+         <button class="address_btn address_btn_2">리뷰</button>
+      </div>
+
+      <div class="addressInfo_input_div_wrap">
+         <div class="addressInfo_input_div addressInfo_input_div_1" style="display: block"></div>
+            <img alt="pimage1" src = "${myctx}/resources/product_images/${pcontents.pimage2}" width = "350px;" height = "320px;">
+            
+            <div class = "product-info_table" style="width:55%; float:right;">
+               <p class = "table-title">필수 표기 정보</p>
+               <hr>
+                  <table class = "product-info" width = "400px;">
+                     <tbody>
+                        <th>품명</th>
+                        <td>우드 침대</td>
+                        <th>인증 정보</th>
+                        <td>해당 없음</td>
+                     </tbody>               
+                  </table>
+            </div>
+               <!-- <div class="addressInfo_input_div addressInfo_input_div_2"></div> -->
+               
+   <hr color='red'>
+   <c:import url="/admin/prodRelated">
+      <c:param name="pnum" value="${pcontents.pnum}" />
+   </c:import>      
+   <hr color='red'>
+   
+   
+   
+                  <!-- 후기 게시판 페이지 -->
+      <div class="row reviews" style="margin-top: 100px;">
+         <h4 class="page-header">Review&nbsp;&nbsp;<small>상품을 사용해보신 분들의 실제 후기입니다.</small></h4>
+         <table class="table table-hover">
+            <thead>
+               <tr>
+                  <th>Num</th>
+                  <th>제목</th>
+                  <th>작성자</th>
+                  <th>작성일</th>
+                  <th>조회수</th>
+               </tr>
+            </thead>
+            <tbody>
+               <c:forEach items="${list}" var="vo">
+                  <tr>
+                     <td>${vo.boardId}</td>
+                     <td><a href="/board/read/${vo.boardId}">${vo.title}</a></td>
+                     <td>${vo.userid}</td>
+                     <td><fmt:formatDate value="${vo.regDate}" type="date"
+                           pattern="yyyy-MM-dd"/></td>
+                     <td>${vo.viewCnt}</td>
+                  </tr>
+               </c:forEach>
+            </tbody>
+         </table>
+      </div>      
+      </div>   
+   </div>
+         </div>
 </body>
 </html>

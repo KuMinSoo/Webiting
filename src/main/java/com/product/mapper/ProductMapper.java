@@ -18,10 +18,14 @@ public interface ProductMapper {
 	ProductVO selectByPnum(int pnum);
 
 
+
 	public List<ProductVO> selectProductAllPaging(PagingVO paging);
 	public List<ProductVO> productListCategory( String downCg_code);
 	public int getTotalCount(PagingVO page);
 	public int getTotalCountCategory(String downCg_code);
 	ProductVO detailProduct(int pnum);
+
+	
+	List<ProductVO> relatedProduct(int pnum);
 
 }

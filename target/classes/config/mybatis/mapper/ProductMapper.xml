@@ -103,5 +103,10 @@
 					<!-- 상세 페이지 매퍼 -->
 	<select id = "detailProduct" resultType = "product" parameterType="_int">
 		select * from product where pnum = #{pnum}
-	</select>	
+	</select>
+	 
+	  				<!-- 연관 페이지 메퍼 -->
+	<select id="relatedProduct" resultType="product" parameterType = "_int">
+		select * from product where pnum > #{pnum}
+	</select>  
 </mapper>

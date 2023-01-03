@@ -59,22 +59,27 @@ public class PAdminController {
 
 	// 상세 페이지 컨트롤러
 	@GetMapping("/prodDetail")
-	public String deteil(Model m, @RequestParam("pnum") int pnum) {
+	public String deteil(Model m, @RequestParam("pnum") int pnum) { 
 		m.addAttribute("pcontents", adminService.detailProduct(pnum));
 
 		return "/admin/prodDetail";
 
 	}
 	
-	/* 상세 페이지 메핑
-	 * @GetMapping("/prodDetail") public String prodDetail(Model
-	 * model, @RequestParam("pnum") int pnum) { //1개를 받아온다 ProductVO prod =
-	 * adminService.getProductByPnum(pnum); //Service , mapper , mapper.xml(+쿼리문까지)
-	 * model.addAttribute("prod",prod);//${prod} return "/admin/prodDetail"; }
-	 */
+
+	// 상세 -> 연관 페이지 컨트롤러	
+	  @GetMapping("/prodRelated") 
+	  public String related(Model m2, @RequestParam("pnum") int pnum) {
+		  List<ProductVO> obj=adminService.relatedProduct(pnum);
+		  m2.addAttribute("prelated",obj);
+	  
+	  return "/admin/prodRelated";
+	  
+	 	}
+	 
 	
-	//ajax占쏙옙청占쏙옙 占쏙옙占쏙옙 json占쏙옙占쏙옙 占쏙옙占썰데占쏙옙占싶몌옙 占쏙옙占쏙옙占쏙옙
-	@GetMapping(value="/admin/getDownCategory", produces = "application/json")
+	// ajax요청에 대해 json으로 응답데이터를 보낸다
+	@GetMapping(value = "/getDownCategory", produces = "application/json")
 	@ResponseBody
 	public List<CategoryVO> getDownCategory(@RequestParam("upCg_code") String upCg_code){
 		//log.info("upCg_code==="+upCg_code);
@@ -141,10 +146,10 @@ public class PAdminController {
 	/*@GetMapping("/admin/prodList")
 =======
 			} // for---------------
-			log.info("占쏙옙占싸듸옙 占쏙옙占쏙옙 product===" + product);
+			log.info("업로드 이후 product===" + product);
 		}
 		int n = adminService.productInsert(product);
-		String str = (n > 0) ? "占쏙옙품占쏙옙占� 占쏙옙占쏙옙" : "占쏙옙占� 占쏙옙占쏙옙";
+		String str = (n > 0) ? "상품등록 성공" : "등록 실패";
 		String loc = (n > 0) ? "prodList" : "javascript:history.back()";
 
 		m.addAttribute("message", str);

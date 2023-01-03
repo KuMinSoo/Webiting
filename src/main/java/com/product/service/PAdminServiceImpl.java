@@ -54,11 +54,18 @@ public class PAdminServiceImpl implements PAdminService {
 		return this.productMapper.getProducts();
 	}
 	
-//	// 상세 페이지 PAdminservice 인터페이스 구현 클래스
+	// 상세 페이지 PAdminservice 인터페이스 구현 클래스
 	@Override
 	public ProductVO detailProduct(int pnum) {
 		
 		return this.productMapper.detailProduct(pnum);
+	}
+	
+	// 연관 상품 페이지 PAdminservice 인터페이스 구현 클래스
+	@Override
+	public List<ProductVO> relatedProduct(int pnum) {
+		
+		return this.productMapper.relatedProduct(pnum);
 	}
 
 	@Override
