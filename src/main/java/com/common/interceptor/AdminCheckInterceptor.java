@@ -34,7 +34,7 @@ public class AdminCheckInterceptor extends HandlerInterceptorAdapter{
 		if(user!=null) {
 			if(user.getStatus()!=9) {
 				req.setAttribute("message", "관리자만 이용 가능합니다.");
-				req.setAttribute("loc", "/");
+				req.setAttribute("loc", "/index");
 				RequestDispatcher disp=req.getRequestDispatcher("/WEB-INF/views/msg.jsp");
 				disp.forward(req, res);
 				return false; //관리자가 아닌 경우

@@ -1,8 +1,7 @@
 package com.product.model;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.Data;
+
 //html 의 input name과 VO의 property명, DB table의 column명을 일치시켜주면 편리하다
 @Data
 public class ProductVO {  

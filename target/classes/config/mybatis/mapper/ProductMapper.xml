@@ -49,16 +49,40 @@
     </select>
 	    
     <sql id="findWhere">
-        <if test="findKeyword!=''">
+        <if test="findType!=null and findKeyword!=''">
             <where>
+            	<if test="findType==1">
                     pname like '%'||#{findKeyword}||'%'
+                </if>
+                <if test="findType==2">
+                    tag1 like '%'||#{findKeyword}||'%' or tag2 like '%'||#{findKeyword}||'%' 
+                    or tag3 like '%'||#{findKeyword}||'%'
+                </if>
             </where>
         </if>
     </sql>
-    
+    <sql id="sortType">
+    	<if test="sortType==null and sortType==''">
+    		 pindate desc
+    	</if>
+    	<if test="sortType!=null and sortType!=''">
+    		<if test="sortType=='pindate'">
+    			#{sortType} desc
+    		</if>
+    		<if test="sortType=='price'">
+    			#{sortType} asc
+    		</if>
+    	</if>
+    </sql>
     <select id="selectProductAllPaging" resultType="Product" parameterType="Paging">
         select * from
-        (select row_number() over(order by pnum desc) rn, product.* 
+        (select row_number() over(order by 
+        <choose>
+	        <when test='sortType ==1'>pindate desc</when>
+	        <when test='sortType ==2'>price asc</when>
+	        <otherwise>pindate desc</otherwise>
+        </choose>
+        ) rn, product.* 
         from product 
         <include refid="findWhere"/>
         )

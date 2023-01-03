@@ -1,11 +1,11 @@
 package com.multi.webiting;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -23,12 +23,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.common.CommonUtil;
 import com.user.model.NotUserException;
 import com.user.model.UserVO;
-
 import com.user.service.KakaoService;
 import com.user.service.UserService;
 
-
 import lombok.extern.log4j.Log4j;
+
+
 
 @Controller
 @Log4j

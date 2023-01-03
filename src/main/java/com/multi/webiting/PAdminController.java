@@ -2,7 +2,6 @@ package com.multi.webiting;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,8 +12,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,8 +26,6 @@ import com.board.model.PagingVO;
 import com.product.model.CategoryVO;
 import com.product.model.ProductVO;
 import com.product.service.PAdminService;
-import com.user.model.UserVO;
-
 
 import lombok.extern.log4j.Log4j;
 
@@ -162,14 +161,16 @@ public class PAdminController {
 
 		return "admin/prodList";
 	}*/
-	@GetMapping("/prodListForm")
+	@GetMapping(value="/prodListForm")
+	
 	public String productListPaging(Model m, @ModelAttribute("page") PagingVO page,
 			HttpServletRequest req, @RequestHeader("User-Agent") String userAgent,
-			@RequestParam(value="downCg_code", required=false) String downCg_code) {
+			@RequestParam(value="downCg_code", required=false) String downCg_code,
+			@RequestParam(value="downCg_name", required=false) String downCg_name
+			) {
 		String myctx=req.getContextPath();
 		
 		HttpSession ses=req.getSession();
-		
 		log.info("1. page===="+page);
 		int totalCount=0;
 		List<ProductVO> prodArr=null;
@@ -186,6 +187,8 @@ public class PAdminController {
 			page.setPagingBlock(5);
 			page.init(ses);
 			prodArr=adminService.productListCategory(downCg_code);
+			m.addAttribute("downCg_name",downCg_name);
+			//log.info("downCg_name===="+downCg_name);
 		}
 		String loc="prodList";
 		String pageNavi=page.getPageNavi(myctx, loc, userAgent);
@@ -199,14 +202,68 @@ public class PAdminController {
 		return "prodList/prodListForm";
 		
 	}
+	
+	@GetMapping(value="/prodListForm/{sortType}")
+	@ResponseBody
+	public ModelMap prodListSortBySel( @ModelAttribute("page") PagingVO page,
+			HttpServletRequest req, @RequestHeader("User-Agent") String userAgent,
+			@RequestParam(value="downCg_code", required=false) String downCg_code,
+			@RequestParam(value="downCg_name", required=false) String downCg_name,
+			@PathVariable(name="sortType", required=false) Integer sortType
+			) {
+		//log.info(sortType);
+		
+		String myctx=req.getContextPath();
+		ModelMap map=new ModelMap();
+		HttpSession ses=req.getSession();
+		int totalCount=0;
+		List<ProductVO> prodArr=null;
+		
+		if(downCg_code==null) {
+			totalCount=this.adminService.getTotalCount(page);
+			page.setTotalCount(totalCount);
+			page.setPagingBlock(5);
+			page.init(ses);
+			page.setSortType(sortType);
+			prodArr=this.adminService.selectProductAllPaging(page);
+		}else {
+			totalCount=this.adminService.getTotalCountCategory(downCg_code);
+			page.setTotalCount(totalCount);
+			page.setPagingBlock(5);
+			page.init(ses);
+			page.setSortType(sortType);
+			prodArr=adminService.productListCategory(downCg_code);
+			map.addAttribute("downCg_name",downCg_name);
+			//log.info("downCg_name===="+downCg_name);
+		}
+		String loc="prodList";
+		log.info("sortType1==="+sortType);
+		String pageNavi=page.getPageNavi(myctx, loc, userAgent);
+		log.info("sortType2==="+sortType);
+		//log.info("prodArr:"+prodArr);
+		if(page.getFindKeyword()!=null) {
+			map.addAttribute("keyword", page.getFindKeyword());
+		}
+		log.info("pageNavi===="+pageNavi);
+		/*
+		 * for (ProductVO pArr : prodArr) { System.out.println(pArr.getPrice()); }
+		 */
+		map.addAttribute("pageNavi", pageNavi);
+		map.addAttribute("paging", page);
+		map.addAttribute("prodArr", prodArr);
+		return map;
+		
+	}
 	@GetMapping("/prodList")
 	public String productListCategory(Model m,
-			@RequestParam(value="downCg_code", required=false) String downCg_code) {
+			@RequestParam(value="downCg_code", required=false) String downCg_code
+			) {
 		
 		//List<ProductVO> prodArr2=adminService.productListCategory(downCg_code);
 		//m.addAttribute("prodArr2",prodArr2);
 		//log.info(prodArr2);
 		//m.addAttribute("upCg")
+		
 		return "admin/prodList";
 	}
 

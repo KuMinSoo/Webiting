@@ -137,7 +137,7 @@ function selectDownCategoryHome(upCode){
 			let str="";
 			$.each(res, function(i, item){
 				str+='<li class="dropdown-item-right"><a href="/prodList?downCg_code='
-						+item.downCg_code+'">'+item.downCg_name+'</a></li>';
+						+item.downCg_code+'&downCg_name='+item.downCg_name+'">'+item.downCg_name+'</a></li>';
 			});
 			//alert(str);	
 			$('.selectDcg').html(str);
@@ -219,22 +219,23 @@ function selectDownCategoryHome(upCode){
 				<form name="searchF" action="prodList" onsubmit="return check()">
 					<input type="hidden" name="pageSize" value="${pageSize}">
 					<input type="hidden" name="cpage" value="1">
-					<%-- <select name="findType" style="padding:6px;">
+					 <select name="findType" style="padding:6px;">
 						<option value="">:::검색유형:::</option>
-						<option value="1" <c:if test="${paging.findType eq 1}">selected</c:if>>글제목</option>
-						<option value="2" <c:if test="${paging.findType eq 2}">selected</c:if>>작성자</option>
-						<option value="3" <c:if test="${paging.findType eq 3}">selected</c:if>>글내용</option>
-					</select> --%>
+						<option value="1" <c:if test="${paging.findType eq 1}">selected</c:if>>상품명</option>
+						<option value="2" <c:if test="${paging.findType eq 2}">selected</c:if>>태그검색어</option>
+					</select> 
 					<input type="text" name="findKeyword" placeholder="검색" 
 							 style="width:50%;padding:5px;">
 					<button class="btn btn-outline-primary">검  색</button>
 				</form>
 			</div>
 			<div class="col-md-3 text-right">
-				<form name="pageSizeF" action="list">
-					<%-- <input type="hidden" name="findType" value="${paging.findType}"> --%>
+				<form name="pageSizeF" action="prodListForm">
+					<input type="hidden" name="findType" value="${paging.findType}">
 					<input type="hidden" name="findKeyword" value="${paging.findKeyword}">
 					<input type="hidden" name="cpage" value="${paging.cpage}">
+					<input type="hidden" name="downCg_code" value="${downCg_code}">
+					<input type="hidden" name="downCg_code_name" value="${downCg_code_name}">
 				</form>
 			</div>
 		</div>

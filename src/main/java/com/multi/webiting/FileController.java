@@ -1,8 +1,8 @@
 package com.multi.webiting;
 
 
+
 import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import lombok.extern.log4j.Log4j;
 
 
@@ -38,7 +39,7 @@ public class FileController {
 		log.info("userAgent==="+userAgent);
 		log.info("fname==="+fname);
 		log.info("origin_fname==="+origin_fname);
-		//1. ¾÷·ÎµåµÈ µð·ºÅä¸® Àý´ë°æ·Î ¾ò±â
+		//1. ï¿½ï¿½ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 		ServletContext app=req.getServletContext();
 		String upDir=app.getRealPath("/resources/board_upload");
 		
@@ -46,29 +47,29 @@ public class FileController {
 		log.info("filePath==="+filePath);
 		
 		
-		org.springframework.core.io.Resource resource=new FileSystemResource(filePath);//uuid_ÆÄÀÏ¸í
-		//FileSystemResource °¡ ¾Ë¾Æ¼­ ÆÄÀÏ°ú ½ºÆ®¸² ¿¬°áÀ» ÇÑ´Ù
+		org.springframework.core.io.Resource resource=new FileSystemResource(filePath);//uuid_ï¿½ï¿½ï¿½Ï¸ï¿½
+		//FileSystemResource ï¿½ï¿½ ï¿½Ë¾Æ¼ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½
 		if(!resource.exists()) {
-			//ÇØ´ç ÆÄÀÏÀÌ ¾ø´Ù¸é
+			//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		//2. ºê¶ó¿ìÀúº° ÀÎÄÚµù Ã³¸®
+		//2. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ Ã³ï¿½ï¿½
 		String downName=null;
 		boolean checkIE=(userAgent.indexOf("MSIE")>-1 || userAgent.indexOf("Trident")>-1);
 		try {
 			if(checkIE){
-				//IEÀÎ °æ¿ì
+				//IEï¿½ï¿½ ï¿½ï¿½ï¿½
 				downName=URLEncoder.encode(origin_fname,"UTF-8").replaceAll("\\+", " ");
 			}else {		
-				//±×¿Ü ºê¶ó¿ìÀúÀÎ °æ¿ì
-				origin_fname=origin_fname.replace(",", "");//Å©·ÒÀº ÆÄÀÏ¸í¿¡ ÄÞ¸¶(,) ÀÖÀ¸¸é ´Ù¿î·Îµå µÇÁö ¾ÊÀ½
+				//ï¿½×¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+				origin_fname=origin_fname.replace(",", "");//Å©ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½Þ¸ï¿½(,) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				downName=new String(origin_fname.getBytes("UTF-8"),"ISO-8859-1");
 			}
 		}catch(UnsupportedEncodingException e) {
-			log.error("ÆÄÀÏ ´Ù¿î·Îµå Áß ¿¡·¯:"+e);
+			log.error("ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¿ï¿½Îµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½:"+e);
 		}
 		
-		//3. HttpHeaderÅëÇØ Çì´õ Á¤º¸ ¼³Á¤
+		//3. HttpHeaderï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		HttpHeaders headers=new HttpHeaders();
 		headers.add("Content-Disposition", "attachment; filename="+downName);
 		

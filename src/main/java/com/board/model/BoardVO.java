@@ -2,16 +2,20 @@ package com.board.model;
 
 import java.sql.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class BoardVO {
 	
 	private String mode;  
 	
 
-	private String bcg_code;//»óÀ§ Ä«Å×°í¸® ÄÚµå
-	private String bcg_name;//»óÀ§ Ä«Å×°í¸®¸í
+	private String bcg_code;//ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½×°ï¿½ ï¿½Úµï¿½
+	private String bcg_name;//ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½×°ï¿½ï¿½ï¿½
 	
 	private int num;
 	private String name;
@@ -32,6 +36,6 @@ public class BoardVO {
 	
 	private String old_filename;
 	
-	private String secret;//ºñ¹Ð±Û ¼³Á¤
+	private String secret;//ï¿½ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½
 	
 }

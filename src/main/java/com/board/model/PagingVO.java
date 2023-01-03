@@ -2,6 +2,7 @@ package com.board.model;
 
 
 
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import lombok.Data;
 import lombok.extern.log4j.Log4j;
 
+
 @Data
 @Log4j
 public class PagingVO {
@@ -17,6 +19,7 @@ public class PagingVO {
 	private int pageSize = 15;
 	private int totalCount;
 	private int pageCount;
+	private Integer sortType=1;
 	
 	private int start;
 	private int end;
@@ -74,7 +77,9 @@ public class PagingVO {
 		String str="";
 		String link=myctx+"/"+loc;
 		String qStr="?pageSize="+pageSize+"&findType="+findType+"&findType2="+findType2;
-				qStr+="&findKeyword"+findKeyword;
+				qStr+="&findKeyword"+findKeyword+"&sortType="+sortType;
+		
+		
 		link+=qStr;  
 		StringBuilder buf=new StringBuilder();
 		buf.append("<ul class='pagination justify-content-center'>");
@@ -103,7 +108,9 @@ public class PagingVO {
 		}
 		buf.append("</ul>");
 		str=buf.toString();
+		System.out.println(link);
 		return str;
 	}
+
 	
 }
