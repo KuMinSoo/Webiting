@@ -39,7 +39,6 @@ public class FileController {
 		log.info("userAgent==="+userAgent);
 		log.info("fname==="+fname);
 		log.info("origin_fname==="+origin_fname);
-		//1. ���ε�� ���丮 ������ ���
 		ServletContext app=req.getServletContext();
 		String upDir=app.getRealPath("/resources/board_upload");
 		
@@ -47,29 +46,23 @@ public class FileController {
 		log.info("filePath==="+filePath);
 		
 		
-		org.springframework.core.io.Resource resource=new FileSystemResource(filePath);//uuid_���ϸ�
-		//FileSystemResource �� �˾Ƽ� ���ϰ� ��Ʈ�� ������ �Ѵ�
+		org.springframework.core.io.Resource resource=new FileSystemResource(filePath);
 		if(!resource.exists()) {
-			//�ش� ������ ���ٸ�
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-		//2. �������� ���ڵ� ó��
 		String downName=null;
 		boolean checkIE=(userAgent.indexOf("MSIE")>-1 || userAgent.indexOf("Trident")>-1);
 		try {
 			if(checkIE){
-				//IE�� ���
 				downName=URLEncoder.encode(origin_fname,"UTF-8").replaceAll("\\+", " ");
 			}else {		
-				//�׿� �������� ���
-				origin_fname=origin_fname.replace(",", "");//ũ���� ���ϸ� �޸�(,) ������ �ٿ�ε� ���� ����
+				origin_fname=origin_fname.replace(",", "");
 				downName=new String(origin_fname.getBytes("UTF-8"),"ISO-8859-1");
 			}
 		}catch(UnsupportedEncodingException e) {
 			log.error("���� �ٿ�ε� �� ����:"+e);
 		}
 		
-		//3. HttpHeader���� ��� ���� ����
 		HttpHeaders headers=new HttpHeaders();
 		headers.add("Content-Disposition", "attachment; filename="+downName);
 		

@@ -41,7 +41,7 @@ public class PAdminController {
 	@GetMapping("/index")
 	public String home(HttpSession ses) {
 		List<CategoryVO> upCgList=adminService.getUpcategory();
-		//upCgList에서 코드만 뽑아 downCgList 저장해 세션에 뿌리기
+		
 		ses.setAttribute("upCgList", upCgList);
 		//log.info("upCgList=="+upCgList);
 		return "/index";
@@ -132,7 +132,7 @@ public class PAdminController {
 					}
 				}
 			}//for---------------
-			//log.info("占쏙옙占싸듸옙 占쏙옙占쏙옙 product==="+product);
+			;
 		}
 		int n=adminService.productInsert(product);
 		String str=(n>0)?"상품등록 성공":"상품등록 실패";
@@ -143,29 +143,6 @@ public class PAdminController {
 		return "msg";
 	}//------------------------------------------
 	
-	/*@GetMapping("/admin/prodList")
-=======
-			} // for---------------
-			log.info("업로드 이후 product===" + product);
-		}
-		int n = adminService.productInsert(product);
-		String str = (n > 0) ? "상품등록 성공" : "등록 실패";
-		String loc = (n > 0) ? "prodList" : "javascript:history.back()";
-
-		m.addAttribute("message", str);
-		m.addAttribute("loc", loc);
-		return "msg";
-	}// ------------------------------------------
-
-	@GetMapping("/prodList")
->>>>>>> origin/김경회
-	public String productList(Model m) {
-
-		List<ProductVO> prodArr = adminService.productList();
-		m.addAttribute("prodArr", prodArr);
-
-		return "admin/prodList";
-	}*/
 	@GetMapping(value="/prodListForm")
 	
 	public String productListPaging(Model m, @ModelAttribute("page") PagingVO page,

@@ -154,7 +154,7 @@ public class UserController {
         	UserVO vo=uService.emailCheck(kakaoEmail);
         	
         	if(vo==null) {
-        		throw new NotUserException("등록된 회원이 없습니다..");
+        		throw new NotUserException("등록된 회원이 없습니다.");
         	}
         	log.info(vo);
         	m.addAttribute("kakaoEmail", kakaoEmail);

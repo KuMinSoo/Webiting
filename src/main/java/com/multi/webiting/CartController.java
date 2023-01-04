@@ -43,18 +43,9 @@ public class CartController {
 		CartVO cvo=new CartVO();
 		cvo.setPnum_fk(pnum);
 		cvo.setOqty(oqty);
-		//회원번호는 세션에서 로그인한 사람의 정보를 꺼내서 CartVO객체에 setting한다
-		cvo.setIdx_fk(idx_fk);//임의의 회원번호를 설정
+		cvo.setIdx_fk(idx_fk);
 		
 		int n=this.shopService.addCart(cvo);
-		//장바구니에 상품 추가
-		
-		//장바구니 목록 가져오기
-		//List<CartVO> cartArr=this.shopService.selectCartView(cvo.getIdx_fk());
-		//m.addAttribute("cartArr",cartArr);
-		//return "shop/cartList";
-		//여기서 forward이동하면 브라우저 새로고침시 계속 상품이 추가되는 현상이 발생된다.
-		//장바구니 총액이 계속 증가함===>redirect로 이동해야 함
 		
 		return "redirect:cartList";
 	}
@@ -66,7 +57,7 @@ public class CartController {
 		int idx_fk=loginUser.getIdx();
 		
 		List<CartVO> cartArr=this.shopService.selectCartView(idx_fk);
-		//특정 회원의 장바구니 총액 가져오기
+		//특占쏙옙 회占쏙옙占쏙옙 占쏙옙袂占쏙옙占� 占싼억옙 占쏙옙占쏙옙占쏙옙占쏙옙
 		CartVO cartVo=this.shopService.getCartTotal(idx_fk);
 		
 		m.addAttribute("cartArr",cartArr);

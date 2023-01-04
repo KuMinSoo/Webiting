@@ -150,6 +150,7 @@ function selectDownCategoryHome(upCode){
 	}//----------------------------
 
 </script>
+	
     </head>
 
 
@@ -174,7 +175,7 @@ function selectDownCategoryHome(upCode){
       
                      <c:if test="${loginUser ne null }">
                         <li class="nav-item bg-primary">
-                           <a class="nav-link text-white" href="#">${loginUser.userid}님 로그인 중..</a>
+                           <a class="nav-link text-white" href="#">${loginUser.userid}</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link" href="#" onclick="Logout()">Logout</a>
@@ -214,18 +215,18 @@ function selectDownCategoryHome(upCode){
                     <!-- 검색폼 시작------------------------- -->
 	
 		<div class="row py-3">
-			<div class="col-md-9 text-center">
-				<form name="searchF" action="prodList" onsubmit="return check()">
+			<div class="col-md-9" style="width:100%;float:left">
+				<form name="searchF" action="prodList" onsubmit="return check()" style="width:100%;height:35px;">
 					<input type="hidden" name="pageSize" value="${pageSize}">
 					<input type="hidden" name="cpage" value="1">
-					 <select name="findType" style="padding:6px;">
-						<option value="">:::검색유형:::</option>
-						<option value="1" <c:if test="${paging.findType eq 1}">selected</c:if>>상품명</option>
-						<option value="2" <c:if test="${paging.findType eq 2}">selected</c:if>>태그검색어</option>
-					</select> 
-					<input type="text" name="findKeyword" placeholder="검색" 
-							 style="width:50%;padding:5px;">
-					<button class="btn btn-outline-primary">검  색</button>
+						 <select name="findType" style="padding:6px;width:35%;height:35px;">
+							<option value="">검색유형</option>
+							<option value="1" <c:if test="${paging.findType eq 1}">selected</c:if>>상품명</option>
+							<option value="2" <c:if test="${paging.findType eq 2}">selected</c:if>>태그검색</option>
+						</select> 
+						<input type="text" name="findKeyword" placeholder="검색" 
+								 style="width:25%;padding:3px;height:35px;margin:3px;" >
+						<button class="btn btn-outline-primary" style="width:30%;">검  색</button>
 				</form>
 			</div>
 			<div class="col-md-3 text-right">

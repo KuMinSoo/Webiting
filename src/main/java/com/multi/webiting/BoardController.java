@@ -92,7 +92,7 @@ public class BoardController {
       }
       
       
-      //제목, 작성자, 비밀번호 입력하지 않을 시 다시 입력창 보여주기
+    //제목, 작성자, 비밀번호 입력하지 않을 시 다시 입력창 보여주기
       if(board.getName()==null||board.getSubject()==null||board.getPasswd()==null||
          board.getName().trim().isEmpty()||board.getSubject().trim().isEmpty()||board.getPasswd().isEmpty()) {
          return "redirect:rewrite";
