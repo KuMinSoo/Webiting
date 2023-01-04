@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv = "Content-Type" content = "text/html; charset = UTF-8">
 <link rel="stylesheet" href="../resources/css/detail.css" type="text/css">
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
 <title>상세 페이지</title>
 </head>
@@ -56,22 +57,23 @@
 				<c:forEach begin="1" end="5" var="pqty"> 
 					<option value="${pqty}">${pqty}</option></c:forEach> 
 				</select>
-			</div>	
+			</div>
+				<br>
 			<div class="row">
-				<div class="selected_option" style="text-align: right;"> 
+				<div class="selected_option" style="text-align: center;"> 
 				</div>
 				<div style="text-align: center;">
 					<button class="btn btn-default">주문하기</button>
 					<button class="btn btn-default">장바구니</button>
 				</div>
 			</div>
-			<br>
+				
 			</div>
 			
 			<div class="row" style="float: left; text-align: center; width:65%;">
 				<img alt="pimage1" src="../resources/images/coupon.png" width="110%"> 
 			</div>
-		<br>
+			<br><br>
 		
 			<div class="addressInfo_div">
 		<div class="addressInfo_button_div">
@@ -102,6 +104,9 @@
 		<c:param name="pnum" value="${pcontents.pnum}" />
 	</c:import>		
 	<hr color='red'>
+	
+	
+	
 						<!-- 후기 게시판 페이지 -->
 		<div class="row reviews" style="margin-top: 100px;">
 			<h4 class="page-header">Review&nbsp;&nbsp;<small>상품을 사용해보신 분들의 실제 후기입니다.</small></h4>
