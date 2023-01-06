@@ -12,7 +12,7 @@ import com.product.mapper.ProductMapper;
 import com.product.model.CategoryVO;
 import com.product.model.ProductVO;
 
-@Service("padminService")
+@Service("padminServiceImpl")
 public class PAdminServiceImpl implements PAdminService {
 	
 	@Inject
@@ -87,6 +87,20 @@ public class PAdminServiceImpl implements PAdminService {
 	public int getTotalCountCategory(String downCg_code) {
 		
 		return this.productMapper.getTotalCountCategory(downCg_code);
+	}
+
+	@Override
+	public int productDelete(int pnum) {
+		return this.productMapper.productDelete(pnum);
+	}
+	@Override
+	public ProductVO getProductByPnum(int pnum) {
+		return this.productMapper.getProductByPnum(pnum);
+	}
+
+	@Override
+	public int updateProduct(ProductVO vo) {
+		return this.productMapper.updateProduct(vo);
 	}
 
 }

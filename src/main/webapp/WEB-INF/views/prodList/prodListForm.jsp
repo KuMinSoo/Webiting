@@ -38,13 +38,21 @@ $(function(){
         var sortType = $(this).val(); // value
         //alert(sortType);
         let url='/prodListForm/'+sortType;
-        data={
-        		
-        }
+        //var form = $("#pageInfo")[0];
+    	//var page = new FormData(form);
+    	var pageInfo = $("form[name=pageInfo]").serialize() ;
+    	alert(pageInfo)
+        //let page=$('#findType').val;
+        //alert(page);
+        /* data={
+        		page:${paging},
+        		downCg_code:${downCg_code}
+        } */
         //alert(url);
         	$.ajax({
         		type:'get',
         		url:url,
+        		data:pageInfo,
         		dataType:'json',
         		cache:false,
 	        	success:function(res){
@@ -76,7 +84,7 @@ function showList(res){
 					<!-- Product name-->
 					<h5 class="fw-bolder" id="test1">\${prod.pname}</h5>
 					<!-- Product price-->
-					\${prod.price}
+					\${prod.saleprice}
 					
 					<br>
 			  <fieldset>
@@ -130,15 +138,15 @@ function showList(res){
 <c:if test="${downCg_name ne null and not empty downCg_name}">
 	<div class="text-center"><h1>"${downCg_name}" 카테고리 상품 목록</h1></div>
 </c:if>
-		<div class="col-md-3 text-right">
-			<form name="pageSizeF" action="prodListForm">
+		 <div class="col-md-3 text-right">
+			<form name="pageInfo" id="pageInfo">
 				<input type="hidden" name="findType" value="${paging.findType}">
 				<input type="hidden" name="findKeyword" value="${paging.findKeyword}">
 				<input type="hidden" name="cpage" value="${paging.cpage}">
 				<input type="hidden" name="downCg_code" value="${downCg_code}">
-				<input type="hidden" name="downCg_code_name" value="${downCg_code_name}">
+				<input type="hidden" name="downCg_name" value="${downCg_name}">
 			</form>
-		</div>
+		</div> 
 <section class="py-5">
 	<div class="container px-4 px-lg-5 mt-5">
 		<div
@@ -156,7 +164,7 @@ function showList(res){
 									<!-- Product name-->
 									<h5 class="fw-bolder" id="test1">${prod.pname}</h5>
 									<!-- Product price-->
-									<fmt:formatNumber value="${prod.price}" pattern="#,###원" />
+									<fmt:formatNumber value="${prod.saleprice}" pattern="#,###원" />
 									
 									<br>
 							  <fieldset>
@@ -177,6 +185,10 @@ function showList(res){
 								<div class="text-center">
 									<a class="btn btn-outline-dark mt-auto"
 										href="/prodDetail?pnum=${prod.pnum}">prodDetail</a>
+									<c:if test="${loginUser.status eq 9}">
+										<a href="/admin/prodEdit?pnum=${prod.pnum}">수정</a>|
+										<a href="/admin/prodDel?pnum=${prod.pnum}">삭제</a>
+									</c:if>
 								</div>
 							</div>
 						</div>

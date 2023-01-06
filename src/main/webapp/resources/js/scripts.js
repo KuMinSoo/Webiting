@@ -5,16 +5,4 @@
 */
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
-function Logout() {
-   	    $.ajax({
-   	        url: '/logout',
-   	        type: 'get',
-   	        async: false,
-   	        dataType: 'text',
-   	        success: function (res) {
-   	        	alert(res);
-   	            location.href =res;
-   	        }
-   	    });
-   	  }
-   	  
+

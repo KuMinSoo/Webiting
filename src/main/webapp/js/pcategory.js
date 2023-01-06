@@ -77,3 +77,42 @@
 		
 		return true;
 	}
+	
+	function check2(){
+		if(!$('#pname').val()){
+			alert('상품명을 입력하세요');
+			$('#pname').focus();
+			return false;
+		}
+		if(!('#tag1').val()){
+			alert('태그 검색어를 입력해야 해요');
+			$('#tag1').select();
+			return false;
+		}
+		
+		let $price=$('#price').val();
+		let pattern=/^[0-9]+$/
+		if(!pattern.test($('#pqty').val())){
+			alert('수량은 숫자로 입력해야 해요');
+			$('#pqty').select();
+			return false;
+		}
+		if(!pattern.test($price)){
+			alert('정가는 숫자로 입력해야 해요');
+			$('#price').select();
+			return false;
+		}
+		if(!pattern.test($('#saleprice').val())){
+			alert('판매가는 숫자로 입력해야 해요');
+			$('#saleprice').select();
+			return false;
+		}
+		if(!pattern.test($('#point').val())){
+			alert('포인트는 숫자로 입력해야 해요');
+			$('#point').select();
+			return false;
+		}
+		
+		return true;
+	}
+	

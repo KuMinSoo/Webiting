@@ -34,4 +34,10 @@ public interface PAdminService {
 	
 	//연관 상품 페이지 인터페이스
 	public List<ProductVO> relatedProduct(int pnum);
+
+	public int productDelete(int pnum);
+
+	public ProductVO getProductByPnum(int pnum);
+
+	public int updateProduct(ProductVO vo);
 }

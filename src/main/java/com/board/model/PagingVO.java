@@ -76,7 +76,7 @@ public class PagingVO {
 		String link=myctx+"/"+loc;
 
 		String qStr="?pageSize="+pageSize+"&findType="+findType;
-				qStr+="&findKeyword"+findKeyword+"&sortType="+sortType;
+				qStr+="&findKeyword="+findKeyword+"&sortType="+sortType;
 		
 		
 

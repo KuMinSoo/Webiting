@@ -108,5 +108,19 @@
 	  				<!-- 연관 페이지 메퍼 -->
 	<select id="relatedProduct" resultType="product" parameterType = "_int">
 		select * from product where pnum > #{pnum}
-	</select>  
+	</select>
+	
+	<delete id="productDelete" parameterType="int">
+		delete from product where pnum=#{value}
+	</delete>  
+	<select id="getProductByPnum" resultType="Product" parameterType="int">
+		select * from product where pnum=#{value}
+	</select>
+	<update id="updateProduct" parameterType="Product" >
+		update product set pname=#{pname},price=#{price}, saleprice=#{saleprice}, pqty=#{pqty},
+			point=#{point},pspec=#{pspec},pcontents=#{pcontents},pcompany=#{pcompany},
+			pindate=sysdate,pavg=#{pavg},
+			LIKECNT=#{likecnt},tag1=#{tag1:VARCHAR},tag2=#{tag2:VARCHAR},tag3=#{tag3:VARCHAR}
+		where pnum=#{pnum}
+	</update>
 </mapper>

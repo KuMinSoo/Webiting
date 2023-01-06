@@ -26,6 +26,7 @@ import com.board.model.PagingVO;
 import com.product.model.CategoryVO;
 import com.product.model.ProductVO;
 import com.product.service.PAdminService;
+import com.user.model.UserVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -35,11 +36,13 @@ import lombok.extern.log4j.Log4j;
 public class PAdminController {
 
 	@Inject
-	@Qualifier(value = "padminService")
+	@Qualifier(value = "padminServiceImpl")
 	private PAdminService adminService;
-
+	
+	
 	@GetMapping("/index")
 	public String home(HttpSession ses) {
+		log.info("adminService==="+adminService);
 		List<CategoryVO> upCgList=adminService.getUpcategory();
 		
 		ses.setAttribute("upCgList", upCgList);
@@ -194,7 +197,7 @@ public class PAdminController {
 			@PathVariable(name="sortType", required=false) Integer sortType
 			) {
 		//log.info(sortType);
-		
+		log.info("검색어====="+page.getFindKeyword());
 		String myctx=req.getContextPath();
 		ModelMap map=new ModelMap();
 		HttpSession ses=req.getSession();
@@ -226,7 +229,7 @@ public class PAdminController {
 		if(page.getFindKeyword()!=null) {
 			map.addAttribute("keyword", page.getFindKeyword());
 		}
-		log.info("pageNavi===="+pageNavi);
+		//log.info("pageNavi===="+pageNavi);
 		/*
 		 * for (ProductVO pArr : prodArr) { System.out.println(pArr.getPrice()); }
 		 */
@@ -241,12 +244,48 @@ public class PAdminController {
 			@RequestParam(value="downCg_code", required=false) String downCg_code
 			) {
 		
-		//List<ProductVO> prodArr2=adminService.productListCategory(downCg_code);
-		//m.addAttribute("prodArr2",prodArr2);
-		//log.info(prodArr2);
-		//m.addAttribute("upCg")
-		
 		return "admin/prodList";
 	}
+	
+	@GetMapping("/admin/prodDel")
+	public String prodDel(Model m, @RequestParam("pnum") int pnum) {
+		
+		int n=adminService.productDelete(pnum);
+		String loc=(n>0)?"/index":"javascript:history.back()";
+		String msg=(n>0)?"삭제 성공":"삭제 실패";
+		m.addAttribute("message",msg);
+		m.addAttribute("loc",loc);
+		return "msg";
+	}
+	@GetMapping("/admin/prodEdit")
+	public String prodEdit(Model m, @RequestParam("pnum") int pnum) {
+		
+		ProductVO vo=adminService.getProductByPnum(pnum);
+		if(vo==null) {
+			String msg="해당 상품이 존재하지 않아요";
+			String loc="javascript:history.back()";
+			m.addAttribute("message",msg);
+			m.addAttribute("loc",loc);
+			return "msg";
+		}
+		log.info("vo===="+vo);
+		m.addAttribute("Product",vo);
+		
+		return "prodList/prodEditForm";
+	}
+	
+	
+	  @PostMapping("/admin/prodEditEnd")
+	  public String prodEditEnd(Model m, @ModelAttribute("product") ProductVO vo) {
+		  log.info("product===="+vo);
+		  
+		  int n=this.adminService.updateProduct(vo);
+		  String msg=(n>0)?"상품 정보 수정 성공":"상품 정보 수정 실패";
+		  String loc="/index";
+		  m.addAttribute("loc",loc);
+		  m.addAttribute("message",msg);
+		  return "msg";
+	  }
+	 
 
 }
