@@ -38,9 +38,7 @@ public class ProductVO {
 	private int totalPoint; /*총포인트 = 포인트 x수량*/
 	
 	private String onum; //상품 주문시 사용할 주문번호
-	
-//	private String productUrl; 상품 이미지 경로
-//	private MultipartFile productPhoto;  상품 이미지 파일
+	private int heart; //좋아요 
 	
 	public void setPqty(int pqty) {
 		this.pqty = pqty;

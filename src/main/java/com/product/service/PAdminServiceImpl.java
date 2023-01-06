@@ -67,6 +67,31 @@ public class PAdminServiceImpl implements PAdminService {
 		
 		return this.productMapper.relatedProduct(pnum);
 	}
+	
+	public int updateHeart(int pnum) {
+		// 좋아요가 DB에 저장이 되는것이 없으면 0이 그대로 리턴으로 넘어감
+		
+		int result = this.productMapper.selectHeart(pnum);
+		//System.out.println("result="+result);
+		// 좋아요가 이미 있는지 확인하는 코드
+		if(result==0) {
+			
+			result = this.productMapper.insertHeart(pnum);
+			
+		}else if(result>0){
+			
+			result=this.productMapper.updateHeart(pnum);
+			
+		//System.out.println("result2="+result);
+		
+		}
+		
+		//해당 상품의 하트수 가져오기
+		int cnt=this.productMapper.heartCount(pnum);
+	    	// 0 or 1이 담겨져서 @Controller에 보냄.
+		//System.out.println("cnt="+cnt);
+		return cnt;
+	}
 
 	@Override
 	public List<ProductVO> productListCategory( String downCg_code) {

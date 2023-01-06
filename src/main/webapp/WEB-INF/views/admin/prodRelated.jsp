@@ -13,8 +13,8 @@
 		<c:forEach var="Relitem" items="${prelated}" begin="1" end="4">${Relitem.pname}
 			<br>
 			<span class = "related" id = "viewRelated">
-			<a href="http://localhost:9090/admin/prodRelated/${Relitem.pimage1}">
-				<img src="../resources/images/${Relitem.pimage1}" width = "25%">
+			<a href="${myctx}/resources/product_images/${Relitem.pimage1}">
+				<img src="${myctx}/resources/product_images/${Relitem.pimage1}" width = "25%">
 			</a>
 				<p class = "rp">푹신한 침대</p>
 				<strong class = "price">100,0000</strong>

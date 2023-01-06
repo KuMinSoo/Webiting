@@ -28,10 +28,20 @@ public interface ProductMapper {
 	
 	List<ProductVO> relatedProduct(int pnum);
 
+
 	int productDelete(int pnum);
 
 	ProductVO getProductByPnum(int pnum);
 
 	int updateProduct(ProductVO vo);
+
+
+	int updateHeart(int pnum);
+
+	int selectHeart(int pnum);
+
+	int insertHeart(int pnum);
+
+	int heartCount(int pnum);
 
 }
