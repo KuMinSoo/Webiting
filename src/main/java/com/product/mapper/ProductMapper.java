@@ -18,4 +18,12 @@ public interface ProductMapper {
 	ProductVO detailProduct(int pnum);
 	
 	List<ProductVO> relatedProduct(int pnum);
+
+	int updateHeart(int pnum);
+
+	int selectHeart(int pnum);
+
+	int insertHeart(int pnum);
+
+	int heartCount(int pnum);
 }

@@ -38,5 +38,41 @@
 	<select id="relatedProduct" resultType="product" parameterType = "_int">
 		select * from product where pnum > #{pnum}
 	</select>  
+					<!-- 좋아요 매퍼  -->
+	<select id="selectHeart" parameterType="int" resultType="int">
+	select count(*) from heart_table where pnum=#{value}
+		</select>
+		
+	<update id="updateHeart" parameterType = "int">
+		update heart_table set heart =  heart+1 where pnum=#{value}
+	</update>
+	<insert id="insertHeart" parameterType="int">
+		insert into heart_table(pnum,heart)
+		values(#{value},1)
+	</insert>
+						
+	<select id="heartCount" parameterType="int" resultType="int">
+		select heart from heart_table where pnum=#{pnum}
+	</select>
+	
+<!-- 		<select id="findHeart" parameterType="java.util.HashMap" resultType="hdto">
+	select * from heart_table where e_number=#{e_number} and m_number=#{m_number}
+		</select>
+	
+ 	 			좋아요 확인 
+	<select id="findHeart" parameterType="hdto" resultType="hdto">
+		select * from heart_table where e_number=#{e_number} and m_number=#{m_number}
+	</select>
+
+				좋아요 저장	
+	<insert id="insertHeart" parameterType="hdto">
+		insert into heart_table(e_number, m_number, heart)
+		values(#{e_number}, #{m_number}, 1)
+	</insert>
+
+ 				좋아요 삭제
+	<delete id="deleteHeart" parameterType="hdto">
+		delete from heart_table where e_number=#{e_number} and m_number=#{m_number}
+	</delete> --> 
 	
 </mapper>

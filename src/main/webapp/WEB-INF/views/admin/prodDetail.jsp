@@ -6,10 +6,42 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:set var="myctx" value="${pageContext.request.contextPath}"/>
 <meta http-equiv = "Content-Type" content = "text/html; charset = UTF-8">
-<link rel="stylesheet" href="../resources/css/detail.css" type="text/css">
+<link rel="stylesheet" href="${myctx}/resources/css/detail.css" type="text/css">
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+	/* 좋아요 버튼 클릭 실행 */
+ $(document).ready(function () {	
+	$(".heart").on("click", function () {
+    var that = $(".heart");
+	$.ajax({
+	url :'heart',
+    type :'POST',
+    data : {'pnum':"${pcontents.pnum}"},
+    dataType:'json',
+    success : function(data){
+    	alert(data.result)
+		/* that.prop('name',data); */
+    	if(data.result>0) {
+        	     $('.heart').prop("src","/resources/images/heart-fill.svg");
+        	     $('#heartCnt').html("("+data.result+")")
+    	} else {
+            	     $('.heart').prop("src","/resources/images/heart.svg");
+    		}
+     	},
+    error:function(err){
+    	alert('error: '+err.status)
+    }
+		});//$.ajax()
+	});//click
+});//document.ready()
+	
 
+
+</script>
+	
 <title>상세 페이지</title>
 </head>
 <body>
@@ -30,8 +62,8 @@
 			</div>
 			<hr>
 			<div class="price-group" style="text-align: center;">
-				<label>가격 : <span> &nbsp; <fmt:formatNumber value="${pcontents.price}" type="number"/></span><span>&nbsp;원</span></label>
-				<input type="hidden" value="${pcontents.price}" id="price"> 
+				<label>가격 : <span> &nbsp; <fmt:formatNumber value="${pcontents.saleprice}" type="number"/></span><span>&nbsp;원</span></label>
+				<input type="hidden" value="${pcontents.saleprice}" id="saleprice"> 
 			</div>
 
 			<div class="form-group" style="text-align: center;">
@@ -60,18 +92,24 @@
 			</div>
 				<br>
 			<div class="row">
-				<div class="selected_option" style="text-align: center;"> 
+				<div class="selected_option" style="text-align: center;">
+					<button class="btn btn-order">주문하기</button>
+					<button class="btn btn-cart">장바구니</button> 
 				</div>
-				<div style="text-align: center;">
-					<button class="btn btn-default">주문하기</button>
-					<button class="btn btn-default">장바구니</button>
-				</div>
+		
+			<div class = "heart-wrapper" style = "text-align: right; width:30%;">
+				<button type = "button" ><img class = "heart"  id="heart" src="/resources/images/heart.svg"></button>
+					<span id="heartCnt" class = "text-dark heart-rating" style = "text-decoration-line: none;">
+					(${pcontents.heart})
+					</span>
 			</div>
+				<br>
 				
 			</div>
+				</div>
 			
 			<div class="row" style="float: left; text-align: center; width:65%;">
-				<img alt="pimage1" src="../resources/images/coupon.png" width="110%"> 
+				<img alt="pimage1" src="${myctx}/resources/images/coupon.png" width="110%"> 
 			</div>
 			<br><br>
 		
@@ -83,7 +121,7 @@
 
 		<div class="addressInfo_input_div_wrap">
 			<div class="addressInfo_input_div addressInfo_input_div_1" style="display: block"></div>
-				<img alt="pimage1" src = "../resources/images/bed02.jpg" width = "350px;" height = "320px;">
+				<img alt="pimage1" src = "${myctx}/resources/images/bed02.jpg" width = "350px;" height = "320px;">
 				
 				<div class = "product-info_table" style="width:55%; float:right;">
 					<p class = "table-title">필수 표기 정보</p>
@@ -100,20 +138,17 @@
 					<!-- <div class="addressInfo_input_div addressInfo_input_div_2"></div> -->
 					
 	<hr color='red'>
-	<c:import url="/admin/prodRelated">
-		<c:param name="pnum" value="${pcontents.pnum}" />
-	</c:import>		
-	<hr color='red'>
-	
-	
-	
-						<!-- 후기 게시판 페이지 -->
-		<div class="row reviews" style="margin-top: 100px;">
+		<c:import url="/admin/prodRelated">
+			<c:param name="pnum" value="${pcontents.pnum}" />
+		</c:import>		
+	<hr color='red'>	
+								<!-- 상품평 게시판 페이지 -->
+		<div class="row reviews" style="margin-top: 100px; text-align:center;">
 			<h4 class="page-header">Review&nbsp;&nbsp;<small>상품을 사용해보신 분들의 실제 후기입니다.</small></h4>
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Num</th>
+						<th>번호</th>
 						<th>제목</th>
 						<th>작성자</th>
 						<th>작성일</th>
@@ -121,17 +156,28 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${list}" var="vo">
+					<c:forEach items="${content}" var="board" varStatus="status">
 						<tr>
-							<td>${vo.boardId}</td>
-							<td><a href="/board/read/${vo.boardId}">${vo.title}</a></td>
-							<td>${vo.userid}</td>
-							<td><fmt:formatDate value="${vo.regDate}" type="date"
-									pattern="yyyy-MM-dd"/></td>
-							<td>${vo.viewCnt}</td>
+							<td>1</td> <%-- ${content.num} --%>
+							<td><a>바게보 수납장 문의합니다 ~ ★</a></td> <%-- href="${content.boardId}" --%>
+							<td>김xx</td>
+							<td><fmt:formatDate value="${content.wdate}" type="date"
+								pattern="yyyy-MM-dd"/></td>
+							<td>0</td>  <%-- ${content.viewCnt} --%>
 						</tr>
 					</c:forEach>
 				</tbody>
+				<tfoot>
+				<!-- 	<tr><td style = "background:beige colspan ="6" class = "col-md-10 text-right">
+					<a href = "reviewWrite"><button  class = "btn btn-revwrite">글 쓰기</button>
+					</a></td></tr>
+					<tr><td colspan = "6"><div class = "col-md 10 text-left">
+					<form name = "searchF" action = "list" onsubmit = "return check()">
+						<input type = "hidden" name = "findType2" value = "1">
+						<input type = "hidden" name = "cpage" value = "2">
+					</form></div></td></tr>
+					<tr></tr> -->
+				</tfoot>
 			</table>
 		</div>		
 		</div>	

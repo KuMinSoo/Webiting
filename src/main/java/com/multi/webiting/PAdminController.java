@@ -11,18 +11,25 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+/*import org.springframework.web.bind.annotation.RequestMethod;*/
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.common.domain.HeartDTO;
+/*import com.common.domain.HeartDTO;
+import com.common.domain.ProductDTO;*/
 import com.product.model.CategoryVO;
 import com.product.model.ProductVO;
 import com.product.service.PAdminService;
-//import com.product.service.ProductDTO;
+/*import com.product.service.ProductDTO;
+import com.product.service.memberService;*/
 
 import lombok.extern.log4j.Log4j;
 
@@ -46,24 +53,33 @@ public class PAdminController {
 
 	// 상세 페이지 컨트롤러
 	@GetMapping("/prodDetail")
-	public String deteil(Model m, @RequestParam("pnum") int pnum) { 
+	public String deteil(Model m, @RequestParam("pnum") int pnum) {
 		m.addAttribute("pcontents", adminService.detailProduct(pnum));
 
 		return "/admin/prodDetail";
 
 	}
+
+	// 상세 -> 연관 페이지 컨트롤러
+	@GetMapping("/prodRelated")
+	public String related(Model m2, @RequestParam("pnum") int pnum) {
+		List<ProductVO> obj = adminService.relatedProduct(pnum);
+		m2.addAttribute("prelated", obj);
+
+		return "/admin/prodRelated";
+
+	}
 	
-	// 상세 -> 연관 페이지 컨트롤러	
-	  @GetMapping("/prodRelated") 
-	  public String related(Model m2, @RequestParam("pnum") int pnum) {
-		  List<ProductVO> obj=adminService.relatedProduct(pnum);
-		  m2.addAttribute("prelated",obj);
-	  
-	  return "/admin/prodRelated";
-	  
-	 	}
-	 
-	
+	// 좋아요 컨트롤러 
+	@PostMapping(value = "heart", produces = "application/json")
+	public @ResponseBody ModelMap heart(@RequestParam("pnum") int pnum) {
+		int result = adminService.updateHeart(pnum);
+		ModelMap map=new ModelMap();
+		map.put("result", result);
+		return map;
+
+	}
+
 	// ajax요청에 대해 json으로 응답데이터를 보낸다
 	@GetMapping(value = "/getDownCategory", produces = "application/json")
 	@ResponseBody
@@ -77,10 +93,10 @@ public class PAdminController {
 	public String productRegister(Model m, @RequestParam("pimage") List<MultipartFile> pimage,
 			@ModelAttribute("product") ProductVO product, // pimage1,pimage2,pimage3
 			HttpServletRequest req) {
-		log.info("product====" + product + ">>>>");
+		/* log.info("product====" + product + ">>>>"); */
 		ServletContext app = req.getServletContext();
 		String upDir = app.getRealPath("/resources/product_images");
-		log.info("upDir===" + upDir);
+		/* log.info("upDir===" + upDir); */
 
 		File dir = new File(upDir);
 		if (!dir.exists()) {
@@ -108,7 +124,7 @@ public class PAdminController {
 
 				}
 			} // for---------------
-			log.info("업로드 이후 product===" + product);
+			/* log.info("업로드 이후 product===" + product); */
 		}
 		int n = adminService.productInsert(product);
 		String str = (n > 0) ? "상품등록 성공" : "등록 실패";
