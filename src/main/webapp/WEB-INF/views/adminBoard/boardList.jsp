@@ -68,7 +68,7 @@
 		</div>
 	</div>
 	<!-- boardTable----------------------- -->
-	<table class="table">
+	<table class="table table-hover">
 		<thead class='text-center'>
 			<th style="width: 5%">번호</th>
 			<th style="width: 10%">문의유형</th>
