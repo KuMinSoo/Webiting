@@ -1,5 +1,6 @@
 package com.multi.webiting;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.board.model.PagingVO;
 import com.common.CommonUtil;
 import com.product.model.CartVO;
+import com.product.model.OrderVO;
+import com.product.model.ProductVO;
 import com.product.service.ShopService;
+import com.user.model.IpayVO;
 import com.user.model.LikeVO;
 import com.user.model.UserVO;
 import com.user.service.MyPageService;
@@ -34,10 +38,15 @@ public class MyPageController {
 	@Qualifier(value="MyPageServiceImpl")
 	private MyPageService mService;
 	
+	
+	@Inject
+	@Qualifier(value="ShopServiceImpl")
+	private ShopService sService;
+	
 	CommonUtil common = new CommonUtil();
 	
 	@GetMapping("/likeList")
-	public String likeList(Model m, @ModelAttribute("page") PagingVO page, HttpServletRequest req) {
+	public String likeList(Model m, @ModelAttribute("page") PagingVO page, HttpServletRequest req, HttpSession session) {
 		HttpSession ses=req.getSession();
 		
 		log.info("1 page==="+page);
@@ -45,6 +54,10 @@ public class MyPageController {
 		page.setTotalCount(totalCount);
 		page.setPageSize(10);
 		page.setPagingBlock(5);
+		
+		UserVO loginUser=(UserVO)session.getAttribute("loginUser"); 
+		int idx=loginUser.getIdx();
+		page.setIdx(idx);
 		
 		page.init(ses);
 		
@@ -100,27 +113,29 @@ public class MyPageController {
 		vo.setIdx_fk(idx);
 		
 		int n=-999;
+		String str2="";
+		String loc="";
 		
 		for(int i=0; i<pnum.length; i++) {
 			vo.setPnum_fk(Integer.parseInt(pnum[i]));			
 			n=mService.moveCart(vo);
+			if(n<0) {
+				str2="주문 추가 실패";
+				loc="javascript:history.back()";
+			}
 		}
 		
-		String str2=(n>0)?"해당 상품을 장바구니로 이동하였습니다.":"장바구니에 추가 실패";
-		
-		String loc=(n>0)?"cartList":"javascript:history.back()";
+		str2="해당 상품을 장바구니로 이동하였습니다.";
+		loc="cartList";
 		
 		return common.addMsgLoc(m, str2, loc);
 	}
 	
 	@GetMapping("/cartList")
-	public String cartList(Model m, HttpSession session) {
+	public String cartList(Model m, HttpSession session) {		
 		
-		/*
-		 * UserVO loginUser=(UserVO)session.getAttribute("loginUser"); 
-		 * int idx_fk=loginUser.getIdx();
-		 */
-		int idx_fk = 258;
+		UserVO loginUser=(UserVO)session.getAttribute("loginUser"); 
+		int idx_fk=loginUser.getIdx();
 		
 		List<CartVO> cartArr=mService.selectCartView(idx_fk);
 		CartVO cartVo=mService.getCartTotal(idx_fk);
@@ -147,5 +162,45 @@ public class MyPageController {
 		mService.editCart(cvo);
 		
 		return "redirect:cartList";
+	}
+	
+	@PostMapping("/order")
+	public String goOrder(Model m, @RequestParam("pnum") String[] pnum,
+			@RequestParam("oqty") int[] oqty, @RequestParam("idx") Integer idx,
+			HttpSession session) {
+	
+		OrderVO ovo=new OrderVO();
+		ovo.setIdx(idx);
+		
+		List<ProductVO> orderList=new ArrayList<>();
+		int totalPrice=0,totalPoint=0; 
+		for(int i=0; i<pnum.length; i++) {
+			
+			//상품정보
+			ProductVO prod=sService.selectByPnum(Integer.parseInt(pnum[i]));
+			prod.setPqty(oqty[i]);//주문수량으로 설정
+			orderList.add(prod);
+			totalPrice+=prod.getTotalPrice();
+			totalPoint+=prod.getTotalPoint();
+		}
+		log.info("ovo==="+ovo);
+		ovo.setOrderList(orderList);
+		ovo.setTotalPrice(totalPrice);
+		ovo.setTotalPoint(totalPoint);
+		session.setAttribute("orderList", orderList);
+		session.setAttribute("ovo", ovo);
+
+		return "mypage/order";
+	}
+	
+	@PostMapping("/orderEnd")
+	public String orderEnd(Model m, HttpSession session, @ModelAttribute IpayVO ivo) {
+		log.info("ivo==="+ivo);
+		int merchant_uid=1;
+		ivo.setMerchant_uid(merchant_uid);
+		log.info("ivo==="+ivo);
+		
+		
+		return "mypage/orderEnd";
 	}
 }

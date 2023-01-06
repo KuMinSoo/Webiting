@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.board.model.PagingVO;
 import com.product.model.CartVO;
+import com.product.model.OrderVO;
 import com.user.model.LikeVO;
 
 public interface MyPageMapper {
@@ -20,4 +21,8 @@ public interface MyPageMapper {
 	int delCart(int cartNum);
 	int updateCartQty(CartVO cartVo);
 	int editCart(CartVO cartVo);
+	
+	int goOrder(OrderVO ovo);
+	List<OrderVO> selectOrderView(int idx_fk);
+	OrderVO getOrderTotal(int idx_fk);
 }

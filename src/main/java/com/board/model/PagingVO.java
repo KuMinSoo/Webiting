@@ -32,6 +32,7 @@ public class PagingVO {
 	private String findType;// �˻�����: �۹�ȣ, ������, �۳���
 	private String findKeyword;//������ Ű���� �Է�
 	
+	private int idx;	
 	
 	public void init(HttpSession ses) {
 		if(ses!=null) {

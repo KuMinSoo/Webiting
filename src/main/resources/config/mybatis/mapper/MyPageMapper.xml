@@ -2,12 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.user.mapper.MyPageMapper">
+
+	<!-- 관심 목록 -->
 	<select id="selectLikeAllPaging" resultType="Like" parameterType="Paging">
 		select * from
 		(select row_number() over(order by lindate desc) rn, likeprod.* 
 		from likeprod)
 		<![CDATA[
-		where rn > #{start} and rn < #{end}
+		where rn > #{start} and rn < #{end} and idx=#{idx}
 		]]>
 	</select>
 	<!-- 해당 회원 정보만 가져오게끔하려면 맨 끝에 and idx=#{idx} 추가 -->
@@ -20,6 +22,7 @@
 		delete from likeprod where idx=#{idx} and pnum=#{pnum}
 	</delete>
 	
+	<!-- 장바구니 -->
 	<insert id="moveCart" parameterType="Cart" useGeneratedKeys="true" keyProperty="cartNum">
 		<selectKey keyProperty="cartNum" resultType="_int" order="BEFORE">
 			select cart_seq.nextval from dual
@@ -44,7 +47,7 @@
 	<!-- 장바구니 총액 가져오기 -->
 	<select id="getCartTotal" resultType="Cart" parameterType="_int">
 		select sum(totalPrice) cartTotalPrice, sum(totalPoint) cartTotalPoint
-		from cartView where idx_fk=258
+		from cartView where idx_fk=#{value}
 	</select>
 	
 	<delete id="delCart" parameterType="_int">
@@ -60,4 +63,37 @@
 	<update id="editCart" parameterType="Cart">
 		update cart set oqty=#{oqty} where cartNum=#{cartNum}	
 	</update>
+	
+	<!-- 주문 목록 -->
+	<insert id="goOrder" parameterType="Order" useGeneratedKeys="true" keyProperty="onum">
+		<selectKey keyProperty="onum" resultType="String" order="BEFORE">
+			select onum_seq.nextval from dual
+		</selectKey>
+		insert into order_product(onum, pnum, idx)
+		values (sysdate||#{pnum}||#{onum}, #{pnum}, #{idx})
+	</insert>
+	
+	<insert id="goOrder_old" parameterType="Order" useGeneratedKeys="true" keyProperty="onum">
+		<selectKey keyProperty="onum" resultType="String" order="BEFORE">
+			select onum_seq.nextval from dual
+		</selectKey>
+		insert into order_product(onum, pnum, idx)
+		values (#{onum}, #{pnum}, #{idx})
+	</insert>
+	
+	<select id="selectOrderView" resultType="Order" parameterType="_int">
+		select * from orderView where idx=#{value}
+	</select>
+	<!-- 
+		create or replace view orderview as
+		select o.onum, o.pnum, o.idx ,c.pname, c.pimage1, c.price, c.saleprice, c.point, 
+		(c.oqty*c.saleprice) totalPrice, (c.oqty*c.point) totalPoint
+		from order_product o join cartview c
+		on o.pnum = c.pnum_fk;
+	 -->
+	
+	<select id="getOrderTotal" resultType="Order" parameterType="_int">
+		select sum(totalPrice) orderTotalPrice, sum(totalPoint) orderTotalPoint
+		from orderView where idx=#{value}
+	</select>
 </mapper>
