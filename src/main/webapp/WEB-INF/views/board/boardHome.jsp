@@ -116,7 +116,7 @@ function collapseHide(){//모든 질문의 답이 오픈된 경우 hide!!
 				<button class="btn btn-outline-primary" onclick="location.href='<%=ctx%>/board/write'">게시판 등록</button>
 				<button class="btn btn-outline-info" onclick="location.href='<%=ctx%>/board/list'">고객문의 게시판</button>
 				<!-- 관리자 페이지로 이동 예정 -->
-				<button class="btn btn-outline-danger" onclick="location.href='<%=ctx%>/admin/list'">관리자 게시판</button>
+				
 			</div>
 		</div>	
 			<div class="container mt-5 mb-5">

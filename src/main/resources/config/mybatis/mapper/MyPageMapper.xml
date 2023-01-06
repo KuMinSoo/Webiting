@@ -64,26 +64,26 @@
 		update cart set oqty=#{oqty} where cartNum=#{cartNum}	
 	</update>
 	
-	<!-- 주문 목록 -->
+	<!--  주문 목록 
 	<insert id="goOrder" parameterType="Order" useGeneratedKeys="true" keyProperty="onum">
 		<selectKey keyProperty="onum" resultType="String" order="BEFORE">
 			select onum_seq.nextval from dual
 		</selectKey>
 		insert into order_product(onum, pnum, idx)
 		values (sysdate||#{pnum}||#{onum}, #{pnum}, #{idx})
-	</insert>
+	</insert> -->
 	
-	<insert id="goOrder_old" parameterType="Order" useGeneratedKeys="true" keyProperty="onum">
+	<!-- <insert id="goOrder_old" parameterType="Order" useGeneratedKeys="true" keyProperty="onum">
 		<selectKey keyProperty="onum" resultType="String" order="BEFORE">
 			select onum_seq.nextval from dual
 		</selectKey>
 		insert into order_product(onum, pnum, idx)
 		values (#{onum}, #{pnum}, #{idx})
-	</insert>
+	</insert> -->
 	
-	<select id="selectOrderView" resultType="Order" parameterType="_int">
+	<!-- <select id="selectOrderView" resultType="Order" parameterType="_int">
 		select * from orderView where idx=#{value}
-	</select>
+	</select> -->
 	<!-- 
 		create or replace view orderview as
 		select o.onum, o.pnum, o.idx ,c.pname, c.pimage1, c.price, c.saleprice, c.point, 
@@ -92,8 +92,8 @@
 		on o.pnum = c.pnum_fk;
 	 -->
 	
-	<select id="getOrderTotal" resultType="Order" parameterType="_int">
+	<!-- <select id="getOrderTotal" resultType="Order" parameterType="_int">
 		select sum(totalPrice) orderTotalPrice, sum(totalPoint) orderTotalPoint
 		from orderView where idx=#{value}
-	</select>
+	</select> -->
 </mapper>
