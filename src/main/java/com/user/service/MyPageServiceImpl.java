@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.board.model.PagingVO;
 import com.product.model.CartVO;
+import com.product.model.OrderVO;
 import com.user.mapper.MyPageMapper;
 import com.user.model.LikeVO;
 
@@ -65,6 +66,21 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public int editCart(CartVO cartVo) {
 		return this.mMapper.editCart(cartVo);
+	}
+
+	@Override
+	public int goOrder(OrderVO ovo) {
+		return this.mMapper.goOrder(ovo);
+	}
+
+	@Override
+	public List<OrderVO> selectOrderView(int idx_fk) {
+		return this.mMapper.selectOrderView(idx_fk);
+	}
+
+	@Override
+	public OrderVO getOrderTotal(int idx_fk) {
+		return this.mMapper.getOrderTotal(idx_fk);
 	}
 
 }

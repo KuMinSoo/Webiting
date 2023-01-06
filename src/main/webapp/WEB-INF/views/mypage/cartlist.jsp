@@ -7,6 +7,7 @@
 
 <%@ include file="/WEB-INF/views/mypage/checkScript.jsp" %>
 
+
    <div class="py-5">
     <div class="container">
       <div class="row">
@@ -19,8 +20,9 @@
       <div class="row">
         <div class="col-md-12">
         <!-- 주문 폼 시작-------------------------- -->
-       <form name="orderF" id="orderF" action="order">
-          
+       <form name="orderF" id="orderF" action="order" method='post'>
+       	<input type="hidden" name="idx" id="idx" value="258">
+          <input type="checkbox" onclick="maincheck(this.checked)" style="width:20px;height:20px;" id="mainchk"> 전체선택
           <table class="table table-striped">
              <thead>
                 <tr class="info text-center">
@@ -49,7 +51,7 @@
                 <tr>
                    <td>
                       <label>
-                      <input type="checkbox" name="pnum" id="pnum${state.index}"
+                      <input type="checkbox" name="pnum" id="pnum${state.index}" class="subchk" onclick="subcheck()"
                        value="${cvo.pnum_fk }">
                      ${cvo.pnum_fk}
                       </label>
@@ -104,7 +106,6 @@
                 </td>
                 <td colspan="3">
                    <button type="button" onclick="goOrder()" class="btn btn-outline-info">주문하기</button> 
-                   <!-- form tag안에 버튼이 있으면 default 로 submit ==> order.jsp -->
                    <button type="button"
                     class="btn btn-outline-warning"
                      onclick="location.href='../index'">계속쇼핑</button>
@@ -128,6 +129,12 @@
       </form>
       <!-- --------------------------------- -->
       
+      <!-- 주문form-------------------------
+      <form name="of" action="goOrder" method="post">
+      		<input type="hidden" name="cartNum">
+			<input type="hidden" name="idx">
+	  </form>
+       -->
       <script>
       	function cartEdit(cnum, i){
       		//alert(cnum+"/"+i);
@@ -144,6 +151,26 @@
       		df.cartNum.value=cnum;
       		df.method='post';
       		df.submit();
+      	}
+      	
+      	function goOrder(){
+      		var len=document.getElementsByClassName("subchk").length;
+      		var str="";
+      		for(i=0; i<len; i++){
+      			if(document.getElementsByClassName("subchk")[i].checked){
+      				str+=document.getElementsByClassName("subchk")[i].value+",";
+      				document.getElementsByClassName("subchk")[i].style.disabled=false;
+      				//document.getElementById('oqty'+i).style.disabled=false;
+      				$('#oqty'+i).prop('disabled',false)
+      			}else{
+      				document.getElementsByClassName("subchk")[i].style.disabled=true;
+      				//document.getElementById('oqty'+i).style.disabled=true;
+      				$('#oqty'+i).prop('disabled',true)
+      			}
+      		}
+      		//alert(str);
+      		orderF.idx=${loginUser.idx};
+      		orderF.submit();
       	}
          
       </script>

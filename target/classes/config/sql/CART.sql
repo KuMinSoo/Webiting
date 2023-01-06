@@ -12,3 +12,22 @@ CREATE TABLE CART(
     DROP SEQUENCE CART_SEQ;
     
     CREATE SEQUENCE CART_SEQ NOCACHE;
+    
+-- 장바구니 사전준비
+grant create view to webiting;
+
+Create sequence CART_SEQ
+START WITH 1
+INCREMENT BY 1
+NOCACHE;
+
+create or replace view cartview as
+select c.*,p.pname,pimage1,price, saleprice, 
+point, (c.oqty*p.saleprice) totalPrice,
+(c.oqty*p.point) totalPoint
+from cart c
+join
+product p
+on c.pnum_fk = p.pnum;
+
+commit;
