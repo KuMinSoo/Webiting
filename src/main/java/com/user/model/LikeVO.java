@@ -16,4 +16,5 @@ public class LikeVO {
 	private String pcompany;
 	private java.sql.Date lindate;
 	private int pqty;	
+	private int likeval;
 }

@@ -83,4 +83,9 @@ public class MyPageServiceImpl implements MyPageService {
 		return this.mMapper.getOrderTotal(idx_fk);
 	}
 
+	@Override
+	public int insertLikeProd(LikeVO like) {
+		return this.mMapper.insertLikeProd(like);
+	}
+
 }

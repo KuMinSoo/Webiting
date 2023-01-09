@@ -29,7 +29,6 @@ public class ProductVO {
 	private java.sql.Date pindate;
 	
 	private double pavg;
-	private int likecnt;
 	private String tag1;
 	private String tag2;
 	private String tag3;
@@ -39,6 +38,7 @@ public class ProductVO {
 	
 	private String onum; //상품 주문시 사용할 주문번호
 	private int heart; //좋아요 
+	private int likeCnt;
 	
 	public void setPqty(int pqty) {
 		this.pqty = pqty;

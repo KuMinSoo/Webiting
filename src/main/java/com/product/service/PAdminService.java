@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.board.model.PagingVO;
 import com.product.model.CategoryVO;
+import com.product.model.PLikeVO;
 import com.product.model.ProductVO;
 
 public interface PAdminService {
@@ -33,7 +34,7 @@ public interface PAdminService {
 	public Object detailProduct(int pnum); 
 	
 	//연관 상품 페이지 인터페이스
-	public List<ProductVO> relatedProduct(int pnum);
+	public List<ProductVO> relatedProduct(ProductVO vo);
 
 
 	public int productDelete(int pnum);
@@ -44,6 +45,14 @@ public interface PAdminService {
 
 	
 	
-	public int updateHeart(int pnum);
+	public int findLike(PLikeVO like);
+
+	public int totalLike(int pnum);
+
+	public void likeRemove(PLikeVO vo);
+
+	public void likeUp(PLikeVO vo);
+
+
 
 }

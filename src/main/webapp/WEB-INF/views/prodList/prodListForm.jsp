@@ -41,18 +41,18 @@ $(function(){
         //var form = $("#pageInfo")[0];
     	//var page = new FormData(form);
     	var pageInfo = $("form[name=pageInfo]").serialize() ;
-    	alert(pageInfo)
+    	//alert(pageInfo)
         //let page=$('#findType').val;
         //alert(page);
-        /* data={
-        		page:${paging},
-        		downCg_code:${downCg_code}
-        } */
+        // data={
+        //		page:${paging},
+        //		downCg_code:${downCg_code}
+        //} 
         //alert(url);
         	$.ajax({
         		type:'get',
         		url:url,
-        		data:pageInfo,
+        		//data:pageInfo,
         		dataType:'json',
         		cache:false,
 	        	success:function(res){
@@ -100,7 +100,13 @@ function showList(res){
            </fieldset>
 				</div>
 			</div>
+			
 			<!-- Product actions-->
+			<div  class="text-center">
+			<img src="../resources/images/heart-fill.svg">
+			(\${prod.likeCnt})
+			
+			</div>
 			<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 				<div class="text-center">
 					<a class="btn btn-outline-dark mt-auto"
@@ -178,9 +184,14 @@ function showList(res){
                                  type="radio" name="reviewStar" value="1" id="rate5"><label
                                  for="rate5">★</label>
                            </fieldset>
-								</div>
+							</div>
 							</div>
 							<!-- Product actions-->
+							<div  class="text-center">
+								<img src="../resources/images/heart-fill.svg">
+								(${prod.likeCnt})
+								
+							</div>
 							<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 								<div class="text-center">
 									<a class="btn btn-outline-dark mt-auto"

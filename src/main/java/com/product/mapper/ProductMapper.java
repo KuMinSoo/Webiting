@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.board.model.PagingVO;
 import com.product.model.CategoryVO;
+import com.product.model.PLikeVO;
 import com.product.model.ProductVO;
 
 public interface ProductMapper {
@@ -26,7 +27,7 @@ public interface ProductMapper {
 	ProductVO detailProduct(int pnum);
 
 	
-	List<ProductVO> relatedProduct(int pnum);
+	List<ProductVO> relatedProduct(ProductVO vo);
 
 
 	int productDelete(int pnum);
@@ -43,5 +44,8 @@ public interface ProductMapper {
 	int insertHeart(int pnum);
 
 	int heartCount(int pnum);
-
+	int findLike(PLikeVO like);
+	int totalLike(int pnum);
+	void likeRemove(PLikeVO vo);
+	void likeUp(PLikeVO vo);
 }

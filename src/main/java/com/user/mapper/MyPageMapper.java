@@ -25,4 +25,5 @@ public interface MyPageMapper {
 	int goOrder(OrderVO ovo);
 	List<OrderVO> selectOrderView(int idx_fk);
 	OrderVO getOrderTotal(int idx_fk);
+	int insertLikeProd(LikeVO like);
 }

@@ -2,7 +2,9 @@ package com.multi.webiting;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
@@ -17,31 +19,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-/*import org.springframework.web.bind.annotation.RequestMethod;*/
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.board.model.PagingVO;
 import com.product.model.CategoryVO;
+import com.product.model.PLikeVO;
 import com.product.model.ProductVO;
 import com.product.service.PAdminService;
 import com.user.model.UserVO;
-
-//import com.common.domain.HeartDTO;
-/*import com.common.domain.HeartDTO;
-import com.common.domain.ProductDTO;*/
-import com.product.model.CategoryVO;
-import com.product.model.ProductVO;
-import com.product.service.PAdminService;
-/*import com.product.service.ProductDTO;
-import com.product.service.memberService;*/
 
 import lombok.extern.log4j.Log4j;
 
@@ -75,32 +64,74 @@ public class PAdminController {
 
 	// 상세 페이지 컨트롤러
 	@GetMapping("/prodDetail")
-	public String deteil(Model m, @RequestParam("pnum") int pnum) {
+	public String deteil(Model m, @RequestParam("pnum") int pnum,
+									HttpSession ses) {
+		PLikeVO like = new PLikeVO();
+		UserVO vo=(UserVO)ses.getAttribute("loginUser");
+		if(vo!=null) {
+			int idx=vo.getIdx();
+			log.info("idx===="+idx);
+			like.setIdx(idx);
+			m.addAttribute("idx",idx);
+		}else {
+			m.addAttribute("idx",-1);
+		}
+		
+		log.info("pnum==="+pnum);
+		
+		like.setPnum(pnum);
+		int b= this.adminService.findLike(like);//like 눌렀는지 여부
+		int totalCnt=this.adminService.totalLike(pnum);
+		//log.info("like==="+like);
+		log.info("좋아요 눌렀는지?"+b);
+		m.addAttribute("like",b);
+		m.addAttribute("totalCnt",totalCnt);
 		m.addAttribute("pcontents", adminService.detailProduct(pnum));
-
+		
+		
 		return "/admin/prodDetail";
 
 	}
+	
+	@ResponseBody 
+	@PostMapping(value="/likeUpDown",produces="application/json")
+	//public Map<String, Integer> likeUpDown(@RequestParam("pnum") int pnum,
+//								@RequestParam("idx") int idx,
+//								@RequestParam("likeval") int likeval) {
+	public Map<String, Integer> likeUpDown(@RequestBody PLikeVO vo)  {		
+		//PLikeVO vo=new PLikeVO();
+		//vo.setIdx(idx);
+		//vo.setPnum(pnum);
+		log.info("vo==="+vo);
+		if(vo.getLikeval()>0)
+			adminService.likeRemove(vo);
+		else 
+			adminService.likeUp(vo);
+		int b= this.adminService.findLike(vo);
+		int likeCnt=this.adminService.totalLike(vo.getPnum());
+		Map<String, Integer> map=new HashMap<>();
+		map.put("likevalue", b);
+		map.put("likeCnt", likeCnt);
+		return map;
+	}
+	
 
 	// 상세 -> 연관 페이지 컨트롤러
 	@GetMapping("/prodRelated")
-	public String related(Model m2, @RequestParam("pnum") int pnum) {
-		List<ProductVO> obj = adminService.relatedProduct(pnum);
+	public String related(Model m2,@RequestParam("downCg_code")String downCg_code,
+			@RequestParam("pnum")int pnum) {
+	
+		ProductVO vo=new ProductVO();
+		vo.setDownCg_code(downCg_code);
+		vo.setPnum(pnum);
+		log.info("down//pnum==="+vo);
+		List<ProductVO> obj = adminService.relatedProduct(vo);
 		m2.addAttribute("prelated", obj);
-
+		log.info(obj);
 		return "/admin/prodRelated";
 
 	}
 
-	// 좋아요 컨트롤러
-	@PostMapping(value = "heart", produces = "application/json")
-	public @ResponseBody ModelMap heart(@RequestParam("pnum") int pnum) {
-		int result = adminService.updateHeart(pnum);
-		ModelMap map = new ModelMap();
-		map.put("result", result);
-		return map;
-
-	}
 
 	// ajax요청에 대해 json으로 응답데이터를 보낸다
 	@GetMapping(value = "/getDownCategory", produces = "application/json")

@@ -13,8 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.board.model.PagingVO;
 import com.common.CommonUtil;
@@ -45,6 +47,33 @@ public class MyPageController {
 	
 	CommonUtil common = new CommonUtil();
 	
+	@PostMapping("/addLikeProd")
+	public String addLikePord(Model m, @ModelAttribute LikeVO like) {
+		
+		//LikeVO like=new LikeVO();
+		int n=mService.insertLikeProd(like);
+		log.info(like);
+		String str=(n>0)?"추가 되었습니다.":"관심 상품 추가 실패";
+		
+		String loc=(n>0)?"likeList":"javascript:history.back()";
+		
+		return common.addMsgLoc(m, str, loc);
+	}
+	
+	@PostMapping(value="/addLikePorductFromDetail",produces="application/json")
+	@ResponseBody
+	public void addLikePorductFromDetail(@RequestBody LikeVO like) {
+		log.info(like);
+		if(like.getLikeval()==1) {
+			int n=mService.insertLikeProd(like);
+			log.info("삽입 성공=="+n);
+		}
+		else {
+			int n=mService.deleteLike(like);	
+			log.info("삭제 성공=="+n);
+		}
+		
+	}
 	@GetMapping("/likeList")
 	public String likeList(Model m, @ModelAttribute("page") PagingVO page, HttpServletRequest req, HttpSession session) {
 		HttpSession ses=req.getSession();
@@ -82,11 +111,11 @@ public class MyPageController {
 		
 		
 		String str=(n>0)?"삭제 되었습니다.":"관심 상품 삭제 실패";
-		
 		String loc=(n>0)?"likeList":"javascript:history.back()";
-		
+		log.info(str);
 		return common.addMsgLoc(m, str, loc);
 	}
+	
 	
 	@PostMapping("/select_del")
 	public String selectDelete(Model m, @RequestParam("pnum") String str, @RequestParam("idx") Integer idx) {

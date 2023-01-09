@@ -4,7 +4,7 @@
 <mapper namespace="com.user.mapper.MyPageMapper">
 
 	<!-- 관심 목록 -->
-	<select id="selectLikeAllPaging" resultType="Like" parameterType="Paging">
+	<select id="selectLikeAllPaging" resultType="com.user.model.LikeVO" parameterType="Paging">
 		select * from
 		(select row_number() over(order by lindate desc) rn, likeprod.* 
 		from likeprod)
@@ -17,6 +17,11 @@
 	<select id="getTotalCount" resultType="int">
 		select count(pnum) from likeprod
 	</select>
+	
+	<insert id="insertLikeProd" parameterType="com.user.model.LikeVO">
+		insert into likeprod(idx,pnum,pname,pimage1,lprice,lindate,pqty,pcompany)
+		values(#{idx},#{pnum},#{pname},#{pimage1},#{lprice},sysdate,#{pqty},#{pcompany})
+	</insert>
 	
 	<delete id="deleteLike" parameterType="int">
 		delete from likeprod where idx=#{idx} and pnum=#{pnum}
