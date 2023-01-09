@@ -37,7 +37,6 @@ public class PayController {
 	private IamportClient api;
 	
 	public PayController() {
-    	// REST API 키와 REST API secret 를 아래처럼 순서대로 입력한다.
 		this.api = new IamportClient("6817372585767420","jwACfmGjHijBReeDgmpXlU00BcwqqjxXGzXG52ce6Ys2f3dkLgbf7gNH7kINTWku8VvTh9mpkFDejAan");
 	}
 	
@@ -47,15 +46,12 @@ public class PayController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/verifyIamport/{imp_uid}")
-	public IamportResponse<Payment> paymentByImpUid(
-			Model model
-			, Locale locale
-			, HttpSession session
-			, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException
+	@RequestMapping(value="/verifyIamport/{imp_uid}",produces = "application/json")
+	public Payment paymentByImpUid(@PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException
 	{	
-	
-		return api.paymentByImpUid(imp_uid);
+		IamportResponse<Payment> result= api.paymentByImpUid(imp_uid);
+		log.info(result.getResponse().getAmount());
+		return result.getResponse();
 	}
 	
 	
@@ -75,7 +71,7 @@ public class PayController {
 			DataOutputStream outputStream=new DataOutputStream(output);
 			outputStream.writeBytes(param);
 			outputStream.flush();
-			outputStream.close();//close를 하게되면 자동으로 flush됨
+			outputStream.close();
 			
 			int result=con.getResponseCode();
 			System.out.println("result=="+result);
@@ -85,12 +81,11 @@ public class PayController {
 				input=con.getInputStream();
 				InputStreamReader reader=new InputStreamReader(input);
 				buf=new BufferedReader(reader);
-				log.info("성공======================"+input);
+			
 			}else {
 				input=con.getErrorStream();
 				InputStreamReader reader=new InputStreamReader(input);
-				buf=new BufferedReader(reader);
-				log.info("실패======================"+input);
+				buf=new BufferedReader(reader);;
 			}
 		   StringBuffer res=new StringBuffer();
 		   String str="";

@@ -152,7 +152,10 @@
 	</section>
 </main>
 </div>
+<script>
 
+
+</script>
 
 
 <c:import url="/foot" />

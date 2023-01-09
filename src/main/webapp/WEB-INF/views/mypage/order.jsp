@@ -2,13 +2,18 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <c:import url="/top" />
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <%@ include file="/WEB-INF/views/mypage/orderScript.jsp" %>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <link rel="stylesheet" href="/resources/css/order.css">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<%-- <script type="text/javascript" charset="utf-8"><%@ include file="/js/pay.js"  %></script> --%>
+<script type="text/javascript" charset="utf-8" src="/resources/js/pay.js"></script>
 
 <div class="content_area">
-
+<button id="test">asdasd</button>
 	<div class="content_subject">
 		<span>주문 페이지</span>
 	</div>
@@ -204,14 +209,14 @@
 			</div>
 			<!-- 버튼 영역 -->
 			<div class="total_info_btn_div">
-				<a class="order_btn">결제하기</a>
+				  <button class="order_btn" onclick="requestPay()">결제하기</button> <!-- 결제하기 버튼 생성 -->
 			</div>
 		</div>
 	</div>
 </div>
 
 <!-- 주문 요청 form -->
-<form class="order_form" action="orderEnd" method="post">
+
 	<input name="name" type="text">
 	<input name="amount" type="text">
 	<input name="buyer_email" type="text" value="${loginUser.email}">
@@ -219,6 +224,6 @@
 	<input name="buyer_tel" type="text"  value="${loginUser.getAllHp()}">
 	<input name="buyer_addr" type="text">
 	<input name="buyer_postcode" type="text">
-</form>
+
 
 <c:import url="/foot" />

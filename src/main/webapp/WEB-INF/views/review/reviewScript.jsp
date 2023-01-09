@@ -30,6 +30,8 @@ $(function(){
 		
 		
 		let url="user/reviews";
+		
+		
 		/*
 			processData:false, ==> 기본값: true ==>true면 enctype="application/x-www-form-urlencoded" 타입으로 전송한다.
 			contentType:false, ==> 기본값: true enctype="application/x-www-form-urlencod"

@@ -4,62 +4,60 @@ import java.sql.Date;
 
 import lombok.Data;
 
-@Data
+@Data //ìƒí’ˆê´€ë ¨ vo
 public class OrderedDetailVO {
 	
-	private int orderedDetail_no;//primary key
-	//º¸³»´Â »óÇ° Á¤º¸(¼îÇÎ¹° È¸»ç) µ¿ÀÏ 
+	private int orderedNum;//primary key
+
 	private String orderedDetail_from_tel="1000-1000";
-	private String ordered_from_adr="¼­¿ï °­³²±¸";
+	private String ordered_from_adr="ì„œìš¸ ê°•ë‚¨";
 	private String ordered_from_post="39311";	
 	private String ordered_delivnum;
 	
-	
-	//¹è¼Û»óÅÂ
+	//ë°°ì†¡ì •ë³´
 	private int ordered_delivstateNum_fk;
 	private String orderedDetail_delivstate;
-	
-	
-	
-	//ÁÖ¹®ÀÚ ÀÎÀû»çÇ×(OrderedVO_fk)	
+
+	//ë°›ëŠ” ì‚¬ëŒ ì •ë³´(ê¸°ë³¸ì •ë³´ë‘ ë™ì¼í• ìˆ˜ë„ ì•„ë‹ìˆ˜ë„ ìˆìŒ
 	private int ordered_no_fk;//Ordered_fk
+	private String ordered_no;//ì•„ì„í¬íŠ¸ ê²°ì œê³ ìœ ë²ˆí˜¸
+	private String ordered_to_name;
 	private String ordered_to_tel;
 	private String ordered_to_email;
 	private String ordered_to_adr;
-	private String ordered_to_post;	
-	private Date ordered_date;
-	private int ordered_orderprice;
+	private String ordered_to_post;
+	private String ordered_payhow;//ì§€ë¶ˆë°©ë²•
+	private String ordered_paystate;//ê²°ì œ ì„±ê³µ ì—¬ë¶€
+	private int ordered_orderprice;//ì´ê¸ˆì•¡
+	private String ordered_date;//ê²°ì œë‚ ì§œ
+	private String ordered_state;
 	
-	
-	//¾Æ¸¶ Àå¹Ù±¸´Ï vo¶û µ¿ÀÏÇÒ °ÍÀ¸·Î ¿¹»óÇÔ.
-	//ÁÖ¹®ÀÚ°¡ ÁÖ¹®ÇÑ »óÇ°°ú °¹¼ö(Ä«Æ® vo Ã³·³ ÁÖ¹® ¸ñ·Ïvo ¿¹»ó ÇÊ¿äº¯¼ö)
+	//ì‚¬ìš©ì ì •ë³´
 	private int idx_fk;
 	private String userid;
 	private String name;
 	
-	//productvo
+	//productvo ìƒí’ˆì •ë³´
 	private int pnum_fk;//(productVO_fk)
 	private String pname;
 	private int oqty;
 	private int price;
 	private int saleprice;
+	private String pimage;
 	private String pcompany;
 	private int totalPrice;
 	private int totalPoint;	
-	//Ãß°¡µÊ
-	private String onum;//ÁÖ¹®¹øÈ£-----------	
+
+	private String onum;//ìƒí’ˆë²ˆí˜¸
 	
-	/**ÇÒÀÎÀ²À» ¹İÈ¯ÇÏ´Â ¸Ş¼­µå*/
+	
 	public int getPercent() {
-		//   (Á¤°¡-ÆÇ¸Å°¡)*100/Á¤°¡
+
 		int percent=(price-saleprice)*100/price;
 		return percent;
 	}
 	
-	
-	
-	
-	
+
 
 	
 }

@@ -10,7 +10,10 @@ import com.user.mapper.UserMapper;
 import com.user.model.NotUserException;
 //import com.user.model.PagingVO;
 import com.user.model.UserVO;
+
+import lombok.extern.log4j.Log4j;
 @Service("UserServiceImpl")
+@Log4j
 public class UserServiceImpl implements UserService {
 	
 	@Inject
@@ -57,7 +60,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserVO loginCheck(String userid, String pwd) throws NotUserException {
 		UserVO vo=this.uMapper.loginCheck(userid);
+		System.out.println("11111111111111"+vo);
+		log.info("------------------"+vo);
 		String DBuserid=vo.getUserid();
+		log.info("------------------"+DBuserid);
 		String DBuserpwd=vo.getPwd();
 		if(DBuserid!=null||DBuserpwd!=null) {
 			if(DBuserid.equals(userid)&&DBuserpwd.equals(pwd)) {
