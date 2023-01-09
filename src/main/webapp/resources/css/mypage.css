@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+<script>
+*{
+	margin: 0;
+	padding:0;
+}
+a{
+	text-decoration: none;
+}
+a:link {color: black;}
+a:visited {color: black;}
+a:active {color: black;}
+a:hover {color: black;}
+
+ul{
+    list-style: none;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+li {
+    text-align: -webkit-match-parent;
+}
+
+div {
+    display: block;
+}
+
+
+.admin_navi_wrap li a:link {color: black;}
+.admin_navi_wrap li a:visited {color: black;}
+.admin_navi_wrap li a:active {color: black;}
+.admin_navi_wrap li a:hover {color: black;}
+
+
+img[Attributes Style] {
+    width: 90px;
+    aspect-ratio: auto 90 / 90;
+    height: 90px;
+}
+
+/* 주문 목록 영역 */
+.goods_pay_item {
+    display: table;
+    width: 100%;
+    min-height: 161px;
+    padding: 23px 0 24px;
+    table-layout: fixed;
+}
+
+.goods_pay_item .goods_item {
+    position: relative;
+    padding-left: 129px;
+}
+
+.goods_pay_item > div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.goods_pay_item .seller_item {
+    width: 150px;
+}
+
+
+.goods_pay_item .goods_item .goods_info .goods .name {
+    max-width: 100%;
+    overflow: hidden;
+    color: #000;
+    font-size: 16px;
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    text-decoration: none;
+}
+
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+.goods_pay_item .goods_item .goods_thumb {
+    overflow: hidden;
+    position: absolute;
+    left: 9px;
+    top: 50%;
+    width: 90px;
+    height: 90px;
+    margin-top: -45px;
+    text-align: center;
+    vertical-align: top;
+}
+
+.state{
+	color: gray;
+}
+
+.goods_pay_item .goods_item .goods_info .goods .info li {
+    display: inline-block;
+    color: #000;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+</script>

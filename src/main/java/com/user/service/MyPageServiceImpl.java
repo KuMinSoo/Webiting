@@ -40,7 +40,14 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Override
 	public int moveCart(CartVO vo) {
-		return this.mMapper.moveCart(vo);
+		//중복 처리
+		Integer cnt=mMapper.selectCartCountByPnum(vo);
+		
+		if(cnt!=null) {
+			throw new NumberFormatException("해당 상품은 이미 장바구니에 담겨있습니다.");
+		}else {
+			return this.mMapper.moveCart(vo);
+		}
 	}
 
 	@Override
@@ -65,7 +72,16 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Override
 	public int editCart(CartVO cartVo) {
-		return this.mMapper.editCart(cartVo);
+		int qty=cartVo.getOqty();
+		if (qty==0) {
+			return this.mMapper.delCart(cartVo.getCartNum());
+		}else if(qty<0) {
+			throw new NumberFormatException("수량은 음수로 입력하면 안됩니다.");
+		}else if(qty>50) {
+			throw new NumberFormatException("50개 이상 주문할 수 없습니다.");
+		}else {
+			return this.mMapper.editCart(cartVo);
+		}
 	}
 
 	@Override

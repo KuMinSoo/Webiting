@@ -201,7 +201,7 @@ function selectDownCategoryHome(upCode){
 					</c:if> --%>
 					<!-- test용 ------------------------------------------------------------------------------ -->
 					<c:if test="${loginUser ne null }">
-                     <li class="nav-item"><a class="nav-link" href="${myctx}/mypage/likeList">LikeProd</a></li>
+                     <li class="nav-item"><a class="nav-link" href="${myctx}/mypage/likeList">MyPage</a></li>
                     </c:if>
 					 <li id="shop" class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"

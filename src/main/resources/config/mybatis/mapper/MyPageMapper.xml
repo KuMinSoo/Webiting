@@ -101,4 +101,9 @@
 		select sum(totalPrice) orderTotalPrice, sum(totalPoint) orderTotalPoint
 		from orderView where idx=#{value}
 	</select> -->
+	
+	<select id="selectCartCountByPnum" resultType="int" parameterType="Cart">
+		select cartNum from cart
+		where idx_fk=#{idx_fk} and pnum_fk=#{pnum_fk}
+	</select>
 </mapper>
