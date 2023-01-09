@@ -14,13 +14,16 @@ tr>td>a{
 	font-weight: bold;
 }
 </style>
+<link rel="stylesheet" href="../resources/css/mypage.css">
 
 <%@ include file="/WEB-INF/views/mypage/checkScript.jsp" %>
 
 <%
    String ctx = request.getContextPath();
 %>
-    
+
+<c:import url="/mypageNavi"/>
+
 <div>
 	<table width="900" align="center">
 	<tr>
@@ -58,9 +61,16 @@ tr>td>a{
        	<button class="move_cart">장바구니이동</button>
        </td>
      </tr>
-
+	<tfoot>
+		<tr>
+			<td colspan="6" class="text-center">
+				${pageNavi}
+			</td>
+		</tr>
+	</tfoot>
 	</table>
 </div>
+
 
 <form action="/mypage/like_del" method="post" class="like_delete_form">
 	<input type="hidden" id="pnum" name="pnum" class="likedel_pnum">

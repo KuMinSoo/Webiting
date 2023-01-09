@@ -45,4 +45,9 @@ public class HomeController {
 		return "/dtop";
 	}
 	
+	@RequestMapping("/mypageNavi")
+	public String mypageNavi() {
+		return "/mypageNavi";
+	}
+	
 }

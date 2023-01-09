@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -46,7 +47,9 @@ public class MyPageController {
 	CommonUtil common = new CommonUtil();
 	
 	@GetMapping("/likeList")
-	public String likeList(Model m, @ModelAttribute("page") PagingVO page, HttpServletRequest req, HttpSession session) {
+	public String likeList(Model m, @ModelAttribute("page") PagingVO page, HttpServletRequest req,
+			HttpSession session, @RequestHeader("User-Agent") String userAgent) {
+		String myctx=req.getContextPath();
 		HttpSession ses=req.getSession();
 		
 		log.info("1 page==="+page);
@@ -54,6 +57,7 @@ public class MyPageController {
 		page.setTotalCount(totalCount);
 		page.setPageSize(10);
 		page.setPagingBlock(5);
+		page.init(ses);
 		
 		UserVO loginUser=(UserVO)session.getAttribute("loginUser"); 
 		int idx=loginUser.getIdx();
@@ -64,7 +68,10 @@ public class MyPageController {
 		log.info("2 page==="+page);
 		
 		List<LikeVO> likeArr=this.mService.selectLikeAllPaging(page);
+		String loc="mypage/likeList";
+		String pageNavi=page.getPageNavi(myctx, loc, userAgent);
 		
+		m.addAttribute("pageNavi", pageNavi);
 		m.addAttribute("paging", page);
 		m.addAttribute("likeArr", likeArr);
 		return "mypage/likelist";
@@ -120,7 +127,7 @@ public class MyPageController {
 			vo.setPnum_fk(Integer.parseInt(pnum[i]));			
 			n=mService.moveCart(vo);
 			if(n<0) {
-				str2="주문 추가 실패";
+				str2="장바구니 추가 실패";
 				loc="javascript:history.back()";
 			}
 		}
@@ -202,5 +209,17 @@ public class MyPageController {
 		
 		
 		return "mypage/orderEnd";
+	}
+	
+	@GetMapping("/userOrdered")
+	public String userOrdered() {
+		
+		return "mypage/userOrdered";
+	}
+	
+	@GetMapping("/userOrderedDetail")
+	public String userOrderedDetail() {
+		
+		return "mypage/userOrderedDetail";
 	}
 }

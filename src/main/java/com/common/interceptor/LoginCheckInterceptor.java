@@ -30,7 +30,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor{
 				String view="/WEB-INF/views/msg.jsp";
 				
 				req.setAttribute("message", "로그인해야 이용 가능합니다.");
-				req.setAttribute("loc", req.getContextPath()+"/index");
+				req.setAttribute("loc", req.getContextPath()+"/login");
 				
 				RequestDispatcher disp=req.getRequestDispatcher(view);
 				disp.forward(req, res);

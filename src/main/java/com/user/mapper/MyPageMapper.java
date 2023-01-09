@@ -25,4 +25,6 @@ public interface MyPageMapper {
 	int goOrder(OrderVO ovo);
 	List<OrderVO> selectOrderView(int idx_fk);
 	OrderVO getOrderTotal(int idx_fk);
+	
+	Integer selectCartCountByPnum(CartVO cartVO); //상품번호로 장바구니에 있는 상품조회
 }
