@@ -75,7 +75,7 @@ function sendCart(){
 		let pnumInt=${pcontents.pnum};
 		let pnum=pnumInt.toString()+",";
 		let idx=${loginUser.idx};
-		alert(pnum+'/'+idx);
+		//alert(pnum+'/'+idx);
 		if(idx<=0){
 			alert('로그인해야합니다.')
 			return;
@@ -109,7 +109,7 @@ function sendLikeProd(likeval){
 			lindate:"",
 			likeval:likeval
 	  	});
-		alert(data);
+		//alert(data);
 		$.ajax({
 			type :'post',
 			url : 'mypage/addLikePorductFromDetail',
@@ -133,7 +133,7 @@ function sendLikeProd(likeval){
 function delLikeProd(){
 	let pnum = ${pcontents.pnum};
 	let idx=${loginUser.idx};
-	alert(pnum+"/"+idx);
+	//alert(pnum+"/"+idx);
 	$('.move_likeprodDel_pnum').val(pnum);
 	$(".move_likeprodDel_idx").val(idx);
 	$('.move_likeprodDel_form').submit();

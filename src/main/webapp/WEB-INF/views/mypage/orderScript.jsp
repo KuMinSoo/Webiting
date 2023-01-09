@@ -7,6 +7,7 @@ $(document).ready(function(){
 	setTotalInfo();
 	
 	
+	
 });
 function showAdress(className){
 	$(".addressInfo_input_div").css('display', 'none');
@@ -133,7 +134,7 @@ function setTotalInfo(){
 	} else if(totalPrice == 0){
 		deliveryPrice = 0;
 	} else {
-		deliveryPrice = 3000;	
+		deliveryPrice = 1;	
 	}
 	
 	finalTotalPrice = totalPrice + deliveryPrice;	
@@ -151,6 +152,21 @@ function setTotalInfo(){
 	$(".finalTotalPrice_span").text(finalTotalPrice.toLocaleString());	
 	$("input[name='amount']").val(finalTotalPrice);
 	$(".usePoint_span").text(usePoint.toLocaleString());	
+	
+	$(".addressInfo_input_div").each(function(i, obj){
+		if($(obj).find(".selectAddress").val() === 'T'){
+			$("input[name='buyer_addr']").val($(obj).find('.addr1_input').val()+$(obj).find('.addr2_input').val());
+			$("input[name='buyer_postcode']").val($(obj).find(".post_input").val());
+		}
+	});	
+	console.log('${orderList[0].pname}');
+	if(${orderList.size()} > 1){
+		$("input[name='name']").val('${orderList[0].pname}'+' 외 '+'${orderList.size()-1}'+'개');
+	}else{
+		$("input[name='name']").val('${orderList[0].pname}');
+	}
+	
+	$(".order_form").submit();	
 	
 }
 

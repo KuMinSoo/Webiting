@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.board.model.PagingVO;
 import com.common.CommonUtil;
 import com.product.model.CartVO;
-import com.product.model.OrderVO;
+import com.product.model.OrderedVO;
 import com.product.model.ProductVO;
 import com.product.service.ShopService;
 import com.user.model.IpayVO;
@@ -206,14 +206,11 @@ public class MyPageController {
 	public String goOrder(Model m, @RequestParam("pnum") String[] pnum,
 			@RequestParam("oqty") int[] oqty, @RequestParam("idx") Integer idx,
 			HttpSession session) {
-	
-		OrderVO ovo=new OrderVO();
-		ovo.setIdx(idx);
 		
 		List<ProductVO> orderList=new ArrayList<>();
 		int totalPrice=0,totalPoint=0; 
+		OrderedVO ovo=new OrderedVO();
 		for(int i=0; i<pnum.length; i++) {
-			
 			//상품정보
 			ProductVO prod=sService.selectByPnum(Integer.parseInt(pnum[i]));
 			prod.setPqty(oqty[i]);//주문수량으로 설정
@@ -222,11 +219,11 @@ public class MyPageController {
 			totalPoint+=prod.getTotalPoint();
 		}
 		log.info("ovo==="+ovo);
-		ovo.setOrderList(orderList);
+		
 		ovo.setTotalPrice(totalPrice);
 		ovo.setTotalPoint(totalPoint);
-		session.setAttribute("orderList", orderList);
-		session.setAttribute("ovo", ovo);
+		session.setAttribute("orderList", orderList);//상품목록
+		session.setAttribute("ovo", ovo);//주문목록
 
 		return "mypage/order";
 	}

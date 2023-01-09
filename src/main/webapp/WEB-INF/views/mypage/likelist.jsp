@@ -74,17 +74,20 @@ tr>td>a{
 
 <form action="/mypage/like_del" method="post" class="like_delete_form">
 	<input type="hidden" id="pnum" name="pnum" class="likedel_pnum">
-	<input type="hidden" id="idx" name="idx" value=258>
+	<input type="hidden" id="idx" name="idx" value="${loginUser.idx}"
+>
 </form>
 
 <form action="/mypage/select_del" method="post" class="select_delete_form">
 	<input type="hidden" id="pnum" name="pnum" class="selectdel_pnum">
-	<input type="hidden" id="idx" name="idx" value=258>
+	<input type="hidden" id="idx" name="idx" value="${loginUser.idx}"
+>
 </form>
 
 <form action="/mypage/move_cart" method="post" class="move_cart_form">
 	<input type="hidden" id="pnum" name="pnum" class="move_cart_pnum">
-	<input type="hidden" id="idx" name="idx" value=258>
+	<input type="hidden" id="idx" name="idx" value="${loginUser.idx}"
+>
 </form>
 
 <script>

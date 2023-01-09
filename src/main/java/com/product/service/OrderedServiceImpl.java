@@ -17,8 +17,8 @@ public class OrderedServiceImpl implements OrderedService {
 	
 	@Override
 	public int insertOrdered(OrderedVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return this.OrderedMapper.insertOrdered(vo);
 	}
 
 	@Override
@@ -49,6 +49,6 @@ public class OrderedServiceImpl implements OrderedService {
 		
 		return this.OrderedMapper.updateDelivCompleted(orderedDetail_no);
 		
-	}//¹è¼ÛÁß --> ¹è¼Û¿Ï·á
+	}//ï¿½ï¿½ï¿½ï¿½ï¿½ --> ï¿½ï¿½Û¿Ï·ï¿½
 
 }
