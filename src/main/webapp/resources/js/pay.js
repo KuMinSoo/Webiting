@@ -73,13 +73,12 @@ function createOrderedNum(){
 	                              ordered_to_post: rsp.buyer_postcode, 
 	                              ordered_payhow: rsp.pay_method, //0
 	                              ordered_paystate : rsp.status, 	 	 
-	                              ordered_date : rsp.paid_at,//0 
 	                              ordered_orderprice : rsp.paid_amount
 	                              };
 	                              
                               var result=JSON.stringify(jsonData); 	 	 	 	 	 	 
                               alert(rsp.buyer_name+""+rsp.buyer_tel+""+rsp.buyer_email);
-                              alert("성공햇습니다...."+rsp);
+                              alert("성공햇습니다...."+date);
                              
                               $.ajax({
                                     type:'POST',

@@ -39,16 +39,23 @@ public class OrderedServiceImpl implements OrderedService {
 		return null;
 	}
 
+	
 	@Override
-	public int updateOrderDetailDelivnum(String ordered_delivnum, int orderedDetail_no) {
-
-		return this.OrderedMapper.updateOrderDetailDelivnum(ordered_delivnum, orderedDetail_no);
+	public int updateDelivCompleted(int orderedNum) {
+		
+		return this.OrderedMapper.updateDelivCompleted(orderedNum);
+		
 	}
+
 	@Override
-	public int updateDelivCompleted(int orderedDetail_no) {
-		
-		return this.OrderedMapper.updateDelivCompleted(orderedDetail_no);
-		
-	}//����� --> ��ۿϷ�
+	public List<OrderedVO> selectAll() {
+		return this.OrderedMapper.selectAll();
+	}
+
+	@Override
+	public int updateDelivnum(String ordered_delivnum, int orderedNum) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }
