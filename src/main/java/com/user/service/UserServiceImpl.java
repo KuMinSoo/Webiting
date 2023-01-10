@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.common.CommonExceptionAdvice;
 import com.user.mapper.UserMapper;
 import com.user.model.NotUserException;
 //import com.user.model.PagingVO;
@@ -59,8 +60,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserVO loginCheck(String userid, String pwd) throws NotUserException {
+		
 		UserVO vo=this.uMapper.loginCheck(userid);
-		System.out.println("11111111111111"+vo);
+		if(vo==null)
+			throw new NotUserException("해당 회원은 없습니다.");
+		//System.out.println("11111111111111"+vo);
 		log.info("------------------"+vo);
 		String DBuserid=vo.getUserid();
 		log.info("------------------"+DBuserid);
@@ -69,7 +73,10 @@ public class UserServiceImpl implements UserService {
 			if(DBuserid.equals(userid)&&DBuserpwd.equals(pwd)) {
 				return vo; 
 			}
-		}return null;
+		}else {
+			throw new NotUserException("해당 회원은 없습니다.");
+		}
+		return null;
 	}
 
 	@Override

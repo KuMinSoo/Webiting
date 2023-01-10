@@ -13,6 +13,7 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -101,6 +102,13 @@ public class UserController {
 		log.info("로그인 여부: false" );
 		return common.addMsgBack(m, "로그인 실패");
 	}
+	//예외처리하는 메서드 앞에 @ExceptionHandler를 붙이고 구체적인 예외 클래스를 지정한다
+		@ExceptionHandler(NotUserException.class)
+		public String exceptionHandler(Exception ex) {
+			log.error(ex);
+			return "login/errorAlert";
+		}
+	
 	@RequestMapping("/logout")
 	@ResponseBody
 	public String logout(HttpSession ses) {
