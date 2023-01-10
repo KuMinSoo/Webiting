@@ -3,25 +3,24 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.product.mapper.OrderedMapper">
 	
-<!-- 	<insert id="insertOrdered" parameterType="Ordered"> -->
-<!-- 		<selectKey keyProperty="orderedNum" resultType="_int" order="BEFORE"> -->
-<!-- 			select ordernum_seq.nextval from dual -->
-<!-- 		</selectKey> -->
-<!-- 		insert into ordered(orderednum,ordered_from_tel,ordered_from_post,ordered_delivstateNum_fk,ordered_no,ordered_to_name,ordered_to_tel, -->
-<!-- 		ordered_to_email,ordered_to_adr,ordered_to_post,ordered_payhow,ordered_paystate,ordered_orderprice,ordered_date,idx_fk,pnum_fk)  -->
-<!-- 		values(#{orderedNum},#{ordered_from_tel},#{ordered_from_post},#{ordered_delivstateNum_fk}, #{ordered_no},#{ordered_to_name},#{ordered_to_tel}, -->
-<!-- 		#{ordered_to_email},#{ordered_to_adr},#{ordered_to_post},#{ordered_payhow},#{ordered_paystate},#{ordered_orderprice},#{ordered_date},#{idx_fk},#{pnum_fk}) -->
-<!-- 	</insert> -->
-	
+
 	<insert id="insertOrdered" parameterType="Ordered">
 		<selectKey keyProperty="orderedNum" resultType="_int" order="BEFORE">
 			select ordernum_seq.nextval from dual
 		</selectKey>
 		insert into ordered(orderednum,ordered_from_tel,ordered_from_post,ordered_no,ordered_to_name,ordered_to_tel,
-		ordered_to_email,ordered_to_adr,ordered_to_post,ordered_payhow,ordered_paystate,ordered_orderprice,ordered_date,idx_fk,pnum_fk) 
+		ordered_to_email,ordered_to_adr,ordered_to_post,ordered_payhow,ordered_paystate,ordered_orderprice,ordered_date,idx_fk,pnum_fk,ordered_delivstateNum_fk,ordered_from_adr,pname,oqty,price,saleprice,pimage,pcompany,totalPrice,totalPoint, ordered_statusNum_fk) 
 		values(#{orderedNum},#{ordered_from_tel},#{ordered_from_post}, #{ordered_no},#{ordered_to_name},#{ordered_to_tel},
-		#{ordered_to_email},#{ordered_to_adr},#{ordered_to_post},#{ordered_payhow},#{ordered_paystate},#{ordered_orderprice},#{ordered_date},#{idx_fk},#{pnum_fk})
+		#{ordered_to_email},#{ordered_to_adr},#{ordered_to_post},#{ordered_payhow},#{ordered_paystate},#{ordered_orderprice},sysdate,#{idx_fk},#{pnum_fk},0,#{ordered_from_adr},#{pname},#{oqty},#{price},#{saleprice},#{pimage},#{pcompany},#{totalPrice},#{totalPoint},0)
 	</insert>
+		
+	<select id="selectAll" resultType="Ordered">
+		select * from orderedview
+	</select>	
+	
+	<update id="delivCompleted" parameterType="string">
+		update orderedview set ordered_delivstateNum_fk=1 where orderednum=#{value}
+	</update>
 	
 	
 </mapper>

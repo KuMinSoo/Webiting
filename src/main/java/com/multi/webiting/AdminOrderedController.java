@@ -1,6 +1,8 @@
 package com.multi.webiting;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,22 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.CommonUtil;
-import com.product.model.OrderVO;
-import com.product.model.OrderedDetailVO;
 import com.product.model.OrderedVO;
 import com.product.model.ProductVO;
 import com.product.service.OrderedService;
-
 import com.user.model.UserVO;
 
 import lombok.extern.log4j.Log4j;
@@ -63,9 +59,7 @@ public class AdminOrderedController {
 			vo.setPcompany(prodVO.getPcompany());
 			vo.setTotalPoint(prodVO.getTotalPoint());
 			vo.setTotalPrice(prodVO.getTotalPrice());
-			vo.setOnum(prodVO.getOnum());
-			vo.setIdx_fk(loginUser.getIdx());
-			vo.setUserid(loginUser.getUserid());
+			vo.setIdx_fk(loginUser.getIdx());			
 			this.orderedService.insertOrdered(vo);
 			log.info(n+"번재 입력된 vo===========>"+vo);
 			n++;
@@ -77,12 +71,16 @@ public class AdminOrderedController {
 	
 
 	
-	@GetMapping("adminOrdered/orderedList")
-	public void orderedList(Model m, HttpSession ses,
-			OrderedVO vo, OrderedDetailVO dVO) {
+	@GetMapping("/AorderedList")
+	public String orderedList(Model m, HttpSession ses,
+			OrderedVO vo) {
 		log.info("주문항목========================>"+vo);
 		
+		List<OrderedVO> orderList=this.orderedService.selectAll();
 		
+		m.addAttribute("orderList",orderList);
+		
+		return "adminOrdered/orderedDetailList";
 		
 		
 		
@@ -90,28 +88,23 @@ public class AdminOrderedController {
 	}
 	
 	@PostMapping("/delivCompleted")
-	public int delivCompleted(int orderedDetail_no) {
+	public int delivCompleted(int orderedNum) {
 		
-		return this.orderedService.updateDelivCompleted(orderedDetail_no);
-		
-	}
-	
-	
-	@GetMapping("adminOrdered/orderedDetailList")
-	public void orderedDetailList(Model m, HttpSession ses) {
+		return this.orderedService.updateDelivCompleted(orderedNum);
 		
 	}
 	
-	@PostMapping("/orderedDelivnum")
-	public String orderedDelivnum(String ordered_delivnum, int orderedDetail_no,Model m) {
+	
+	
+	@PostMapping(value = "/updatedelivnum",produces="application/json")
+	@ResponseBody
+	public String orderedDelivnum(String ordered_delivnum, int orderedNum, Model m) {
 		
-		int n=this.orderedService.updateOrderDetailDelivnum(ordered_delivnum,orderedDetail_no);
 		
-		String msg="송장번호 입력";
-		msg=n>0?"성공":"실패"; 
-		String loc=n>0?"adminOrdered/orderedDetailList":"javascript:history.back()";
+		int n=this.orderedService.updateDelivnum(ordered_delivnum,orderedNum);
 		
-		return Util.addMsgLoc(m, msg, loc);
+	
+		return null;
 	}
 	
 }
