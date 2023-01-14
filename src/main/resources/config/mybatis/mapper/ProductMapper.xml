@@ -3,56 +3,56 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.product.mapper.ProductMapper">
 
-	<insert id="productInsert" parameterType="Product">
-		<selectKey keyProperty="pnum" resultType="int" order="BEFORE">
-			select product_seq.nextval from dual
-		</selectKey>
-		insert into product(pnum,upcg_code,downcg_code,pname,pimage1,pimage2,pimage3,
-		price, saleprice, pqty,point,pspec,pcontents,pcompany,pindate,pavg,LIKECNT,tag1,tag2,tag3)
-		values(#{pnum},#{upCg_code},#{downCg_code},#{pname},
-		#{pimage1:VARCHAR},#{pimage2:VARCHAR},#{pimage3:VARCHAR},#{price},#{saleprice},#{pqty},
-		#{point},#{pspec},#{pcontents},#{pcompany},sysdate,0,0,#{tag1:VARCHAR},#{tag2:VARCHAR},#{tag3:VARCHAR})
-	</insert>
-	
-	<select id="getProducts" resultType="Product">
-		select p.*,
-		(select upCg_name from upCategory where upCg_code=p.upCg_code) upCg_name,
-		(select downCg_name from downCategory where downCg_code=p.downCg_code) downCg_name 
-		from product p order by pnum desc
-	</select>
-	
-	<select id="selectByPspec" resultType="Product" parameterType="string">
-		select * from product where pspec=#{value}
-	</select>
-	
-	<select id="selectByPnum" resultType="Product" parameterType="_int">
-		select * from product where pnum=#{value}
-	</select>
-	
-	<!-- 평점 mapper  -->
-	<select id="getRatingAverage" resultType="double">
-  		select avg(rating)
-  		from product
-  		where pnum = #{pnum}
-  	</select>
+   <insert id="productInsert" parameterType="Product">
+      <selectKey keyProperty="pnum" resultType="int" order="BEFORE">
+         select product_seq.nextval from dual
+      </selectKey>
+      insert into product(pnum,upcg_code,downcg_code,pname,pimage1,pimage2,pimage3,
+      price, saleprice, pqty,point,pspec,pcontents,pcompany,pindate,pavg,LIKECNT,tag1,tag2,tag3)
+      values(#{pnum},#{upCg_code},#{downCg_code},#{pname},
+      #{pimage1:VARCHAR},#{pimage2:VARCHAR},#{pimage3:VARCHAR},#{price},#{saleprice},#{pqty},
+      #{point},#{pspec},#{pcontents},#{pcompany},sysdate,0,0,#{tag1:VARCHAR},#{tag2:VARCHAR},#{tag3:VARCHAR})
+   </insert>
+   
+   <select id="getProducts" resultType="Product">
+      select p.*,
+      (select upCg_name from upCategory where upCg_code=p.upCg_code) upCg_name,
+      (select downCg_name from downCategory where downCg_code=p.downCg_code) downCg_name 
+      from product p order by pnum desc
+   </select>
+   
+   <select id="selectByPspec" resultType="Product" parameterType="string">
+      select * from product where pspec=#{value}
+   </select>
+   
+   <select id="selectByPnum" resultType="Product" parameterType="_int">
+      select * from product where pnum=#{value}
+   </select>
+   
+   <!-- 평점 mapper  -->
+   <select id="getRatingAverage" resultType="double">
+        select avg(rating)
+        from product
+        where pnum = #{pnum}
+     </select>
 
-	<update id="updateRating">
-		update vam_book
-		set ratingAvg = #{ratingAvg}
-		where pnum = #{pnum}
-	</update>
-	    <select id="productListCategory" parameterType="string" resultType="Product">
+   <update id="updateRating">
+      update vam_book
+      set ratingAvg = #{ratingAvg}
+      where pnum = #{pnum}
+   </update>
+       <select id="productListCategory" parameterType="string" resultType="Product">
         select p.*,
         (select upCg_name from upCategory where upCg_code=p.upCg_code) upCg_name,
         (select downCg_name from downCategory where downCg_code=p.downCg_code) downCg_name,
         (select count(*) from prodLike where pnum=p.pnum) likeCnt  
         from product p where downCg_code=#{value} order by pnum desc
     </select>
-	    
+       
     <sql id="findWhere">
         <if test="findType!=null and findKeyword!=''">
             <where>
-            	<if test="findType==1">
+               <if test="findType==1">
                     pname like '%'||#{findKeyword}||'%'
                 </if>
                 <if test="findType==2">
@@ -63,25 +63,25 @@
         </if>
     </sql>
     <sql id="sortType">
-    	<if test="sortType==null and sortType==''">
-    		 pindate desc
-    	</if>
-    	<if test="sortType!=null and sortType!=''">
-    		<if test="sortType=='pindate'">
-    			#{sortType} desc
-    		</if>
-    		<if test="sortType=='price'">
-    			#{sortType} asc
-    		</if>
-    	</if>
+       <if test="sortType==null and sortType==''">
+           pindate desc
+       </if>
+       <if test="sortType!=null and sortType!=''">
+          <if test="sortType=='pindate'">
+             #{sortType} desc
+          </if>
+          <if test="sortType=='price'">
+             #{sortType} asc
+          </if>
+       </if>
     </sql>
     <select id="selectProductAllPaging" resultType="Product" parameterType="Paging">
         select * from
         (select row_number() over(order by 
         <choose>
-	        <when test='sortType ==1'>pindate desc</when>
-	        <when test='sortType ==2'>price asc</when>
-	        <otherwise>pindate desc</otherwise>
+           <when test='sortType ==1'>pindate desc</when>
+           <when test='sortType ==2'>price asc</when>
+           <otherwise>pindate desc</otherwise>
         </choose>
         ) rn, product.*,(select count(*) from prodLike where pnum=product.pnum) likeCnt 
         from product 
@@ -101,49 +101,49 @@
         select count(pnum) from product 
         where downCg_code=#{value}
     </select>
-					<!-- 상세 페이지 매퍼 -->
-	<select id = "detailProduct" resultType = "product" parameterType="_int">
-		select * from product where pnum = #{pnum}
-	</select>
-	 
-	  				<!-- 연관 페이지 메퍼 -->
-	<select id="relatedProduct" resultType="product" parameterType = "product">
-		select * from product where downCg_code = #{downCg_code} and pnum <![CDATA[<>]]>#{pnum}
-	</select>
-			<!-- 좋아요 눌렀는지 여부 -->
-	<select id="findLike" resultType="int" parameterType="Like">
-		select count(*) from prodLike where pnum = #{pnum} and idx = #{idx}
-	</select>
-	
-	<select id="totalLike" resultType="int" parameterType="int">
-		select count(*) from prodLike where pnum=#{value}
-	</select>
- 	<!-- 좋아요 추가 -->
- 	<insert id="likeUp" parameterType="Like">
- 		<selectKey keyProperty="like_no" resultType="int" order="BEFORE">
-			select like_seq.nextval from dual
-		</selectKey>
-		insert into prodLike (like_no ,pnum , idx)
-		values(#{like_no},#{pnum},#{idx})
-	</insert>
- 	<!-- 좋아요 추가 -->
- 	<!-- 좋아요 삭제 -->
- 	<delete id="likeRemove" parameterType="Like">
- 		delete from prodLike where pnum=#{pnum} and idx=#{idx}
- 	</delete>
- 	<!-- 좋아요 삭제 -->
-	
-	<delete id="productDelete" parameterType="int">
-		delete from product where pnum=#{value}
-	</delete>  
-	<select id="getProductByPnum" resultType="Product" parameterType="int">
-		select * from product where pnum=#{value}
-	</select>
-	<update id="updateProduct" parameterType="Product" >
-		update product set pname=#{pname},price=#{price}, saleprice=#{saleprice}, pqty=#{pqty},
-			point=#{point},pspec=#{pspec},pcontents=#{pcontents},pcompany=#{pcompany},
-			pindate=sysdate,pavg=#{pavg},
-			LIKECNT=#{likecnt},tag1=#{tag1:VARCHAR},tag2=#{tag2:VARCHAR},tag3=#{tag3:VARCHAR}
-		where pnum=#{pnum}
-	</update>
+               <!-- 상세 페이지 매퍼 -->
+   <select id = "detailProduct" resultType = "product" parameterType="_int">
+      select * from product where pnum = #{pnum}
+   </select>
+    
+                 <!-- 연관 페이지 메퍼 -->
+   <select id="relatedProduct" resultType="product" parameterType = "product">
+      select * from product where downCg_code = #{downCg_code} and pnum <![CDATA[<>]]>#{pnum}
+   </select>
+         <!-- 좋아요 눌렀는지 여부 -->
+   <select id="findLike" resultType="int" parameterType="Like">
+      select count(*) from prodLike where pnum = #{pnum} and idx = #{idx}
+   </select>
+   
+   <select id="totalLike" resultType="int" parameterType="int">
+      select count(*) from prodLike where pnum=#{value}
+   </select>
+    <!-- 좋아요 추가 -->
+    <insert id="likeUp" parameterType="Like">
+       <selectKey keyProperty="like_no" resultType="int" order="BEFORE">
+         select like_seq.nextval from dual
+      </selectKey>
+      insert into prodLike (like_no ,pnum , idx)
+      values(#{like_no},#{pnum},#{idx})
+   </insert>
+    <!-- 좋아요 추가 -->
+    <!-- 좋아요 삭제 -->
+    <delete id="likeRemove" parameterType="Like">
+       delete from prodLike where pnum=#{pnum} and idx=#{idx}
+    </delete>
+    <!-- 좋아요 삭제 -->
+   
+   <delete id="productDelete" parameterType="int">
+      delete from product where pnum=#{value}
+   </delete>  
+   <select id="getProductByPnum" resultType="Product" parameterType="int">
+      select * from product where pnum=#{value}
+   </select>
+   <update id="updateProduct" parameterType="Product" >
+      update product set pname=#{pname},price=#{price}, saleprice=#{saleprice}, pqty=#{pqty},
+         point=#{point},pspec=#{pspec},pcontents=#{pcontents},pcompany=#{pcompany},
+         pindate=sysdate,pavg=#{pavg},
+         LIKECNT=#{likecnt},tag1=#{tag1:VARCHAR},tag2=#{tag2:VARCHAR},tag3=#{tag3:VARCHAR}
+      where pnum=#{pnum}
+   </update>
 </mapper>

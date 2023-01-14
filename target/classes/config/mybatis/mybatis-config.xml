@@ -17,7 +17,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.board.model.PagingVO" alias="Paging"/>	
 		<typeAlias type="com.product.model.PLikeVO" alias="Like"/>
 		<typeAlias type="com.product.model.OrderedVO" alias="Ordered"/>
-		<typeAlias type="com.product.model.PLikeVO" alias="PLike"/>
+		<typeAlias type="com.product.model.OrderVO" alias="Order"/>
+		<typeAlias type="com.product.model.PLikeVO" alias="PLike"/> 
 		
 	</typeAliases>
 	

@@ -27,7 +27,7 @@
 		<property name="driverClassName" value="${Global.DriverClassName}"/>
 		<property name="jdbcUrl" value="${Global.Url}"/>
 		<property name="username" value="${Global.Username}"/>
-		<property name="password" value="${Global.Password}"/>
+		<property name="password" value="${Global.Password}"/> 
 	</bean>
 	
 	<bean id="dataSource-hikari" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
