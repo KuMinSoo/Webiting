@@ -48,4 +48,5 @@ public interface ProductMapper {
 	int totalLike(int pnum);
 	void likeRemove(PLikeVO vo);
 	void likeUp(PLikeVO vo);
+	
 }

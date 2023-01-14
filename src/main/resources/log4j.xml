@@ -17,6 +17,9 @@
 	<logger name="com.board">
 		<level value="info" />
 	</logger>
+	<logger name="com.product">
+		<level value="info" />
+	</logger>
 	
 
 	<!-- 3rdparty Loggers -->

@@ -2,6 +2,7 @@ package com.multi.webiting;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,9 +46,9 @@ public class PAdminController {
 
 	@GetMapping("/index")
 	public String home(HttpSession ses) {
-		log.info("adminService===" + adminService);
+		//log.info("adminService===" + adminService);
 		List<CategoryVO> upCgList = adminService.getUpcategory();
-
+		
 		ses.setAttribute("upCgList", upCgList);
 		// log.info("upCgList=="+upCgList);
 		return "/index";
@@ -56,7 +57,7 @@ public class PAdminController {
 	@GetMapping("/admin/prodForm")
 	public String productForm(Model m) {
 		List<CategoryVO> upCgList = adminService.getUpcategory();
-		log.info("upCgList==" + upCgList);
+		//log.info("upCgList==" + upCgList);
 		m.addAttribute("upCgList", upCgList);
 
 		return "/admin/prodForm";
@@ -83,7 +84,7 @@ public class PAdminController {
 		int b= this.adminService.findLike(like);//like 눌렀는지 여부
 		int totalCnt=this.adminService.totalLike(pnum);
 		//log.info("like==="+like);
-		log.info("좋아요 눌렀는지?"+b);
+		//log.info("좋아요 눌렀는지?"+b);
 		m.addAttribute("like",b);
 		m.addAttribute("totalCnt",totalCnt);
 		m.addAttribute("pcontents", adminService.detailProduct(pnum));
@@ -102,7 +103,7 @@ public class PAdminController {
 		//PLikeVO vo=new PLikeVO();
 		//vo.setIdx(idx);
 		//vo.setPnum(pnum);
-		log.info("vo==="+vo);
+		//log.info("vo==="+vo);
 		if(vo.getLikeval()>0)
 			adminService.likeRemove(vo);
 		else 
@@ -127,7 +128,7 @@ public class PAdminController {
 		log.info("down//pnum==="+vo);
 		List<ProductVO> obj = adminService.relatedProduct(vo);
 		m2.addAttribute("prelated", obj);
-		log.info(obj);
+		//log.info(obj);
 		return "/admin/prodRelated";
 
 	}
@@ -209,9 +210,9 @@ public class PAdminController {
 			@RequestParam(value = "downCg_code", required = false) String downCg_code,
 			@RequestParam(value = "downCg_name", required = false) String downCg_name) {
 		String myctx = req.getContextPath();
-
+				
 		HttpSession ses = req.getSession();
-		log.info("1. page====" + page);
+		//log.info("1. page====" + page);
 		int totalCount = 0;
 		List<ProductVO> prodArr = null;
 		log.info("2. page====" + page);
@@ -251,7 +252,7 @@ public class PAdminController {
 			@RequestParam(value = "downCg_name", required = false) String downCg_name,
 			@PathVariable(name = "sortType", required = false) Integer sortType) {
 		// log.info(sortType);
-		log.info("검색어=====" + page.getFindKeyword());
+		//log.info("검색어=====" + page.getFindKeyword());
 		String myctx = req.getContextPath();
 		ModelMap map = new ModelMap();
 		HttpSession ses = req.getSession();
@@ -276,9 +277,9 @@ public class PAdminController {
 			// log.info("downCg_name===="+downCg_name);
 		}
 		String loc = "prodList";
-		log.info("sortType1===" + sortType);
+		//log.info("sortType1===" + sortType);
 		String pageNavi = page.getPageNavi(myctx, loc, userAgent);
-		log.info("sortType2===" + sortType);
+		//log.info("sortType2===" + sortType);
 		// log.info("prodArr:"+prodArr);
 		if (page.getFindKeyword() != null) {
 			map.addAttribute("keyword", page.getFindKeyword());
@@ -323,7 +324,7 @@ public class PAdminController {
 			m.addAttribute("loc", loc);
 			return "msg";
 		}
-		log.info("vo====" + vo);
+		//log.info("vo====" + vo);
 		m.addAttribute("Product", vo);
 
 		return "prodList/prodEditForm";
@@ -339,6 +340,33 @@ public class PAdminController {
 		m.addAttribute("loc", loc);
 		m.addAttribute("message", msg);
 		return "msg";
+	}
+	
+	@GetMapping("/prodRecoForm")
+	public String prodRecoForm(Model m, HttpSession ses) {
+		UserVO vo=(UserVO) ses.getAttribute("loginUser");
+		if(vo==null) {
+			m.addAttribute("personalProdArr","");
+		}else {
+			int idx=vo.getIdx();
+			List<ProductVO> personalProdArr=adminService.personalRecoProdList(idx);
+			m.addAttribute("personalProdArr",personalProdArr);
+			//log.info(personalProdArr);
+		}
+		List<ProductVO> topProdBed=adminService.topProdBed();
+		List<ProductVO> topProdChair=adminService.topProdChair();
+		List<ProductVO> topProdShelf=adminService.topProdShelf();
+		List<ProductVO> topProdSofa=adminService.topProdSofa();
+		List<ProductVO> topProdStorage=adminService.topProdStorage();
+		List<ProductVO> topProdTable=adminService.topProdTable();
+		
+		m.addAttribute("topProdBed",topProdBed);
+		m.addAttribute("topProdChair",topProdChair);
+		m.addAttribute("topProdShelf",topProdShelf);
+		m.addAttribute("topProdSofa",topProdSofa);
+		m.addAttribute("topProdStorage",topProdStorage);
+		m.addAttribute("topProdTable",topProdTable);
+		return "prodList/prodRecoForm";
 	}
 
 }

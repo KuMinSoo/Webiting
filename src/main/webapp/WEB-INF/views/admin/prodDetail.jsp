@@ -347,7 +347,7 @@ $(function(){
 					<c:param name="pnum" value="${pcontents.pnum}" />
 				</c:import>
 				<hr color='red'>
-				<%-- <c:import url="/reviewForm"/> --%>
+				<c:import url="/reviewForm"/> 
 			</div>
 		</div>
 	</div>

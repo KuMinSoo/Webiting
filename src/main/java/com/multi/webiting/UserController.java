@@ -68,10 +68,10 @@ public class UserController {
 	@GetMapping(value="/idcheck", produces="application/json")
 	@ResponseBody
 	public Map<String,String> idCheck(@RequestParam("userid") String userid){
-		log.info("userid==="+userid);
+		//log.info("userid==="+userid);
 		boolean isUse=uService.idCheck(userid);
 		String result=(isUse)?"ok":"no";
-		log.info("logisUse==="+result);
+		//log.info("logisUse==="+result);
 		Map<String,String>map=new HashMap<>();
 		map.put("result", result);
 		return map;
@@ -89,8 +89,8 @@ public class UserController {
 	@PostMapping("/login")
 	public String loginForm(Model m,@ModelAttribute("user") UserVO user,HttpSession ses) 
 			throws NotUserException {
-		log.info("userid=="+user.getUserid());
-		log.info("userpwd=="+user.getPwd());
+		//log.info("userid=="+user.getUserid());
+		//log.info("userpwd=="+user.getPwd());
 		UserVO vo=this.uService.loginCheck(user.getUserid(), user.getPwd());
 		
 		m.addAttribute("loginUser",vo);
@@ -99,7 +99,7 @@ public class UserController {
 			log.info("로그인 여부: true" );
 			return common.addMsgLoc(m, "로그인 성공", "/index");
 		}
-		log.info("로그인 여부: false" );
+		//log.info("로그인 여부: false" );
 		return common.addMsgBack(m, "로그인 실패");
 	}
 	//예외처리하는 메서드 앞에 @ExceptionHandler를 붙이고 구체적인 예외 클래스를 지정한다
@@ -129,7 +129,7 @@ public class UserController {
 				+"?client_id=d5db72c4c66d2bc59fcd57535bb579d1"//RestAPI�궎
 				+"&redirect_uri=http://localhost:9090/login/oauth_kakao"
 				+"&response_type=code";
-		log.info(reqUrl);
+		//log.info(reqUrl);
 		return reqUrl;
 	}
 	
@@ -155,7 +155,7 @@ public class UserController {
         //�쑀���쓽 Email 異붿텧
         JSONObject kakaoAccountJsonObject = (JSONObject)userInfoJsonObject.get("kakao_account");
         String kakaoEmail = kakaoAccountJsonObject.get("email").toString();
-        log.info(kakaoEmail);
+        //log.info(kakaoEmail);
         
         
         if (kakaoEmail != null&&!kakaoEmail.trim().equals("")) {
@@ -164,7 +164,7 @@ public class UserController {
         	if(vo==null) {
         		throw new NotUserException("등록된 회원이 없습니다.");
         	}
-        	log.info(vo);
+        	//log.info(vo);
         	m.addAttribute("kakaoEmail", kakaoEmail);
         	m.addAttribute("loginUser", vo);
         	ses.setAttribute("loginUser", vo);

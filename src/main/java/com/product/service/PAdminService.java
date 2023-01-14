@@ -53,6 +53,21 @@ public interface PAdminService {
 
 	public void likeUp(PLikeVO vo);
 
+	public List<ProductVO> personalRecoProdList(int idx);
+
+
+	public List<ProductVO> topProdBed();
+
+	List<ProductVO> topProdChair();
+
+	List<ProductVO> topProdShelf();
+
+	List<ProductVO> topProdSofa();
+
+	List<ProductVO> topProdStorage();
+
+	List<ProductVO> topProdTable();
+
 
 
 }

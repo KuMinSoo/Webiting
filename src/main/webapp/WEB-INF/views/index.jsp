@@ -70,6 +70,6 @@
       </div>
       <!--post slider-->
     </div>
-    <c:import url="/prodListForm" />
+<c:import url="/prodRecoForm" />
     
 <c:import url="/foot"/>

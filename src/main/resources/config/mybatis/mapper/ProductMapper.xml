@@ -102,12 +102,12 @@
         where downCg_code=#{value}
     </select>
 					<!-- 상세 페이지 매퍼 -->
-	<select id = "detailProduct" resultType = "product" parameterType="_int">
+	<select id = "detailProduct" resultType = "Product" parameterType="_int">
 		select * from product where pnum = #{pnum}
 	</select>
 	 
 	  				<!-- 연관 페이지 메퍼 -->
-	<select id="relatedProduct" resultType="product" parameterType = "product">
+	<select id="relatedProduct" resultType="Product" parameterType = "product">
 		select * from product where downCg_code = #{downCg_code} and pnum <![CDATA[<>]]>#{pnum}
 	</select>
 			<!-- 좋아요 눌렀는지 여부 -->
@@ -146,4 +146,6 @@
 			LIKECNT=#{likecnt},tag1=#{tag1:VARCHAR},tag2=#{tag2:VARCHAR},tag3=#{tag3:VARCHAR}
 		where pnum=#{pnum}
 	</update>
+	
+	
 </mapper>

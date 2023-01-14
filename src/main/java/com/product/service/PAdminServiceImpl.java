@@ -1,6 +1,8 @@
 package com.product.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 
@@ -9,11 +11,15 @@ import org.springframework.stereotype.Service;
 import com.board.model.PagingVO;
 import com.product.mapper.CategoryMapper;
 import com.product.mapper.ProductMapper;
+import com.product.model.Aitems;
 import com.product.model.CategoryVO;
 import com.product.model.PLikeVO;
 import com.product.model.ProductVO;
 
+import lombok.extern.log4j.Log4j;
+
 @Service("padminServiceImpl")
+@Log4j
 public class PAdminServiceImpl implements PAdminService {
 	
 	@Inject
@@ -21,7 +27,9 @@ public class PAdminServiceImpl implements PAdminService {
 	
 	@Inject
 	private ProductMapper productMapper;
-
+	
+	Aitems aitems=new Aitems();
+	
 	@Override
 	public List<CategoryVO> getUpcategory() {
 
@@ -125,6 +133,148 @@ public class PAdminServiceImpl implements PAdminService {
 		this.productMapper.likeUp(vo);
 	}
 
-	
+	@Override
+	public List<ProductVO> personalRecoProdList(int idx) {
+		List<Object> list=(List<Object>) aitems.aitems("personalRecommend", idx);
+		List<ProductVO> vo=new ArrayList<>();
+		if(idx==1||idx==2||idx==3||idx==4) {
+		for(int i=0;i<4;i++) {
+			ProductVO pro=this.productMapper.detailProduct(Integer.parseInt((String) list.get(i)));
+			vo.add(pro);
+		}
+		//log.info(list);
+		return vo;
+		}
+		else return null;
+	}
 
+	@Override
+	public List<ProductVO> topProdBed() {
+		List<Object> list1=(List<Object>) aitems.aitems("pop", 1);
+		List<Object> list2=(List<Object>) aitems.aitems("pop", 2);
+		List<Object> list3=(List<Object>) aitems.aitems("pop", 3);
+		List<ProductVO> vo=new ArrayList<>();
+		boolean flag = true;
+		int i = 0;
+		while(flag) {
+			if(i < list1.size()) {
+				ProductVO pro=this.productMapper.detailProduct(Integer.parseInt((String) list1.get(i)));
+				vo.add(pro);
+			}else if(i < list2.size()) {
+				ProductVO pro=this.productMapper.detailProduct(Integer.parseInt((String) list2.get(i)));
+				vo.add(pro);
+			}else if(i < list3.size()) {
+				ProductVO pro=this.productMapper.detailProduct(Integer.parseInt((String) list3.get(i)));
+				vo.add(pro);
+			}else if(i>list1.size() && i> list2.size() && i> list3.size()) {
+				
+				flag = false;
+			}
+			i++;
+		}
+		List<ProductVO> vo1=new ArrayList<>();
+        if(vo.size()!=0) {
+        	vo1.add(vo.get(0));
+        	vo1.add(vo.get(1));
+        	vo1.add(productMapper.getProductByPnum(2700));
+        	vo1.add(vo.get(3));
+        	//log.info(vo.get(2));
+        	return vo1;
+        }
+        else return null;
+	}
+	@Override
+	public List<ProductVO> topProdChair() {
+		List<Object> list1=(List<Object>) aitems.aitems("pop", 4);
+		List<Object> list2=(List<Object>) aitems.aitems("pop", 5);
+		return cate2(list1,list2);
+	}
+	@Override
+	public List<ProductVO> topProdShelf() {
+		List<Object> list1=(List<Object>) aitems.aitems("pop", 6);
+		List<Object> list2=(List<Object>) aitems.aitems("pop", 7);
+		return cate2(list1,list2);
+	}
+	@Override
+	public List<ProductVO> topProdSofa() {
+		List<Object> list1=(List<Object>) aitems.aitems("pop", 8);
+		List<Object> list2=(List<Object>) aitems.aitems("pop", 9);
+		return cate2(list1,list2);
+	}
+	@Override
+	public List<ProductVO> topProdStorage() {
+		List<Object> list1=(List<Object>) aitems.aitems("pop", 10);
+		List<Object> list2=(List<Object>) aitems.aitems("pop", 11);
+		List<Object> list3=(List<Object>) aitems.aitems("pop", 12);
+		List<Object> list4=(List<Object>) aitems.aitems("pop", 13);
+		List<ProductVO> vo=new ArrayList<>();
+		
+		boolean flag = true;
+		int i = 0;
+		while(flag) {
+			if(i < list1.size()) {
+				ProductVO pro=this.productMapper.detailProduct(Integer.parseInt((String) list1.get(i)));
+				vo.add(pro);
+			}else if(i < list2.size()) {
+				ProductVO pro=this.productMapper.detailProduct(Integer.parseInt((String) list2.get(i)));
+				vo.add(pro);
+			}else if(i < list3.size()) {
+				ProductVO pro=this.productMapper.detailProduct(Integer.parseInt((String) list3.get(i)));
+				vo.add(pro);
+			}else if(i < list4.size()) {
+				ProductVO pro=this.productMapper.detailProduct(Integer.parseInt((String) list4.get(i)));
+				vo.add(pro);
+			}else if(i>list1.size() && i> list2.size() && i> list3.size() && i> list4.size()) {
+				flag = false;
+			}
+			i++;
+		}
+		
+		List<ProductVO> vo1=new ArrayList<>();
+		
+		if(vo.size()!=0) {
+        	vo1.add(vo.get(0));
+        	vo1.add(vo.get(1));
+        	vo1.add(vo.get(2));
+        	vo1.add(vo.get(3));
+        	return vo1;
+        }
+        else return null;
+	}
+	@Override
+	public List<ProductVO> topProdTable() {
+		List<Object> list1=(List<Object>) aitems.aitems("pop", 14);
+		List<Object> list2=(List<Object>) aitems.aitems("pop", 15);
+		return cate2(list1,list2);
+	}
+	
+	
+	public List<ProductVO> cate2(List<Object> list1,List<Object> list2){
+		List<ProductVO> vo=new ArrayList<>();
+		boolean flag = true;
+		int i = 0;
+		while(flag) {
+			if(i < list1.size()) {
+				ProductVO pro=this.productMapper.detailProduct(Integer.parseInt((String) list1.get(i)));
+				vo.add(pro);
+			}else if(i < list2.size()) {
+				ProductVO pro=this.productMapper.detailProduct(Integer.parseInt((String) list2.get(i)));
+				vo.add(pro);
+			}else if(i>list1.size() && i> list2.size()) {
+				flag = false;
+			}
+			i++;
+		}
+		
+		List<ProductVO> vo1=new ArrayList<>();
+		
+		if(vo.size()!=0) {
+        	vo1.add(vo.get(0));
+        	vo1.add(vo.get(1));
+        	vo1.add(vo.get(2));
+        	vo1.add(vo.get(3));
+        	return vo1;
+        }
+        else return null;
+	}
 }

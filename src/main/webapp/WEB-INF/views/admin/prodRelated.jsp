@@ -12,14 +12,14 @@
 	<br>
 	<br>
 
-	<c:forEach var="Relitem" items="${prelated}" begin="1" end="4">
+	<c:forEach var="Relitem" items="${prelated}" begin="1" end="3">
 
 		<div class="related text-center" id="viewRelated" style="width: 25%;display: inline-block;">
 			<div>${Relitem.pname}</div>
 			<a href="/prodDetail?pnum=${Relitem.pnum}"> 
 				<img src="${myctx}/resources/product_images/${Relitem.pimage1}" style="width: 75%">
 			</a>
-			<h4>푹신한 침대</h4>
+			<br>
 			<strong class="price">${Relitem.saleprice}원</strong>
 		</div>
 	</c:forEach>
