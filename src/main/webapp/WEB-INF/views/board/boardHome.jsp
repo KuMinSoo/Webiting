@@ -103,24 +103,31 @@ function collapseHide(){//모든 질문의 답이 오픈된 경우 hide!!
 		}	
 		
 		h4{ font-size:16px;}
+		
+		.btn-list{
+			display:flex;
+			justify-content:center;
+			align-items: center;	
+		}
+	
 </style>
 			
-<div class="container mt-5" style="height: 600px; overflow: auto;">
-		<div class="container">
-			고객센터 09:00 ~ 18:00
-			<ul>
-				<li>평일 : 전체 문의 상담 가능</li>
-				<li>주말/공휴일 :직접배송 및 이사/시공/수리 문의에 한해 전화 상담 가능</li>
-			</ul>
-			<div>
-				<button class="btn btn-outline-primary" onclick="location.href='<%=ctx%>/board/write'">게시판 등록</button>
-				<button class="btn btn-outline-info" onclick="location.href='<%=ctx%>/board/list'">고객문의 게시판</button>
-				<!-- 관리자 페이지로 이동 예정 -->
-				
+<div class="container mt-5">
+			<div>			
+				고객센터 09:00 ~ 18:00
+				<ul>
+					<li>평일 : 전체 문의 상담 가능</li>
+					<li>주말/공휴일 :직접배송 및 이사/시공/수리 문의에 한해 전화 상담 가능</li>
+				</ul>
+			
+					<button class="btn btn-outline-primary" onclick="location.href='<%=ctx%>/board/write'">게시판 등록</button>
+					<button class="btn btn-outline-info" onclick="location.href='<%=ctx%>/board/list'">고객문의 게시판</button>
+					<!-- 관리자 페이지로 이동 예정 -->					
 			</div>
-		</div>	
+		
 			<div class="container mt-5 mb-5">
 				<h5 align="center">자주 묻는 질문</h5>
+				<div class="btn-list">
 					<button type="button" id="b0" class="btn btn-outline-secondary">전체</button>
 					<button type="button" id="b1" class="btn btn-outline-secondary">주문결제</button>
 					<button type="button" id="b2" class="btn btn-outline-secondary">배송관련</button>
@@ -128,7 +135,7 @@ function collapseHide(){//모든 질문의 답이 오픈된 경우 hide!!
 					<button type="button" id="b4" class="btn btn-outline-secondary">반품/교환</button>
 					<button type="button" id="b5" class="btn btn-outline-secondary">로그인/회원정보</button>
 					<button type="button" id="b6" class="btn btn-outline-secondary">기타문의</button>
-				
+				</div>
 				<!-- 고객문의 테마별 목록(주문결제, 배송관련, 취소/환불, 반품/교환, 로그인/회원정보, 서비스/기타 -->
 				<div class="panel-group panel-info" id="accordion">	
 					<!-- 주문결제------------------------------------------- -->	

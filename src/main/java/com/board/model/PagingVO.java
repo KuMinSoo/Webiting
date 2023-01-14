@@ -22,36 +22,41 @@ public class PagingVO {
 	private Integer sortType=1;
 
 	
-	private int start;//������ ���� ù��° ��
-	private int end;//������ ��..
+	private int start;//
+	private int end;//
 	
-	private int pagingBlock =10;//����¡ �� ex) [1][2][3]....
-	private int prevBlock;//���� ����¡ �� �׷��� ù��° ������ ��ȣ
-	private int nextBlock;//���� ����¡ �� �׷��� ù��° ������ ��ȣ 
+	private int pagingBlock =10;
+	private int prevBlock;
+	private int nextBlock;
 	
-	private String findType;// �˻�����: �۹�ȣ, ������, �۳���
-	private String findKeyword;//������ Ű���� �Է�
-	
+	private String findType;
+	private String findKeyword;
+
 	private int idx;	
+	private String orderMode;
+	private String orderStatusMode;
+	private String dateStart;
+	private String dateEnd;
+	
 	
 	public void init(HttpSession ses) {
 		if(ses!=null) {
-			ses.setAttribute("pageSize", pageSize);//������ ���� �ش� ������ �� ����
+			ses.setAttribute("pageSize", pageSize);
 		}
 		log.info("1. PagingVO totalCount======================="+pageSize);
 		log.info("1. PagingVO totalCount======================="+totalCount);
 		pageCount = (totalCount - 1) / pageSize + 1;
 		
 		if(cpage<1) {
-			cpage=1;//���� �������� 1���� ���� ���� �Էµ� ��� �⺻ 1�������� ������
+			cpage=1;
 		}
 		
 		if(cpage>pageCount) { 
-			cpage=pageCount;//���� �������� �������������� ū ���� �Էµ� �⺻ ������ �������� ������ 
+			cpage=pageCount;
 		}
 			
-		start=(cpage-1)*pageSize;//���� �������� ���۵� �Խ��� ù��° ���� ���۹�ȣ
-		end=start+(pageSize+1);//���� �������� ���۵� �Խ��� ������ ���� ���۹�ȣ
+		start=(cpage-1)*pageSize;
+		end=start+(pageSize+1);
 		
 		prevBlock=(cpage-1)/pagingBlock*pagingBlock;
 		nextBlock=prevBlock+(pagingBlock+1);
@@ -60,25 +65,38 @@ public class PagingVO {
 	
 	public String getPageNavi(String myctx,String loc, String userAgent) {
 		
-		if(findType==null) {//�˻� ����� ������� ���� ��� �ش� ���� 'null'�� ''�� �ٲپ� ���� ������ �߻����� �ʵ��� ��
+		if(dateStart==null || dateEnd==null) {
+			dateStart="";
+			dateEnd="";
+		}
+		if(orderStatusMode==null) {
+			orderStatusMode="";	
+		}
+		
+		if(orderMode==null) {
+			orderMode="";
+		}
+		
+		if(findType==null) {
 			findType="";
-			findKeyword="";
+			findKeyword="";			
 		}else {
 			if(userAgent.indexOf("MSIE")>-1||userAgent.indexOf("Trident")>-1) {
 				try {
-					findKeyword=URLEncoder.encode(findKeyword,"UTF-8");//internet explorer �϶� parameter�� �ѱ۰��� ���� �� �ֱ⿡ ������ �ʵ��� ��
+					findKeyword=URLEncoder.encode(findKeyword,"UTF-8");
 				} catch (UnsupportedEncodingException e) {
 					System.out.println(e);
 				}
 			}
 		}
-		//������ �� ó���� Controller���� �� �� html�� ������
+		
 		String str="";
 		String link=myctx+"/"+loc;
 
 		String qStr="?pageSize="+pageSize+"&findType="+findType;
 				qStr+="&findKeyword="+findKeyword+"&sortType="+sortType;
-		
+				qStr+="&orderMode="+orderMode+"&orderStatusMode="+orderStatusMode;
+				qStr+="&dateStart="+dateStart+"&dateStartEnd="+dateEnd;
 		
 
 		link+=qStr;  

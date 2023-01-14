@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <c:import url="/top" />
 <script>
 	$(function() {
@@ -44,6 +44,19 @@
 		width:30px;
 		height:17px;
 	}
+	.btn {
+            background-color: rgb(236, 236, 236); /* Blue background */
+            border: none; /* Remove borders */
+            color: black; /* White text */
+            padding: 6px 12px; /* Some padding */
+            font-size: 16px; /* Set a font size */
+            cursor: pointer; /* Mouse pointer on hover */
+            border-radius: 5px;
+        }
+
+    .btn:hover {
+        text-decoration: underline;
+    }
 </style>
 <div align="center" id="bbs" class="col-md-8 offset-md-2">
 	<input type="hidden" name="mode" value="write">
@@ -118,12 +131,12 @@
 				<tr>
 					<td>
 			<!-- 일반글(문의글 또는 답변)  -->	
-						<button type="button" onclick="location.href='../list'">글목록</button>
-						<button type="button" onclick="location.href='../write'">글쓰기</button>
+						<button class="btn btn-modify" type="button" onclick="location.href='../list'">글목록</button>
+						<button class="btn" type="button" onclick="location.href='../write'">글쓰기</button>
 					<!-- 조건: 관리자 글이 아닌 회원 글일 경우 수정, 삭제 버튼 보여줌  -->
 					<c:if test="${board.adminSunbun=='0' and board.lev=='0'}">				
-						<button type="button" onclick="go(1)">수정</button>		
-						<button type="button" onclick="go(2)">삭제</button>
+						<button  class="btn"  type="button" onclick="go(1)">수정</button>		
+						<button class="btn"  type="button" onclick="go(2)">삭제</button>
 			 		</c:if>		
 			<!-- 일반글(문의글 또는 답변)  -->				
 

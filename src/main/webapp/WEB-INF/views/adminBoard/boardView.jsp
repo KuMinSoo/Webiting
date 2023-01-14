@@ -43,7 +43,19 @@
 		width:30px;
 		height:17px;
 	}
+	.btn {
+            background-color: rgb(236, 236, 236); /* Blue background */
+            border: none; /* Remove borders */
+            color: black; /* White text */
+            padding: 6px 12px; /* Some padding */
+            font-size: 16px; /* Set a font size */
+            cursor: pointer; /* Mouse pointer on hover */
+            border-radius: 5px;
+        }
 
+    .btn:hover {
+        text-decoration: underline;
+    }
 </style>
 <div align="center" id="bbs" class="col-md-8 offset-md-2">
 	<input type="hidden" name="mode" value="write">
@@ -123,10 +135,10 @@
 				<tr>
 					<td>
 				<!-- 편집, 삭제, 답변, 글쓰기, 글목록 버튼------- -->
-						<button type="button" onclick="location.href='../list'">글목록</button>
-						<button type="button" onclick="location.href='../write'">글쓰기</button>
-						<button type="button" onclick="admin('reply')">답변</button>
-						<button type="button" onclick="admin('delete')">삭제</button>	
+						<button class="btn" type="button" onclick="location.href='../list'">글목록</button>
+						<button class="btn" type="button" onclick="location.href='../write'">글쓰기</button>
+						<button class="btn" type="button" onclick="admin('reply')">답변</button>
+						<button class="btn" type="button" onclick="admin('delete')">삭제</button>	
 						<%-- 관리자 로그인 될 경우만.... <c:if test="${loginUser.status eq '9' and (board.lev > 0 or board.adminSunbun > 0)}"> --%>
 						<!-- 관리자 로그인 아직 완료 안될 경우는 아래의 조건으로... -->
 						<c:if test="${board.lev > 0 or board.adminSunbun > 0}">	
