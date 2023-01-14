@@ -8,19 +8,126 @@
 		<selectKey keyProperty="orderedNum" resultType="_int" order="BEFORE">
 			select ordernum_seq.nextval from dual
 		</selectKey>
-		insert into ordered(orderednum,ordered_from_tel,ordered_from_post,ordered_no,ordered_to_name,ordered_to_tel,
+		insert into ordered(title,orderednum,ordered_from_tel,ordered_from_post,ordered_no,ordered_to_name,ordered_to_tel,
 		ordered_to_email,ordered_to_adr,ordered_to_post,ordered_payhow,ordered_paystate,ordered_orderprice,ordered_date,idx_fk,pnum_fk,ordered_delivstateNum_fk,ordered_from_adr,pname,oqty,price,saleprice,pimage,pcompany,totalPrice,totalPoint, ordered_statusNum_fk) 
-		values(#{orderedNum},#{ordered_from_tel},#{ordered_from_post}, #{ordered_no},#{ordered_to_name},#{ordered_to_tel},
+		values(#{title},#{orderedNum},#{ordered_from_tel},#{ordered_from_post}, #{ordered_no},#{ordered_to_name},#{ordered_to_tel},
 		#{ordered_to_email},#{ordered_to_adr},#{ordered_to_post},#{ordered_payhow},#{ordered_paystate},#{ordered_orderprice},sysdate,#{idx_fk},#{pnum_fk},0,#{ordered_from_adr},#{pname},#{oqty},#{price},#{saleprice},#{pimage},#{pcompany},#{totalPrice},#{totalPoint},0)
 	</insert>
 		
 	<select id="selectAll" resultType="Ordered">
-		select * from orderedview
-	</select>	
+		select * from orderedview where 1=1 <include refid="searchF"></include>
+	</select>
 	
-	<update id="delivCompleted" parameterType="string">
+	
+	<sql id="searchF">
+		<if test="findType!=null and findKeyword!=''">
+			<choose>
+				<when test="findType==1">
+				   and ordered_no like '%'||#{findKeyword}||'%'			
+				</when>
+				<when test="findType==2">
+				   and  pname like '%'||#{findKeyword}||'%'				
+				</when>
+				<otherwise>
+				   and userid like '%'||#{findKeyword}||'%'		
+				</otherwise>		
+			</choose>
+		</if>
+		<if test="orderMode!=''">
+			<choose>
+				<when test="orderMode==0">
+					and ordered_delivstateNum_fk = 0
+				</when>
+				<when test="orderMode==1">
+					and ordered_delivstateNum_fk = 1
+				</when>
+				<otherwise>
+					and ordered_delivstateNum_fk = 2
+				</otherwise>
+			</choose>	
+		</if>
+		<if test="orderStatusMode!=''">
+			<choose>
+				<when test="orderStatusMode==0">
+					and ordered_statusNum_fk = 0
+				</when>
+				<when test="orderStatusMode==1">
+					and ordered_statusNum_fk = 1
+				</when>
+				<otherwise>
+					and ordered_statusNum_fk = 2
+				</otherwise>
+			</choose>	
+		</if>
+		<if test="dateStart!='' and dateEnd!=''" >
+			<choose>
+				<when test="dateStart!='' and dateEnd!=''">
+					<![CDATA[and ordered_date >= TO_DATE(#{dateStart}, 'YYYY-MM-DD') and ordered_date <= TO_DATE(#{dateEnd}, 'YYYY-MM-DD')]]>	
+				</when>
+			</choose>
+		</if>
+	</sql>
+	
+	
+	
+	<select id="getTotalCount" resultType="int" parameterType="Paging">
+		select count(orderednum) from orderedview where 1=1 <include refid="searchF"/>
+	</select>
+
+	<select id="selectOrderedAllPaging" resultType="Ordered" parameterType="Paging">
+		select * from (select row_number() over(order by orderedNum desc) rn, o.* from orderedview o)	
+		<![CDATA[where rn > #{start} and rn < #{end}]]> <include refid="searchF"/>
+	</select> 
+	
+	<select id="selectCancelList" resultType="Ordered" parameterType="Paging">
+		select * from (select row_number() over(order by orderedNum desc) rn, r.* from orderedview r)	
+		<![CDATA[where rn > #{start} and rn < #{end}]]> <include refid="calcelF"/>
+	</select>
+	
+
+	<update id="updateDelivStart" parameterType="int">
 		update orderedview set ordered_delivstateNum_fk=1 where orderednum=#{value}
 	</update>
 	
+	<update id="updateDelivCompleted" parameterType="int">
+		update orderedview set ordered_delivstateNum_fk=2 where orderednum=#{value}
+	</update>
+	
+	<update id="updateCancelCompleted" parameterType="int">
+		update orderedview set ordered_statusNum_fk=2 where orderednum=#{value}
+	</update>
+	
+		<sql id="calcelF">
+		<if test="findType!=null and findKeyword!=''">
+			<choose>
+				<when test="findType==1">
+				   and ordered_no like '%'||#{findKeyword}||'%'			
+				</when>
+				<when test="findType==2">
+				   and  pname like '%'||#{findKeyword}||'%'				
+				</when>
+				<otherwise>
+				   and userid like '%'||#{findKeyword}||'%'		
+				</otherwise>		
+			</choose>
+		</if>
+		<if test="orderStatusMode!=''">
+			<choose>
+				<when test="orderStatusMode==1">
+					and ordered_statusNum_fk = 1
+				</when>
+				<otherwise>
+					and ordered_statusNum_fk = 2
+				</otherwise>
+			</choose>	
+		</if>
+		<if test="dateStart!='' and dateEnd!=''" >
+			<choose>
+				<when test="dateStart!='' and dateEnd!=''">
+					<![CDATA[and ordered_date >= TO_DATE(#{dateStart}, 'YYYY-MM-DD') and ordered_date <= TO_DATE(#{dateEnd}, 'YYYY-MM-DD')]]>	
+				</when>
+			</choose>
+		</if>
+	</sql>	
 	
 </mapper>

@@ -42,12 +42,12 @@
 <script>
 	function check() {//검색시 유효성 체크(검색유형, 검색어) 함수
 		
-		if($('input[name="orderMode"]:checked').val()==null){
+		if(!$('input[name="orderMode"]:checked').val()){
 			alert('배송상태를 체크하세요');
 			return false;
 		}
 	
-		if($('input[name="orderStatusMode"]:checked').val()==null){
+		if(!$('input[name="orderStatusMode"]:checked').val()){
 			alert('주문상태를 체크하세요');
 			return false;
 		}
@@ -145,9 +145,6 @@
 			<div class="content_main">주문목록 페이지</div>
 				<div class="btn-list">
 					<button type="button" class="btn btn-light" onclick="location.href='<%=ctx%>/AorderedList'">전체목록</button>
-					<button type="button" class="btn btn-light" onclick="orderMode(0)">배송대기</button>
-					<button type="button" class="btn btn-light" onclick="orderMode(1)">배송중</button>
-					<button type="button" class="btn btn-light" onclick="orderMode(2)">배송완료</button>
 					<button type="button" class="btn btn-light" onclick="orderStatusMode(1)">취소/환불 </button>
 					<button type="button" class="btn btn-danger" onclick="orderStatusMode(2)">취소/환불 처리</button>
 				  	<form name="orderF" id="orderF">
@@ -158,42 +155,13 @@
 					</form>
 				</div>
 	<div>
-		<form id="dtf" name="dtf" action="AorderedList" method="get">
-			<div>
-				배송상태: 
-				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
-		  			<input class="form-check-input" type="radio" name="orderMode" id="orderMode"  value="" 
-							<c:if test="${paging.orderMode==null or paging.orderMode ==''}"> checked </c:if>>
-					<label class="form-check-label" for="orderMode">배송전체</label>
-				</div>
-				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
-		 			 <input class="form-check-input" type="radio" name="orderMode" id="orderMode" value="0"
-		 			 	<c:if test="${paging.orderMode=='0'}"> checked </c:if>>
-		  			 <label class="form-check-label" for="orderMode">배송대기</label>
-				</div>
-				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
-		  			<input class="form-check-input" type="radio" name="orderMode" id="orderMode" value="1"
-		  				<c:if test="${paging.orderMode=='1'}"> checked</c:if>>
-		  			<label class="form-check-label" for="orderMode">배송중</label>
-				</div>
-				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
-		  			<input class="form-check-input" type="radio" name="orderMode" id="orderMode" value="2"
-		  				<c:if test="${paging.orderMode=='2'}"> checked </c:if>>
-		  			<label class="form-check-label" for="orderMode">배송완료</label>
-				</div>
-			</div>
-			
+		<form id="dtf" name="dtf" action="AorderedList" method="get">			
 			<div>
 				주문상태:
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
 		  			<input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode" value="" 
-							<c:if test="${paging.orderStatusMode==null or paging.orderStatusMode ==''}"> checked </c:if>>
-					<label class="form-check-label" for="orderMode">주문전체</label>
-				</div>
-				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
-		 			 <input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode" value="0"
-		 			  <c:if test="${paging.orderStatusMode==0}"> checked </c:if>>
-		  			<label class="form-check-label" for="orderStatusMode">주문완료</label>
+							<c:if test="${paging.orderStatusMode==null or orderStatusMode ==''}"> checked </c:if>>
+					<label class="form-check-label" for="orderMode">전체</label>
 				</div>
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
 		  			<input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode" value="1"
@@ -209,7 +177,7 @@
 			
 			<div>	
 				기간설정:
-			<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
+			<!-- 	<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
 		 			 <input class="form-check-input" type="radio" name="date" id="date1"  onclick="listDate(1)">
 		  			 <label class="form-check-label" for="date1">지난 1일</label>
 				</div>
@@ -220,7 +188,7 @@
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
 		  			<input class="form-check-input" type="radio" name="date" id="date3"  onclick="listDate(3)" checked="checked">
 		  			<label class="form-check-label" for="date3">지난 1달</label>
-				</div>
+				</div> -->
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
 		  			<label class="form-check-label" for="dateStart">시작기간</label>
 		  			<input type="date" id="dateStart" name="dateStart" <c:if test="${paging.dateStart ne null}"> value="${paging.dateStart}"</c:if>>
@@ -231,13 +199,7 @@
 		
 		<!-- 검색기능 -->
 		
-			<div style="display:inline-block;float:left;width:50%;">
-<%-- 					<input type="hidden" name="pageSize" value="${paging.pageSize}">
-					<input type="hidden" name="pageSize" value="${paging.pageSize}">
-					<input type="hidden" name="orderMode1" id="orderMode" value="${paging.orderMode}">
-<!-- 					<input type="hidden" id="dateStart" name="dateStart1">
-					<input type="hidden" id="dateEnd" name="dateEnd1"> --> --%>
-					
+			<div style="display:inline-block;float:left;width:50%;">				
 					<select id="findType" name="findType" style="padding: 6px;">
 						<option value="">::검색유형::</option>
 						<option value="1"
@@ -266,7 +228,7 @@
 				<input type="hidden" id="dateEnd" name="dateEnd" value="${paging.dateEnd}" >
 				<input type="hidden" id="orderMode" name="orderMode" value="${paging.orderMode}">
 				<select class="form-select" aria-label="Default select example"  name="pageSize" style="padding:6px;width:100%" onchange="submit()">
-					<c:forEach var="ps" begin="10" end="100" step="20">
+					<c:forEach var="ps" begin="10" end="100" step="20" >
 						<option value="${ps}" 
 							<c:if test="${pageSize eq ps}">selected</c:if>>페이지 사이즈${ps}</option>
 					</c:forEach>
@@ -283,11 +245,11 @@
 		  			<th class="font-alt title" style="width:10%">주문일</th>
 		  			<th class="font-alt title" style="width:10%">주문번호</th>
 		  			<th class="font-alt title" style="width:10%">사진</th>
-		  			<th class="font-alt title" style="width:20%">상품명</th>
+		  			<th class="font-alt title" style="width:15%">상품명</th>
 		  			<th class="font-alt title" style="width:10%">수량</th>		
 		  			<th class="font-alt title" style="width:10%">주문자</th> 			
-		  			<th class="font-alt title" style="width:15%">배송처리</th>
-		  			<th class="font-alt title" style="width:15%">주문상태</th>
+		  			<th class="font-alt title" style="width:20%">취소사유</th>
+		  			<th class="font-alt title" style="width:15%">취소상태</th>
 		  		</tr>
 		  	</thead>
 
@@ -295,9 +257,9 @@
 		  	<tr><td colspan="8" style="text-align:center">입력된 데이터가 없습니다.</td></tr>		  	
 		  	</c:if>
 		  	<c:if test="${orderList ne null}">
-		  	<c:forEach items="${orderList}" var="orderList">
+		  	<c:forEach items="${orderList}" var="orderList" varStatus="state">
 		  		<tr>
-		  			<td>
+		  			<td><%-- ${state.index } / ${state.count } --%>
 		  			 	<c:if test="${paging.orderMode eq 1 || paging.orderMode eq 2 || paging.orderMode eq 5 }">
 		  					<input type="checkbox" name="delivGroup">
 		  				</c:if>
@@ -332,31 +294,28 @@
 		  						  			
 		  			<!-- 배송상태 ---------------------------------->
 		  			<td>
-		  				
-		  				<c:if test="${orderList.ordered_delivstateNum_fk eq 0}">  					
-		  					<button type="button" class="btn btn-secondary" onclick="delivStart('${orderList.orderedNum}', '1')"><c:out value="${orderList.ordered_delivstate}"/></button>		  					
-		  				</c:if>
-		  				<c:if test="${orderList.ordered_delivstateNum_fk eq 1}">
-		  					<button type="button" class="btn btn-warning" onclick="delivStart('${orderList.orderedNum}', 2)"><c:out value="${orderList.ordered_delivstate}"/></button>
-		  				</c:if>
-		  				
-		  				<c:if test="${orderList.ordered_delivstateNum_fk eq 2}">
-		  					<button type="button" class="btn btn-success"  ><c:out value="${orderList.ordered_delivstate}"/></button>
-		  				</c:if>		  				
+		  				<p>
+						  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample${state.index}" aria-expanded="false" aria-controls="collapseWidthExample">
+						     <c:out value="${orderList.rtype}"/>
+						  </button>
+						</p>
+						<div style="min-height: 120px;">
+						  <div class="collapse collapse-horizontal" id="collapseWidthExample${state.index}">
+						    <div class="card card-body" style="width: 300px;">
+						      <c:out value="${orderList.rtxt}"/>
+						    </div>
+						  </div>
+						</div> 				
 		  			</td>
 		  			<td>
-		  				<c:if test="${orderList.ordered_statusNum_fk eq 0}">		  					
-		  					<c:out value="${orderList.ordered_status}"/>
-		  				</c:if>
 		  				<c:if test="${orderList.ordered_statusNum_fk eq 1}">
-		  					<c:out value="${orderList.ordered_status}"/>
+		  					<button type="button" class="btn btn-danger" onclick="delivStart('${orderList.orderedNum}', 3)"><c:out value="${orderList.ordered_status}"/></button>
 		  				</c:if>
-		  				<c:if test="${orderList.ordered_statusNum_fk eq 2}">		  					
-		  					<c:out value="${orderList.ordered_status}"/>
-		  				</c:if>
-		  				<c:if test="${orderList.ordered_statusNum_fk eq 1 && paging.orderMode eq 5}">
-		  					<button type="button" class="btn btn-danger" onclick="delivStart('${orderList.orderedNum}', '3')"><c:out value="${orderList.ordered_status}"/></button>
-		  				</c:if>
+		  				
+		  				<c:if test="${orderList.ordered_statusNum_fk eq 2}">
+		  					<button type="button" class="btn btn-primary"><c:out value="${orderList.ordered_status}"/></button>
+		  				</c:if>	
+		  			
 		  				
 		  			</td>		  					
 		  		</tr>	

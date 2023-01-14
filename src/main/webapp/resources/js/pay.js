@@ -63,8 +63,8 @@ function createOrderedNum(){
                          
                          // 위의 rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증)
                          if(rsp.paid_amount == data.amount){         	           
-        	        
 	                              var jsonData = {
+	                            	title : rsp.name,
 	                              ordered_no : rsp.merchant_uid, //0
 	                              ordered_to_name: rsp.buyer_name, 
 	                              ordered_to_tel: rsp.buyer_tel, 
@@ -78,7 +78,7 @@ function createOrderedNum(){
 	                              
                               var result=JSON.stringify(jsonData); 	 	 	 	 	 	 
                               alert(rsp.buyer_name+""+rsp.buyer_tel+""+rsp.buyer_email);
-                              alert("성공햇습니다...."+date);
+                          
                              
                               $.ajax({
                                     type:'POST',

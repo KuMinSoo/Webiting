@@ -7,9 +7,14 @@ import lombok.Data;
 @Data // 결제 관련 vo
 public class OrderedVO {
 
+	private int refund_num_fk;// 취소 종류
+	private String refund_type; //0:오배송, 1:제품하자, 2:단순변심
+	private String rtxt;// 내용	
+	
 	private int orderedNum;// primary key
 
 	// 받는 사람 정보(기본정보랑 동일할수도 아닐수도 있음
+	private String title;//총결제 물품 대표 제목(ex. 필통 외 10건)
 	private String ordered_no;//고유 결제번호 
 	private String ordered_to_name;//제품이름
 	private String ordered_to_tel;//전화번호 
@@ -51,7 +56,7 @@ public class OrderedVO {
 	
 	public int getPercent() {
 	  
-	int percent=(price-saleprice)*100/5; return percent; }
+	int percent=(price-saleprice)*100/price; return percent; }
 	 
 	public void setOqty(int oqty) {
 		this.oqty = oqty;
