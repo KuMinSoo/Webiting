@@ -65,6 +65,7 @@ function createOrderedNum(){
                          if(rsp.paid_amount == data.amount){         	           
         	        
 	                              var jsonData = {
+	                              title : rsp.name,
 	                              ordered_no : rsp.merchant_uid, //0
 	                              ordered_to_name: rsp.buyer_name, 
 	                              ordered_to_tel: rsp.buyer_tel, 
@@ -78,7 +79,6 @@ function createOrderedNum(){
 	                              
                               var result=JSON.stringify(jsonData); 	 	 	 	 	 	 
                               alert(rsp.buyer_name+""+rsp.buyer_tel+""+rsp.buyer_email);
-                              alert("성공햇습니다...."+date);
                              
                               $.ajax({
                                     type:'POST',
@@ -86,6 +86,7 @@ function createOrderedNum(){
                                     data: result,
                                     contentType:'application/json; charset=UTF-8',
                                     dataType:'json',
+                                    cache:false,
                                     success:function(res){
                                         alert('200');
                                     },
@@ -101,4 +102,3 @@ function createOrderedNum(){
                });
            });
        }
-

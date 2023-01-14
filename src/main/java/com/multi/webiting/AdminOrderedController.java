@@ -1,8 +1,6 @@
 package com.multi.webiting;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.common.CommonUtil;
+import com.product.model.OrderVO;
 import com.product.model.OrderedVO;
 import com.product.model.ProductVO;
 import com.product.service.OrderedService;
@@ -39,14 +38,31 @@ public class AdminOrderedController {
 	CommonUtil Util;
 	
 	
+	@SuppressWarnings("null")
 	@PostMapping(value="/orderedInsert",produces="application/json")
 	@ResponseBody
 	public OrderedVO orderedInsert(@RequestBody OrderedVO vo,HttpSession session) {
 		log.info("js에서 받은 vo ====================>"+vo);
+		UserVO loginUser=(UserVO) session.getAttribute("loginUser");
+		/////////////////////////////////////////////////
+		//결제정보만 얻어오기
+		OrderVO ovo = new OrderVO();
+		ovo.setTitle(vo.getTitle());
+		ovo.setOrdered_no(vo.getOrdered_no());
+		ovo.setOrdered_orderprice(vo.getOrdered_orderprice());
+		ovo.setOrdered_payhow(vo.getOrdered_payhow());
+		ovo.setOrdered_paystate(vo.getOrdered_paystate());
+		ovo.setOrdered_to_adr(vo.getOrdered_to_adr());
+		ovo.setOrdered_to_email(vo.getOrdered_to_email());
+		ovo.setOrdered_to_name(vo.getOrdered_to_name());
+		ovo.setOrdered_to_post(vo.getOrdered_to_post());
+		ovo.setOrdered_to_tel(vo.getOrdered_to_tel());
+		ovo.setIdx(loginUser.getIdx());
+		this.orderedService.insertOrder(ovo);
+		/////////////////////////////////////////////////
 		//값비교후 참일떄
 		List<ProductVO> orderList=(List<ProductVO>) session.getAttribute("orderList");
 		log.info("sssssssssssssssssssssssss"+orderList.get(0).getPnum());
-		UserVO loginUser=(UserVO) session.getAttribute("loginUser");
 		int n=1;
 		for(ProductVO prodVO: orderList) {
 			//값저장......	

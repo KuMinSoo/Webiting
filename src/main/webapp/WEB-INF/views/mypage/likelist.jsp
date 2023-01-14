@@ -24,7 +24,9 @@ tr>td>a{
 
 <c:import url="/mypageNavi"/>
 
-<div>
+<div class="container mt-3" style="height: 600px; overflow: auto;">
+	<h1 class="text-center">내 관심 상품 목록</h1>
+	<hr>
 	<table width="900" align="center">
 	<tr>
 		<td> <input type="checkbox" onclick="maincheck(this.checked)" style="width:20px;height:20px;" id="mainchk"> </td>
@@ -45,7 +47,7 @@ tr>td>a{
 		<c:forEach var="like" items="${likeArr}">
 		<tr>
          <td> <input type="checkbox" class="subchk" onclick="subcheck()" value="${like.pnum}"> </td>
-         <td> <a href="<%=ctx%>/prodDetail?pnum=${like.pnum}"><img src="../../resources/images/${like.pimage1}" width="100"></a> </td>
+         <td> <a href="<%=ctx%>/prodDetail?pnum=${like.pnum}"><img src="../resources/product_images/${like.pimage1}" width="100"></a> </td>
          <td> <a href="<%=ctx%>/prodDetail?pnum=${like.pnum}">${like.pname}</a> </td>
          <td> <fmt:formatNumber value="${like.lprice}"/>원 </td>
          <td> ${like.lindate} </td>

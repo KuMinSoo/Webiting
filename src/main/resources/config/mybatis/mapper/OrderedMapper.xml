@@ -8,9 +8,9 @@
 		<selectKey keyProperty="orderedNum" resultType="_int" order="BEFORE">
 			select ordernum_seq.nextval from dual
 		</selectKey>
-		insert into ordered(orderednum,ordered_from_tel,ordered_from_post,ordered_no,ordered_to_name,ordered_to_tel,
+		insert into ordered(title, orderednum,ordered_from_tel,ordered_from_post,ordered_no,ordered_to_name,ordered_to_tel,
 		ordered_to_email,ordered_to_adr,ordered_to_post,ordered_payhow,ordered_paystate,ordered_orderprice,ordered_date,idx_fk,pnum_fk,ordered_delivstateNum_fk,ordered_from_adr,pname,oqty,price,saleprice,pimage,pcompany,totalPrice,totalPoint, ordered_statusNum_fk) 
-		values(#{orderedNum},#{ordered_from_tel},#{ordered_from_post}, #{ordered_no},#{ordered_to_name},#{ordered_to_tel},
+		values(#{title},#{orderedNum},#{ordered_from_tel},#{ordered_from_post}, #{ordered_no},#{ordered_to_name},#{ordered_to_tel},
 		#{ordered_to_email},#{ordered_to_adr},#{ordered_to_post},#{ordered_payhow},#{ordered_paystate},#{ordered_orderprice},sysdate,#{idx_fk},#{pnum_fk},0,#{ordered_from_adr},#{pname},#{oqty},#{price},#{saleprice},#{pimage},#{pcompany},#{totalPrice},#{totalPoint},0)
 	</insert>
 		
@@ -18,9 +18,25 @@
 		select * from orderedview
 	</select>	
 	
-	<update id="delivCompleted" parameterType="string">
+	<update id="delivCompleted" parameterType="String">
 		update orderedview set ordered_delivstateNum_fk=1 where orderednum=#{value}
 	</update>
 	
+	<select id="selectOrdered" resultType="Ordered" parameterType="string">
+		select * from orderedview where ordered_no=#{value}
+	</select>
+	
+	<select id="selectOrderedByidx" resultType="Order" parameterType="int">
+		select * from orderview where idx=#{value}
+	</select>
+	
+	<select id="selectOrderedByOnum" resultType="Order" parameterType="String">
+		select * from orderview where ordered_no=#{value}
+	</select>
+	
+	<insert id="insertOrder" parameterType="Order">
+		insert into ordertable(title, ordered_no, ordered_to_name, ordered_to_tel, ordered_to_email, ordered_to_adr, ordered_to_post, ordered_payhow, ordered_paystate, ordered_orderprice, ordered_date, idx)
+		values(#{title}, #{ordered_no}, #{ordered_to_name},#{ordered_to_tel}, #{ordered_to_email},#{ordered_to_adr},#{ordered_to_post},#{ordered_payhow},#{ordered_paystate},#{ordered_orderprice}, sysdate, #{idx})	
+	</insert>
 	
 </mapper>

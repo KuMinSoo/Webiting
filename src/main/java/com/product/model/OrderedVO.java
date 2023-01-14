@@ -10,6 +10,7 @@ public class OrderedVO {
 	private int orderedNum;// primary key
 
 	// 받는 사람 정보(기본정보랑 동일할수도 아닐수도 있음
+	private String title;//물품 대표 제목(ex. 가구 외 1개)
 	private String ordered_no;//고유 결제번호 
 	private String ordered_to_name;//제품이름
 	private String ordered_to_tel;//전화번호 
@@ -61,6 +62,10 @@ public class OrderedVO {
 		//////////////////////////////////////////////
 	}//------------------------
 		
-	
+	//////////////Refunded
+	private int refund_num_fk;// 취소 종류
+	private String refund_type; //0:오배송, 1:제품하자, 2:단순변심
+	private String rtxt;// 내용
+	///////////////////////
 	 
 }

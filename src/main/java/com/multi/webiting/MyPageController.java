@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import org.springframework.web.bind.annotation.RequestHeader;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +24,7 @@ import com.common.CommonUtil;
 import com.product.model.CartVO;
 import com.product.model.OrderedVO;
 import com.product.model.ProductVO;
+import com.product.service.OrderedService;
 import com.product.service.ShopService;
 import com.user.model.IpayVO;
 import com.user.model.LikeVO;
@@ -42,11 +41,14 @@ public class MyPageController {
 	@Inject 
 	@Qualifier(value="MyPageServiceImpl")
 	private MyPageService mService;
-	
-	
+		
 	@Inject
 	@Qualifier(value="ShopServiceImpl")
 	private ShopService sService;
+	
+	@Inject
+	@Qualifier(value="orderedServiceImpl")
+	private OrderedService oService;
 	
 	CommonUtil common = new CommonUtil();
 	
@@ -240,13 +242,26 @@ public class MyPageController {
 	}
 	
 	@GetMapping("/userOrdered")
-	public String userOrdered() {
+	public String userOrdered(Model m, HttpSession session) {
 		
+		UserVO loginUser=(UserVO)session.getAttribute("loginUser"); 
+		int idx_fk=loginUser.getIdx();
+		
+		List<OrderedVO> olist=oService.selectOrderedByidx(idx_fk);
+		
+		m.addAttribute("orderedList", olist);
 		return "mypage/userOrdered";
 	}
 	
-	@GetMapping("/userOrderedDetail")
-	public String userOrderedDetail() {
+	@PostMapping("/userOrderedDetail")
+	public String userOrderedDetail(Model m, @RequestParam("ordered_no") String ordered_no) {
+		log.info(ordered_no);
+		
+		List<OrderedVO> olist=oService.selectOrderedByOnum(ordered_no);
+		List<OrderedVO> dlist=oService.selectOrdered(ordered_no);
+		
+		m.addAttribute("orderedList", olist);
+		m.addAttribute("detailList", dlist);	
 		
 		return "mypage/userOrderedDetail";
 	}

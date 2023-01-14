@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.product.mapper.OrderedMapper;
+import com.product.model.OrderVO;
 import com.product.model.OrderedDetailVO;
 import com.product.model.OrderedVO;
 
@@ -22,9 +23,8 @@ public class OrderedServiceImpl implements OrderedService {
 	}
 
 	@Override
-	public List<OrderedVO> selectOrdered(int ordered_no) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<OrderedVO> selectOrdered(String ordered_no) {
+		return this.OrderedMapper.selectOrdered(ordered_no);
 	}
 
 	@Override
@@ -56,6 +56,21 @@ public class OrderedServiceImpl implements OrderedService {
 	public int updateDelivnum(String ordered_delivnum, int orderedNum) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<OrderedVO> selectOrderedByidx(int idx_fk) {
+		return this.OrderedMapper.selectOrderedByidx(idx_fk);
+	}
+
+	@Override
+	public int insertOrder(OrderVO ovo) {
+		return this.OrderedMapper.insertOrder(ovo);
+	}
+
+	@Override
+	public List<OrderedVO> selectOrderedByOnum(String ordered_no) {
+		return this.OrderedMapper.selectOrderedByOnum(ordered_no);
 	}
 
 }
