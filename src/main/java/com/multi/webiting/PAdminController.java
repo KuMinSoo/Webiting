@@ -68,6 +68,7 @@ public class PAdminController {
 	@GetMapping("/prodDetail")
 	public String deteil(Model m, @RequestParam("pnum") int pnum,
 									HttpSession ses) {
+		ses.setAttribute("pnum",pnum);
 		PLikeVO like = new PLikeVO();
 		UserVO vo=(UserVO)ses.getAttribute("loginUser");
 		if(vo!=null) {

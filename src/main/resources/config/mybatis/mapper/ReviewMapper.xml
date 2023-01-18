@@ -2,38 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.board.mapper.ReviewMapper">
-
-	<insert id="insertReview" parameterType="com.board.model.ReviewVO">
-	<selectKey keyProperty="revnum" resultType="int" order="BEFORE">
-		select review_seq.nextval from dual
-	</selectKey>
-		insert into REV_BOARD(revnum,rtitle,revwriter,content,wdate,revread,star,pnum_fk)
-		values (#{revnum},#{rtitle:VARCHAR},#{revwriter:VARCHAR},#{content:VARCHAR},sysdate,#{revread},#{star},#{pnum_fk})
+	<insert id="addReview" parameterType="Review" >
+		<selectKey keyProperty="num" resultType="_int" order="BEFORE">
+			select review_seq.nextval from dual
+		</selectKey>
+		insert into review (num,userid,content,score,filename,wdate,pnum_fk)
+		values(#{num},#{userid},#{content},#{score},#{filename:VARCHAR},SYSDATE,#{pnum_fk})
 	</insert>
-	
-	<!-- <select id="selectReviewdByIdx" resultType="Review" parameterType="int">
-	select * from (select row_number() over(order by refer desc,lev asc) rn, b.*, 
-	(select bcg_name from board_category where bcg_code=b.bcg_code) bcg_name
-	from board b) where revnum=#{revnum}
-	</select> -->
-	
-			<!-- pnum_fk 가 1인 리뷰 리스트 select 쿼리문 -->
-	<select id="getReviewList" resultType="com.board.model.ReviewVO" parameterType="int"> <!-- resultType="com.board.model.ReviewVO" -->
-		SELECT * FROM REV_BOARD
-		WHERE PNUM_FK = #{value}
+	<select id="listReview" parameterType="_int" resultType="Review">
+		select * from review where pnum_fk=#{value} order by num desc
 	</select>
-			
-	 <update id="editReview" parameterType = "int">
-		UPDATE  REV_BOARD
-		   SET RTITLE   =   #{rtitle},
-		   	   CONTENT  =   #{content}
-		 WHERE revnum=#{value}
-	</update> 
+	<select id="getReview" parameterType="_int" resultType="Review">
+		select * from review where num=#{value}
+	</select>
+	<delete id="deleteReview" parameterType="_int">
+		delete from review where num=#{num}
+	</delete>
+	<update id="updateReview" parameterType="Review">
+		update review set userid=#{userid}, score=#{score:NUMERIC},content=#{content:VARCHAR}
+		<if test="filename!=null and filename!=''">
+		,filename=#{filename}
+		</if>
+		 where num=#{num}
+	</update>
+	<select id="getReviewCount" parameterType="_int" resultType="_int">
+		select count(num) from review where pnum_fk=#{value}
+	</select>
 	
-	<delete id="deleteReview" parameterType = "int">
-		DELETE FROM REV_BOARD
-		 WHERE REVNUM = #{value}
-	</delete>  
-	
-	<!-- resultType="com.board.model.ReviewVO" -->
 </mapper>

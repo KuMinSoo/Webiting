@@ -20,10 +20,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.product.model.OrderedVO" alias="Ordered"/>
 		<typeAlias type="com.product.model.OrderVO" alias="Order"/>
 		<typeAlias type="com.product.model.PLikeVO" alias="PLike"/> 
-		
+		<typeAlias type="com.board.model.ReviewVO" alias="Review"/>
 	</typeAliases>
 	
-	<!-- mapper 정의============================  -->
+	<!-- mapper.xml 위치 정의============================  -->
 	<mappers>
 		<mapper resource="config/mybatis/mapper/UserMapper.xml"/>
 		<mapper resource="config/mybatis/mapper/CategoryMapper.xml"/>

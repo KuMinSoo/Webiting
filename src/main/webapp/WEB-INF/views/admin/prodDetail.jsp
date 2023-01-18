@@ -11,10 +11,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset = UTF-8">
 <link rel="stylesheet" href="${myctx}/resources/css/detail.css"
 	type="text/css">
-<script type="text/javascript"
-	src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script>
+<!-- <script type="text/javascript" -->
+<!-- 	src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
+<script >
 
 $(document).ready(function () {
 	$('#heart').prop("src","/resources/images/heart-fill.svg");
@@ -348,7 +348,29 @@ $(function(){
 					<c:param name="pnum" value="${pcontents.pnum}" />
 				</c:import>
 				<hr color='red'>
-				<c:import url="/reviewForm"/> 
+				 <!-- 리뷰 글쓰기 폼---------------------------------------- -->
+      <div class="row mt-4">
+      	<div class="col-md-10 offset-md-1">
+      		 <%@ include file="/WEB-INF/views/review/reviewForm.jsp" %>
+      	</div>
+      </div>
+      <div class="row">
+      	<div class="col-md-12" id="reviewTitle">
+      		<h4>Review List <span class="badge badge-success" id="review_cnt"></span></h4>
+      	</div>
+      </div>
+      <!-- 리뷰목록 ------------------------------------------- -->
+      <div class="row">
+      	<div class="col-md-12" id="reviewList">
+      		
+      	</div>
+      </div>
+      <!-- --------------------------------------------------- -->
+      <div class="row">
+      	<div class="col-md-10 offset-md-1">
+      		<%@ include file="/WEB-INF/views/review/reviewEdit.jsp" %>
+      	</div>
+      </div>
 			</div>
 		</div>
 	</div>
