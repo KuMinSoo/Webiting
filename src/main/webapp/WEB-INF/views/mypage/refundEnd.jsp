@@ -18,7 +18,7 @@ div {
 </head>
 <body>
 <div id="pop_footer" class="btn_footer">
-		<a href="#" class=""><span class="blind">확인</span></a>
+		<a href="redirect:history.back()">홈으로 돌아가기</a>
 </div>
 </body>
 </html>

@@ -28,6 +28,7 @@ public class OrderedVO {
 	private int ordered_orderprice;// 총금액
 	private Date ordered_date;// 결제날짜
 	
+	private String ordered_state;	
 	private int ordered_statusNum_fk;
 	private String ordered_status;
 	
