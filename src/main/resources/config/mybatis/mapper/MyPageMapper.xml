@@ -7,9 +7,9 @@
 	<select id="selectLikeAllPaging" resultType="com.user.model.LikeVO" parameterType="Paging">
 		select * from
 		(select row_number() over(order by lindate desc) rn, likeprod.* 
-		from likeprod)
+		from likeprod where idx=#{idx})
 		<![CDATA[
-		where rn > #{start} and rn < #{end} and idx=#{idx}
+		where rn > #{start} and rn < #{end}
 		]]>
 	</select>
 	<!-- 해당 회원 정보만 가져오게끔하려면 맨 끝에 and idx=#{idx} 추가 -->
@@ -106,4 +106,23 @@
 		select cartNum from cart
 		where idx_fk=#{idx_fk} and pnum_fk=#{pnum_fk}
 	</select>
+	
+	<insert id="insertDitchProduct"  parameterType="Ditch">
+		<selectKey keyProperty="dnum" resultType="int" order="BEFORE">
+			select ditch_seq.nextval from dual
+		</selectKey>
+		insert into ditch(dnum,idx,top_code,mid_code,bottom_code,indate)
+		values(#{dnum},#{idx},#{top_code},#{mid_code},#{bottom_code},sysdate)
+	</insert>
+	
+	<select id="ditchProdList" resultType="Ditch" parameterType="int">
+		select * from ditch where idx=#{value}
+	</select>
+	<delete id="deleteDitch" parameterType="int">
+		delete from ditch where dnum=#{value}
+	</delete>
+	<select id="ditchProdAllList" resultType="Ditch">
+		select * from ditch
+	</select>
+	
 </mapper>

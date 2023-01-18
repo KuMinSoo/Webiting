@@ -17,6 +17,7 @@
 <script>
 
 $(document).ready(function () {
+	$('#heart').prop("src","/resources/images/heart-fill.svg");
 	var likeval = ${like};//좋아요 눌렀는지 여부
 	if(likeval>0){
 		$('#heart').prop("src","/resources/images/heart-fill.svg");

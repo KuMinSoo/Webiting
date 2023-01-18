@@ -6,6 +6,7 @@ import java.util.Map;
 import com.board.model.PagingVO;
 import com.product.model.CartVO;
 import com.product.model.OrderVO;
+import com.user.model.DitchVO;
 import com.user.model.LikeVO;
 
 public interface MyPageMapper {
@@ -28,4 +29,8 @@ public interface MyPageMapper {
 	int insertLikeProd(LikeVO like);
 	
 	Integer selectCartCountByPnum(CartVO cartVO); //상품번호로 장바구니에 있는 상품조회
+	int insertDitchProduct(DitchVO vo);
+	List<DitchVO> ditchProdList(int idx);
+	int deleteDitch(int dnum);
+	List<DitchVO> ditchProdAllList();
 }

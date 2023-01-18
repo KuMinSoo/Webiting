@@ -18,58 +18,29 @@
 			});
   		})
 </script>
+<c:if test="${toplikeprod ne null and not empty toplikeprod}">
 			<!-- Home 화면 슬라이더  -->
  <div class="page-wrapper" style= "position:relative;">
       <!--page slider -->
       <div class="post-slider">
-        <h1 class="silder-title">Trending Posts</h1>
+        <h1 class="silder-title">Top Like Products</h1>
         <i class="fas fa-chevron-left prev"></i>  
         <i class="fas fa-chevron-right next"></i>   
         <div class="post-wrapper">
-        
+        <c:forEach var="prod" items="${toplikeprod}">
           <div class="post">
-            <img src="../resources/images/MTest.jpg" class="slider-image">
+            <a href="/prodDetail?pnum=${prod.pnum}"><img src="../resources/product_images/${prod.pimage1}" class="slider-image"></a>
             <div class="post-info">
-              <h4><a href="#" class="post-subject">1</a></h4>
               <i class="far fa-user" style="height:10%;"></i>
             </div>
           </div>
-          
-          <div class="post">
-            <img src="../resources/images/MTest2.jpg" class="slider-image">
-            <div class="post-info">
-              <h4><a href="#">2</a></h4>
-              <i class="far fa-user" style="height:10%;"></i>
-            </div>
-          </div>
-          
-          <div class="post">
-            <img src="../resources/images/MTest3.jpg" class="slider-image">
-            <div class="post-info">
-              <h4><a href="#">3</a></h4>
-              <i class="far fa-user" style="height:10%;"></i>
-            </div>
-          </div>
-          
-          <div class="post">
-            <img src="../resources/images/MTest4.jpg" class="slider-image">
-            <div class="post-info">
-              <h4><a href="#">4</a></h4>
-              <i class="far fa-user" style="height:10%;"></i>
-            </div>
-          </div>
-          
-          <div class="post">
-            <img src="../resources/images/MTest5.jpg" class="slider-image">
-            <div class="post-info">
-              <h4><a href="#">5</a></h4>
-              <i class="far fa-user" style="height:10%;"></i>
-            </div>
-          </div>
+        </c:forEach>
+          <!--  -->
         </div>
       </div>
       <!--post slider-->
     </div>
+</c:if>
 <c:import url="/prodRecoForm" />
     
 <c:import url="/foot"/>

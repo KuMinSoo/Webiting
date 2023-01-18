@@ -68,6 +68,8 @@ public interface PAdminService {
 
 	List<ProductVO> topProdTable();
 
+	public List<ProductVO> getTopLike();
+
 
 
 }

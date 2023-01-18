@@ -7,7 +7,7 @@
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<div class="container" style="height: 750px; overflow: auto;">
+<div class="container" style="height: 1500px; overflow: auto;">
 
 	<h1 class="text-center mt-1">Signup</h1>
 	<!-- hidden data----------------------------------------- -->
@@ -72,8 +72,8 @@
 			<tr>
 				<td width="20%" class="m1"><b>성별</b></td>
 				<td width="80%" class="m2"><input type="radio" name="gender"
-					id="gender" value="male">남자 <input type="radio"
-					name="gender" id="gender" value="female">여자</td>
+					id="gender1" value="male">남자 <input type="radio"
+					name="gender" id="gender2" value="female">여자</td>
 			</tr>
 			<tr>
 				<td width="20%" class="m1"><b>연령대</b></td>
@@ -89,6 +89,22 @@
 					</select>
 				</td>
 			</tr>
+			<tr>
+				
+				<td class="m2 text-center" colspan="2">
+				<h2 class="tit01">개인정보의 수집 및 이용에 대한 동의 (필수)</h2>
+				<div class="box01 scroll" >
+					<iframe src="/agree" title="개인정보의 수집 및 이용에 대한 동의 (필수)" style="width:80%"></iframe>
+				</div>
+				<p class="agree01">
+				<fieldset id="agreeRadio">
+					<input type="radio" id="pInforAgree02" name="pInforAgree2" value="1"> <label class="mr10" for="pInforAgree02">동의합니다</label>
+					<input type="radio" id="pInforAgree022" name="pInforAgree2" value="2"> <label for="pInforAgree022">동의하지 않습니다</label>
+				</fieldset>
+				</p>
+				</td>
+			</tr>
+					
 			<tr>
 				<td colspan="2" class="m3 text-center">
 					<button class="btn btn-primary" type="button"

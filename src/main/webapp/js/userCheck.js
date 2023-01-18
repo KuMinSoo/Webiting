@@ -123,7 +123,11 @@ function id_check(){
 		mf.hp1.select();
 		return;
 	}
-	
+	let agree =$("#agreeRadio input[type=radio]:checked").val()
+	if(!(agree==1)){
+		alert('개인정보 약관에 동의해야합니다');
+		return;
+	}
 	mf.submit();
 }//------------------------------
 
@@ -181,7 +185,16 @@ function isEmail(input){
 (010|011):010또는 011이 나와야함
 \d{3,4}:숫자가 3개이상 4개 이하 나와야 함을 의미
  */
- 
+
+function isAgree(input){
+	let val=input.value;
+	alert(val);
+	if(val=='Y'){
+		return true;
+	}
+	return false;
+}
+
 function isDate(input){
 	let val=input.value;
 	let pattern=/(^\d{4}[-\/](0[1-9]|1[012])[-\/](0[1-9]|[12][0-9]|3[01])$)/;

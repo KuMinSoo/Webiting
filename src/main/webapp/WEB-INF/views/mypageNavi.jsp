@@ -39,6 +39,12 @@
 			<li>
 				<a class="mypage_list_02" href="<%=ctx%>/mypage/userOrdered">주문 내역</a>
 			</li>
+			<li>
+				<a  href="<%=ctx%>/admin/userEdit/${loginUser.idx}">회원정보수정</a>
+			</li>
+			<li>
+				<a class="mypage_list_02" href="<%=ctx%>/mypage/ditchProdList">폐가구 수거 신청 목록</a>
+			</li>
 		</ul>
 	</div>
 </div>

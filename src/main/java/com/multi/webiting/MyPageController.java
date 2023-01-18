@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -26,6 +27,7 @@ import com.product.model.OrderedVO;
 import com.product.model.ProductVO;
 import com.product.service.OrderedService;
 import com.product.service.ShopService;
+import com.user.model.DitchVO;
 import com.user.model.IpayVO;
 import com.user.model.LikeVO;
 import com.user.model.UserVO;
@@ -103,7 +105,7 @@ public class MyPageController {
 		List<LikeVO> likeArr=this.mService.selectLikeAllPaging(page);
 		String loc="mypage/likeList";
 		String pageNavi=page.getPageNavi(myctx, loc, userAgent);
-		
+		log.info("likeArr=="+likeArr);
 		m.addAttribute("pageNavi", pageNavi);
 		m.addAttribute("paging", page);
 		m.addAttribute("likeArr", likeArr);
@@ -264,5 +266,36 @@ public class MyPageController {
 		m.addAttribute("detailList", dlist);	
 		
 		return "mypage/userOrderedDetail";
+	}
+	@GetMapping("/ditchProdList")
+	public String ditchProdList(Model m,HttpSession ses) {
+		UserVO vo=(UserVO)ses.getAttribute("loginUser");
+		int idx=vo.getIdx();
+		List<DitchVO> list=mService.ditchProdList(idx);
+		m.addAttribute("ditchList",list);
+		return "mypage/ditchProdList";
+	}
+	@GetMapping("/ditchProd")
+	public String ditchProd(Model m) {
+		
+		return "mypage/ditchProd";
+	}
+	@PostMapping("/ditchEnd")
+	public String ditchEnd(Model m,@ModelAttribute DitchVO vo) {
+		//log.info(vo);
+		int n=mService.insertDitchProduct(vo);
+		if(n>0) {
+			return common.addMsgLoc(m, "폐가구 수거신청 완료", "ditchProdList");
+		}
+		return common.addMsgBack(m,"폐가구 수거신청 실패");
+	}
+	@GetMapping(value="ditchDel/{dnum}")
+	public String ditchDel(Model m,@PathVariable(name = "dnum") int dnum){
+		int n=mService.deleteDitch(dnum);
+		if(n>0) {
+			return common.addMsgLoc(m, "폐가구 수거삭제 완료", "/mypage/ditchProdList");
+		}
+		return common.addMsgBack(m,"폐가구 수거삭제 실패");
+		
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import com.board.model.PagingVO;
 import com.product.model.CartVO;
 import com.product.model.OrderVO;
+import com.user.model.DitchVO;
 import com.user.model.LikeVO;
 
 public interface MyPageService {
@@ -27,4 +28,8 @@ public interface MyPageService {
 	List<OrderVO> selectOrderView(int idx_fk);
 	OrderVO getOrderTotal(int idx_fk);
 	int insertLikeProd(LikeVO like);
+	int insertDitchProduct(DitchVO vo);
+	List<DitchVO> ditchProdList(int idx);
+	List<DitchVO> ditchProdAllList();
+	int deleteDitch(int dnum);
 }

@@ -103,7 +103,7 @@
     </select>
 					<!-- 상세 페이지 매퍼 -->
 	<select id = "detailProduct" resultType = "Product" parameterType="_int">
-		select * from product where pnum = #{pnum}
+		select p.*,(select count(*) from prodLike where pnum=p.pnum) likeCnt from product p where pnum = #{pnum}
 	</select>
 	 
 	  				<!-- 연관 페이지 메퍼 -->
@@ -137,7 +137,7 @@
 		delete from product where pnum=#{value}
 	</delete>  
 	<select id="getProductByPnum" resultType="Product" parameterType="int">
-		select * from product where pnum=#{value}
+		select p.*,(select count(*) from prodLike where pnum=p.pnum) likeCnt from product p where pnum=#{value}
 	</select>
 	<update id="updateProduct" parameterType="Product" >
 		update product set pname=#{pname},price=#{price}, saleprice=#{saleprice}, pqty=#{pqty},
@@ -146,6 +146,11 @@
 			LIKECNT=#{likecnt},tag1=#{tag1:VARCHAR},tag2=#{tag2:VARCHAR},tag3=#{tag3:VARCHAR}
 		where pnum=#{pnum}
 	</update>
-	
+	<select id="getTopLike" resultType="int">
+	select pnum from(
+	select pnum,rownum from (
+   		select pnum,count(*) as cnt from prodlike group by pnum order by cnt desc) cnt1 
+   		where rownum  <![CDATA[<]]>=5)
+	</select>
 	
 </mapper>

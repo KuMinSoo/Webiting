@@ -46,7 +46,7 @@
 </script>
 
 <!-- ${boardArr} -->
-<div class="container mt-3" style="height: 600px; overflow: auto;">
+<div class="container mt-3" style="height: 1200px; overflow: auto;">
 	<h1 class='text-center' style="color:red;">관리자 게시판</h1>
 	<!-- 검색기능------------------------------------------------------>
 	<div class="row py-3">

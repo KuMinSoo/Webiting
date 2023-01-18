@@ -53,11 +53,12 @@
 	상품 등록</button>
 	<button class="btn btn-outline-danger" onclick="location.href='${myctx}/admin/list'">
 	관리자 게시판</button>
-	
+	<button class="btn btn-outline-danger" onclick="location.href='${myctx}/admin/ditchList'">
+	폐가구 신청 현황</button>
 	</p>
-</div>
+</div> 
 
-<div class="container mt-3" style="height: 600px; overflow: auto;">
+<div class="container mt-3" style="height: 1100px; overflow: auto;">
 	<h1 class="text-center">Users [Admin Page]</h1>
 	<c:if test="${paging.findType ne null and paging.findType ne ''}">
 		<h3 class="text-center text-secondary">[<c:out value="${paging.findKeyword }"/>] 검색 결과</h3>

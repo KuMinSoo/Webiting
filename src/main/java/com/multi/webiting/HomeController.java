@@ -50,4 +50,8 @@ public class HomeController {
 		return "/mypageNavi";
 	}
 	
+	@RequestMapping("/agree")
+	public String agree() {
+		return "/agree";
+	}
 }

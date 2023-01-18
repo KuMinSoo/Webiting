@@ -29,7 +29,7 @@
 	</select>
 	
 	<select id="selectOrderedByidx" resultType="Order" parameterType="int">
-		select * from orderview where idx=#{value}
+		select * from orderview where idx_fk=#{value}
 	</select>
 	
 	<select id="selectOrderedByOnum" resultType="Order" parameterType="String">

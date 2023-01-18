@@ -132,7 +132,7 @@ public class PAdminServiceImpl implements PAdminService {
 	public void likeUp(PLikeVO vo) {
 		this.productMapper.likeUp(vo);
 	}
-
+	
 	@Override
 	public List<ProductVO> personalRecoProdList(int idx) {
 		List<Object> list=(List<Object>) aitems.aitems("personalRecommend", idx);
@@ -276,5 +276,16 @@ public class PAdminServiceImpl implements PAdminService {
         	return vo1;
         }
         else return null;
+	}
+
+	@Override
+	public List<ProductVO> getTopLike() {
+		List<ProductVO> list=new ArrayList<>();
+		int[] idx=this.productMapper.getTopLike();
+		for(int i=0;i<5;i++) {
+			ProductVO vo=this.productMapper.getProductByPnum(idx[i]);
+			list.add(vo);
+		}
+		return list;
 	}
 }

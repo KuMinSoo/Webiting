@@ -6,9 +6,9 @@
 
 <script type="text/javascript" src="../../js/userCheck.js"></script>
 
-<div class="container" style="height:1100px;overflow:auto;">
+<div class="container" style="height:1200px;overflow:auto;">
 	<h1 class="text-center mt-1">Member Edit</h1>
-	<form name="mf" action="edit" method="post">
+	<form name="mf" action="../edit" method="post">
 	<!-- hidden data -------------------------------------- -->
 	<input type="hidden" name="id_flag" id="id_flag" value="Y">
 	<input type="hidden" name="idx" id="idx" value="${user.idx}">

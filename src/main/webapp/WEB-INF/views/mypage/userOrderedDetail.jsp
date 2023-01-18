@@ -10,7 +10,7 @@
    String ctx = request.getContextPath();
 %>
 <c:import url="/mypageNavi"/>
-<div class="container mt-3" style="height: 600px; overflow: auto;">
+<div class="container mt-3" style="height: 1500px; overflow: auto;">
 	<h1 class="text-center">상세 주문 내역</h1>
 	<hr>
 	<h3>주문 번호 : ${orderedList[0].ordered_no}</h3>

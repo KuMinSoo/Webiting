@@ -13,7 +13,7 @@
 <script type="text/javascript" charset="utf-8" src="/resources/js/pay.js"></script>
 
 <div class="content_area">
-<button id="test">asdasd</button>
+<!-- <button id="test">asdasd</button> -->
 	<div class="content_subject">
 		<span>주문 페이지</span>
 	</div>
@@ -217,13 +217,13 @@
 
 <!-- 주문 요청 form -->
 
-	<input name="name" type="text">
-	<input name="amount" type="text">
-	<input name="buyer_email" type="text" value="${loginUser.email}">
-	<input name="buyer_name" type="text" value="${loginUser.name}">
-	<input name="buyer_tel" type="text"  value="${loginUser.getAllHp()}">
-	<input name="buyer_addr" type="text">
-	<input name="buyer_postcode" type="text">
+	<input name="name" type="hidden">
+	<input name="amount" type="hidden">
+	<input name="buyer_email" type="hidden" value="${loginUser.email}">
+	<input name="buyer_name" type="hidden" value="${loginUser.name}">
+	<input name="buyer_tel" type="hidden"  value="${loginUser.getAllHp()}">
+	<input name="buyer_addr" type="hidden">
+	<input name="buyer_postcode" type="hidden">
 
 
 <c:import url="/foot" />

@@ -24,8 +24,8 @@ tr>td>a{
 
 <c:import url="/mypageNavi"/>
 
-<div class="container mt-3" style="height: 600px; overflow: auto;">
-	<h1 class="text-center">내 관심 상품 목록</h1>
+<div class="container mt-3" style="height: 800px; overflow: auto; scrollbar-width:none;"> 
+	<h1 class="text-center">내 관심 상품 목록</h1> 
 	<hr>
 	<table width="900" align="center">
 	<tr>

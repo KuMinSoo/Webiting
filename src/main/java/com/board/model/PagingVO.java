@@ -43,8 +43,8 @@ public class PagingVO {
 		if(ses!=null) {
 			ses.setAttribute("pageSize", pageSize);
 		}
-		log.info("1. PagingVO totalCount======================="+pageSize);
-		log.info("1. PagingVO totalCount======================="+totalCount);
+		//log.info("1. PagingVO totalCount======================="+pageSize);
+		//log.info("1. PagingVO totalCount======================="+totalCount);
 		pageCount = (totalCount - 1) / pageSize + 1;
 		
 		if(cpage<1) {

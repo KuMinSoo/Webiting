@@ -26,8 +26,10 @@ import com.board.model.BoardVO;
 import com.board.model.PagingVO;
 import com.board.service.BoardService;
 import com.common.CommonUtil;
+import com.user.model.DitchVO;
 import com.user.model.UserVO;
 import com.user.service.AdminService;
+import com.user.service.MyPageService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -39,6 +41,10 @@ public class AdminController {
 	@Autowired
 	@Qualifier("boardServiceImpl")
 	private BoardService bService;
+	
+	@Inject 
+	@Qualifier(value="MyPageServiceImpl")
+	private MyPageService mService;
 	
 	@Autowired
 	private CommonUtil util;
@@ -124,6 +130,24 @@ public class AdminController {
 		
 		return "member/editform";
 	}	
+	@GetMapping("/userEdit/{idx}")
+	public String userEdit2(Model m, @PathVariable(name="idx") int idx) {
+		log.info("idx==="+idx);
+		
+		if(idx==0) {
+			return "redirect:userList";
+		}
+		
+		UserVO vo=this.aService.selectUserByIdx(idx);
+		if(vo==null) {
+			return common.addMsgBack(m, "해당 회원이 없습니다.");
+		}
+		
+		m.addAttribute("user", vo);
+		
+		return "member/myinfoeditform";
+	}
+	
 	
 	@PostMapping("/edit")
 	public String editEnd(Model m, @ModelAttribute("user") UserVO user) {
@@ -135,14 +159,28 @@ public class AdminController {
 		
 		int n=aService.updateUser(user);
 		String str=(n>0)?"회원 정보 수정 성공":"회원 정보 수정 실패";
-		String loc=(n>0)?"userList":"javascript:history.back()";
+		String loc=(n>0)?"../mypage/likeList":"javascript:history.back()";
 		
 		m.addAttribute("message", str);
 		m.addAttribute("loc", loc);
 		return "msg";
 	}
-	
-	
+	@GetMapping("/ditchList")
+	public String ditchList(Model m) {
+		
+		List<DitchVO> list=mService.ditchProdAllList();
+		m.addAttribute("ditchList",list);
+		return "/admin/ditchList";
+	}
+	@GetMapping(value="ditchDel/{dnum}")
+	public String ditchDel(Model m,@PathVariable(name = "dnum") int dnum){
+		int n=mService.deleteDitch(dnum);
+		if(n>0) {
+			return common.addMsgLoc(m, "폐가구 수거삭제 완료", "/admin/ditchList");
+		}
+		return common.addMsgBack(m,"폐가구 수거삭제 실패");
+		
+	}
 	
 	
 	

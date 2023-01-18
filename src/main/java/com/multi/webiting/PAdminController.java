@@ -45,10 +45,11 @@ public class PAdminController {
 	private PAdminService adminService;
 
 	@GetMapping("/index")
-	public String home(HttpSession ses) {
+	public String home(HttpSession ses,Model m) {
 		//log.info("adminService===" + adminService);
 		List<CategoryVO> upCgList = adminService.getUpcategory();
-		
+		List<ProductVO> pvo=adminService.getTopLike();
+		m.addAttribute("toplikeprod",pvo);
 		ses.setAttribute("upCgList", upCgList);
 		// log.info("upCgList=="+upCgList);
 		return "/index";
@@ -345,6 +346,7 @@ public class PAdminController {
 	@GetMapping("/prodRecoForm")
 	public String prodRecoForm(Model m, HttpSession ses) {
 		UserVO vo=(UserVO) ses.getAttribute("loginUser");
+		List<ProductVO> echo=adminService.productListCategory("16");
 		if(vo==null) {
 			m.addAttribute("personalProdArr","");
 		}else {
@@ -366,6 +368,7 @@ public class PAdminController {
 		m.addAttribute("topProdSofa",topProdSofa);
 		m.addAttribute("topProdStorage",topProdStorage);
 		m.addAttribute("topProdTable",topProdTable);
+		m.addAttribute("echo",echo);
 		return "prodList/prodRecoForm";
 	}
 

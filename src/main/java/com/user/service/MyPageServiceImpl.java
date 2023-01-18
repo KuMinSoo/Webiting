@@ -10,6 +10,7 @@ import com.board.model.PagingVO;
 import com.product.model.CartVO;
 import com.product.model.OrderVO;
 import com.user.mapper.MyPageMapper;
+import com.user.model.DitchVO;
 import com.user.model.LikeVO;
 
 @Service("MyPageServiceImpl")
@@ -102,6 +103,27 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public int insertLikeProd(LikeVO like) {
 		return this.mMapper.insertLikeProd(like);
+	}
+
+	@Override
+	public int insertDitchProduct(DitchVO vo) {
+		
+		return this.mMapper.insertDitchProduct(vo);
+	}
+
+	@Override
+	public List<DitchVO> ditchProdList(int idx) {
+		return this.mMapper.ditchProdList(idx);
+	}
+
+	@Override
+	public int deleteDitch(int dnum) {
+		return this.mMapper.deleteDitch(dnum);
+	}
+
+	@Override
+	public List<DitchVO> ditchProdAllList() {
+		return this.mMapper.ditchProdAllList();
 	}
 
 }

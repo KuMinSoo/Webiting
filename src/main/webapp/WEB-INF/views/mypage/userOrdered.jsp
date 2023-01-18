@@ -13,7 +13,7 @@
    String ctx = request.getContextPath();
 %>
 
-<div class="container mt-3" style="height: 600px; overflow: auto;">
+<div class="container mt-3" style="height: 1500px; overflow: auto;">
 	<h1 class="text-center">내 주문 내역</h1>
 
 		<table class="table text-center">
