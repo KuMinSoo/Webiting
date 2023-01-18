@@ -55,6 +55,10 @@
 	관리자 게시판</button>
 	<button class="btn btn-outline-danger" onclick="location.href='${myctx}/admin/ditchList'">
 	폐가구 신청 현황</button>
+	<button class="btn btn-outline-danger" onclick="location.href='${myctx}/AorderedList'">
+	배송관리</button>
+	<button class="btn btn-outline-danger" onclick="location.href='${myctx}/orderedCancel'">
+	결제취소 관리</button>
 	</p>
 </div> 
 

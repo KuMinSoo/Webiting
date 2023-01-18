@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.board.model.PagingVO;
 import com.product.model.CartVO;
 import com.product.model.OrderVO;
+import com.product.model.OrderedVO;
 import com.user.mapper.MyPageMapper;
 import com.user.model.DitchVO;
 import com.user.model.LikeVO;
@@ -125,5 +126,7 @@ public class MyPageServiceImpl implements MyPageService {
 	public List<DitchVO> ditchProdAllList() {
 		return this.mMapper.ditchProdAllList();
 	}
+
+	
 
 }

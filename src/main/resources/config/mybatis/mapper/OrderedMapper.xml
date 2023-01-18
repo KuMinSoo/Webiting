@@ -4,7 +4,7 @@
 <mapper namespace="com.product.mapper.OrderedMapper">
 	
 
-	<insert id="insertOrdered" parameterType="Ordered">
+	<insert id="insertOrdered" parameterType="com.product.model.OrderedVO">
 		<selectKey keyProperty="orderedNum" resultType="_int" order="BEFORE">
 			select ordernum_seq.nextval from dual
 		</selectKey>
@@ -28,13 +28,16 @@
 		update orderedview set ordered_delivstateNum_fk=1 where orderednum=#{value}
 	</update>
 	
+	
+	<select id="selectOrderedByidx" resultType="Order" parameterType="int">
+		select * from orderview where idx=#{value}
+	</select>
+	
+	
 	<select id="selectOrdered" resultType="Ordered" parameterType="Ordered">
 		select * from orderedview where ordered_no=#{ordered_no} and idx_fk=#{idx_fk}
 	</select>
 	
-	<select id="selectOrderedByidx" resultType="Order" parameterType="int">
-		select * from orderview where idx_fk=#{value}
-	</select>
 	
 	<select id="selectOrderedByOnum" resultType="Ordered" parameterType="Ordered">
 		select * from orderedview where ordered_no=#{ordered_no} and idx_fk=#{idx_fk}
@@ -53,7 +56,7 @@
 	</select>
 	
 	<sql id="searchF">
-		<if test="findType!=null and findKeyword!=''">
+		<if test='findType!="" and findKeyword!="" and findType!=null and findKeyword!=null'>
 			<choose>
 				<when test="findType==1">
 				   and ordered_no like '%'||#{findKeyword}||'%'			
@@ -66,7 +69,7 @@
 				</otherwise>		
 			</choose>
 		</if>
-		<if test="orderMode!=''">
+		<if test='orderMode != "" and orderMode != null'>
 			<choose>
 				<when test="orderMode==0">
 					and ordered_delivstateNum_fk = 0
@@ -79,7 +82,7 @@
 				</otherwise>
 			</choose>	
 		</if>
-		<if test="orderStatusMode!=''">
+		<if test='orderStatusMode != "" and orderStatusMode!=null'>
 			<choose>
 				<when test="orderStatusMode==0">
 					and ordered_statusNum_fk = 0
@@ -92,9 +95,9 @@
 				</otherwise>
 			</choose>	
 		</if>
-		<if test="dateStart!='' and dateEnd!=''" >
+		<if test='dateStart!="" and dateEnd!="" and dateStart!=null and dateEnd !=null'>
 			<choose>
-				<when test="dateStart!='' and dateEnd!=''">
+				<when test='dateStart!="" and dateEnd!=""'>
 					<![CDATA[and ordered_date >= TO_DATE(#{dateStart}, 'YYYY-MM-DD') and ordered_date <= TO_DATE(#{dateEnd}, 'YYYY-MM-DD')]]>	
 				</when>
 			</choose>
@@ -104,17 +107,23 @@
 	
 	
 	<select id="getTotalCount" resultType="int" parameterType="Paging">
-		select count(orderednum) from orderedview where 1=1 <include refid="searchF"/>
+		select count(*) from orderedview where 1=1  <include refid="searchF"/> 
+	</select>
+	
+	<select id="getCancelCount" resultType="int" parameterType="Paging">
+		select count(orderednum) from orderedview where 1=1
+		<include refid="cancelF"/>
 	</select>
 
 	<select id="selectOrderedAllPaging" resultType="Ordered" parameterType="Paging">
-		select * from (select row_number() over(order by orderedNum desc) rn, o.* from orderedview o)	
+		select * from (select row_number() over(order by ordered_date desc, orderedNum desc) rn, o.* from orderedview o)	
 		<![CDATA[where rn > #{start} and rn < #{end}]]> <include refid="searchF"/>
 	</select> 
 	
 	<select id="selectCancelList" resultType="Ordered" parameterType="Paging">
-		select * from (select row_number() over(order by orderedNum desc) rn, r.* from orderedview r)	
-		<![CDATA[where rn > #{start} and rn < #{end}]]> <include refid="calcelF"/>
+		select * from (select row_number() over(order by ordered_date desc, orderedNum desc) rn, r.* from orderedview r)	
+		<![CDATA[where rn > #{start} and rn < #{end}]]> 
+		 <include refid="cancelF"/>
 	</select>
 	
 
@@ -130,8 +139,8 @@
 		update orderedview set ordered_statusNum_fk=2 where orderednum=#{value}
 	</update>
 	
-		<sql id="calcelF">
-		<if test="findType!=null and findKeyword!=''">
+	<sql id="cancelF">
+		<if test='findType!="" and findKeyword!="" and findType!=null and findKeyword!=null'>
 			<choose>
 				<when test="findType==1">
 				   and ordered_no like '%'||#{findKeyword}||'%'			
@@ -144,19 +153,23 @@
 				</otherwise>		
 			</choose>
 		</if>
-		<if test="orderStatusMode!=''">
+
+		<if test='orderStatusMode != "" and orderStatusMode!=null'>
 			<choose>
 				<when test="orderStatusMode==1">
 					and ordered_statusNum_fk = 1
 				</when>
-				<otherwise>
+				<when test="orderStatusMode==2">
 					and ordered_statusNum_fk = 2
+				</when>
+				<otherwise>
+					and ordered_statusNum_fk >= 1
 				</otherwise>
 			</choose>	
 		</if>
-		<if test="dateStart!='' and dateEnd!=''" >
+		<if test='dateStart!="" and dateEnd!="" and dateStart!=null and dateEnd !=null'>
 			<choose>
-				<when test="dateStart!='' and dateEnd!=''">
+				<when test='dateStart!="" and dateEnd!=""'>
 					<![CDATA[and ordered_date >= TO_DATE(#{dateStart}, 'YYYY-MM-DD') and ordered_date <= TO_DATE(#{dateEnd}, 'YYYY-MM-DD')]]>	
 				</when>
 			</choose>

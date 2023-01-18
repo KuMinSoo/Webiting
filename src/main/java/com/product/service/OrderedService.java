@@ -3,7 +3,9 @@ package com.product.service;
 import java.util.List;
 
 import com.board.model.PagingVO;
+
 import com.product.model.OrderVO;
+
 import com.product.model.OrderedVO;
 
 public interface OrderedService {
@@ -13,6 +15,7 @@ public interface OrderedService {
 		int deleteOrdered(int ordered_no);
 		List<OrderedVO> selectAll();	
 		//orderDetail view
+
 		int updateDelivnum(String ordered_delivnum,int orderedNum);
 		List<OrderedVO> selectOrderedByOnum(OrderedVO ovo);
 		List<OrderedVO> selectOrdered(OrderedVO ovo);	
@@ -21,6 +24,9 @@ public interface OrderedService {
 		int updateCancelCompleted(int orderedNum);
 		int getTotalCount(PagingVO page);
 		
+
+		int getCancelCount(PagingVO page);
+
 		List<OrderedVO> selectOrderedAllPaging(PagingVO page);	
 		List<OrderedVO> selectCancelList(PagingVO page);
 		int updateDelivCompleted(int orderedNum);

@@ -70,7 +70,7 @@
 	       <tr>
 	     	  <c:if test="${loginUser.name ne null}">
 	     	  	 <td>
-	          		 <input type="text" name="name" id="name" value="${loginUser.name}" class="form-control" disabled="disabled">	
+	          		 <input type="text" name="name" id="name" value="${loginUser.name}" class="form-control" readonly>	
 	        	  </td>
 	     	  </c:if>
 	     	  <c:if test="${loginUser.name eq null}">

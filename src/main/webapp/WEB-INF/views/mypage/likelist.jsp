@@ -123,7 +123,7 @@ $(".move_cart").on("click", function(e){
 			str+=document.getElementsByClassName("subchk")[i].value+",";
 		}
 	}
-	alert(str);
+	//alert(str);
 	$(".move_cart_pnum").val(str);
 	$('.move_cart_form').submit();	
 });

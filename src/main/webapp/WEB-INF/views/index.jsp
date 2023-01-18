@@ -44,7 +44,8 @@ background-color:#212529;
         <div class="post-wrapper">
         <c:forEach var="prod" items="${toplikeprod}">
           <div class="post">
-            <a href="/prodDetail?pnum=${prod.pnum}"><img src="../resources/product_images/${prod.pimage1}" class="slider-image"></a>
+            <a href="/prodDetail?pnum=${prod.pnum}" style="width:200px;height:200px;">
+            <img src="../resources/product_images/${prod.pimage1}" class="slider-image" style="width:400px;height:200px;text-align:center"></a>
             <div class="post-info">
               <i class="far fa-user" style="height:10%;"></i>
             </div>

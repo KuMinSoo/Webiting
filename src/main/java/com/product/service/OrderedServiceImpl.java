@@ -7,7 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.board.model.PagingVO;
 import com.product.mapper.OrderedMapper;
+
 import com.product.model.OrderVO;
+
+
+
 import com.product.model.OrderedVO;
 
 
@@ -76,6 +80,8 @@ public class OrderedServiceImpl implements OrderedService {
 	public List<OrderedVO> selectOrderedByOnum(OrderedVO ovo) {
 		return this.OrderedMapper.selectOrderedByOnum(ovo);
 	}
+	
+	
 
 	@Override
 	public int deleteOrdered(int ordered_no) {
@@ -106,11 +112,16 @@ public class OrderedServiceImpl implements OrderedService {
 
 	@Override
 	public int insertOrder(OrderVO ovo) {
-		return this.OrderedMapper.insertOrdered(ovo);
+		return this.OrderedMapper.insertOrder(ovo);
 	}
 
 	@Override
 	public List<OrderedVO> selectYetRefund(OrderedVO ovo) {
 		return this.OrderedMapper.selectYetRefund(ovo);
 	}
+	public int getCancelCount(PagingVO page) {
+		return this.OrderedMapper.getCancelCount(page);
+	}
+
+	
 }

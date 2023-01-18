@@ -34,7 +34,7 @@
  	        async: false,
  	        dataType: 'text',
  	        success: function (res) {
- 	        	alert(res);
+ 	        	alert('로그아웃 되었습니다.');
  	            location.href =res;
  	        }
  	    });
@@ -266,10 +266,10 @@ function selectDownCategoryHome(upCode){
         </nav>
         <!-- Header-->
        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
+            <!-- <div class="container px-4 px-lg-5 my-5">
                 <div class="text-center text-white">
                     <h1 class="display-4 fw-bolder">Webiting</h1>
                     <p class="lead fw-normal text-white-50 mb-0">Furniture Shopping Mall</p>
                 </div>
-            </div>
+            </div> -->
         </header>

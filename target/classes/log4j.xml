@@ -12,7 +12,7 @@
 	
 	<!-- Application Loggers -->
 	<logger name="com.multi.webiting">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	<logger name="com.board">
 		<level value="info" />

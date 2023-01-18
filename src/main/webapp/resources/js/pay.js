@@ -78,7 +78,7 @@ function createOrderedNum(){
 	                              };
 	                              
                               var result=JSON.stringify(jsonData); 	 	 	 	 	 	 
-                              alert(rsp.buyer_name+""+rsp.buyer_tel+""+rsp.buyer_email);
+                              //alert(rsp.buyer_name+""+rsp.buyer_tel+""+rsp.buyer_email);
                              
                               $.ajax({
                                     type:'POST',
@@ -88,7 +88,8 @@ function createOrderedNum(){
                                     dataType:'json',
                                     cache:false,
                                     success:function(res){
-                                        alert('200');
+                                        //alert('200');
+                                        alert('결제가 완료되었습니다');
                                     },
                                     error:function(res){
                                         alert('등록실패');    

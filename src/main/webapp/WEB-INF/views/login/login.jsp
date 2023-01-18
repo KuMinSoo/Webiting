@@ -16,7 +16,7 @@ function kakaoLogin() {
         async: false,
         dataType: 'text',
         success: function (res) {
-        	alert(res);
+        	//alert(res);
             location.href =res;
         }
     });
