@@ -244,7 +244,7 @@
 <main>
 	<section>
 		<div class="container mt-3 mb-3" id="test" >
-			<div class="content_main">주문목록 페이지</div>
+			<div class="content_main">주문목록 페이지 ddddd ===> ${paging.orderStatusMode }</div>
 				<%-- <div class="btn-list">
 					<button type="button" class="btn btn-light" onclick="location.href='<%=ctx%>/AorderedList'">전체목록</button>
 					<button type="button" class="btn btn-light" onclick="orderMode(0)">배송대기</button>
@@ -287,25 +287,24 @@
 			
 			<div>
 				주문상태:
-				
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
 		  			<input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode" value="" 
-							<c:if test="${paging.orderStatusMode==null or paging.orderStatusMode ==''}"> checked </c:if>>
+							<c:if test="${empty paging.orderStatusMode}"> checked </c:if>>
 					<label class="form-check-label" for="orderMode">주문전체</label>
 				</div>
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
 		 			 <input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode" value="0"
-		 			  <c:if test="${paging.orderStatusMode==0}"> checked </c:if>>
+		 			  <c:if test="${paging.orderStatusMode=='0'}"> checked </c:if>>
 		  			<label class="form-check-label" for="orderStatusMode">주문완료</label>
 				</div>
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
 		  			<input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode" value="1"
-					   <c:if test="${paging.orderStatusMode==1}"> checked </c:if>>
+					   <c:if test="${paging.orderStatusMode=='1'}"> checked </c:if>>
 		  			<label class="form-check-label" for="orderMoorderStatusModede">취소/환불대기</label>
 				</div>
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
 		  			<input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode" value="2"
-						  <c:if test="${paging.orderStatusMode==2}"> checked </c:if>>
+						  <c:if test="${paging.orderStatusMode=='2'}"> checked </c:if>>
 		  			<label class="form-check-label" for="orderStatusMode">취소/환불완료</label>
 				</div>
 			</div>
@@ -349,15 +348,8 @@
 				</div>	
 			</div>	
 	
-		<!-- 검색기능 -->
-		
-			<div style="display:inline-block;float:left;width:50%;">
-<%-- 					<input type="hidden" name="pageSize" value="${paging.pageSize}">
-					<input type="hidden" name="pageSize" value="${paging.pageSize}">
-					<input type="hidden" name="orderMode1" id="orderMode" value="${paging.orderMode}">
-<!-- 					<input type="hidden" id="dateStart" name="dateStart1">
-					<input type="hidden" id="dateEnd" name="dateEnd1"> --> --%>
-					
+		<!-- 검색기능 -->	
+			<div style="display:inline-block;float:left;width:50%;">			
 					<select id="findType" name="findType" style="padding: 6px;">
 						<option value="">::검색유형::</option>
 						<option value="1"

@@ -98,7 +98,8 @@
 	</select>
 	
 	<select id="getCancelCount" resultType="int" parameterType="Paging">
-		select count(orderednum) from orderedview where 1=1 <include refid="cancelF"/>
+		select count(orderednum) from orderedview where 1=1
+		<include refid="cancelF"/>
 	</select>
 
 	<select id="selectOrderedAllPaging" resultType="Ordered" parameterType="Paging">
@@ -125,8 +126,8 @@
 		update orderedview set ordered_statusNum_fk=2 where orderednum=#{value}
 	</update>
 	
-		<sql id="cancelF">
-		<if test="findType!=null and findKeyword!=''">
+	<sql id="cancelF">
+		<if test='findType!="" and findKeyword!="" and findType!=null and findKeyword!=null'>
 			<choose>
 				<when test="findType==1">
 				   and ordered_no like '%'||#{findKeyword}||'%'			
@@ -139,27 +140,28 @@
 				</otherwise>		
 			</choose>
 		</if>
-		<if test="orderStatusMode=''">
-			<![CDATA[and ordered_statusNum_fk >= 1]]>
-		</if>
-		<if test="orderStatusMode!=''">
+
+		<if test='orderStatusMode != "" and orderStatusMode!=null'>
 			<choose>
 				<when test="orderStatusMode==1">
 					and ordered_statusNum_fk = 1
 				</when>
-				<otherwise>
+				<when test="orderStatusMode==2">
 					and ordered_statusNum_fk = 2
+				</when>
+				<otherwise>
+					and ordered_statusNum_fk >= 1
 				</otherwise>
 			</choose>	
 		</if>
-		<if test="dateStart!='' and dateEnd!=''" >
+		<if test='dateStart!="" and dateEnd!="" and dateStart!=null and dateEnd !=null'>
 			<choose>
-				<when test="dateStart!='' and dateEnd!=''">
+				<when test='dateStart!="" and dateEnd!=""'>
 					<![CDATA[and ordered_date >= TO_DATE(#{dateStart}, 'YYYY-MM-DD') and ordered_date <= TO_DATE(#{dateEnd}, 'YYYY-MM-DD')]]>	
 				</when>
 			</choose>
 		</if>
-	</sql>	
+	</sql>
 
 	
 </mapper>

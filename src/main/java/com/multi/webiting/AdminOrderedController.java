@@ -92,31 +92,37 @@ public class AdminOrderedController {
 		return vo;
 	}
 	
+
 	@GetMapping("/orderedCancel")
 	public String orderedCancel(Model m, PagingVO page, HttpServletRequest req,
 			@RequestHeader("User-Agent") String userAgent, OrderedVO vo) {
-		log.info("주문항목========================>" + vo);
-		log.info("page1========================>" +page);
-		log.info("orderMode========================>" + page.getOrderMode());
-		log.info("orderStatusMode========================>" + page.getOrderStatusMode());
-		
+
 		String myctx = req.getContextPath();
 		HttpSession ses = req.getSession();
-		
+		log.info("page1==================>"+page);
+		if(page.getOrderStatusMode()==null) {
+			page.setOrderStatusMode("3");
+		}
 		int totalCount = this.orderedService.getCancelCount(page);////문제
+		log.info("page2==================>"+page);
 		page.setTotalCount(totalCount);
 		page.setPagingBlock(5);
 		page.init(ses);
+		
 		String loc = "orderedCancel";
 		String pageNavi = page.getPageNavi(myctx, loc, userAgent);// 페이징 블럭 처리 함수
-
+		log.info("page3==================>"+page);
 		List<OrderedVO> orderList = this.orderedService.selectCancelList(page);
+		DateVO dateMap=new DateVO();
+		dateMap.CalDate();
 
 		m.addAttribute("orderList", orderList);
 		m.addAttribute("pageNavi", pageNavi);
 		m.addAttribute("paging", page);
-
+		m.addAttribute("dateMap", dateMap);
+		log.info("page4==================>"+page);
 		return "adminOrdered/orderedCancel";
+
 	}
 	
 	@GetMapping("/AorderedList")
@@ -126,24 +132,22 @@ public class AdminOrderedController {
 		String myctx = req.getContextPath();
 		HttpSession ses = req.getSession();
 		int totalCount = this.orderedService.getTotalCount(page);////문제
-		log.info("page1========================>" +page);
 		page.setTotalCount(totalCount);
 		page.setPagingBlock(5);
 		page.init(ses);
 		String loc = "AorderedList";
 		String pageNavi = page.getPageNavi(myctx, loc, userAgent);// 페이징 블럭 처리 함수
-		log.info("page2========================>" +page);
+	
 		List<OrderedVO> orderList = this.orderedService.selectOrderedAllPaging(page);
-		log.info("page3========================>" +page);
+
 		DateVO dateMap=new DateVO();
 		dateMap.CalDate();
-		
 
 		m.addAttribute("orderList", orderList);
 		m.addAttribute("pageNavi", pageNavi);
 		m.addAttribute("paging", page);
 		m.addAttribute("dateMap", dateMap);
-		log.info("paging4===="+page);
+
 
 		return "adminOrdered/orderedDetailList";
 
