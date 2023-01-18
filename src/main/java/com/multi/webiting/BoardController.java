@@ -1,6 +1,7 @@
 package com.multi.webiting;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,7 +41,7 @@ public class BoardController {
    
    @Inject
    private CommonUtil util;
-   
+ 
    
    @GetMapping("/home")//고객문의 메인 게시판
    public String boardHome() {

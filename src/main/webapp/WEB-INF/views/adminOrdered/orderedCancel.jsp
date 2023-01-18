@@ -42,10 +42,6 @@
 <script>
 	function check() {//검색시 유효성 체크(검색유형, 검색어) 함수
 		
-		if(!$('input[name="orderMode"]:checked').val()){
-			alert('배송상태를 체크하세요');
-			return false;
-		}
 	
 		if(!$('input[name="orderStatusMode"]:checked').val()){
 			alert('주문상태를 체크하세요');
@@ -72,18 +68,8 @@
 	
 	
 	function delivStart(flag,ds){
-		if(ds==1){
-			if(confirm("배송을 시작하겠습니까?")){				
-				$('#frm').prop("action","delivStart")
-				$('#orderedNum').val(flag);
-				$('#mode').val(ds);
-				$('#frm').prop("method","post")
-				$('#frm').submit();
-			}	
-		}
-		
-		if(ds==2){
-			if(confirm("물품이 도착했습니까?")){
+		if(ds==3){
+			if(confirm("취소/환불 처리하십니까?")){
 				$('#frm').prop("action","delivStart");
 				$('#orderedNum').val(flag);
 				$('#mode').val(ds);
@@ -112,16 +98,9 @@
 			$('#dateStart').val(date);
 		}
 	} */
-		
-	function orderMode(flag){
-		$('#orderF').prop("action","AorderedList");
-		$('#orderF').prop("method","get");
-		$('#orderMode').val(flag);
-		$('#orderF').submit();		
-	}
-	
+			
 	function orderStatusMode(flag){
-		$('#orderF').prop("action","AorderedList");
+		$('#orderF').prop("action","orderedCancel");
 		$('#orderF').prop("method","get");
 		$('#orderStatusMode').val(flag);
 		$('#orderF').submit();		
@@ -144,33 +123,32 @@
 		<div class="container mt-3 mb-3" >
 			<div class="content_main">주문목록 페이지</div>
 				<div class="btn-list">
-					<button type="button" class="btn btn-light" onclick="location.href='<%=ctx%>/AorderedList'">전체목록</button>
+					<button type="button" class="btn btn-light" onclick="location.href='<%=ctx%>/orderedCancel'">전체목록</button>
 					<button type="button" class="btn btn-light" onclick="orderStatusMode(1)">취소/환불 </button>
 					<button type="button" class="btn btn-danger" onclick="orderStatusMode(2)">취소/환불 처리</button>
 				  	<form name="orderF" id="orderF">
-						<input type="hidden" name="orderMode" id="orderMode">
 						<input type="hidden" name="orderStatusMode" id="orderStatusMode">
 						<input type="hidden" name="cpage" value="1">
 						<input type="hidden" name="pageSize" value="${paging.pageSize}">
 					</form>
 				</div>
 	<div>
-		<form id="dtf" name="dtf" action="AorderedList" method="get">			
+		<form id="dtf" name="dtf" action="orderedCancel" method="get">			
 			<div>
 				주문상태:
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
 		  			<input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode" value="" 
-							<c:if test="${paging.orderStatusMode==null or orderStatusMode ==''}"> checked </c:if>>
+							<c:if test="${paging.orderStatusMode==1}"> checked </c:if>>
 					<label class="form-check-label" for="orderMode">전체</label>
 				</div>
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
 		  			<input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode" value="1"
-					   <c:if test="${paging.orderStatusMode==1}"> checked </c:if>>
+					   <c:if test="${paging.orderStatusMode==2}"> checked </c:if>>
 		  			<label class="form-check-label" for="orderMoorderStatusModede">취소/환불대기</label>
 				</div>
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
 		  			<input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode" value="2"
-						  <c:if test="${paging.orderStatusMode==2}"> checked </c:if>>
+						  <c:if test="${paging.orderStatusMode==3}"> checked </c:if>>
 		  			<label class="form-check-label" for="orderStatusMode">취소/환불완료</label>
 				</div>
 			</div>
@@ -296,7 +274,7 @@
 		  			<td>
 		  				<p>
 						  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample${state.index}" aria-expanded="false" aria-controls="collapseWidthExample">
-						     <c:out value="${orderList.rtype}"/>
+						     <c:out value="${orderList.refund_type}"/>
 						  </button>
 						</p>
 						<div style="min-height: 120px;">
@@ -321,9 +299,9 @@
 		  		</tr>	
 		  </c:forEach>
 		  <form id="frm" name="frm">
-		  <input type="hidden" name="orderedNum" id="orderedNum">
-		  <input type="hidden" name="mode" id="mode">
-		  <input type="hidden" name="orderMode" id="orderMode" value="${paging.orderMode}">
+			  <input type="hidden" name="orderedNum" id="orderedNum">
+			  <input type="hidden" name="mode" id="mode">
+			  <input type="hidden" name="orderMode" id="orderMode" value="${paging.orderMode}">
 		  </form>
 
 		  </c:if>					

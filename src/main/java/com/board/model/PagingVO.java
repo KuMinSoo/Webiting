@@ -37,16 +37,21 @@ public class PagingVO {
 	private String orderStatusMode;
 	private String dateStart;
 	private String dateEnd;
-	
+	private String dateCheck;
+	private int flag;
 	
 	public void init(HttpSession ses) {
 		if(ses!=null) {
 			ses.setAttribute("pageSize", pageSize);
+			ses.setAttribute("dateCheck", dateCheck);
 		}
-		log.info("1. PagingVO totalCount======================="+pageSize);
+		log.info("1. PagingVO pageSize======================="+pageSize);
 		log.info("1. PagingVO totalCount======================="+totalCount);
-		pageCount = (totalCount - 1) / pageSize + 1;
+		log.info("1. PagingVO dateStart======================="+dateStart);
+		log.info("1. PagingVO dateEnd======================="+dateEnd);
 		
+		pageCount = (totalCount - 1) / pageSize + 1;
+		System.out.println(pageCount);
 		if(cpage<1) {
 			cpage=1;
 		}
@@ -65,10 +70,16 @@ public class PagingVO {
 	
 	public String getPageNavi(String myctx,String loc, String userAgent) {
 		
-		if(dateStart==null || dateEnd==null) {
-			dateStart="";
+		if(dateStart==null) {
+			dateStart="";			
+		}
+		if(dateEnd==null) {
 			dateEnd="";
 		}
+		if(dateCheck==null){
+			dateCheck="";
+		}
+		
 		if(orderStatusMode==null) {
 			orderStatusMode="";	
 		}
@@ -96,7 +107,8 @@ public class PagingVO {
 		String qStr="?pageSize="+pageSize+"&findType="+findType;
 				qStr+="&findKeyword="+findKeyword+"&sortType="+sortType;
 				qStr+="&orderMode="+orderMode+"&orderStatusMode="+orderStatusMode;
-				qStr+="&dateStart="+dateStart+"&dateStartEnd="+dateEnd;
+				qStr+="&dateStart="+dateStart+"&dateEnd="+dateEnd+"&dateCheck="+dateCheck;
+				qStr+="&flag="+flag;
 		
 
 		link+=qStr;  

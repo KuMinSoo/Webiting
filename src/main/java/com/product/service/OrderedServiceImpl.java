@@ -7,8 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.board.model.PagingVO;
 import com.product.mapper.OrderedMapper;
-import com.product.model.OrderVO;
-import com.product.model.OrderedDetailVO;
+
 import com.product.model.OrderedVO;
 
 
@@ -74,7 +73,7 @@ public class OrderedServiceImpl implements OrderedService {
 	}
 
 	@Override
-	public int insertOrder(OrderVO ovo) {
+	public int insertOrder(OrderedVO ovo) {
 		return this.OrderedMapper.insertOrder(ovo);
 	}
 
@@ -89,15 +88,16 @@ public class OrderedServiceImpl implements OrderedService {
 		return 0;
 	}
 
-	@Override
-	public OrderedDetailVO selectOrderDetailDelivnum(int orderedDetail_no) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public int updateDelivnum(String ordered_delivnum, int orderedNum) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int getCancelCount(PagingVO page) {
+		return this.OrderedMapper.getCancelCount(page);
 	}
 }

@@ -3,8 +3,6 @@ package com.product.mapper;
 import java.util.List;
 
 
-import com.product.model.OrderVO;
-import com.product.model.OrderedDetailVO;
 
 import com.board.model.PagingVO;
 
@@ -26,12 +24,13 @@ public interface OrderedMapper {
 
 	
 	List<OrderedVO> selectOrderedByidx(int idx_fk);
-	int insertOrder(OrderVO ovo);
+	int insertOrder(OrderedVO ovo);
 	List<OrderedVO> selectOrderedByOnum(String ordered_no);
 
 	int updateDelivStart(int orderedNum);
 	int updateDelivCompleted(int orderedNum);
 	int getTotalCount(PagingVO page);
+	int getCancelCount(PagingVO page);
 	int updateCancelCompleted(int orderedNum);
 	List<OrderedVO> selectCancelList(PagingVO page);
 	List<OrderedVO> selectOrderedAllPaging(PagingVO page);

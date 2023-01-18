@@ -1,6 +1,11 @@
 package com.multi.webiting;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,11 +21,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.board.model.PagingVO;
 import com.common.CommonUtil;
-import com.product.model.OrderVO;
+import com.product.model.DateVO;
 import com.product.model.OrderedVO;
 import com.product.model.ProductVO;
 import com.product.service.OrderedService;
@@ -48,7 +54,7 @@ public class AdminOrderedController {
 		UserVO loginUser=(UserVO) session.getAttribute("loginUser");
 		/////////////////////////////////////////////////
 		//결제정보만 얻어오기
-		OrderVO ovo = new OrderVO();
+		OrderedVO ovo = new OrderedVO();
 		ovo.setTitle(vo.getTitle());
 		ovo.setOrdered_no(vo.getOrdered_no());
 		ovo.setOrdered_orderprice(vo.getOrdered_orderprice());
@@ -59,7 +65,7 @@ public class AdminOrderedController {
 		ovo.setOrdered_to_name(vo.getOrdered_to_name());
 		ovo.setOrdered_to_post(vo.getOrdered_to_post());
 		ovo.setOrdered_to_tel(vo.getOrdered_to_tel());
-		ovo.setIdx(loginUser.getIdx());
+		ovo.setIdx_fk(loginUser.getIdx());
 		this.orderedService.insertOrder(ovo);
 		/////////////////////////////////////////////////
 		//값비교후 참일떄
@@ -90,14 +96,14 @@ public class AdminOrderedController {
 	public String orderedCancel(Model m, PagingVO page, HttpServletRequest req,
 			@RequestHeader("User-Agent") String userAgent, OrderedVO vo) {
 		log.info("주문항목========================>" + vo);
-		log.info(page);
+		log.info("page1========================>" +page);
 		log.info("orderMode========================>" + page.getOrderMode());
 		log.info("orderStatusMode========================>" + page.getOrderStatusMode());
-
+		
 		String myctx = req.getContextPath();
 		HttpSession ses = req.getSession();
 		
-		int totalCount = this.orderedService.getTotalCount(page);////문제
+		int totalCount = this.orderedService.getCancelCount(page);////문제
 		page.setTotalCount(totalCount);
 		page.setPagingBlock(5);
 		page.init(ses);
@@ -114,59 +120,35 @@ public class AdminOrderedController {
 	}
 	
 	@GetMapping("/AorderedList")
-	public String orderedList(Model m, PagingVO page, HttpServletRequest req,
+	public String orderedList(Model m,@ModelAttribute PagingVO page, HttpServletRequest req,
 			@RequestHeader("User-Agent") String userAgent, OrderedVO vo) {
-		log.info("주문항목========================>" + vo);
-		log.info(page);
-		log.info("orderMode========================>" + page.getOrderMode());
-		log.info("orderStatusMode========================>" + page.getOrderStatusMode());
 
 		String myctx = req.getContextPath();
 		HttpSession ses = req.getSession();
-		
 		int totalCount = this.orderedService.getTotalCount(page);////문제
+		log.info("page1========================>" +page);
 		page.setTotalCount(totalCount);
 		page.setPagingBlock(5);
 		page.init(ses);
 		String loc = "AorderedList";
 		String pageNavi = page.getPageNavi(myctx, loc, userAgent);// 페이징 블럭 처리 함수
-
+		log.info("page2========================>" +page);
 		List<OrderedVO> orderList = this.orderedService.selectOrderedAllPaging(page);
+		log.info("page3========================>" +page);
+		DateVO dateMap=new DateVO();
+		dateMap.CalDate();
+		
 
 		m.addAttribute("orderList", orderList);
 		m.addAttribute("pageNavi", pageNavi);
 		m.addAttribute("paging", page);
+		m.addAttribute("dateMap", dateMap);
+		log.info("paging4===="+page);
 
 		return "adminOrdered/orderedDetailList";
 
 	}
 	
-	@PostMapping("/AorderedList")
-	public String orderedList1(Model m, PagingVO page, HttpServletRequest req,
-			@RequestHeader("User-Agent") String userAgent,@ModelAttribute("vo") OrderedVO vo,BindingResult b) {
-		log.info("주문항목========================>" + vo);
-		log.info("orderMode========================>" + page.getOrderMode());
-//b.getFieldError();
-		String myctx = req.getContextPath();
-		HttpSession ses = req.getSession();
-		
-		int totalCount = this.orderedService.getTotalCount(page);////문제
-		page.setTotalCount(totalCount);
-		page.setPagingBlock(5);
-		page.init(ses);
-		String loc = "AorderedList";
-		String pageNavi = page.getPageNavi(myctx, loc, userAgent);// 페이징 블럭 처리 함수
-
-		List<OrderedVO> orderList = this.orderedService.selectOrderedAllPaging(page);
-
-		m.addAttribute("orderList", orderList);
-		m.addAttribute("pageNavi", pageNavi);
-		m.addAttribute("paging", page);
-
-		return "adminOrdered/orderedDetailList";
-
-	}
-
 	@PostMapping("/delivStart")
 	public String delivCompleted(int orderedNum, int mode, Model m,PagingVO page) {
 		log.info("-----------------orderedNum: " + orderedNum);
@@ -192,5 +174,6 @@ public class AdminOrderedController {
 		return Util.addMsgLoc(m, msg, loc);
 
 	}
+	
 
 }
