@@ -344,28 +344,26 @@ public class PAdminController {
 	
 	@GetMapping("/prodRecoForm")
 	public String prodRecoForm(Model m, HttpSession ses) {
-		UserVO vo=(UserVO) ses.getAttribute("loginUser");
-		if(vo==null) {
-			m.addAttribute("personalProdArr","");
-		}else {
-			int idx=vo.getIdx();
-			List<ProductVO> personalProdArr=adminService.personalRecoProdList(idx);
-			m.addAttribute("personalProdArr",personalProdArr);
-			//log.info(personalProdArr);
-		}
-		List<ProductVO> topProdBed=adminService.topProdBed();
-		List<ProductVO> topProdChair=adminService.topProdChair();
-		List<ProductVO> topProdShelf=adminService.topProdShelf();
-		List<ProductVO> topProdSofa=adminService.topProdSofa();
-		List<ProductVO> topProdStorage=adminService.topProdStorage();
-		List<ProductVO> topProdTable=adminService.topProdTable();
-		
-		m.addAttribute("topProdBed",topProdBed);
-		m.addAttribute("topProdChair",topProdChair);
-		m.addAttribute("topProdShelf",topProdShelf);
-		m.addAttribute("topProdSofa",topProdSofa);
-		m.addAttribute("topProdStorage",topProdStorage);
-		m.addAttribute("topProdTable",topProdTable);
+		/*
+		 * UserVO vo=(UserVO) ses.getAttribute("loginUser"); if(vo==null) {
+		 * m.addAttribute("personalProdArr",""); }else { int idx=vo.getIdx();
+		 * List<ProductVO> personalProdArr=adminService.personalRecoProdList(idx);
+		 * m.addAttribute("personalProdArr",personalProdArr);
+		 * //log.info(personalProdArr); } List<ProductVO>
+		 * topProdBed=adminService.topProdBed(); List<ProductVO>
+		 * topProdChair=adminService.topProdChair(); List<ProductVO>
+		 * topProdShelf=adminService.topProdShelf(); List<ProductVO>
+		 * topProdSofa=adminService.topProdSofa(); List<ProductVO>
+		 * topProdStorage=adminService.topProdStorage(); List<ProductVO>
+		 * topProdTable=adminService.topProdTable();
+		 * 
+		 * m.addAttribute("topProdBed",topProdBed);
+		 * m.addAttribute("topProdChair",topProdChair);
+		 * m.addAttribute("topProdShelf",topProdShelf);
+		 * m.addAttribute("topProdSofa",topProdSofa);
+		 * m.addAttribute("topProdStorage",topProdStorage);
+		 * m.addAttribute("topProdTable",topProdTable);
+		 */
 		return "prodList/prodRecoForm";
 	}
 

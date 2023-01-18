@@ -7,9 +7,9 @@
 	<select id="selectLikeAllPaging" resultType="com.user.model.LikeVO" parameterType="Paging">
 		select * from
 		(select row_number() over(order by lindate desc) rn, likeprod.* 
-		from likeprod)
+		from likeprod where idx=#{idx})
 		<![CDATA[
-		where rn > #{start} and rn < #{end} and idx=#{idx}
+		where rn > #{start} and rn < #{end}
 		]]>
 	</select>
 	<!-- 해당 회원 정보만 가져오게끔하려면 맨 끝에 and idx=#{idx} 추가 -->

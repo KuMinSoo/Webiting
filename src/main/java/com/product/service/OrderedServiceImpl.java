@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.board.model.PagingVO;
 import com.product.mapper.OrderedMapper;
 import com.product.model.OrderVO;
-import com.product.model.OrderedDetailVO;
 import com.product.model.OrderedVO;
 
 
@@ -25,8 +24,8 @@ public class OrderedServiceImpl implements OrderedService {
 	}
 
 	@Override
-	public List<OrderedVO> selectOrdered(String ordered_no) {
-		return this.OrderedMapper.selectOrdered(ordered_no);
+	public List<OrderedVO> selectOrdered(OrderedVO ovo) {
+		return this.OrderedMapper.selectOrdered(ovo);
 	}
 
 	
@@ -74,13 +73,8 @@ public class OrderedServiceImpl implements OrderedService {
 	}
 
 	@Override
-	public int insertOrder(OrderVO ovo) {
-		return this.OrderedMapper.insertOrder(ovo);
-	}
-
-	@Override
-	public List<OrderedVO> selectOrderedByOnum(String ordered_no) {
-		return this.OrderedMapper.selectOrderedByOnum(ordered_no);
+	public List<OrderedVO> selectOrderedByOnum(OrderedVO ovo) {
+		return this.OrderedMapper.selectOrderedByOnum(ovo);
 	}
 
 	@Override
@@ -90,14 +84,33 @@ public class OrderedServiceImpl implements OrderedService {
 	}
 
 	@Override
-	public OrderedDetailVO selectOrderDetailDelivnum(int orderedDetail_no) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int updateDelivnum(String ordered_delivnum, int orderedNum) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public int updateRefund(OrderedVO ovo) {
+		return this.OrderedMapper.updateRefund(ovo);
+	}
+
+	@Override
+	public OrderedVO selectOrderedByorderedNum(int orderedNum) {
+		return this.OrderedMapper.selectOrderedByorderedNum(orderedNum);
+	}
+
+	@Override
+	public List<OrderedVO> selectRefundByidx(int idx_fk) {
+		return this.OrderedMapper.selectRefundByidx(idx_fk);
+	}
+
+	@Override
+	public int insertOrder(OrderVO ovo) {
+		return this.OrderedMapper.insertOrdered(ovo);
+	}
+
+	@Override
+	public List<OrderedVO> selectYetRefund(OrderedVO ovo) {
+		return this.OrderedMapper.selectYetRefund(ovo);
 	}
 }

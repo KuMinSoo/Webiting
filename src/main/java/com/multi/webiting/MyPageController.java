@@ -1,7 +1,9 @@
 package com.multi.webiting;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -248,21 +250,48 @@ public class MyPageController {
 		int idx_fk=loginUser.getIdx();
 		
 		List<OrderedVO> olist=oService.selectOrderedByidx(idx_fk);
+		List<OrderedVO> rlist=oService.selectRefundByidx(idx_fk);
 		
 		m.addAttribute("orderedList", olist);
+		m.addAttribute("refundList", rlist);
 		return "mypage/userOrdered";
 	}
 	
 	@PostMapping("/userOrderedDetail")
-	public String userOrderedDetail(Model m, @RequestParam("ordered_no") String ordered_no) {
-		log.info(ordered_no);
+	public String userOrderedDetail(Model m, @RequestParam("ordered_no") String ordered_no, HttpSession session) {
+		//log.info(ordered_no);
+		UserVO loginUser=(UserVO)session.getAttribute("loginUser"); 
+		int idx_fk=loginUser.getIdx();
 		
-		List<OrderedVO> olist=oService.selectOrderedByOnum(ordered_no);
-		List<OrderedVO> dlist=oService.selectOrdered(ordered_no);
+		OrderedVO ovo=new OrderedVO();
+		ovo.setIdx_fk(idx_fk);
+		ovo.setOrdered_no(ordered_no);
+		
+		List<OrderedVO> olist=oService.selectOrderedByOnum(ovo);
+		List<OrderedVO> dlist=oService.selectOrdered(ovo);
+		List<OrderedVO> ylist=oService.selectYetRefund(ovo);
 		
 		m.addAttribute("orderedList", olist);
-		m.addAttribute("detailList", dlist);	
+		m.addAttribute("detailList", dlist);
+		m.addAttribute("yetrefundList", ylist);
 		
 		return "mypage/userOrderedDetail";
+	}
+	
+	@PostMapping("/refundReq")
+	public String refundReq(Model m, @RequestParam("rfType") int rfType, @RequestParam("rtxt") String rtxt, @RequestParam("orderedNum") int[] orderedNum) {
+		log.info(rfType+"/"+rtxt+"/"+orderedNum);
+		int n=-999;
+		for(int i=0; i<orderedNum.length; i++) {
+			OrderedVO ovo=oService.selectOrderedByorderedNum(orderedNum[i]);
+			ovo.setRefund_num_fk(rfType);
+			ovo.setRtxt(rtxt);
+			n=oService.updateRefund(ovo);
+		}
+		
+		String str=(n>0)?"취소/환불 신청을 완료하였습니다.":"취소/환불 신청에 실패했습니다.";
+		String loc=(n>0)?"userOrdered":"javascript:history.back()";
+
+		return common.addMsgLoc(m, str, loc);
 	}
 }

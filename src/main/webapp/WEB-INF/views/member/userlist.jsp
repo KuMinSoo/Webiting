@@ -22,7 +22,7 @@
 			alert('검색 유형을 선택하세요');
 			return false;
 		}
-		if(!serchF.findKeyword.value){
+		if(!searchF.findKeyword.value){
 			alert('검색어를 입력하세요');
 			searchF.findKeyword.focus();
 			return false;

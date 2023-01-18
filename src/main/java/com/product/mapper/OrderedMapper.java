@@ -4,7 +4,6 @@ import java.util.List;
 
 
 import com.product.model.OrderVO;
-import com.product.model.OrderedDetailVO;
 
 import com.board.model.PagingVO;
 
@@ -16,18 +15,13 @@ public interface OrderedMapper {
 	
 	int insertOrdered(OrderedVO vo);
 
-	List<OrderedVO> selectOrdered(String ordered_no);
 	int deleteOrdered(int ordered_no);
-
-
-		
 	
 	int updateOrderDetailDelivnum(String ordered_delivnum,int orderedDetail_no);
-
 	
 	List<OrderedVO> selectOrderedByidx(int idx_fk);
-	int insertOrder(OrderVO ovo);
-	List<OrderedVO> selectOrderedByOnum(String ordered_no);
+	List<OrderedVO> selectOrderedByOnum(OrderedVO ovo);
+	List<OrderedVO> selectOrdered(OrderedVO ovo);
 
 	int updateDelivStart(int orderedNum);
 	int updateDelivCompleted(int orderedNum);
@@ -35,5 +29,11 @@ public interface OrderedMapper {
 	int updateCancelCompleted(int orderedNum);
 	List<OrderedVO> selectCancelList(PagingVO page);
 	List<OrderedVO> selectOrderedAllPaging(PagingVO page);
+
+	int updateRefund(OrderedVO ovo);
+	OrderedVO selectOrderedByorderedNum(int orderedNum);
+	List<OrderedVO> selectRefundByidx(int idx_fk);
+	int insertOrdered(OrderVO ovo);		
+	List<OrderedVO> selectYetRefund(OrderedVO ovo);
 	
 }

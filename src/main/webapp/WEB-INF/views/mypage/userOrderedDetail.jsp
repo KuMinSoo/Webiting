@@ -10,7 +10,55 @@
    String ctx = request.getContextPath();
 %>
 <c:import url="/mypageNavi"/>
-<div class="container mt-3" style="height: 600px; overflow: auto;">
+<script>
+function check(){
+	var len=document.getElementsByClassName("subchk").length;
+	count=0;
+	for(i=0; i<len; i++){
+		if(document.getElementsByClassName("subchk")[i].checked){
+			count++;
+		}
+	}
+	if(count==0){
+		alert('취소할 상품을 선택하세요.');
+		return false;
+	}
+	
+	if(!refundReq.rfType.value){
+		alert('취소 유형을 선택하세요.');
+		refundReq.rfType.focus();
+		return false;
+	}
+	if(!refundReq.rtxt.value){
+		alert('취소 내용을 입력하세요.');
+		refundReq.rtxt.focus();
+		return false;
+	}
+	var chTF=confirm("취소/환불 신청을 하시겠습니까?");
+	if(chTF){
+		return true;
+	}
+	return false;
+}
+function showrefund(){
+	$('#refundDiv').show(function(){
+		location.href='#refundDiv';	
+	});			
+}
+
+</script>
+<style>
+#oDetail{
+	height:600px;
+	overflow-y:scroll;
+	-ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */	
+}
+#oDetail::-webkit-scrollbar{
+   display:none;
+}
+</style>
+<div id="oDetail" class="container mt-3" style="height: 600px; overflow: auto;">
 	<h1 class="text-center">상세 주문 내역</h1>
 	<hr>
 	<h3>주문 번호 : ${orderedList[0].ordered_no}</h3>
@@ -40,10 +88,10 @@
 			<table class="table text-center">
 				<tr>
 					<th width="20%"></th>
-					<th width="30%">제품 정보</th>
-					<th width="10%">배송 상태</th>
-					<th width="30%">주문 상태</th>
-					<th width="10%">판매 회사</th>
+					<th width="30%">상품정보</th>
+					<th width="10%">배송상태</th>
+					<th width="30%">주문상태</th>
+					<th width="10%">판매회사</th>
 				</tr>
 				<c:forEach var="d" items="${detailList}">
 				<tr>
@@ -53,7 +101,7 @@
 						</a>
 					</td>
 					<td>
-						<a class="goods" href="<%=ctx%>/prodDetail?pnum=${d.pnum_fk}"> <!-- 해당 상품 상세페이지로 이동 -->
+						<a class="goods" href="<%=ctx%>/prodDetail?pnum=${d.pnum_fk}" style="text-decoration: none"> <!-- 해당 상품 상세페이지로 이동 -->
 							<p class="pname">${d.pname}</p>
 							<ul class="info"> 
 								<li>${d.saleprice}원</li>  
@@ -68,10 +116,7 @@
 					<td>
 						<span class="order_state">${d.ordered_status}</span><br><br>
 						<c:if test="${d.ordered_statusNum_fk eq 0}">
-							<button class="refundReq">주문 취소/환불하기</button>
-						</c:if>
-						<c:if test="${d.ordered_statusNum_fk ne 0}">
-							<button class="refundEnd">반품 정보</button>
+							<button class="refundReq" onclick="showrefund()">주문 취소/환불하기</button>
 						</c:if>
 					</td>
 					<td>
@@ -81,12 +126,53 @@
 				</c:forEach>
 			</table>							
 		</div>
+		<form action="/mypage/refundReq" method="post" class="refundReq" name="refundReq" onsubmit="return check()">
+		<div class="mt-5 mb-5" id="refundDiv" style="display: none">
+			<h2>주문 취소/환불 신청</h2>
+			<b>상품정보</b><br><br>
+			<table  class="table text-center">
+				<tr>
+					<th width="20%">주문일자[주문번호]</th>
+					<th width="5%"></th>
+					<th width="10%">이미지</th>
+					<th width="20%">상품정보</th>
+					<th width="10%">수량</th>
+					<th width="15%">상품구매금액</th>
+					<th width="10%">판매회사</th>
+					<th width="10%">배송상태</th>
+				</tr>
+				
+				<c:forEach var="y" items="${yetrefundList}" varStatus="status">
+				<tr>
+					<td rowspan="${status.end}" width="20%"><c:out value="${y.ordered_date}"/><br>
+						[<c:out value="${y.ordered_no}"/>]</td>
+					<td width="5%"><input type="checkbox" class="subchk" name="orderedNum" value="${y.orderedNum}"></td>
+					<td width="10%"><img src="../resources/product_images/${y.pimage}" width="50" height="50"></td>
+					<td width="20%"><c:out value="${y.pname}"/></td>
+					<td width="10%"><c:out value="${y.oqty}"/></td>
+					<td width="15%"><c:out value="${y.saleprice}"/>원</td>
+					<td width="10%"><c:out value="${y.pcompany}"/></td>
+					<td width="10%"><c:out value="${y.ordered_delivstate}"/></td>
+				</tr>
+				</c:forEach>
+			</table>
+			<br><br>
+			<b>취소사유</b>
+			<div class="container mt-3">
+				<select name="rfType" style="padding:6px;width:35%;height:35px;">
+					<option value="">::취소/환불 사유::</option>
+					<option value="1">오배송</option>
+					<option value="2">제품 하자</option>
+					<option value="3">단순 변심</option>
+				</select>
+				<br>
+				<textarea class="rtxt" id="rtxt" name="rtxt" cols="90" rows="5" placeholder="문의 내용을 적어주세요."></textarea>
+				<br>
+				<button id="rf_btn" class="rf_btn">신청하기</button>
+			</div>
+		</div>
+		</form>
 	</div>	
 </div>
-
-<form>
-
-</form>
-
 
 <c:import url="/foot" />

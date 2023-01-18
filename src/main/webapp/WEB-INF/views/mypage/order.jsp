@@ -13,7 +13,6 @@
 <script type="text/javascript" charset="utf-8" src="/resources/js/pay.js"></script>
 
 <div class="content_area">
-<button id="test">asdasd</button>
 	<div class="content_subject">
 		<span>주문 페이지</span>
 	</div>

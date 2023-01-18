@@ -19,28 +19,38 @@
 		select * from orderedview where 1=1 <include refid="searchF"></include>
 	</select>
 	
+	<insert id="insertOrder" parameterType="Order">
+		insert into ordertable(title, ordered_no, ordered_to_name, ordered_to_tel, ordered_to_email, ordered_to_adr, ordered_to_post, ordered_payhow, ordered_paystate, ordered_orderprice, ordered_date, idx)
+		values(#{title}, #{ordered_no}, #{ordered_to_name},#{ordered_to_tel}, #{ordered_to_email},#{ordered_to_adr},#{ordered_to_post},#{ordered_payhow},#{ordered_paystate},#{ordered_orderprice}, sysdate, #{idx})	
+	</insert>
 
 	<update id="delivCompleted" parameterType="String">
 		update orderedview set ordered_delivstateNum_fk=1 where orderednum=#{value}
 	</update>
 	
-	<select id="selectOrdered" resultType="Ordered" parameterType="string">
-		select * from orderedview where ordered_no=#{value}
+	<select id="selectOrdered" resultType="Ordered" parameterType="Ordered">
+		select * from orderedview where ordered_no=#{ordered_no} and idx_fk=#{idx_fk}
 	</select>
 	
 	<select id="selectOrderedByidx" resultType="Order" parameterType="int">
 		select * from orderview where idx=#{value}
 	</select>
 	
-	<select id="selectOrderedByOnum" resultType="Order" parameterType="String">
-		select * from orderview where ordered_no=#{value}
+	<select id="selectOrderedByOnum" resultType="Ordered" parameterType="Ordered">
+		select * from orderedview where ordered_no=#{ordered_no} and idx_fk=#{idx_fk}
 	</select>
 	
-	<insert id="insertOrder" parameterType="Order">
-		insert into ordertable(title, ordered_no, ordered_to_name, ordered_to_tel, ordered_to_email, ordered_to_adr, ordered_to_post, ordered_payhow, ordered_paystate, ordered_orderprice, ordered_date, idx)
-		values(#{title}, #{ordered_no}, #{ordered_to_name},#{ordered_to_tel}, #{ordered_to_email},#{ordered_to_adr},#{ordered_to_post},#{ordered_payhow},#{ordered_paystate},#{ordered_orderprice}, sysdate, #{idx})	
-	</insert>
-
+	<select id="selectOrderedByorderedNum" resultType="Ordered" parameterType="int">
+		select * from ordered where orderedNum=#{value}
+	</select>
+	
+	<select id="selectRefundByidx" resultType="Ordered" parameterType="int">
+		select * from refundedview where idx_fk=#{value} and refund_num_fk is not null
+	</select>
+	
+	<select id="selectYetRefund" resultType="Ordered" parameterType="Ordered">
+		select * from orderedview where ordered_no=#{ordered_no} and idx_fk=#{idx_fk} and refund_num_fk is null
+	</select>
 	
 	<sql id="searchF">
 		<if test="findType!=null and findKeyword!=''">
@@ -152,6 +162,10 @@
 			</choose>
 		</if>
 	</sql>	
-
+	
+	<update id="updateRefund" parameterType="Ordered">
+		update ordered set refund_num_fk=#{refund_num_fk}, rtxt=#{rtxt}, ordered_statusNum_fk=1
+		where orderednum=#{orderedNum}
+	</update>
 	
 </mapper>
