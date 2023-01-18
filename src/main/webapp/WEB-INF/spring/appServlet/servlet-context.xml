@@ -37,7 +37,12 @@
 		<beans:property name="contentType" value="application/json;charset=UTF-8" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com" />
+						 <!-- scan -->
+	<!-- <context:component-scan base-package="com.board.service"></context:component-scan>
+	<context:component-scan base-package="com.board.model"></context:component-scan>
+    <context:component-scan base-package="com.common.repo"></context:component-scan> -->
+    
+    <context:component-scan base-package="com.*" />
 	
 	<!-- interceptor 설정(로그인, 관리자) 테스트할 땐 주석처리 해놓기================================= -->
 	<!-- <interceptors>

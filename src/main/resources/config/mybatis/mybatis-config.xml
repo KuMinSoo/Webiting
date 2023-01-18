@@ -15,16 +15,16 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.product.model.CartVO" alias="Cart"/>
 		<typeAlias type="com.board.model.BoardVO" alias="Board"/>
 		<typeAlias type="com.board.model.PagingVO" alias="Paging"/>
-		
+		<typeAlias type="com.board.model.ReviewVO" alias="Review"/>
 	</typeAliases>
 	
-	<!-- mapper 정의============================  -->
+	<!-- mapper.xml 위치 정의============================  -->
 	<mappers>
 		<mapper resource="config/mybatis/mapper/UserMapper.xml"/>
 		<mapper resource="config/mybatis/mapper/CategoryMapper.xml"/>
 		<mapper resource="config/mybatis/mapper/ProductMapper.xml"/>
 		<mapper resource="config/mybatis/mapper/AdminMapper.xml"/>
 		<mapper resource="config/mybatis/mapper/BoardMapper.xml"/>
-		
+		<mapper resource="config/mybatis/mapper/ReviewMapper.xml"/>
 	</mappers>
 </configuration>

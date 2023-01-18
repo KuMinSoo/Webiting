@@ -274,3 +274,18 @@ const reviewDel = function(num){
 		}
 	});	 	
  }
+ 
+ // 별점 JS				
+				$(function(){
+	$('rate5').css('background-color', 'blue');
+	$('#graph1').css('width','${starList.get(0)}%');
+});
+document.addEventListener('DOMContentLoaded', function(){
+    //별점선택 이벤트 리스너
+    document.querySelector('.rating').addEventListener('click',function(e){
+        let elem = e.target;
+        if(elem.classList.contains('rate_radio')){
+            rating.setRate(parseInt(elem.value));
+        }
+    })
+})
