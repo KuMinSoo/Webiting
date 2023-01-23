@@ -67,7 +67,9 @@ public class StatsController {
 	public List<MonthVO> monthVO(){
 		List<MonthVO> svo=new ArrayList<>();
 		svo=sService.getMonthSales();
-		
+		for(int i=0;i<svo.size();i++) {
+			log.info(svo.get(i).getOrdered_date()+"/"+svo.get(i).getTotalprice());
+		}
 		return svo;
 	}
 	

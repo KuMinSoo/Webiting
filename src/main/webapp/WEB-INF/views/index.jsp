@@ -14,7 +14,8 @@
 			  autoplay: true,
 			  autoplaySpeed: 5000,
 			  nextArrow:$('.next'),
-			  prevArrow:$('.prev'),
+			  prevArrow:$('.prev') 
+			  
 			});
   		})
 </script>
@@ -41,11 +42,12 @@ background-color:#212529;
         <h1 class="silder-title">Top Like Products</h1>
         <i class="fas fa-chevron-left prev"></i>  
         <i class="fas fa-chevron-right next"></i>   
-        <div class="post-wrapper">
+        <div class="post-wrapper" style="width:90%;height:800px;margin-top:1%text-align:center;
+							display:flex;align-items:center;justify-content:center; /* 좌우 기준 중앙정렬 */">
         <c:forEach var="prod" items="${toplikeprod}">
           <div class="post">
-            <a href="/prodDetail?pnum=${prod.pnum}" style="width:200px;height:200px;">
-            <img src="../resources/product_images/${prod.pimage1}" class="slider-image" style="width:400px;height:200px;text-align:center"></a>
+            <a href="/prodDetail?pnum=${prod.pnum}" style="width:90%;height:600px;">
+            <img src="../resources/product_images/${prod.pimage1}" class="slider-image" style="width:90%;height:500px;text-align:center"></a>
             <div class="post-info">
               <i class="far fa-user" style="height:10%;"></i>
             </div>
@@ -58,7 +60,7 @@ background-color:#212529;
 </c:if>
 <c:import url="/prodRecoForm" />
 
-    			<!-- 배너 2-->
+    		<!-- 	<!-- 배너 2
     		<div class = "home-banner" style="text-align:center">
 				<div class = "banner" id = "NewYear-sale">
 					<div class = "pub-banner" style="height:80%">
@@ -81,7 +83,7 @@ background-color:#212529;
 						</div>
 					</div>
 				</div>
-    		</div>
+    		</div> -->
 
     
 <c:import url="/foot"/>

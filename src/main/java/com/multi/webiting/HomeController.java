@@ -56,8 +56,19 @@ public class HomeController {
 		return "/agree";
 	}
 	
+
 	@GetMapping("/admin/chart")
 	public String chart() {
 		return "admin/stats";
+	}
+
+	@RequestMapping("adminTop")
+	public void adminTop() {
+		
+	}
+	@RequestMapping("adminNavi")
+	public void adminNavi() {
+		
+
 	}
 }

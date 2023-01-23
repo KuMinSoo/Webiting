@@ -54,7 +54,8 @@ function drawChart() {
 		dataType:'json',
 		cache:false,
 		success:function(res){
-			alert(res);
+			//alert(res);
+			renderSalesMonth(res);
 		},
 		error:function(err){
 			alert('err');
@@ -247,4 +248,35 @@ const renderSalesYear=function(jsonArr){
     chart.draw(data, google.charts.Bar.convertOptions(options));
 	
 }
+
+const renderSalesMonth=function(jsonArr){
+	   var data = new google.visualization.DataTable();
+	   data.addColumn('number', 'ordered_date'); //vo변수
+	   data.addColumn('number', 'totalprice');
+	   
+	   let mydata=[];
+	   $.each(jsonArr, function(i, obj){
+	      let arr=[]; //1차원 배열
+	      arr.push(obj.ordered_date);
+	      arr.push(obj.totalprice);
+	      mydata.push(arr);
+	      
+	      console.log("arr= "+arr);
+	   })
+	   data.addRows(mydata);
+	   
+	   var option={
+	         title:'월 매출 통계',
+	         width:800,
+	         height:500,
+	         fontSize:13,
+	         fontName:'Verdana',
+	         colors:['#669355','#ffaacc'],
+	         bar: {groupWidth: "95%"},
+	          legend: { position: "none" }
+	   }
+
+	   var column_chart=new google.visualization.ColumnChart(document.getElementById('MonthList'));//div이름
+	   column_chart.draw(data, option);
+	}
 </script>

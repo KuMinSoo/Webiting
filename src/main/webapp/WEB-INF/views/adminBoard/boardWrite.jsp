@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<c:import url="/top"/>
+<c:import url="/top" />
+<c:import url="/adminNavi" />
+
+
+
 <script>
 	$(function(){//글쓰기 유효성 검사
 		$('#bf').submit(function(){
@@ -43,10 +47,13 @@
 	}
 
 </style>
+<main>
+	<section>
+<div class="container mt-4" style="overflow: auto ;position:relative">
 
-<div align="center" id="bbs" class="col-md-8 offset-md-2">
-	<br>
-	<h1 class='text-center' style="color:red">관리자: 공지사항 작성하기</h1><br>
+			<div class="content_main">관리자 공지사항 작성하기</div>
+<div align="center" id="bbs">
+
 	 <form name="bf" id="bf" role="form" action="write" method="POST" enctype="multipart/form-data">  
 	   <!-- 원본글쓰기mode는 write, 답변글쓰기 mode는 rewrite로 감  -->       
 	  <input type="hidden" name="mode" value="write">
@@ -107,6 +114,10 @@
 	         </td>
 	      </tr>
 	    </table>
-	</form>       
-</div>
+	</form>   
+	</div>    
+</div>	
+	</section>
+</main>
+
 <c:import url="/foot" />

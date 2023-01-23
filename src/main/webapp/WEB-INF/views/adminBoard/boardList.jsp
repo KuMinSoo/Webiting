@@ -2,12 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!--  ---------------------------------------------------------- -->
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!-- function taglib------------------------------------------- -->
-
-
 <c:import url="/top" />
+<c:import url="/adminNavi" />
+
 
 <style>
 	#boardBody>tr>td:nth-child(5n+2) {
@@ -27,6 +25,16 @@
 		width:30px;
 		height:17px;
 	}
+	.content_main{
+		background-color:#787878;
+		color:white;
+		text-align:center;
+		font-size:40px;
+		margin:10px 0px;
+		padding:10px;
+		width:100%;
+		border-radius:5px;
+	}
 
 </style>
 <script>
@@ -44,10 +52,12 @@
 		return true;
 	}
 </script>
+<main>
+	<section>
+		<div class="container mt-4" style="overflow: auto; position: relative">
+			<div class="content_main">관리자 게시판 목록</div>
 
-<!-- ${boardArr} -->
-<div class="container mt-3" style="height: 1200px; overflow: auto;">
-	<h1 class='text-center' style="color:red;">관리자 게시판</h1>
+
 	<!-- 검색기능------------------------------------------------------>
 	<div class="row py-3">
 		<div>
@@ -149,7 +159,7 @@
 								<option value="3"
 									<c:if test="${paging.findType eq 3}">selected</c:if>>글내용</option>
 							</select> <input type="text" name="findKeyword" placeholder="검색어를 입력하세요"
-								autofocus="autofocus" style='width: 30%'>
+								 style='width: 30%'>
 							<button class="btn btn-outline-primary">검 색</button>
 						</form>
 					</div>
@@ -162,4 +172,9 @@
 		</tfoot>
 	</table>
 </div>
+	</section>
+</main>
+
+
+
 <c:import url="/foot" />

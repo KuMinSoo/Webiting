@@ -8,6 +8,7 @@ import com.product.model.CartVO;
 import com.product.model.OrderVO;
 import com.user.model.DitchVO;
 import com.user.model.LikeVO;
+import com.user.model.UserVO;
 
 public interface MyPageService {
 	
@@ -32,4 +33,6 @@ public interface MyPageService {
 	List<DitchVO> ditchProdList(int idx);
 	List<DitchVO> ditchProdAllList();
 	int deleteDitch(int dnum);
+	UserVO selectUserByIdx(int idx);
+	int updateUser(UserVO user);
 }

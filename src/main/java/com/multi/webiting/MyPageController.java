@@ -1,6 +1,7 @@
 package com.multi.webiting;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -209,7 +210,7 @@ public class MyPageController {
 	@PostMapping("/order")
 	public String goOrder(Model m, @RequestParam("pnum") String[] pnum,
 			@RequestParam("oqty") int[] oqty, @RequestParam("idx") Integer idx,
-			HttpSession session) {
+			 @RequestParam("cartNum")int []cartNum, HttpSession session) {
 		
 		List<ProductVO> orderList=new ArrayList<>();
 		int totalPrice=0,totalPoint=0; 
@@ -223,12 +224,23 @@ public class MyPageController {
 			totalPoint+=prod.getTotalPoint();
 		}
 		log.info("ovo==="+ovo);
-		
+		log.info("cartNum==="+Arrays.toString(cartNum));
+		///주문목록으로 들어온 장바구니 번호 담기 추가-->결제시 장바구니 목록에서 삭제할때 사용하는 섹션
+		/*
+		 * List<Integer> cNum=new ArrayList<>(); for(int i=0;i<cartNum.length;i++) { int
+		 * num=cartNum[i]; cNum.add(num); }
+		 */		
+		session.setAttribute("cartNum", cartNum);
+		//////////////////////////////
 		ovo.setTotalPrice(totalPrice);
 		ovo.setTotalPoint(totalPoint);
 		session.setAttribute("orderList", orderList);//상품목록
 		session.setAttribute("ovo", ovo);//주문목록
-
+		
+		
+		
+		
+		
 		return "mypage/order";
 	}
 	
@@ -326,5 +338,41 @@ public class MyPageController {
 
 		return common.addMsgLoc(m, str, loc);
 
+	}
+	
+	@GetMapping("/userEdit/{idx}")
+	public String userEdit2(Model m, @PathVariable(name="idx") int idx) {
+		log.info("idx==="+idx);
+		
+		if(idx==0) {
+			return "redirect:userList";
+		}
+		
+		UserVO vo=this.mService.selectUserByIdx(idx);
+		if(vo==null) {
+			return common.addMsgBack(m, "해당 회원이 없습니다.");
+		}
+		
+		m.addAttribute("user", vo);
+		
+		return "member/myinfoeditform";
+	}
+	
+	
+	@PostMapping("/edit")
+	public String editEnd(Model m, @ModelAttribute("user") UserVO user) {
+		log.info("edit==="+user);
+		if(user.getName()==null||user.getUserid()==null||user.getPwd()==null||
+				user.getName().trim().isEmpty()||user.getUserid().trim().isEmpty()||user.getPwd().trim().isEmpty()) {
+			return "redirect:join";
+		}
+		
+		int n=mService.updateUser(user);
+		String str=(n>0)?"회원 정보 수정 성공":"회원 정보 수정 실패";
+		String loc=(n>0)?"../mypage/likeList":"javascript:history.back()";
+		
+		m.addAttribute("message", str);
+		m.addAttribute("loc", loc);
+		return "msg";
 	}
 }

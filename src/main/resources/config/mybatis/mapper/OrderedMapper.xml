@@ -113,22 +113,27 @@
 	<select id="getTotalCount" resultType="int" parameterType="Paging">
 		select count(*) from orderedview where 1=1  <include refid="searchF"/> 
 	</select>
-	
+	<select id="getRefundCount" resultType="int" parameterType="Paging">
+		select count(*) from refundedview where 1=1  <include refid="searchF"/> 
+	</select>
 	<select id="getCancelCount" resultType="int" parameterType="Paging">
-		select count(orderednum) from orderedview where 1=1
+		select count(*) from orderedview where 1=1
 		<include refid="cancelF"/>
 	</select>
 
 	<select id="selectOrderedAllPaging" resultType="Ordered" parameterType="Paging">
-		select * from (select row_number() over(order by ordered_date desc, orderedNum desc) rn, o.* from orderedview o)	
-		<![CDATA[where rn > #{start} and rn < #{end}]]> <include refid="searchF"/>
+		select * from (select row_number() over(order by ordered_date desc, orderedNum desc) rn, o.* from orderedview o where 1=1 <include refid="searchF"/>)	
+		<![CDATA[where rn > #{start} and rn < #{end}]]> 
 	</select> 
 	
 	<select id="selectCancelList" resultType="Ordered" parameterType="Paging">
-		select * from (select row_number() over(order by ordered_date desc, orderedNum desc) rn, r.* from orderedview r)	
+		select * from (select row_number() over(order by ordered_date desc, orderedNum desc) rn, o.* from orderedview o where 1=1 <include refid="cancelF"/>)	
 		<![CDATA[where rn > #{start} and rn < #{end}]]> 
-		 <include refid="cancelF"/>
 	</select>
+		<select id="selectRefundedAllPaging" resultType="Ordered" parameterType="Paging">
+		select * from (select row_number() over(order by ordered_date desc, orderedNum desc) rn, o.* from refundedview o where 1=1 <include refid="cancelF"/>)	
+		<![CDATA[where rn > #{start} and rn < #{end}]]> 
+	</select> 
 	
 
 	<update id="updateDelivStart" parameterType="int">
@@ -141,6 +146,9 @@
 	
 	<update id="updateCancelCompleted" parameterType="int">
 		update orderedview set ordered_statusNum_fk=2 where orderednum=#{value}
+	</update>
+	<update id="updateCancel" parameterType="int">
+		update orderedview set ordered_statusNum_fk=2, refund_num_fk=3  where orderednum=#{value}
 	</update>
 	
 	<sql id="cancelF">
@@ -157,17 +165,16 @@
 				</otherwise>		
 			</choose>
 		</if>
-
 		<if test='orderStatusMode != "" and orderStatusMode!=null'>
 			<choose>
+				<when test="orderStatusMode==0">
+					and ordered_statusNum_fk = 0
+				</when>
 				<when test="orderStatusMode==1">
 					and ordered_statusNum_fk = 1
 				</when>
-				<when test="orderStatusMode==2">
-					and ordered_statusNum_fk = 2
-				</when>
 				<otherwise>
-					and ordered_statusNum_fk >= 1
+					and ordered_statusNum_fk = 2
 				</otherwise>
 			</choose>	
 		</if>
@@ -184,5 +191,25 @@
 		update ordered set refund_num_fk=#{refund_num_fk}, rtxt=#{rtxt}, ordered_statusNum_fk=1
 		where orderednum=#{orderedNum}
 	</update>
+	
+	<update id="updateSelectDeliv" parameterType="int">
+		update ordered set ordered_delivstateNum_fk=1 where orderednum=#{value}
+	</update>
+	
+	<update id="updateSelectDelivDone" parameterType="int">
+		update ordered set ordered_delivstateNum_fk=2 where orderednum=#{value}
+	</update>
+	
+	<update id="updateSelectCancel" parameterType="int">
+		update ordered set ordered_statusNum_fk=2 where orderednum=#{value}
+	</update>
+	
+	<update id="updateSelectCancelDone" parameterType="int">
+		update ordered set ordered_statusNum_fk=2 where orderednum=#{value}
+	</update>
+	<select id="selectUserInfo" parameterType="int" resultType="Ordered">
+		select * from orderedview where orderedNum=#{value}
+	</select>
+	
 	
 </mapper>

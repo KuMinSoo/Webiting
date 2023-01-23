@@ -69,5 +69,18 @@ public class OrderedVO {
 		//////////////////////////////////////////////
 	}//------------------------
 		
-	 
+	/*
+	 * <td> <a href="#" onclick="memberInfo('${state.index}')"><c:out
+	 * value="${orderList.userid}"/></a> <input type="text" id="name${state.index}"
+	 * value="${orderList.name}"> <input type="text" id="userid${state.index}"
+	 * value="${orderList.userid}"> <input type="text"
+	 * id="ordered_to_tel${state.index}" value="${orderList.ordered_to_tel}"> <input
+	 * type="text" id="ordered_to_email${state.index}"
+	 * value="${orderList.ordered_to_email}"> <input type="text"
+	 * id="ordered_to_adr${state.index}" value="${orderList.ordered_to_adr}"> <input
+	 * type="text" id="ordered_to_post${state.index}"
+	 * value="${orderList.ordered_to_post}">
+	 * 
+	 * </td>
+	 */
 }

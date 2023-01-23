@@ -4,17 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:import url="/top" />
-<style>
-	.txt0{
-		color:gray;
-	}
-	.txt-1{
-		color:blue;
-	}
-	.txt-2{
-		color:tomato;
-	}
-</style>
+<c:import url="/adminNavi" />
 
 <script>
 	function check(){
@@ -45,31 +35,24 @@
 		$('#frm').prop('action','userEdit');
 		$('#frm').submit();
 	}
-</script>
-<c:set var="myctx" value="${pageContext.request.contextPath}"/>
-<div> 
-	<p>
-	<button class="btn btn-outline-danger" onclick="location.href='${myctx}/admin/prodForm'">
-	상품 등록</button>
-	<button class="btn btn-outline-danger" onclick="location.href='${myctx}/admin/list'">
-	관리자 게시판</button>
-	<button class="btn btn-outline-danger" onclick="location.href='${myctx}/admin/ditchList'">
-	폐가구 신청 현황</button>
-	<button class="btn btn-outline-danger" onclick="location.href='${myctx}/AorderedList'">
-	배송관리</button>
-	<button class="btn btn-outline-danger" onclick="location.href='${myctx}/orderedCancel'">
-	결제취소 관리</button>
-	</p>
-</div> 
+</script>	
 
-<div class="container mt-3" style="height: 1100px; overflow: auto;">
+
+<div class="container mt-3" style="height: 1100px;overflow: auto ;;position:relative;">
+
+	<!-- --------------------내용 추가-------------------------------------------------------------------------------------------------- -->
+	<br><br>
 	<h1 class="text-center">Users [Admin Page]</h1>
 	<c:if test="${paging.findType ne null and paging.findType ne ''}">
 		<h3 class="text-center text-secondary">[<c:out value="${paging.findKeyword }"/>] 검색 결과</h3>
 	</c:if>
 	<!-- 검색 폼 시작 ----------------------------------- -->
-	
-	<div class="row py-3">
+	 <div class="row" style="width:85%;">
+            <!--768px 이상에서는 열 3개 병합-->
+            <!--576px 이하에서는 열 4개 병합-->
+            
+<!--             <div class="row" > -->
+	<div class="row py-3" style="margin-left:20%">
 		<div class="col-md-9 text-center">
 			<form name="searchF" action="userList" onsubmit="return check()">
 				<!-- hidden data ----------------------------------------- -->
@@ -94,8 +77,12 @@
 			</form>
 		</div>
 	</div>
-	<!-- --------------------------------------------- -->
-	<div>
+
+
+
+	
+	<!-- --------------------내용 추가-------------------------------------------------------------------------------------------------- -->
+	<div style="margin-left:12% ">
 		<%-- ${userArr} --%>
 		<table class="table table-bordered mt-3">
 			<thead>
@@ -151,6 +138,7 @@
 		</table>
 	</div>
 </div>
+          </div> 
 
 <form name="frm" id="frm" method="post">
 	<input type="hidden" name="idx" id="idx">

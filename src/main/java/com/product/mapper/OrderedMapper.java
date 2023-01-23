@@ -2,12 +2,8 @@ package com.product.mapper;
 
 import java.util.List;
 
-
-import com.product.model.OrderVO;
-
-
 import com.board.model.PagingVO;
-
+import com.product.model.OrderVO;
 import com.product.model.OrderedVO;
 
 public interface OrderedMapper {
@@ -32,8 +28,11 @@ public interface OrderedMapper {
 	int updateDelivStart(int orderedNum);
 	int updateDelivCompleted(int orderedNum);
 	int getTotalCount(PagingVO page);
+	
 	int getCancelCount(PagingVO page);
 	int updateCancelCompleted(int orderedNum);
+	int updateCancel(int orderedNum);
+
 	List<OrderedVO> selectCancelList(PagingVO page);
 	List<OrderedVO> selectOrderedAllPaging(PagingVO page);
 
@@ -44,5 +43,14 @@ public interface OrderedMapper {
 	List<OrderedVO> selectYetRefund(OrderedVO ovo);
 	
 	int updateSqty(OrderedVO ovo);
+
+	int getRefundCount(PagingVO page);
+	List<OrderedVO> selectRefundedAllPaging(PagingVO page);
+	int updateSelectDeliv(int orderedNum);
+	int updateSelectDelivDone(int orderedNum);
+	int updateSelectCancelDone(int orderedNum);
+	
+	OrderedVO selectUserInfo(int orderedNum);
+	
 	
 }

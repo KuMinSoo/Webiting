@@ -13,6 +13,7 @@ import com.product.model.OrderedVO;
 import com.user.mapper.MyPageMapper;
 import com.user.model.DitchVO;
 import com.user.model.LikeVO;
+import com.user.model.UserVO;
 
 @Service("MyPageServiceImpl")
 public class MyPageServiceImpl implements MyPageService {
@@ -125,6 +126,16 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public List<DitchVO> ditchProdAllList() {
 		return this.mMapper.ditchProdAllList();
+	}
+
+	@Override
+	public UserVO selectUserByIdx(int idx) {
+		return this.mMapper.selectUserByIdx(idx);
+	}
+
+	@Override
+	public int updateUser(UserVO user) {
+		return this.mMapper.updateUser(user);
 	}
 
 	

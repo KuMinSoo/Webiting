@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt"  uri="http://java.sun.com/jsp/jstl/fmt"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<c:import url="/top"/>
+<c:import url="/top" />
+<c:import url="/adminNavi" />
+
+
 <script>
 	$(function(){//수정글 유효성 체크
 		$('#bf').submit(function(){
@@ -40,8 +43,14 @@
 
 </style>
 
-<div align="center" id="bbs" class="col-md-8 offset-md-2">
-		<br><h1 class='text-center' style="color:red;">게시판 글 편집하기</h1><br>
+<main>
+	<section>
+<div class="container mt-4" style="overflow: auto ;position:relative">
+
+			<div class="content_main">관리자 편집하기</div>
+			
+<div align="center" id="bbs" >
+
 	<form name="bf" id="bf" role="form" action="write" method="POST" enctype="multipart/form-data">
 	   <input type="hidden" name="mode" value="edit">
 	   <input type="hidden" name="num" value="<c:out value='${board.num}'/>">
@@ -127,5 +136,16 @@
 	      </table>
 	   
 	</form>       
-</div>
+</div>			
+			
+			
+			
+		</div>
+
+	</section>
+</main>
+				
+			
+			
+
 <c:import url="/foot" />

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.stereotype.Service;
 
 import com.admin.mapper.StatsMapper;
@@ -44,23 +45,17 @@ public class StatsServiceImpl implements StatsService {
 		List<MonthVO> list= this.statsMapper.getMonthSales();
 		List<MonthVO> list2= new ArrayList<>();
 		MonthVO mvo=new MonthVO();
-		//int[] arr=new int[12];
+		int[] arr=new int[list.size()];
+		for(int i=0;i<12;i++) {
+			mvo.setOrdered_date(i+1);
+			mvo.setTotalprice(0);
+			list2.add(mvo);
+			System.out.println(list2.get(i));
+		}
 		for(int i=0;i<list.size();i++) {
-			MonthVO vo=list.get(i);
-			int j=i;
-			while(true) {
-				if(vo.getOrdered_date()==(j+1)) {
-					mvo.setOrdered_date(list.get(i).getOrdered_date());
-					mvo.setTotalprice(list.get(i).getTotalprice());
-					list2.add(mvo);
-					break;
-				}else {
-					mvo.setOrdered_date(j+1);
-					mvo.setTotalprice(0);
-					list2.add(mvo);
-					j++;
-				}
-			}
+			mvo=list.get(i);
+			
+			list2.set(list.get(i).getOrdered_date()-1, mvo);
 		}
 		
 		return list2;

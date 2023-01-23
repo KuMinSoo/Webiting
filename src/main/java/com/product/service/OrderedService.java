@@ -14,7 +14,6 @@ public interface OrderedService {
 		List<OrderedVO> selectOrderedByidx(int idx_fk);
 		int deleteOrdered(int ordered_no);
 		List<OrderedVO> selectAll();	
-		//orderDetail view
 
 		int updateDelivnum(String ordered_delivnum,int orderedNum);
 		List<OrderedVO> selectOrderedByOnum(OrderedVO ovo);
@@ -24,6 +23,7 @@ public interface OrderedService {
 		int updateCancelCompleted(int orderedNum);
 		int getTotalCount(PagingVO page);
 		
+		int updateCancel(int orderedNum);
 
 		int getCancelCount(PagingVO page);
 
@@ -38,5 +38,10 @@ public interface OrderedService {
 		
 		int updateSqty(OrderedVO ovo);
 			
-
+		int getRefundCount(PagingVO page);
+		List<OrderedVO> selectRefundedAllPaging(PagingVO page);
+		int updateSelectDeliv(int orderedNum);
+		int updateSelectDelivDone(int orderedNum);
+		int updateSelectCancelDone(int orderedNum);
+		OrderedVO selectUserInfo(int orderedNum);
 }

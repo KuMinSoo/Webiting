@@ -37,18 +37,15 @@ public class PayController {
 	private IamportClient api;
 	
 	public PayController() {
-		this.api = new IamportClient("6817372585767420","jwACfmGjHijBReeDgmpXlU00BcwqqjxXGzXG52ce6Ys2f3dkLgbf7gNH7kINTWku8VvTh9mpkFDejAan");
-	}
-	
-	@RequestMapping("/iamport")
-	public void iamport() {
-		
+		this.api = new IamportClient("6817372585767420",
+		"jwACfmGjHijBReeDgmpXlU00BcwqqjxXGzXG52ce6Ys2f3dkLgbf7gNH7kINTWku8VvTh9mpkFDejAan");
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/verifyIamport/{imp_uid}",produces = "application/json")
-	public Payment paymentByImpUid(@PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException
-	{	
+	public Payment paymentByImpUid(@PathVariable(value= "imp_uid") String imp_uid) 
+	throws IamportResponseException, IOException{
+		
 		IamportResponse<Payment> result= api.paymentByImpUid(imp_uid);
 		log.info(result.getResponse().getAmount());
 		return result.getResponse();

@@ -8,6 +8,7 @@ encoding//src/main/java/com/multi/webiting/AdminOrderedController.java=UTF-8
 encoding//src/main/java/com/multi/webiting/BoardController.java=UTF-8
 encoding//src/main/java/com/multi/webiting/UserController.java=UTF-8
 encoding//src/main/java/com/product/model/ProductVO.java=UTF-8
+encoding//src/main/java/com/product/service/ShopServiceImpl.java=UTF-8
 encoding//src/main/java/com/user/service/KakaoService.java=UTF-8
 encoding//src/main/webapp/WEB-INF/views/header.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/mypage/checkScript.jsp=UTF-8

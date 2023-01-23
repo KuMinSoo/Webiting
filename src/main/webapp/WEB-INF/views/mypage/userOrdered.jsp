@@ -34,7 +34,7 @@ function showRefund(){
 <%
    String ctx = request.getContextPath();
 %>
-<div class="container mt-3 text-center" style="height: 1200px; overflow: auto;">
+<div class="container mt-3 text-center" style="width:70%;height: 1200px; overflow: auto;">
 <button class="orderListbtn" onclick="showOrder()">내 주문 내역(<c:out value="${orderedList.size()}"/>)</button>
 <button class="orderListbtn" onclick="showRefund()">취소/환불 내역(<c:out value="${refundList.size()}"/>)</button>
 <div class="orderList">

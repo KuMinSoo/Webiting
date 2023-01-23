@@ -8,6 +8,7 @@ import com.product.model.CartVO;
 import com.product.model.OrderVO;
 import com.user.model.DitchVO;
 import com.user.model.LikeVO;
+import com.user.model.UserVO;
 
 public interface MyPageMapper {
 	int getTotalCount(PagingVO paging);
@@ -33,4 +34,6 @@ public interface MyPageMapper {
 	List<DitchVO> ditchProdList(int idx);
 	int deleteDitch(int dnum);
 	List<DitchVO> ditchProdAllList();
+	UserVO selectUserByIdx(int idx);
+	int updateUser(UserVO user);
 }

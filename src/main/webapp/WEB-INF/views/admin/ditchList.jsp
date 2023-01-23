@@ -2,9 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="/top"/>
-
-
-<div class="container mt-3" style="height: 600px; overflow: auto;">
+<c:import url="/adminNavi" />
+<div class="container mt-6" style="overflow: auto ;height:800px;position:relative;margin-top:50px">
 	<h1 class="text-center">폐가구 수거 신청 목록</h1>
 	<hr>
 	
@@ -44,5 +43,5 @@
 	</c:if>
 	</table>
 </div>
-
+ 
 <c:import url="/foot"/>

@@ -2,8 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <c:import url="/top" />
+<c:import url="/adminNavi" />
+
 <script>
 	$(function() {// 답변글 유효성 체크
 		$('#bf').submit(function() {
@@ -36,8 +37,11 @@
 
 </style>
 
-<div align="center" id="bbs" class="col-md-8 offset-md-2">
-	<br><h1 class='text-center' style="color:red;">답변 작성하기</h1><br>
+<main>
+	<section>
+<div class="container mt-4" style="overflow: auto ;position:relative">
+
+			<div class="content_main">관리자 수정하기</div>
 	<form name="bf" id="bf" role="form" action="write" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="mode" value="rewrite">
 		<input type="hidden" name="num" value="<c:out value='${num}'/>">
@@ -121,4 +125,11 @@
 		</table>
 	</form>
 </div>
+			
+		</div>
+
+	</section>
+</main>
+		
+
 <c:import url="/foot" />

@@ -125,4 +125,15 @@
 		select * from ditch
 	</select>
 	
+	<update id="updateUser" parameterType="User">
+		update member set name=#{name}, userid=#{userid}, pwd=#{pwd}, hp1=#{hp1}, hp2=#{hp2}, 
+		hp3=#{hp3}, post=#{post}, addr1=#{addr1}, addr2=#{addr2}, mileage=#{mileage}, status=#{status}, 
+		email=#{email}, age=#{age}, gender=#{gender} 
+		where idx=#{idx}
+	</update>
+	
+	<select id="selectUserByIdx" parameterType="int" resultType="User">
+		select * from member where idx=#{value}
+	</select>
+	
 </mapper>

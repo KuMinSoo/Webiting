@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:import url="/top" />
+<c:import url="/adminNavi" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +46,7 @@ span {
 
 </style>
 <body>
-
+<div class="container" style="width:70%;">
 <div class="userWrap">
 	<h2><span></span>회원 통계</h2>
 	<div id="userList">
@@ -65,10 +66,10 @@ span {
 <!-- 매출 통계 -->
 </div>
 
-<div id="monthList" style="width: 800px; height: 500px;">
+<div id="MonthList" style="width: 800px; height: 500px;">
 <!-- 월별 통계 -->
 </div>
-
+</div>
 </body>
 </html>
 <c:import url="/foot" />

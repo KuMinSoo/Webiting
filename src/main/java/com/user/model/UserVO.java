@@ -17,7 +17,7 @@ public class UserVO {
 	private String addr1, addr2;
 	private java.sql.Date indate;
 	private int mileage;
-	private int status; // ȸ�� ����:0(�Ϲ�ȸ��),-1(����ȸ��),-2(Ż��ȸ��)
+	private int status; 
 	private String statusStr;
 	private String email;
 	private String gender;

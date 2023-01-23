@@ -2,18 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ page import="java.util.Date" %>
 <c:import url="/top" />
 <c:import url="/adminNavi" />
 
 
-	<!-- --------------------내용 추가-------------------------------------------------------------------------------------------------- -->
+
 
 <style>
 	.title{
 		text-align: center;
 		vertical-align:middle;
-		
 	}
 	.userInfo{
 		 text-align:left;
@@ -27,7 +26,6 @@
 		margin:10px 0px;
 		padding:10px;
 		width:100%;
-		border-radius:5px;
 	}
 	.btn-list{
 		 	width: 100%;
@@ -51,55 +49,43 @@
 		border: 1px solid gray;
 		padding:20px;
 		border-radius:5px;
+	
 	}
-	.search div{
-			maring:10px;			
-	}
+
 
 </style>
 <script>
-	function check() {//검색시 유효성 체크(검색유형, 검색어) 함수
-		if($('input[name="orderMode"]:checked').val()==null){
-			alert('배송상태를 체크하세요');
-			return false;
-		}
-	
-		if($('input[name="orderStatusMode"]:checked').val()==null){
-			alert('주문상태를 체크하세요');
-			return false;
-		}
-		if($('#dateCheck').val()==null || $('#dateCheck').val()=='Y'){
-			$('#dateCheck').val('Y')			
-		}else{
-			$('#dateCheck').val('N')
-		}
-		let dateStart2=$('#dateStart').val()
-		let dateEnd2=$('#dateEnd2').val()
-		if($('#dateStart1').is(":disabled")){
-			if(dateStart2 > dateEnd2){
-				alert('dateStart2 값: '+dateStart)
-				alert('dateEnd2 값: '+dateEnd2)
-				
-				alert('시작일이 끝기간보다 날짜가 많습니다. 다시 설정해주세요')
-				return false;
-			}
-		}
-
- 		return true;
+	function ccheck() {//검색시 유효성 체크(검색유형, 검색어) 함수
+//		$('#test').append("<h1>flag val:"+flag+"</h1>")
+	if($('input[name="orderMode"]:checked').val()==null){
+		alert('배송상태를 체크하세요');
+		return false;
 	}
-	
-	function cancelStart(flag,ds){
-	
-		if(confirm("취소/환불 처리하십니까?")){
-			$('#frm').prop("action","orderedCancel");
-			$('#orderedNum').val(flag);
-			$('#mode').val(ds);
-			$('#frm').prop("method","post");
-			$('#frm').submit();
-		}	
-		
-	}//---------------
-	
+
+	if($('input[name="orderStatusMode"]:checked').val()==null){
+		alert('주문상태를 체크하세요');
+		return false;
+	}
+	if($('#dateCheck').val()==null || $('#dateCheck').val()=='Y'){
+		$('#dateCheck').val('Y')			
+	}else{
+		$('#dateCheck').val('N')
+	}
+	let dateStart2=$('#dateStart').val()
+	let dateEnd2=$('#dateEnd2').val()
+	if($('#dateStart1').is(":disabled")){
+		if(dateStart2 > dateEnd2){
+			alert('dateStart2 값: '+dateStart)
+			alert('dateEnd2 값: '+dateEnd2)
+			
+			alert('시작일이 끝기간보다 날짜가 많습니다. 다시 설정해주세요')
+			return false;
+		}
+	}
+
+		return true;
+}
+ 
 	function listDate(flag){
 		if(flag!=0){	
 			defaultFlag = flag;
@@ -154,7 +140,8 @@
 			$('#dateCheck').val('Y');
 			$('input[name="dateStart"]').val(date.getFullYear()+"-"+(mm)+"-"+(dd))
 		}else{
-			$('#dateCheck').val('Y');
+			$('input[name="dateCheck"]').val('Y');
+			
 		}
 		
 	}
@@ -182,49 +169,8 @@
 			$('#dateCheck').val('Y');
 		}
 	}
-			
-	function orderStatusMode(flag){
-		$('#orderF').prop("action","orderedCancel");
-		$('#orderF').prop("method","get");
-		$('#orderStatusMode').val(flag);
-		$('#orderF').submit();		
-	}
 	
-	function selectAll(){
-		let chk=$('input[name=delivGroup]')
-		if(chk.is(":checked")){
-			$('input[name=delivGroup]').prop("checked",false);
-		}else{
-			$('input[name=delivGroup]').prop("checked",true);
-		}
-		
-		
-	}
- 
-	function selectCancel(){
 
-		let cnt=$('input[name=delivGroup]:checked').length;
-		
-			if(cnt<1){
-				alert("한개 이상 선택해주세요");
-				return;
-			}else{
-				let check=$('input[name=orderStatusMode]:checked').val();
-				alert("orderStatusMode값: "+check);
-				if(check=='0' || check=='1' ){				
-					if(confirm("선택한 총 "+(cnt)+"개의 상품을 '취소/환불' 처리하시겠습니까?")){
-						$('#fsa').prop("method","post");
-						$('#fsa').prop("action","updateSelectCancel");
-						$('#fsa').submit();	
-						return;
-					}
-				}
-			}
-		
-			
-		}
-	
-	
 	$(function(){
 		
 		var defaultFlag = 0;
@@ -261,7 +207,6 @@
 			$('#dateShowButton').text('접기');
 			$('.dateCal').show();
 		}
- 		
 	})
 		function memberInfo(num){	
 		window.name="parentForm";		
@@ -269,42 +214,63 @@
 	
 	}
 	
+	
 </script>
-<style>
 
-</style>
 
 
 <%
 	String ctx=request.getContextPath();
-
 %> 
-
 <main>
 	<section>
 <div class="container mt-3" style="overflow: auto ;position:relative">
-			<div class="content_main">취소/환불 페이지</div>
+			<div class="content_main">주 문 목 록</div>
 	<div id="searchFilter">
-		<form id="dtf" name="dtf" action="orderedCancel" method="get">			
+		<form id="dtf" name="dtf" action="orderedList" method="get">
+			<div>
+				배송상태: 
+				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
+		  			<input class="form-check-input" type="radio" name="orderMode" id="orderMode"  value="" 
+							<c:if test="${paging.orderMode==null or paging.orderMode ==''}"> checked </c:if>>
+					<label class="form-check-label" for="orderMode">배송전체</label>
+				</div>
+				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
+		 			 <input class="form-check-input" type="radio" name="orderMode" id="orderMode" value="0"
+		 			 	<c:if test="${paging.orderMode=='0'}"> checked </c:if>>
+		  			 <label class="form-check-label" for="orderMode">배송대기</label> 
+				</div>
+				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
+		  			<input class="form-check-input" type="radio" name="orderMode" id="orderMode" value="1"
+		  				<c:if test="${paging.orderMode=='1'}"> checked</c:if>>
+		  			<label class="form-check-label" for="orderMode">배송중</label>
+				</div>
+				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
+		  			<input class="form-check-input" type="radio" name="orderMode" id="orderMode" value="2"
+		  				<c:if test="${paging.orderMode=='2'}"> checked </c:if>>
+		  			<label class="form-check-label" for="orderMode">배송완료</label>
+				</div>
+			</div>
+			
 			<div>
 				주문상태:
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
-		  			<input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode1" value="" 
+		  			<input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode" value="" 
 							<c:if test="${empty paging.orderStatusMode}"> checked </c:if>>
 					<label class="form-check-label" for="orderMode">주문전체</label>
 				</div>
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
-		 			 <input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode2" value="0"
+		 			 <input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode" value="0"
 		 			  <c:if test="${paging.orderStatusMode=='0'}"> checked </c:if>>
 		  			<label class="form-check-label" for="orderStatusMode">주문완료</label>
 				</div>
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
-		  			<input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode3" value="1"
+		  			<input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode" value="1"
 					   <c:if test="${paging.orderStatusMode=='1'}"> checked </c:if>>
 		  			<label class="form-check-label" for="orderMoorderStatusModede">취소/환불대기</label>
 				</div>
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">
-		  			<input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode4" value="2"
+		  			<input class="form-check-input" type="radio" name="orderStatusMode" id="orderStatusMode" value="2"
 						  <c:if test="${paging.orderStatusMode=='2'}"> checked </c:if>>
 		  			<label class="form-check-label" for="orderStatusMode">취소/환불완료</label>
 				</div>
@@ -338,8 +304,8 @@
 		  			<label class="form-check-label" for="dateStart4">지난 1년</label>
 				</div>
 				<button type="button" onclick="dateShow()" id="dateShowButton">상세기간 설정</button>	
-			</div>	
-				<div class="dateCal">
+			</div>
+			<div class="dateCal">
 				상세기간 설정:
 				<div class="form-check form-check-inline" style="margin:10px 30px 10px;">					
 		  			<label class="form-check-label" for="dateStart">시작기간</label>
@@ -348,7 +314,7 @@
 		  			<input class="long-date" type="date" id="longDateEnd" <c:if test="${paging.dateEnd ne null}"> value="${paging.dateEnd}"</c:if>>
 				</div>	
 			</div>	
-			
+	
 		<!-- 검색기능 -->	
 			<div style="display:inline-block;float:left;width:50%;">			
 					<select id="findType" name="findType" style="padding: 6px;">
@@ -371,17 +337,9 @@
 			<button style="width:20%;display:inline-block;" class="btn btn-outline-primary btn-list contain-main" onclick="return ccheck()">조  회</button>		
 			</div>	
 		</form>
-	</div><br>	
-		<c:if test="${paging.orderStatusMode=='0' or paging.orderStatusMode=='1'}">
-			<div style="display:inline-block;">
-				<span><button class="btn-list" onclick="selectAll()">전체 선택</button></span>
-			</div>
-			<div style="display:inline-block;">	
-				<span><button class="btn-list" onclick="selectCancel()">선택항목 배송중</button></span>	
-			</div>
-		</c:if>		
+	</div>		
 		<div style="display:inline-block;width:15%;float:right">
-			<form id="pageSizeF" action="orderedCancel" method="get">
+			<form id="pageSizeF" action="orderedList">
 				<input type="hidden" name="findType" value="${paging.findType}">
 				<input type="hidden" name="findKeyword" value="${paging.findKeyword}">
 		    	<input type="hidden" name="cpage" value="${paging.cpage}">
@@ -405,43 +363,28 @@
 		  <table class="table table-striped table-hover title">
 		  	<thead>
 		  		<tr>
-		  			<c:if test="${paging.orderStatusMode eq '0' || paging.orderStatusMode eq '1'}">
-		  				<th class="font-alt title" style="width:5%"></th>
-		  			</c:if>
+		  			<th class="font-alt title" style="width:5%"></th>	
 		  			<th class="font-alt title" style="width:10%">주문일</th>
 		  			<th class="font-alt title" style="width:10%">주문번호</th>
 		  			<th class="font-alt title" style="width:10%">사진</th>
-		  			<th class="font-alt title" style="width:15%">상품명</th>
-		  			<th class="font-alt title" style="width:7%">수량</th>		
-		  			<th class="font-alt title" style="width:10%">주문자</th>
-		  			<c:if test="${empty paging.orderStatusMode or paging.orderStatusMode == '0'}">
-		  				<th class="font-alt title" style="width:20%">배송상태</th>
-		  			</c:if>
-		  			<c:if test="${paging.orderStatusMode ge 1}">
-		  				<th class="font-alt title" style="width:23%">취소사유</th>
-		  			</c:if> 			
-		  			
-		  			<th class="font-alt title" style="width:15%">취소상태</th>
+		  			<th class="font-alt title" style="width:20%">상품명</th>
+		  			<th class="font-alt title" style="width:10%">수량</th>		
+		  			<th class="font-alt title" style="width:10%">주문자</th> 			
+		  			<th class="font-alt title" style="width:15%">배송처리</th>
+		  			<th class="font-alt title" style="width:15%">주문상태</th>
 		  		</tr>
 		  	</thead>
 
  			<c:if test="${orderList eq null}">
- 				<c:if test="${paging.orderStatusMode eq '0' || paging.orderStatusMode eq '1'}">
-		  			<tr><td colspan="8" style="text-align:center">입력된 데이터가 없습니다.</td></tr>	
-		  		</c:if>
-		  		<c:if test="${empty paging.orderStatusMode || paging.orderStatusMode eq '2'}">
-		  			<tr><td colspan="7" style="text-align:center">입력된 데이터가 없습니다.</td></tr>	
-		  		</c:if>	  	
+		  	<tr><td colspan="8" style="text-align:center">입력된 데이터가 없습니다.</td></tr>		  	
 		  	</c:if>
 		  	<c:if test="${orderList ne null}">
-		  <form id="fsa" name="fsa">
-		  	<c:forEach items="${orderList}" var="orderList" varStatus="state">
+		  	<c:forEach items="${orderList}" var="orderList" begin="1" step="1" varStatus="state">
 		  		<tr>
-		  			<c:if test="${paging.orderStatusMode eq '0' || paging.orderStatusMode eq '1'}">
-			  			<td><%-- ${state.index } / ${state.count } --%>		  			 	
-			 				<input type="checkbox" name="delivGroup" id="check${state.index}" value="${orderList.orderedNum}"> 			
-			  			</td>
-		  			</c:if>
+		  			<td>
+		  			 
+		  			</td>
+		  			
 		  			<td>
 		  				<fmt:formatDate pattern="yy-MM-dd" value="${orderList.ordered_date}"/>
 		  			</td>
@@ -471,75 +414,42 @@
 		  						  			
 		  			<!-- 배송상태 ---------------------------------->
 		  			<td>
-		  				<c:if test="${not empty paging.orderStatusMode and orderList.ordered_statusNum_fk ge 1}">		  				
-						  <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample${state.index}" aria-expanded="false" aria-controls="collapseWidthExample">
-						     <c:out value="${orderList.refund_type}"/>
-						  </button>				
-						
-						  <div class="collapse collapse-horizontal" id="collapseWidthExample${state.index}">
-						    <div class="card card-body" style="width: 300px;">
-						      <c:out value="${orderList.rtxt}"/>
-						    </div>
-						  </div>
-						
-						</c:if>
-						<c:if test="${empty paging.orderStatusMode or paging.orderStatusMode == '0'}">
-		  					<c:out value="${orderList.ordered_delivstate}"/>
-		  				</c:if>								
+		  				
+		  				<c:if test="${orderList.ordered_delivstateNum_fk eq 0}">  					
+		  					<c:out value="${orderList.ordered_delivstate}"/>	  					
+		  				</c:if>
+		  				<c:if test="${orderList.ordered_delivstateNum_fk eq 1}">
+		  					<span style="color:red;"><c:out value="${orderList.ordered_delivstate}"/></span>
+		  				</c:if>
+		  				
+		  				<c:if test="${orderList.ordered_delivstateNum_fk eq 2}">
+		  					<span style="color:blue;"><c:out value="${orderList.ordered_delivstate}"/></span>
+		  				</c:if>		  				
 		  			</td>
 		  			<td>
-		  				<c:if test="${orderList.ordered_statusNum_fk eq 0}">
-		  					<button type="button" class="btn btn-secondary" onclick="cancelStart('${orderList.orderedNum}', 3)"><c:out value="${orderList.ordered_status}"/></button>
+		  				<c:if test="${orderList.ordered_statusNum_fk eq 0}">		  					
+		  					<c:out value="${orderList.ordered_status}"/>
 		  				</c:if>
 		  				<c:if test="${orderList.ordered_statusNum_fk eq 1}">
-		  					<button type="button" class="btn btn-danger" onclick="cancelStart('${orderList.orderedNum}', 4)"><c:out value="${orderList.ordered_status}"/></button>
+		  					<c:out value="${orderList.ordered_status}"/>
 		  				</c:if>
-		  				
-		  				<c:if test="${orderList.ordered_statusNum_fk eq 2}">
-		  					<button type="button" class="btn btn-primary"><c:out value="${orderList.ordered_status}"/></button>
-		  				</c:if>		
+		  				<c:if test="${orderList.ordered_statusNum_fk eq 2}">		  					
+		  					<c:out value="${orderList.ordered_status}"/>
+		  				</c:if>	  				
 		  			</td>		  					
-		  		</tr>
-		  		<!-- <tr>
-		  			<td colspan="8">
-		  				
-		  			</td>
-		  		</tr> -->	
+		  		</tr>	
 		  </c:forEach>
-		  	<input type="hidden" name="findType" value="${paging.findType}">
-			<input type="hidden" name="findKeyword" value="${paging.findKeyword}">
-	    	<input type="hidden" name="cpage" value="${paging.cpage}">
-	    	<input type="hidden" id="dateStart" name="dateStart" value="${paging.dateStart}">
-			<input type="hidden" id="dateEnd" name="dateEnd" value="${paging.dateEnd}" >
-			<input type="hidden" id="orderStatusMode" name="orderStatusMode" value="${paging.orderStatusMode}">
-			<input type="hidden" name="dateCheck" id="dateCheck" value="${paging.dateCheck}">
-			<input type="hidden" name="flag" id="flag" value="${paging.flag}">
-			<input type="hidden" id="orderMode" name="orderMode" value="${paging.orderMode}">
-		 </form>
-		  
-		  
-		  
-		  <form id="frm" name="frm">
-	  		<input type="hidden" name="findType" value="${paging.findType}">
-			<input type="hidden" name="findKeyword" value="${paging.findKeyword}">
-	    	<input type="hidden" name="cpage" value="${paging.cpage}">
-	    	<input type="hidden" id="dateStart" name="dateStart" value="${paging.dateStart}">
-			<input type="hidden" id="dateEnd" name="dateEnd" value="${paging.dateEnd}" >
-			<input type="hidden" id="orderStatusMode" name="orderStatusMode" value="${paging.orderStatusMode}">
-			<input type="hidden" name="dateCheck" id="dateCheck" value="${paging.dateCheck}">
-			<input type="hidden" name="flag" id="flag" value="${paging.flag}">
-			<input type="hidden" name="orderedNum" id="orderedNum">
-			<input type="hidden" name="mode" id="mode">				
-		  </form>
 
 		  </c:if>					
 		  </table>
 		  <div>${pageNavi}</div>	
+		<!-- </div> -->
 		</div>
-		
+
 	</section>
-</main>
+</main>		
 
 
+	
 
 <c:import url="/foot" />

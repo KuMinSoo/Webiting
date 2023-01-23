@@ -127,6 +127,40 @@ public class OrderedServiceImpl implements OrderedService {
 	public int updateSqty(OrderedVO ovo) {
 		return this.OrderedMapper.updateSqty(ovo);
 	}
+	public int updateCancel(int orderedNum) {
+		return this.OrderedMapper.updateCancel(orderedNum);
+	}
+
+	@Override
+	public int getRefundCount(PagingVO page) {
+		return this.OrderedMapper.getRefundCount(page);
+	}
+
+	@Override
+	public List<OrderedVO> selectRefundedAllPaging(PagingVO page) {
+		return this.OrderedMapper.selectRefundedAllPaging(page);
+	}
+
+	@Override
+	public int updateSelectDeliv(int orderedNum) {
+
+		return this.OrderedMapper.updateSelectDeliv(orderedNum);
+	}
+
+	@Override
+	public int updateSelectDelivDone(int orderedNum) {
+		return this.OrderedMapper.updateSelectDelivDone(orderedNum);
+	}
+
+	@Override
+	public int updateSelectCancelDone(int orderedNum) {
+		return this.OrderedMapper.updateSelectDelivDone(orderedNum);
+	}
+
+	@Override
+	public OrderedVO selectUserInfo(int orderedNum) {
+		return this.OrderedMapper.selectUserInfo(orderedNum);
+	}
 
 	
 }

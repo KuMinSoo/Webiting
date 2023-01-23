@@ -11,10 +11,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <%-- <script type="text/javascript" charset="utf-8"><%@ include file="/js/pay.js"  %></script> --%>
 <script type="text/javascript" charset="utf-8" src="/resources/js/pay.js"></script>
+<style>
+	.title{
+		text-align: center;
+		vertical-align:middle;
+	}
 
-<div class="content_area">
+</style>
+<div class="container mt-3">
 <!-- <button id="test">asdasd</button> -->
-	<div class="content_subject">
+	<div class="content_subject title">
 		<span>주문 페이지</span>
 	</div>
 
@@ -34,20 +40,18 @@
 
 		<!-- 배송지 정보 -->
 		<div class="addressInfo_div">
-			<div class="addressInfo_button_div">
-				<button class="address_btn address_btn_1" onclick="showAdress('1')"
-					style="background-color: #3c3838;">사용자 정보 주소록</button>
-				<button class="address_btn address_btn_2" onclick="showAdress('2')">직접 입력</button>
+			<div style="font-size:20px;font-weight:700">
+				배송지
 			</div>
+			<hr>
 			<div class="addressInfo_input_div_wrap">
-				<div class="addressInfo_input_div addressInfo_input_div_1"
-					style="display: block">
+				<div class="addressInfo_input_div addressInfo_input_div_1" style="display: block">
 					<table>
 						<colgroup>
 							<col width="25%">
 							<col width="*">
 						</colgroup>
-						<tbody>
+						<tbody style="font-size:15px">
 							<tr>
 								<th>이름</th>
 								<td>${loginUser.name}</td>
@@ -69,43 +73,12 @@
 						</tbody>
 					</table>
 				</div>
-				<div class="addressInfo_input_div addressInfo_input_div_2">
-					<table>
-						<colgroup>
-							<col width="25%">
-							<col width="*">
-						</colgroup>
-						<tbody>
-							<tr>
-								<th>이름</th>
-								<td><input class="username_input"></td>
-							</tr>
-							<tr>
-								<th>주소</th>
-								<td>
-									<input class="selectAddress" value="F" type="hidden">
-									<input class="post_input" readonly="readonly"> <a class="address_search_btn" onclick="execution_daum_address()">주소 찾기</a><br> 
-									<input class="addr1_input" readonly="readonly"> 
-									<input class="addr2_input"><br>
-								</td>
-							</tr>
-							<tr>
-								<th>전화번호</th>
-								<td>							
-										<input type="text" name="hp1" id="hp1" placeholder="HP1" maxlength="3">- 
-										<input type="text" name="hp2" id="hp2" placeholder="HP2" maxlength="4">-
-										<input type="text" name="hp3" id="hp3" placeholder="HP3" maxlength="4">
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
 			</div>
 		</div>
 		<!-- 상품 정보 -->
 		<div class="orderGoods_div">
 			<!-- 상품 종류 -->
-			<div class="goods_kind_div">
+			<div class="goods_kind_div mb-2" style="font-size:20px">
 				주문상품 <span class="goods_kind_div_kind"></span>종 / 총 수량: <span class="goods_kind_div_count"></span>개
 			</div>
 			<!-- 상품 테이블 -->
@@ -115,9 +88,9 @@
 					<col width="45%">
 					<col width="40%">
 				</colgroup>
-				<tbody>
-					<tr>
-						<th>이미지</th>
+				<tbody >
+					<tr style="font-size:15px">
+						<th style="padding:7px">이미지</th>
 						<th>상품 정보</th>
 						<th>판매가</th>
 					</tr>
@@ -137,7 +110,7 @@
 									<img src="/resources/product_images/${ol.pimage1}">
 								</div>
 							</td>
-							<td>${ol.pname}</td>
+							<td style="font-size:17px;text-align:center;">${ol.pname}</td>
 							<td class="goods_table_price_td">
 								<fmt:formatNumber value="${ol.saleprice}" pattern="###,###,### 원" /> | 
 								수량	${ol.pqty}개 <br> 
@@ -158,7 +131,7 @@
 		</div>
 		<!-- 포인트 정보 -->
 		<div class="point_div">
-			<div class="point_div_subject">포인트 사용</div>
+			<div class="point_div_subject mb-1" style="font-size:20px;font-weight:700">포인트 사용</div>
 			<table class="point_table">
 				<colgroup>
 					<col width="25%">
@@ -167,7 +140,7 @@
 				<tbody>
 					<tr>
 						<th>포인트 사용</th>
-						<td>보유 : ${loginUser.mileage}p | 사용 : <input class="order_point_input"
+						<td style="padding:10px">보유 : ${loginUser.mileage}p | 사용 : <input class="order_point_input"
 							value="0">원 <a
 							class="order_point_input_btn order_point_input_btn_N"
 							data-state="N">모두사용</a> <a
@@ -178,8 +151,8 @@
 					</tr>
 					<tr>
 						<th>할인 쿠폰</th>
-						<td>
-							<select>
+						<td style="padding:10px">
+							<select style="padding:4px">
 								<option>::할인쿠폰 선택::</option>
 							</select>
 						</td>

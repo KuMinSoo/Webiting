@@ -3,10 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import url="/top"/>
+<c:import url="/adminNavi"/>
 
 <script type="text/javascript" src="../../js/userCheck.js"></script>
 
-<div class="container" style="height:1100px;overflow:auto;">
+<div class="container mt-4" style="overflow: auto ;position:relative;height:1100px">
+	<br>
 	<h1 class="text-center mt-1">Member Edit</h1>
 	<form name="mf" action="edit" method="post">
 	<!-- hidden data -------------------------------------- -->
