@@ -104,7 +104,6 @@ $(function(){
 	        display:'block'
     	});
 	});
-	
 })
 function check(){
 		if(!searchF.findType.value){
@@ -173,7 +172,7 @@ function selectDownCategoryHome(upCode){
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="/index">Webiting</a>
+                <a class="navbar-brand" href="/index">Webiting<h3>로그인 상태:${loginUser.status}</h3></a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -181,6 +180,7 @@ function selectDownCategoryHome(upCode){
 						<c:if test="${loginUser.status eq 9 }">
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="${myctx}/admin/userList">Admin</a></li>
 						</c:if>
+						
                         <c:if test="${loginUser eq null }">
                         <li class="nav-item">
                           <a class="nav-link" href="${myctx}/login">Login</a>

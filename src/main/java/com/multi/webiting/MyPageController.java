@@ -1,6 +1,7 @@
 package com.multi.webiting;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -209,7 +210,7 @@ public class MyPageController {
 	@PostMapping("/order")
 	public String goOrder(Model m, @RequestParam("pnum") String[] pnum,
 			@RequestParam("oqty") int[] oqty, @RequestParam("idx") Integer idx,
-			HttpSession session) {
+			 @RequestParam("cartNum")int []cartNum, HttpSession session) {
 		
 		List<ProductVO> orderList=new ArrayList<>();
 		int totalPrice=0,totalPoint=0; 
@@ -223,12 +224,23 @@ public class MyPageController {
 			totalPoint+=prod.getTotalPoint();
 		}
 		log.info("ovo==="+ovo);
-		
+		log.info("cartNum==="+Arrays.toString(cartNum));
+		///주문목록으로 들어온 장바구니 번호 담기 추가-->결제시 장바구니 목록에서 삭제할때 사용하는 섹션
+		/*
+		 * List<Integer> cNum=new ArrayList<>(); for(int i=0;i<cartNum.length;i++) { int
+		 * num=cartNum[i]; cNum.add(num); }
+		 */		
+		session.setAttribute("cartNum", cartNum);
+		//////////////////////////////
 		ovo.setTotalPrice(totalPrice);
 		ovo.setTotalPoint(totalPoint);
 		session.setAttribute("orderList", orderList);//상품목록
 		session.setAttribute("ovo", ovo);//주문목록
-
+		
+		
+		
+		
+		
 		return "mypage/order";
 	}
 	

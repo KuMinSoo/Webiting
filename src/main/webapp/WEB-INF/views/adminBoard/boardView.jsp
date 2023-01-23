@@ -2,9 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:import url="/top" />
+<c:import url="/adminNavi" />
+
 <script>
 	$(function() {
 		$('#bf').submit(function() {
@@ -36,7 +37,7 @@
 		word-break:break-all;
 	}
 	#content{
-		height:300px;
+		height:400px;
 		overflow:auto;
 	}
 	#notice{
@@ -57,12 +58,13 @@
         text-decoration: underline;
     }
 </style>
-<div align="center" id="bbs" class="col-md-8 offset-md-2">
-	<input type="hidden" name="mode" value="write">
-		<!-- 원본글쓰기mode는 write, 답변글쓰기 mode는 rewrite로 감  -->
-		<br>
-		<h1 style="color:red;">게시글보기</h1>
-		<br>
+<main>
+	<section>
+<div class="container mt-4" style="overflow: auto ;position:relative">
+			<div class="content_main">관리자 게시글보기</div>
+
+		<input type="hidden" name="mode" value="write">
+		
 		<table class="table">
 			<c:if test="${board eq null}">
 				<div class="alert alert-danger my-5 text-center">
@@ -142,7 +144,7 @@
 						<%-- 관리자 로그인 될 경우만.... <c:if test="${loginUser.status eq '9' and (board.lev > 0 or board.adminSunbun > 0)}"> --%>
 						<!-- 관리자 로그인 아직 완료 안될 경우는 아래의 조건으로... -->
 						<c:if test="${board.lev > 0 or board.adminSunbun > 0}">	
-							<button type="button" onclick="admin('edit')">수정</button>			
+							<button class="btn" type="button" onclick="admin('edit')">수정</button>			
 						</c:if>	
 					</td>
 				</tr>
@@ -168,6 +170,9 @@
 		<input type="hidden" name="secret" value="<c:out value="${board.secret}"/>">
 	</form>
 </div>
+
+	</section>
+</main>
 <script>
 
 //관리자 삭제 수정 함수
@@ -198,4 +203,5 @@ function down(){
 	}
 	
 </script>
+
 <c:import url="/foot" />

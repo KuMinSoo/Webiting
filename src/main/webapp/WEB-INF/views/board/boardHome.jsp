@@ -109,26 +109,49 @@ function collapseHide(){//모든 질문의 답이 오픈된 경우 hide!!
 			justify-content:center;
 			align-items: center;	
 		}
+		.btn-list button + button{
+			margin-left:40px;		
+		}
 	
 </style>
 			
 <div class="container mt-5">
-			<div>			
-				고객센터 09:00 ~ 18:00
-				<ul>
+			<div style="display:inline-block;float:left;margin:10px;padding:10px;border-radius:5px;background-color:#f2f2f2;width:45%;">			
+				<span style="font-weight:1000;font-size:20px;">고객센터</span> <span style="font-weight:400;color:#24b2ff"> 09:00 ~ 18:00</span>
+				<ul style="list-style-type:disc;padding-left:20px;font-size:13px;margin:5px">
 					<li>평일 : 전체 문의 상담 가능</li>
 					<li>주말/공휴일 :직접배송 및 이사/시공/수리 문의에 한해 전화 상담 가능</li>
+					<li>주말/공휴일 :직접배송 및 이사/시공/수리 문의에 한해 전화 상담 가능</li>
 				</ul>
-			
+				<div>
+				<b class="bi bi-telephone-forward" style="color:#24b2ff;font-weight:700;margin:5px">&nbsp;&nbsp;1670-1010</b>
+				</div>
+				<div style="margin:5px;">
 					<button class="btn btn-outline-primary" onclick="location.href='<%=ctx%>/board/write'">게시판 등록</button>
 					<button class="btn btn-outline-info" onclick="location.href='<%=ctx%>/board/list'">고객문의 게시판</button>
-					<!-- 관리자 페이지로 이동 예정 -->					
+					<!-- 관리자 페이지로 이동 예정 -->
+				</div>						
 			</div>
+			<div style="display:inline-block;margin:10px;padding:10px;width:45%;">			
+				<div><span style="font-weight:1000;font-size:18px;">수화상담</span><span style="font-weight:400;color:#24b2ff"> 09:00 ~ 18:00</span></div>
+				<span style="float:left"><img src="/resources/images/hand.jpg" style="margin:5px;width:100px"></span>
+				<p style="font-size:11px">					
+					<span style="text-decoration: underline;"><i>수화 상담센터 전문 상담원</i></span>을 통해 11번가와 관련된 모든 내용을 상담할 수 있습니다. 
+					청각, 언어 능력에 불편함이 있는 고객을 위한 상담서비스이며<strong> 통화요금은 발신 고객에게 과금됩니다.</strong> 
+					유선전화기는 화상통화 전용 단말기에서 연결가능합니다. 
+					원활한 상담진행을 위하여 상담내용 및 영상정보는 자동으로 저장되며, <strong>저장된 상담영상은 3년 경과 후 자동 파기됩니다.</strong><br>
+				</p>
+				<div>
+					수화상담 센터 번호: <b class="bi bi-telephone-forward" style="color:#24b2ff;font-weight:700;margin:5px">&nbsp;&nbsp;1599-5893</b>
+				</div>	
+			</div>
+				
+			
 		
-			<div class="container mt-5 mb-5">
-				<h5 align="center">자주 묻는 질문</h5>
+			<hr style="border:solid #f2f2f2; height:5px">
+			<div class="container mt-2 mb-5" style="clear:both">
 				<div class="btn-list">
-					<button type="button" id="b0" class="btn btn-outline-secondary">전체</button>
+					<button type="button" id="b0" class="btn btn-outline-secondary">전체질문</button>
 					<button type="button" id="b1" class="btn btn-outline-secondary">주문결제</button>
 					<button type="button" id="b2" class="btn btn-outline-secondary">배송관련</button>
 					<button type="button" id="b3" class="btn btn-outline-secondary">취소/환불</button>

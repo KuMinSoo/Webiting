@@ -176,7 +176,7 @@
 									<c:if test="${paging.findType eq 3}">selected</c:if>>글내용</option>
 							</select> 
 							<input type="text" name="findKeyword" placeholder="검색어를 입력하세요"
-								autofocus="autofocus" style='width: 30%'>
+								 style='width: 30%'>
 							<button class="btn btn-outline-primary">검 색</button>
 						</form>
 					</div>

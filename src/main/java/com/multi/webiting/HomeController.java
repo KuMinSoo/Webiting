@@ -54,4 +54,13 @@ public class HomeController {
 	public String agree() {
 		return "/agree";
 	}
+	
+	@RequestMapping("adminTop")
+	public void adminTop() {
+		
+	}
+	@RequestMapping("adminNavi")
+	public void adminNavi() {
+		
+	}
 }

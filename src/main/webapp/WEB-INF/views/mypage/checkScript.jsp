@@ -26,7 +26,9 @@ function subcheck()
     // 하나씩 체크하기
     for(i=0;i<len;i++)
     {
-	    if(document.getElementsByClassName("subchk")[i].checked) chk++;
+	    if(document.getElementsByClassName("subchk")[i].checked) {
+	    	chk++;
+	    }
     }	
    
     if(chk==len)
@@ -38,5 +40,8 @@ function subcheck()
 	    document.getElementById("mainchk").checked=false;
     }	   
 }
+
+
+
 
 </script>

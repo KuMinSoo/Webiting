@@ -55,6 +55,8 @@
                        value="${cvo.pnum_fk }">
                      ${cvo.pnum_fk}
                       </label>
+                      <input type="hidden" name="cartNum" class="cNum" id="cartNum${state.index}" value="${cvo.cartNum}">
+                   
                    </td>
                    <td>
                    <h4>${cvo.pname}</h4>
@@ -160,12 +162,16 @@
       			if(document.getElementsByClassName("subchk")[i].checked){
       				str+=document.getElementsByClassName("subchk")[i].value+",";
       				document.getElementsByClassName("subchk")[i].style.disabled=false;
+      				
       				//document.getElementById('oqty'+i).style.disabled=false;
       				$('#oqty'+i).prop('disabled',false)
+      				$('#cartNum'+i).prop('disabled',false)
+
       			}else{
       				document.getElementsByClassName("subchk")[i].style.disabled=true;
       				//document.getElementById('oqty'+i).style.disabled=true;
       				$('#oqty'+i).prop('disabled',true)
+      				$('#cartNum'+i).prop('disabled',true)
       			}
       		}
       		//alert(str);

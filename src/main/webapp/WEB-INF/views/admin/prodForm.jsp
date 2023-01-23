@@ -3,10 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<c:import url="/top" />
+<c:import url="/adminTop" />
+
 <script src= "../js/pcategory.js"></script> <!-- 참조 할 부분 -->
 <div class="py-5">
-	<div class="container">
+	<div class="container mt-4" style="overflow: auto ;position:relative">
 		<div class="row">
 			<div class="col-md-12">
 				<h1 class="text-center">상품 등록[Admin Page]</h1>
@@ -109,7 +110,6 @@
 		</div>
 	</div>
 </div>
-
-
+	
 
 <c:import url="/foot" />
