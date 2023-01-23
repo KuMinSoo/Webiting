@@ -123,5 +123,10 @@ public class OrderedServiceImpl implements OrderedService {
 		return this.OrderedMapper.getCancelCount(page);
 	}
 
+	@Override
+	public int updateSqty(OrderedVO ovo) {
+		return this.OrderedMapper.updateSqty(ovo);
+	}
+
 	
 }

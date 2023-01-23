@@ -35,6 +35,8 @@ public interface OrderedService {
 		List<OrderedVO> selectRefundByidx(int idx_fk);
 		int insertOrder(OrderVO ovo);
 		List<OrderedVO> selectYetRefund(OrderedVO ovo);
+		
+		int updateSqty(OrderedVO ovo);
 			
 
 }

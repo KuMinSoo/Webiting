@@ -129,13 +129,8 @@
       </form>
       <!-- --------------------------------- -->
       
-      <!-- 주문form-------------------------
-      <form name="of" action="goOrder" method="post">
-      		<input type="hidden" name="cartNum">
-			<input type="hidden" name="idx">
-	  </form>
-       -->
       <script>
+      
       	function cartEdit(cnum, i){
       		//alert(cnum+"/"+i);
       		let qty=$('#oqty'+i).val();
@@ -155,6 +150,18 @@
       	
       	function goOrder(){
       		var len=document.getElementsByClassName("subchk").length;
+      		
+    		count=0;
+    		for(i=0; i<len; i++){
+    			if(document.getElementsByClassName("subchk")[i].checked){
+    				count++;
+    			}
+    		}
+    		if(count==0){
+    			alert('주문할 상품을 선택하세요.');
+    			return false;
+    		}
+    		
       		var str="";
       		for(i=0; i<len; i++){
       			if(document.getElementsByClassName("subchk")[i].checked){
