@@ -206,7 +206,7 @@ $(function(){
 			<div class="form-group" style="text-align: center;">
 				<h3 class="page-header">
 					<span>${pcontents.pname}</span><br>
-					<small>${pcontents.pcontents}</small>
+					<%-- <small>${pcontents.pcontents}</small> --%>
 				</h3>
 			</div>
 			<hr>
@@ -307,13 +307,13 @@ $(function(){
 					style="display: inline-block;"><!-- style="display: inline-block;width:40%;" -->
 						<img alt="pimage1"
 						src="${myctx}/resources/product_images/${pcontents.pimage1}"
-						width="350px;" height="320px;"><br> 
+						width="500px;" height="500px;"><br> 
 						<img alt="pimage1"
 						src="${myctx}/resources/product_images/${pcontents.pimage2}"
-						width="350px;" height="320px;"><br> 
+						width="500px;" height="500px;"><br> 
 						<img alt="pimage1"
 						src="${myctx}/resources/product_images/${pcontents.pimage3}"
-						width="350px;" height="320px;"><br>
+						width="500px;" height="1500px"><br> 
 				</div>
 				<div class="product-info_table text-center">
 					<hr>

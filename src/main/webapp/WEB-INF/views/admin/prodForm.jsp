@@ -4,7 +4,77 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <c:import url="/top" />
-<script src= "../js/pcategory.js"></script> <!-- 참조 할 부분 -->
+<script>
+	function selectDownCategory(upCode){
+		//alert(upCode);
+		$.ajax({
+			type:'get',
+			url:'getDownCategory?upCg_code='+upCode,
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				//alert(JSON.stringify(res));
+				let str='<select name="downCg_code" id="downCg_code">';
+					str+='<option value="">::하위 카테고리::</option>';
+					$.each(res,function(i,item){
+						str+='<option value="'+item.downCg_code+'">'+item.downCg_name+'</option>'
+					})
+					str+='</select>';
+				$('#selectDcg').html(str);
+			},
+			error:function(err){
+				alert('err: '+err.status);
+			}
+		});
+	}//---------------------------------------------------------------
+	
+	function check(){
+		if(!$('#upCg_code').val()){
+			alert('상위 카테고리를 선택하세요');
+			$('#upCg_code').focus();
+			return false;
+		}
+		if(!$('#downCg_code').val()){
+			alert('하위 카테고리를 선택하세요');
+			$('#downCg_code').focus();
+			return false;
+		}
+		if(!$('#pname').val()){
+			alert('상품명을 입력하세요');
+			$('#pname').focus();
+			return false;
+		}
+		let $price=$('#price').val();
+		let pattern=/^[0-9]+$/;
+		
+		if(!pattern.test($('#pqty').val())){
+			alert('수량 숫자로 입력해야해요');
+			$('#pqty').focus();
+			return false;
+		}
+		
+		if(!pattern.test($price)){
+			alert('정가는 숫자로 입력해야해요');
+			$('#price').focus();
+			return false;
+		}
+		if(!pattern.test($('#saleprice').val())){
+			alert('판매가는 숫자로 입력해야해요');
+			$('#saleprice').focus();
+			return false;
+		}
+		if(!pattern.test($('#point').val())){
+			alert('포인트는 숫자로 입력해야해요');
+			$('#point').focus();
+			return false;
+		}
+		
+		
+		return true;
+		
+	}//-----------------------------------------------
+
+</script>
 <div class="py-5">
 	<div class="container">
 		<div class="row">

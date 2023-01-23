@@ -26,7 +26,7 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">${prod.pname}</h5>
                                     <!-- Product price-->
-                                    ${prod.price}
+                                    <fmt:formatNumber value="${prod.saleprice}" pattern="#,###원" />
                                 </div>
                             </div>
                             <!-- Product actions-->

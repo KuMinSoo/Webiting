@@ -84,7 +84,7 @@ function showList(res){
 					<!-- Product name-->
 					<h5 class="fw-bolder" id="test1">\${prod.pname}</h5>
 					<!-- Product price-->
-					\${prod.saleprice}
+					\${prod.saleprice}원
 					
 					<br>
 			  <fieldset>

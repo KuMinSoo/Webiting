@@ -137,7 +137,7 @@ public class PAdminController {
 
 
 	// ajax요청에 대해 json으로 응답데이터를 보낸다
-	@GetMapping(value = "/getDownCategory", produces = "application/json")
+	@GetMapping(value = "admin/getDownCategory", produces = "application/json")
 	@ResponseBody
 	public List<CategoryVO> getDownCategory(@RequestParam("upCg_code") String upCg_code) {
 		// log.info("upCg_code==="+upCg_code);
@@ -157,7 +157,7 @@ public class PAdminController {
 		return downCgList;
 	}
 
-	@PostMapping("/prodInsert")
+	@PostMapping("admin/prodInsert")
 	public String productRegister(Model m, @RequestParam("pimage") List<MultipartFile> pimage,
 			@ModelAttribute("product") ProductVO product, // pimage1,pimage2,pimage3
 			HttpServletRequest req) {
@@ -200,9 +200,11 @@ public class PAdminController {
 
 	int n = adminService.productInsert(product);
 	String str = (n > 0) ? "상품등록 성공" : "상품등록 실패";
-	String loc = (n > 0) ? "prodList" : "javascript:history.back()";
+	String loc = (n > 0) ? "../index" : "javascript:history.back()";
 
-	m.addAttribute("message",str);m.addAttribute("loc",loc);return"msg";
+	m.addAttribute("message",str);
+	m.addAttribute("loc",loc);
+	return"msg";
 }// ------------------------------------------
 
 	@GetMapping(value = "/prodListForm")

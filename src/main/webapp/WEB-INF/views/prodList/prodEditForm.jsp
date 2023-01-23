@@ -30,7 +30,6 @@
 									<input type="hidden" name="upCg_code" id="upCg_code" value="${Product.upCg_code}">
 									<input type="hidden" name="downCg_code" id="downCg_code" value="${Product.downCg_code}">
 									<input type="hidden" name="pavg" id="pavg" value="${Product.pavg}">
-									<input type="hidden" name="likecnt" id="likecnt" value="${Product.likecnt}">
 									<input type="hidden" name="pnum" id="pnum" value="${Product.pnum}">
 									
 								</td>

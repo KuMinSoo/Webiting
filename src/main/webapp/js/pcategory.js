@@ -22,7 +22,7 @@
 				$('#selectDcg').html(str);
 		})
 		.fail(function(err){
-			alert('err');
+			alert('err:'+err.status);
 		})
 		
 	}//----------------------------
