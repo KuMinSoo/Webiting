@@ -14,6 +14,10 @@
 		values(#{title},#{orderedNum},#{ordered_from_tel},#{ordered_from_post}, #{ordered_no},#{ordered_to_name},#{ordered_to_tel},
 		#{ordered_to_email},#{ordered_to_adr},#{ordered_to_post},#{ordered_payhow},#{ordered_paystate},#{ordered_orderprice},sysdate,#{idx_fk},#{pnum_fk},0,#{ordered_from_adr},#{pname},#{oqty},#{price},#{saleprice},#{pimage},#{pcompany},#{totalPrice},#{totalPoint},0)
 	</insert>
+	
+	<update id="updateSqty" parameterType="Ordered">
+		update product set sqty=sqty+#{oqty} where pnum=#{pnum_fk}
+	</update>
 		
 	<select id="selectAll" resultType="Ordered">
 		select * from orderedview where 1=1 <include refid="searchF"></include>

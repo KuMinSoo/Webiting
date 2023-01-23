@@ -88,6 +88,7 @@ public class AdminOrderedController {
 			vo.setTotalPrice(prodVO.getTotalPrice());
 			vo.setIdx_fk(loginUser.getIdx());
 			this.orderedService.insertOrdered(vo);
+			this.orderedService.updateSqty(vo);
 			log.info(n + "번재 입력된 vo===========>" + vo);
 			n++;
 		}

@@ -103,6 +103,18 @@ $(".likedel_btn").on("click", function(e){
 $(".checkdel_btn").on("click", function(e){
 	e.preventDefault();
 	var len=document.getElementsByClassName("subchk").length;
+	
+	count=0;
+	for(i=0; i<len; i++){
+		if(document.getElementsByClassName("subchk")[i].checked){
+			count++;
+		}
+	}
+	if(count==0){
+		alert('상품을 선택하세요.');
+		return false;
+	}
+	
 	var str="";
 	for(i=0; i<len; i++){
 		if(document.getElementsByClassName("subchk")[i].checked){
@@ -117,6 +129,18 @@ $(".checkdel_btn").on("click", function(e){
 $(".move_cart").on("click", function(e){
 	e.preventDefault();
 	var len=document.getElementsByClassName("subchk").length;
+
+	count=0;
+	for(i=0; i<len; i++){
+		if(document.getElementsByClassName("subchk")[i].checked){
+			count++;
+		}
+	}
+	if(count==0){
+		alert('상품을 선택하세요.');
+		return false;
+	}
+	
 	var str="";
 	for(i=0; i<len; i++){
 		if(document.getElementsByClassName("subchk")[i].checked){

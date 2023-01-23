@@ -43,4 +43,6 @@ public interface OrderedMapper {
 	int insertOrdered(OrderVO ovo);		
 	List<OrderedVO> selectYetRefund(OrderedVO ovo);
 	
+	int updateSqty(OrderedVO ovo);
+	
 }

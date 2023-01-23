@@ -21,6 +21,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.product.model.OrderVO" alias="Order"/>
 		<typeAlias type="com.product.model.PLikeVO" alias="PLike"/> 
 		<typeAlias type="com.board.model.ReviewVO" alias="Review"/>
+		<typeAlias type="com.admin.model.OrderstatsVO" alias="Stats"/>
+		<typeAlias type="com.admin.model.CountVO" alias="Count"/>
+		<typeAlias type="com.admin.model.UserCountVO" alias="UserCount"/>
+		<typeAlias type="com.admin.model.SalesVO" alias="Sales"/>
 	</typeAliases>
 	
 	<!-- mapper.xml 위치 정의============================  -->
@@ -34,5 +38,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="config/mybatis/mapper/CartMapper.xml"/>
 		<mapper resource="config/mybatis/mapper/OrderedMapper.xml"/>
 		<mapper resource="config/mybatis/mapper/ReviewMapper.xml"/>
+		<mapper resource="config/mybatis/mapper/StatsMapper.xml"/>
 	</mappers>
 </configuration> 
