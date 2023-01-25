@@ -45,6 +45,22 @@ span {
 
 
 </style>
+<script>
+$(document).ready(function(){
+	var date=new Date();
+	var com_year = date.getFullYear();
+	
+	getYears(com_year);
+});
+
+function getYears(com_year){
+	for(var y=com_year; y>=(com_year-5); y--){
+		$('#year').append("<option value='"+y+"'>"+y+"년"+"</option>");
+	}
+}
+
+</script>
+
 <body>
 <div class="container" style="width:70%;">
 <div class="userWrap">
@@ -56,19 +72,28 @@ span {
 	<!-- 회원 나이대 통계 -->
 	</div>
 </div>
-<hr>
+<hr style="border: solid 5px gray;">
 <h2><span></span>매출 통계</h2>
 <div id="bestList">
 <!-- 어떤 가구를 많이 팔았는지 - bar -->
 </div>
-
+<hr align="center" style="border:solid 1px blue;"> 
 <div id="salesList" style="width: 800px; height: 500px;">
-<!-- 매출 통계 -->
+<!-- 년 매출 통계 -->
 </div>
-
-<div id="MonthList" style="width: 800px; height: 500px;">
-<!-- 월별 통계 -->
-</div>
+<hr align="center" style="border:solid 1px blue;"> 
+<form method="get" name="mf" action="/admin/monthVO2">
+	<div>
+		<div class="graphInfo" style="float:right;">
+			<select name="year" id="year" class="year" title="년도">
+	
+			</select>
+		</div>
+		<div id="MonthList" style="width: 800px; height: 500px;">
+		<!-- 월별 통계 -->
+		</div>
+	</div>
+</form>
 </div>
 </body>
 </html>

@@ -53,7 +53,7 @@
     position: absolute;
     left: 0;
     top:100%;
-    z-index: 999;
+    z-index: 800;
     padding-left: 180px;
     font-size: 15px;
 }
@@ -62,6 +62,13 @@
 	z-index:1;
 	width:100%;
 
+}
+
+.navbar2{
+	position:fixed;
+	z-index:999;
+	width:100%;
+	top:80px;
 }
 </style>
 <script type="text/javascript">
@@ -172,7 +179,7 @@ function selectDownCategoryHome(upCode){
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="/index">Webiting</h3></a>
+                <a class="navbar-brand" href="/index"><h3>Webiting</h3></a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">

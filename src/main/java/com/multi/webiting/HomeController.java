@@ -61,6 +61,11 @@ public class HomeController {
 	public String chart() {
 		return "admin/stats";
 	}
+	
+	@RequestMapping("/mypage/userStats")
+	public String userStats() {
+		return "/mypage/userStats";
+	}	
 
 	@RequestMapping("adminTop")
 	public void adminTop() {

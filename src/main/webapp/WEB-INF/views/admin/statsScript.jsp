@@ -59,10 +59,27 @@ function drawChart() {
 		},
 		error:function(err){
 			alert('err');
-		}
-			
-		
+		}					
 	})//
+	
+	$(document).on("change", "#year", function(){
+		let year=this.value;
+		//alert("year type: "+typeof(year));
+		$.ajax({
+			url:'monthVO2',
+			type:'get',
+			data:{'year':year},
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				//alert(res);
+				renderSalesMonth(res);
+			},
+			error:function(err){
+				alert('err: '+err.status+", "+err.responseText);
+			}					
+		})//	
+	})
 }
 
 function drawBar(){
@@ -231,7 +248,7 @@ const renderSalesYear=function(jsonArr){
 	
 	var options = {
           chart: {
-            title: '매출 통계',
+            title: '연 매출 통계',
             subtitle: 'Sales, Expenses, and Profit: 2022-2023',
             bars: 'vertical',
             vAxis: {format: 'decimal'},
@@ -266,13 +283,12 @@ const renderSalesMonth=function(jsonArr){
 	   data.addRows(mydata);
 	   
 	   var option={
-	         title:'월 매출 통계',
+	         title:'연도별 월 매출 통계',
 	         width:800,
 	         height:500,
 	         fontSize:13,
 	         fontName:'Verdana',
 	         colors:['#669355','#ffaacc'],
-	         bar: {groupWidth: "95%"},
 	          legend: { position: "none" }
 	   }
 
