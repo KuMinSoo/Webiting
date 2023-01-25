@@ -154,7 +154,7 @@ public class OrderedServiceImpl implements OrderedService {
 
 	@Override
 	public int updateSelectCancelDone(int orderedNum) {
-		return this.OrderedMapper.updateSelectDelivDone(orderedNum);
+		return this.OrderedMapper.updateSelectCancelDone(orderedNum);
 	}
 
 	@Override

@@ -90,6 +90,9 @@ function createOrderedNum(){
                                     success:function(res){
                                         //alert('200');
                                         alert('결제가 완료되었습니다');
+                                        location.href="http://localhost:9090/index";
+
+                                        
                                     },
                                     error:function(res){
                                         alert('등록실패');    

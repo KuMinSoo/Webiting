@@ -217,8 +217,6 @@ $(function(){
 			</div>
 
 			<div class="form-group" style="text-align: center;">
-				<label>배송비 : </label><span>&nbsp;2500원</span>
-				<p>20만원 이상 결제시 무료배송</p>
 			</div>
 
 			<div class="form-group" style="tesxt-align: center;">

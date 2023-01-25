@@ -48,8 +48,6 @@ public class PAdminController {
 	public String home(HttpSession ses,Model m) {
 		//log.info("adminService===" + adminService);
 		List<CategoryVO> upCgList = adminService.getUpcategory();
-		List<ProductVO> pvo=adminService.getTopLike();
-		m.addAttribute("toplikeprod",pvo);
 		ses.setAttribute("upCgList", upCgList);
 		// log.info("upCgList=="+upCgList);
 		return "/index";
@@ -358,6 +356,7 @@ public class PAdminController {
 			m.addAttribute("personalProdArr",personalProdArr);
 			//log.info(personalProdArr);
 		}
+		List<ProductVO> pvo=adminService.getTopLike();
 		List<ProductVO> topProdBed=adminService.topProdBed();
 		List<ProductVO> topProdChair=adminService.topProdChair();
 		List<ProductVO> topProdShelf=adminService.topProdShelf();
@@ -365,6 +364,7 @@ public class PAdminController {
 		List<ProductVO> topProdStorage=adminService.topProdStorage();
 		List<ProductVO> topProdTable=adminService.topProdTable();
 		
+		m.addAttribute("toplikeprod",pvo);
 		m.addAttribute("topProdBed",topProdBed);
 		m.addAttribute("topProdChair",topProdChair);
 		m.addAttribute("topProdShelf",topProdShelf);

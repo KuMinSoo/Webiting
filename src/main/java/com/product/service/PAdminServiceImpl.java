@@ -282,7 +282,7 @@ public class PAdminServiceImpl implements PAdminService {
 	public List<ProductVO> getTopLike() {
 		List<ProductVO> list=new ArrayList<>();
 		int[] idx=this.productMapper.getTopLike();
-		for(int i=0;i<5;i++) {
+		for(int i=0;i<4;i++) {
 			ProductVO vo=this.productMapper.getProductByPnum(idx[i]);
 			list.add(vo);
 		}

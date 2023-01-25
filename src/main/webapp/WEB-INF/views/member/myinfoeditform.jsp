@@ -98,21 +98,17 @@
 						<option value="60" <c:if test="${user.age>59 && user.age<70}">selected</c:if>>60대</option>
 						<option value="70" <c:if test="${user.age>69 && user.age<80}">selected</c:if>>70대</option>
 					</select>
+					
+					<input type="hidden" name="status" id="status" placeholder="Status"
+					value="<c:out value="${user.status}"/>">
 				</td>
 			</tr>
+			
 			<tr>
 				<td width="20%" class="m1"><b>마일리지</b></td>
 				<td width="80%" class="m2">
 					<input type="text" name="mileage" id="mileage" placeholder="Mileage"
-					value="<c:out value="${user.mileage}"/>">
-				</td>
-			</tr>
-			<tr>
-				<td width="20%" class="m1"><b>회원상태</b></td>
-				<td width="80%" class="m2">
-					<input type="text" name="status" id="status" placeholder="Status"
-					value="<c:out value="${user.status}"/>">
-					<br><span class="ck1">*0:일반회원, -1:정지회원, -2:탈퇴회원</span>
+					value="<c:out value="${user.mileage}"/>" readonly>
 				</td>
 			</tr>
 			<tr>

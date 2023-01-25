@@ -210,7 +210,7 @@ public class MyPageController {
 	@PostMapping("/order")
 	public String goOrder(Model m, @RequestParam("pnum") String[] pnum,
 			@RequestParam("oqty") int[] oqty, @RequestParam("idx") Integer idx,
-			 @RequestParam("cartNum")int []cartNum, HttpSession session) {
+			 @RequestParam(value="cartNum",required = false)int []cartNum, HttpSession session) {
 		
 		List<ProductVO> orderList=new ArrayList<>();
 		int totalPrice=0,totalPoint=0; 

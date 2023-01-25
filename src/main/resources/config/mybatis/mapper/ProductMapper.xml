@@ -150,7 +150,7 @@
 	select pnum from(
 	select pnum,rownum from (
    		select pnum,count(*) as cnt from prodlike group by pnum order by cnt desc) cnt1 
-   		where rownum  <![CDATA[<]]>=5)
+   		where rownum  <![CDATA[<]]>=4)
 	</select>
 	
 </mapper>

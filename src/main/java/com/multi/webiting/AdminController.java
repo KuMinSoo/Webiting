@@ -159,7 +159,7 @@ public class AdminController {
 		
 		int n=aService.updateUser(user);
 		String str=(n>0)?"회원 정보 수정 성공":"회원 정보 수정 실패";
-		String loc=(n>0)?"../mypage/likeList":"javascript:history.back()";
+		String loc=(n>0)?"../admin/userList":"javascript:history.back()";
 		
 		m.addAttribute("message", str);
 		m.addAttribute("loc", loc);

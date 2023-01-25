@@ -34,7 +34,7 @@
 	
 	
 	<select id="selectOrderedByidx" resultType="Order" parameterType="int">
-		select * from orderview where idx=#{value}
+		select * from orderview where idx=#{value} order by ordered_date desc
 	</select>
 	
 	
@@ -52,7 +52,8 @@
 	</select>
 	
 	<select id="selectRefundByidx" resultType="Ordered" parameterType="int">
-		select * from refundedview where idx_fk=#{value} and refund_num_fk is not null
+		select * from refundedview where idx_fk=#{value} and refund_num_fk is not null order by ordered_date desc
+		
 	</select>
 	
 	<select id="selectYetRefund" resultType="Ordered" parameterType="Ordered">

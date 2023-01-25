@@ -127,7 +127,7 @@ function showList(res){
 </script>
 
 <div id="product_order_list" class="text-center">
-			
+			<br><br>
 			<form name="sortData" action="prodListForm">
 				<label for="sortDate">
 					<input type="radio" id="sortDate" name="sortT" value=1 <c:if test="${param.sortType eq 1 or param.sortType eq null}">checked</c:if>   >최신순
