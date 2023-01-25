@@ -51,7 +51,7 @@
 	<section>
 <div class="container mt-4" style="overflow: auto ;position:relative">
 
-			<div class="content_main">관리자 공지사항 작성하기</div>
+			<div class="content_main mt-5">관리자 공지사항 작성하기</div>
 <div align="center" id="bbs">
 
 	 <form name="bf" id="bf" role="form" action="write" method="POST" enctype="multipart/form-data">  

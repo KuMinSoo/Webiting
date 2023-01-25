@@ -39,7 +39,7 @@ function login_check(){
 
 </script>
 <div class="container mt-3" style="height: 600px; overflow: auto;">
-	<h1 class="text-center">Login Page</h1>
+	<h1 class="text-center mt-5">Login Page</h1>
 
 	<form name="lmf" action="login" method="post">
 		<table class="table text-center">

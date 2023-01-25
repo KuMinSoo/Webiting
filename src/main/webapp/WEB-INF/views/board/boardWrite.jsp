@@ -49,7 +49,7 @@
 </style>
 
 <div align="center" id="bbs" class="col-md-8 offset-md-2">
-	<br><h1 class='text-center'>게시판 작성하기</h1><br>
+	<br><h1 class='text-center mt-5'>게시판 작성하기</h1><br>
 		 <form name="bf" id="bf" role="form" action="write" method="POST" enctype="multipart/form-data">
 	   <input type="hidden" name="mode" value="write">
 	   <!-- 원본글쓰기mode는 write, 답변글쓰기 mode는 rewrite로 감  -->       

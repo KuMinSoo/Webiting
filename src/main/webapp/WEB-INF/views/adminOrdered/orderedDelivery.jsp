@@ -265,7 +265,7 @@
 	<section>
 <div class="container mt-3" style="overflow: auto ;position:relative">
 <!-- 		<div class="container mt-3 mb-3" id="test" > -->
-			<div class="content_main">배 송 관 리</div>
+			<div class="content_main  mt-5">배 송 관 리</div>
 	<div id="searchFilter">
 		<form id="dtf" name="dtf" action="AorderedList" method="get">
 			<div>

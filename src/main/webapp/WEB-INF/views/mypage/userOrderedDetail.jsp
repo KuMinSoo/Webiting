@@ -59,7 +59,7 @@ function showrefund(){
 }
 </style>
 <div id="oDetail" class="container mt-3" style="width:70%;height: 600px; overflow: auto;">
-	<h1 class="text-center">상세 주문 내역</h1>
+	<h1 class="text-center mt-5">상세 주문 내역</h1>
 	<hr>
 	<h3>주문 번호 : ${orderedList[0].ordered_no}</h3>
 	<hr>

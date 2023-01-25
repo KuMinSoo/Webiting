@@ -41,7 +41,7 @@
 	<section>
 <div class="container mt-4" style="overflow: auto ;position:relative">
 
-			<div class="content_main">관리자 수정하기</div>
+			<div class="content_main mt-5">관리자 수정하기</div>
 	<form name="bf" id="bf" role="form" action="write" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="mode" value="rewrite">
 		<input type="hidden" name="num" value="<c:out value='${num}'/>">

@@ -231,7 +231,7 @@
 <main>
 	<section>
 <div class="container mt-3" style="overflow: auto ;position:relative">
-			<div class="content_main">주 문 목 록</div>
+			<div class="content_main mt-5">주 문 목 록</div>
 	<div id="searchFilter">
 		<form id="dtf" name="dtf" action="orderedList" method="get">
 			<div>
