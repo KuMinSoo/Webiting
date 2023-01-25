@@ -34,11 +34,12 @@ function showRefund(){
 <%
    String ctx = request.getContextPath();
 %>
-<div class="container mt-3 text-center" style="width:70%;height: 1200px; overflow: auto;">
+<div class="container mt-3 text-center" style="width:70%;height: 1500px; overflow: auto;">
+<br><br>
 <button class="orderListbtn" onclick="showOrder()">내 주문 내역(<c:out value="${orderedList.size()}"/>)</button>
 <button class="orderListbtn" onclick="showRefund()">취소/환불 내역(<c:out value="${refundList.size()}"/>)</button>
 <div class="orderList">
-<h2 class="text-center">내 주문 내역</h2>
+<h2 class="text-center mt-5">내 주문 내역</h2>
 		<table class="table text-center">
 			<tr>
 				<th width="15%" class="m1 text-left">주문 번호</th>
@@ -67,7 +68,7 @@ function showRefund(){
 		</table>		
 </div>
 <div class="refundEnd" style="display: none">
-	<h2 class="text-center">취소/환불 내역</h2>
+	<h2 class="text-center mt-5">취소/환불 내역</h2>
 	<table class="table text-center">
 		<tr>
 			<th>주문 번호</th>

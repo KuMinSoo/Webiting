@@ -5,10 +5,11 @@
 <c:import url="/mypageNavi"/>
 
 <div class="container mt-3" style="width:70%;height: 600px; overflow: auto;">
+<br><br>
 	<h1 class="text-center">폐가구 수거 신청 목록</h1>
 	<button type="button" class="btn btn-danger"><a href="/mypage/ditchProd">폐가구 수거 신청</a></button>
 	<hr>
-	
+	 
 	<table width="900" align="center">
 	<tr>
 		<td> 대분류 </td>

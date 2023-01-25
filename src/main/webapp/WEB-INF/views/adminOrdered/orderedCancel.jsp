@@ -288,7 +288,7 @@
 <main>
 	<section>
 <div class="container mt-3" style="overflow: auto ;position:relative">
-			<div class="content_main">취소/환불 페이지</div>
+			<div class="content_main mt-5">취소/환불 페이지</div>
 	<div id="searchFilter">
 		<form id="dtf" name="dtf" action="orderedCancel" method="get">			
 			<div>

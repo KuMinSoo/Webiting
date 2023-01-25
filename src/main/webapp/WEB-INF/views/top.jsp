@@ -61,12 +61,14 @@
 	position:fixed;
 	z-index:1;
 	width:100%;
+	height: 67px;
 }
 .navbar2{
 	position:fixed;
 	z-index:1;
 	width:100%;
-	top:80px;
+	height: 75px;
+	top:55px;
 }
 #item > li{
 float:left;

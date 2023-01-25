@@ -60,7 +60,7 @@
 </style>
 <div align="center" id="bbs" class="col-md-8 offset-md-2">
 	<input type="hidden" name="mode" value="write">
-	<br><h1>게시글보기</h1><br>
+	<br><h1 class="mt-5">게시글보기</h1><br>
 		<!-- 원본글쓰기mode는 write, 답변글쓰기 mode는 rewrite로 감  -->
 		<table class="table">
 			<c:if test="${board eq null}">

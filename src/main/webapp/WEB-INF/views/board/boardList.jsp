@@ -58,7 +58,7 @@
 
 <!-- ${boardArr} -->
 <div class="container mt-3" style="height: 1500px; overflow: auto;">
-	<h1 class='text-center'>고객문의게시판</h1>
+	<h1 class='text-center mt-5'>고객문의게시판</h1>
 	<!-- 검색기능------------------------------------------------------>
 	<div class="row py-3"> 
 		<div>

@@ -7,6 +7,7 @@
 <script type="text/javascript" src="../../js/userCheck.js"></script>
 
 <div class="container" style="width:70%;height:1200px;overflow:auto;">
+<br><br>
 	<h1 class="text-center mt-1">Member Edit</h1>
 	<form name="mf" action="../edit" method="post">
 	<!-- hidden data -------------------------------------- -->

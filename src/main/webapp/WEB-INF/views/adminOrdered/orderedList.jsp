@@ -97,7 +97,6 @@
 			defaultFlag = flag;
 			//alert(flag)
 			let date=new Date();
-			date.setDate(date.getDate()+1);
 			let m=date.getMonth()+1;
 			let mm=((date.getMonth()+1)<10)?"0"+m:""+m;
 			let d=date.getDate();
@@ -232,8 +231,7 @@
 <main>
 	<section>
 <div class="container mt-3" style="overflow: auto ;position:relative">
-<br>
-			<div class="content_main">주 문 목 록</div>
+			<div class="content_main mt-5">주 문 목 록</div>
 	<div id="searchFilter">
 		<form id="dtf" name="dtf" action="orderedList" method="get">
 			<div>
