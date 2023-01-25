@@ -66,6 +66,12 @@
 		alert('주문상태를 체크하세요');
 		return false;
 	}
+	if($('#findKeyword').val()!=''){
+		if($('#findType').val()==''){
+			alert('검색유형을 선택하세요');
+			return false;
+		}				
+	}
 	if($('#dateCheck').val()==null || $('#dateCheck').val()=='Y'){
 		$('#dateCheck').val('Y')			
 	}else{

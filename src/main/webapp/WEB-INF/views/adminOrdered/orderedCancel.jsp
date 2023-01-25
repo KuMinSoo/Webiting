@@ -58,16 +58,20 @@
 
 </style>
 <script>
-	function check() {//검색시 유효성 체크(검색유형, 검색어) 함수
-		if($('input[name="orderMode"]:checked').val()==null){
-			alert('배송상태를 체크하세요');
-			return false;
-		}
+	function ccheck() {//검색시 유효성 체크(검색유형, 검색어) 함수
 	
 		if($('input[name="orderStatusMode"]:checked').val()==null){
 			alert('주문상태를 체크하세요');
 			return false;
 		}
+
+		if($('#findKeyword').val()!=''){
+			if($('#findType').val()==''){
+				alert('검색유형을 선택하세요');
+				return false;
+			}				
+		}
+		
 		if($('#dateCheck').val()==null || $('#dateCheck').val()=='Y'){
 			$('#dateCheck').val('Y')			
 		}else{
