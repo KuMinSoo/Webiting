@@ -134,7 +134,7 @@ function setTotalInfo(){
 	} else if(totalPrice == 0){
 		deliveryPrice = 0;
 	} else {
-		deliveryPrice = 1;	
+		deliveryPrice = 0;	
 	}
 	
 	finalTotalPrice = totalPrice + deliveryPrice;	

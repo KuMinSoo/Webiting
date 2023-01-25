@@ -64,6 +64,7 @@
                   <a href="${myctx}/mypage/userOrdered" class="list-group-item list-group-item-action">주문 내역</a>
                   <a href="${myctx}/mypage/userEdit/${loginUser.idx}" class="list-group-item list-group-item-action">회원정보수정</a>
                   <a href="${myctx}/mypage/ditchProdList" class="list-group-item list-group-item-action">폐가구 수거 목록</a>
+                  <a href="${myctx}/mypage/userStats" class="list-group-item list-group-item-action">연도별 구매 내역</a>
               </div>
           </div>
  

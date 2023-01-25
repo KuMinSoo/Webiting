@@ -161,9 +161,9 @@ function showrefund(){
 			<div class="container mt-3">
 				<select name="rfType" style="padding:6px;width:35%;height:35px;">
 					<option value="">::취소/환불 사유::</option>
-					<option value="1">오배송</option>
-					<option value="2">제품 하자</option>
-					<option value="3">단순 변심</option>
+					<option value="0">오배송</option>
+					<option value="1">제품 하자</option>
+					<option value="2">단순 변심</option>
 				</select>
 				<br>
 				<textarea class="rtxt" id="rtxt" name="rtxt" cols="90" rows="5" placeholder="문의 내용을 적어주세요."></textarea>

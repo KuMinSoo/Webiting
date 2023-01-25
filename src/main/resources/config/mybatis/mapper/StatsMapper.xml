@@ -30,9 +30,23 @@
 		(select To_char(ordered_date, 'YYYY') y, sum(price*oqty) po, sum(saleprice*oqty) so from ordered group by ordered_date) total group by y) ft order by y desc
 		]]>	
 	</select>
+	
 	<select id="getMonthSales" resultType="com.admin.model.MonthVO">
 	select total.m ordered_date, sum(total.so) totalprice from
 	(select To_char(ordered_date, 'MM') m, sum(saleprice*oqty) so from ordered group by ordered_date 
-	having To_char(ordered_date, 'YYYY')=2022) total group by total.m order by m
+	having To_char(ordered_date, 'YYYY')=To_char(sysdate, 'YYYY')) total group by total.m order by m
+	</select>
+	
+	<select id="getMonthSalesByYear" resultType="com.admin.model.MonthVO">
+	select total.m ordered_date, sum(total.so) totalprice from
+	(select To_char(ordered_date, 'MM') m, sum(saleprice*oqty) so from ordered group by ordered_date 
+	having To_char(ordered_date, 'YYYY')=#{value}) total group by total.m order by m
+	</select>
+	
+	<select id="getUserStats" resultType="com.admin.model.MonthVO">
+		<![CDATA[ 
+		select total.m ordered_date, sum(total.so) totalprice from
+		(select To_char(ordered_date, 'MM') m, sum(saleprice*oqty) so from ordered where idx_fk=#{idx} group by ordered_date having To_char(ordered_date, 'YYYY')=#{year}) total group by total.m order by m
+		]]>	
 	</select>
 </mapper>

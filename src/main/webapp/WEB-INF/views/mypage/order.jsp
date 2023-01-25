@@ -168,7 +168,7 @@
 					<li><span class="price_span_label">상품 금액</span> <span
 						class="totalPrice_span">${ovo.totalPrice}</span>원</li>
 					<li><span class="price_span_label">배송비</span> <span
-						class="delivery_price_span">0</span>원</li>
+						class="delivery_price_span">무료</span></li>
 					<li><span class="price_span_label">할인금액</span> <span
 						class="usePoint_span">0</span>원</li>
 					<li class="price_total_li"><strong
