@@ -43,7 +43,7 @@
 			searchF.findKeyword.focus();
 			return false;
 		}
-		return false;
+		return true;
 	}
 
 	
