@@ -125,25 +125,17 @@ function showList(res){
 	$('#navi').html(navi);
 }
 </script>
-
-<div id="product_order_list" class="text-center">
-			<br><br>
-			<form name="sortData" action="prodListForm">
-				<label for="sortDate">
-					<input type="radio" id="sortDate" name="sortT" value=1 <c:if test="${param.sortType eq 1 or param.sortType eq null}">checked</c:if>   >최신순
-				</label>
-				<label for="sortPrice">
-    				<input type="radio" id="sortPrice" name="sortT" value=2 <c:if test="${param.sortType eq 2}">checked</c:if>>가격순
-    			</label>
-			</form>
-			
-</div>
+<section style="margin-top:6%">
+<div class="container" style="margin-top:3%;">
+<div  style="width:95%;text-align:center;margin:0px auto">
  <c:if test="${paging.findKeyword ne null and not empty paging.findKeyword}">
-	<div class="text-center"><h1>"${paging.findKeyword}"에 대한 검색결과</h1></div>
+	<div class="text-center" ><h1>"${paging.findKeyword}"에 대한 검색결과</h1></div>
 </c:if> 
 <c:if test="${downCg_name ne null and not empty downCg_name}">
-	<div class="text-center"><h1>"${downCg_name}" 카테고리 상품 목록</h1></div>
+	<div class="text-left" ><h1>${downCg_name}</h1></div>
+	<hr style="text-align:center;margin-bottom:5%;" >	
 </c:if>
+</div>
 		 <div class="col-md-3 text-right">
 			<form name="pageInfo" id="pageInfo">
 				<input type="hidden" name="findType" value="${paging.findType}">
@@ -153,8 +145,19 @@ function showList(res){
 				<input type="hidden" name="downCg_name" value="${downCg_name}">
 			</form>
 		</div> 
-<section class="py-5">
-	<div class="container px-4 px-lg-5 mt-5">
+		<div style="float:right;margin:2%">
+			
+			<form name="sortData" action="prodListForm">
+				<label for="sortDate">
+					<input type="radio" id="sortDate" name="sortT" value=1 <c:if test="${param.sortType eq 1 or param.sortType eq null}">checked</c:if>   >최신순&emsp;
+				</label>
+				<label for="sortPrice">
+    				<input type="radio" id="sortPrice" name="sortT" value=2 <c:if test="${param.sortType eq 2}">checked</c:if>>가격순&emsp;&emsp;
+    			</label>
+			</form>	
+		</div>
+</div>
+	<div class="container px-4 px-lg-5 mt-5" style="clear:both">
 		<div
 			class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="prodBox">
 			<c:if test="${prodArr ne null and not empty prodArr}">
