@@ -118,7 +118,7 @@
 <br><br><br><br>
 
 <hr>
-<h2>TopLike</h2>
+<h2>BEST 상품</h2>
 <section>
 	<div class="container px-4 px-lg-5 mt-5">
 		<div
