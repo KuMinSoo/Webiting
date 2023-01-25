@@ -78,8 +78,8 @@ function check(){
 					<select name="top_code" id="top_code"
                         onchange="selectMid(this.value)">
                            <option value="">::대분류::</option>
-                              <option value="대형">대형가전</option>
-                              <option value="중형">중형가전</option>
+                              <option value="대형">대형가구</option>
+                              <option value="중형">중형가구</option>
                               
                      </select>
 				</td>

@@ -3,10 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>   
 
-<c:import url="/top" />
-
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-
 <style>
 tr>td>a{
 	color: black;
@@ -21,7 +18,7 @@ tr>td>a{
 <%
    String ctx = request.getContextPath();
 %>
-
+<c:import url="/top" />
 <c:import url="/mypageNavi"/>
 
 <div class="container mt-3" style="height: 800px; overflow: auto; scrollbar-width:none;"> 

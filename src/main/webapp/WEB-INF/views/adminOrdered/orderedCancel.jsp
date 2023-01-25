@@ -109,6 +109,7 @@
 			defaultFlag = flag;
 			//alert(flag)
 			let date=new Date();
+			date.setDate(date.getDate()+1);
 			let m=date.getMonth()+1;
 			let mm=((date.getMonth()+1)<10)?"0"+m:""+m;
 			let d=date.getDate();

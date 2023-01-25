@@ -91,7 +91,7 @@
 				return;
 			}else{
 				let check=$('input[name=orderMode]:checked').val();
-				alert("orderMode값: "+check);
+				//alert("orderMode값: "+check);
 				if(check=='0'){	
 					
 					if(confirm("선택한 총 "+(cnt)+"개의 상품 '배송중'으로 처리하겠습니까?")){
@@ -119,14 +119,16 @@
 			defaultFlag = flag;
 			//alert(flag)
 			let date=new Date();
+			date.setDate(date.getDate()+1);
 			let m=date.getMonth()+1;
 			let mm=((date.getMonth()+1)<10)?"0"+m:""+m;
 			let d=date.getDate();
 			let dd=(d<10)?"0"+d:""+d;
 			$('#dateEnd').val(date.getFullYear()+"-"+(mm)+"-"+(dd));
-			
+			 
 			if(flag==1){
 				date.setDate(date.getDate()-1);
+				//alert(date);
 				m=date.getMonth()+1;
 				mm=((date.getMonth()+1)<10)?"0"+m:""+m;
 				d=date.getDate();

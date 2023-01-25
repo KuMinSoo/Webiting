@@ -3,13 +3,14 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.admin.mapper.StatsMapper">
 
-	<select id="getOrdered_old" resultType="Count">
+	<select id="getOrdered" resultType="Count">
 		<![CDATA[ 
-		select pname, sqty from product where sqty>0 and rownum<11 order by sqty desc	
+		select pname,sqty from(
+		select pname, sum(oqty) sqty from ordered group by pname order by sqty desc) where rownum<11	
 		]]>	
 	</select>
 	
-	<select id="getOrdered" resultType="Count">
+	<select id="getOrdered_old" resultType="Count">
 		<![CDATA[ 
 		select pname, sum(oqty) sqty from ordered where ordered_date>='23/01/01' group by pname	order by sqty desc
 		]]>	

@@ -38,6 +38,7 @@ function login_check(){
  
 
 </script>
+<br><br><br><br><br>
 <div class="container mt-3" style="height: 600px; overflow: auto;">
 	<h1 class="text-center">Login Page</h1>
 
@@ -55,17 +56,18 @@ function login_check(){
 					id="pwd" placeholder="Password">
 			</tr>
 			<tr>
-				<td colspan="2"><a href="#" onclick="kakaoLogin()">
+				<td colspan="2">
+				<button class="btn btn-primary" type="button" style="height:50px"
+				onclick="login_check()">로그인</button>
+				<a href="#" onclick="kakaoLogin()">
 					<img src="./resources/images/kakao_login_medium_narrow.png">
-				</a></td>
+				</a></td> 
 			</tr>
-			<tr>
-				<td colspan="2"><button class="btn btn-primary" type="button"
-				onclick="login_check()">로그인</button></td>
-			</tr>
+			
 		</table>
 	</form>
-		<button class="btn btn-primary" style="display: block; margin:auto;width:fit-content;" onclick="location.href='/join'">회원가입</button>
+		<button class="btn btn-primary" style="display: block; margin:auto;width:fit-content;height:50px" 
+		onclick="location.href='/join'">회원가입</button>
 		
 </div>
 
