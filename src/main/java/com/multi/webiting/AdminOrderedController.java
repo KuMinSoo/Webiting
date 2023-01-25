@@ -148,23 +148,26 @@ public class AdminOrderedController {
 
 	      String myctx = req.getContextPath();
 	      HttpSession ses = req.getSession();
+	      log.info("page1=====>"+page);
 	      int totalCount = this.orderedService.getTotalCount(page);////문제
+	      log.info("page2=====>"+page);
 	      page.setTotalCount(totalCount);
 	      page.setPagingBlock(5);
 	      page.init(ses);
 	      String loc = "AorderedList";
+	      log.info("page3=====>"+page);
 	      String pageNavi = page.getPageNavi(myctx, loc, userAgent);// 페이징 블럭 처리 함수
-
+	      log.info("page4=====>"+page);
 	      List<OrderedVO> orderList = this.orderedService.selectOrderedAllPaging(page);
-   
+	      log.info("page5=====>"+page);
 	      DateVO dateMap=new DateVO();
 	      dateMap.CalDate();
-
+	      
 	      m.addAttribute("orderList", orderList);
 	      m.addAttribute("pageNavi", pageNavi);
 	      m.addAttribute("paging", page);
 	      m.addAttribute("dateMap", dateMap);
-	      
+	      log.info("page6=====>"+page);
 	      return "adminOrdered/orderedDelivery";
 	   }
 	   
