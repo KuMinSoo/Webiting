@@ -1,8 +1,7 @@
 # Webiting
 # 📖 책 취향 공유 서비스앱 README
 
-![readme_mockup2](https://user-images.githubusercontent.com/112460466/210706312-6a44b60d-a42e-4210-b334-9e5983f70fb3.png)
-
+![image1](https://user-images.githubusercontent.com/108252049/214798624-51f911b7-32ff-4d3e-a534-ae1141535e66.PNG)
 - 배포 URL : https://ohmycode-readme.netlify.app
 - Test ID : readme@test.com
 - Test PW : 123123
