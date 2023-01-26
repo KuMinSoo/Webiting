@@ -382,7 +382,7 @@
 				<span><button class="btn-list" onclick="selectAll()">전체 선택</button></span>
 			</div>
 			<div style="display:inline-block;">	
-				<span><button class="btn-list" onclick="selectCancel()">선택항목 배송중</button></span>	
+				<span><button class="btn-list" onclick="selectCancel()">선택항목 변경</button></span>	
 			</div>
 		</c:if>		
 		<div style="display:inline-block;width:15%;float:right">

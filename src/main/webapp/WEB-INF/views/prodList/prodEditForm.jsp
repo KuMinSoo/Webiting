@@ -72,7 +72,7 @@
 
 							</tr>
 							<tr>
-								<td width="20%"><b>상품정가</b></td>
+								<td width="20%"><b>상품공급가</b></td>
 								<td width="80%"><input type="text" name="price" id="price" value="${Product.price}">
 									
 									원 <span style="color: red"> </span></td>

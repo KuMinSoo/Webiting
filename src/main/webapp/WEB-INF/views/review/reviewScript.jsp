@@ -149,11 +149,11 @@ $(function(){
 	 			str+='<img src="resources/review_images/star.jpg">';
 	 		}
 	 		str+='<div>';
-	 		if(rvo.userid=="${loginUser.userid}"){
+	 		if(rvo.userid=="${loginUser.userid}"||"${loginUser.status}"==9){
 	 			str+='<a href="#reviewList" onclick="reviewEdit('+rvo.num+')">Edit</a> | ';
 				str+='<a href="#reviewList" onclick="reviewDel('+rvo.num+')">Del</a>';
 			}
-	 		
+	 		  
 	 		str+='</div class="mt-4">';
 	 		str+='</td>';
 	 		str+='</tr>';

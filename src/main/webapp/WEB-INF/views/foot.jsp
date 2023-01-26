@@ -53,15 +53,15 @@ margin:0 0 0 30px;
 						<li><a href = "">고객 관리실</a></li>
 						<li><a href = "">입점 문의</a></li>
 					</ul>
-				</div>
+				</div> 
 				
 				  <div class = "company-info">
 				  	<ul class = "address text-white">
-				  		<li>서울시 강남구 대치동 665 (주)그린가구 대표자:홍길동</li>
+				  		<li>서울시 강남구 대치동 665 (주)에코펀 대표자:웹이팅</li>
 				  		<li>사업자 등록 번호: 133-81-22865 통신판매업신고: 2010-서울강남-0510</li>
-				  		<li>그린가구 고객 센터 : 1688-3212 대표번호: (02)921-8832 A/S센터: as.greenfuniture.com</li>
+				  		<li>에코펀 고객 센터 : 1688-3212 대표번호: (02)921-8832 A/S센터: as.greenfuniture.com</li>
 				  		<br>
-				  		<li class = "copyright">copyright© 2023 그린가구 Co.Ltd.All rights reserved</li>
+				  		<li class = "copyright">copyright© 2023 에코펀 Co.Ltd.All rights reserved</li>
 				  	</ul>
 				  </div>
 				<div class = "foot-cut text-white">

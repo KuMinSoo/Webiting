@@ -66,6 +66,7 @@ function check(){
  
 
 <div class="container" style="width:70%;height:750px;overflow:auto;">
+<br><br><br>
 	<h1 class="text-center mt-1">폐가구 수거 신청</h1>
 	<form name="mf" action="ditchEnd" method="post">
 	<!-- hidden data -------------------------------------- -->

@@ -3,14 +3,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<c:import url="/dtop" />
+
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
+<c:import url="/dtop"/> 
 <c:set var="myctx" value="${pageContext.request.contextPath}" />
-<meta http-equiv="Content-Type" content="text/html; charset = UTF-8">
-<link rel="stylesheet" href="${myctx}/resources/css/detail.css"
-	type="text/css">
+
+
+<!-- <meta http-equiv="Content-Type" content="text/html; charset = UTF-8"> -->
+<%-- <link rel="stylesheet" href="${myctx}/resources/css/detail.css"
+	type="text/css"> --%>
 <!-- <script type="text/javascript" -->
 <!-- 	src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
@@ -183,12 +186,12 @@ $(function(){
 	})
 
 </script>
-
 <title>상세 페이지</title>
 </head>
 <body>
 	<!-- 상품 정보 페이지  -->
 	<div class="container" role="main" style="width: 100%">
+	<br>
 		<hr>
 		<div class="header-row">
 			<h2 class="page-header"

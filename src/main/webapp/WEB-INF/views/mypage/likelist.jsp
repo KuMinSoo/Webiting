@@ -24,16 +24,19 @@ tr>td>a{
    String ctx = request.getContextPath();
 %>
 
-<div class="container mt-3" style="height: 800px; overflow: auto; scrollbar-width:none;"> 
-	<h1 class="text-center mt-5">내 관심 상품 목록</h1> 
-	<hr>
+<div class="container mt-3" style="height: 1200px; overflow: auto; scrollbar-width:none;"> 
+<br><br>
+	<div style="width:83%;text-align:center;margin: 0px auto;">
+	<h1 >내 관심 상품 목록</h1> 
+	<hr >
+	</div>
 	<table width="900" align="center">
 	<tr>
 		<td> <input type="checkbox" onclick="maincheck(this.checked)" style="width:20px;height:20px;" id="mainchk"> </td>
 		<td> 상품이미지 </td>
 		<td> 상품명 </td>
 		<td> 상품가격 </td>
-		<td> 날짜 </td>
+		<td> 날짜 </td> 
 		<td> 삭제하기 </td>
 	</tr>
 
